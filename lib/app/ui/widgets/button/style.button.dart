@@ -1,4 +1,4 @@
-import 'package:comfypet/src/styles/colors/colors.dart';
+import 'package:comfypet/config/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 final BorderRadius _borderRadiusBtn = BorderRadius.circular(5);

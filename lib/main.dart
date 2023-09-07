@@ -1,5 +1,5 @@
 import 'package:comfypet/app/ui/pages/user/views/login.dart';
-import 'package:comfypet/src/styles/themes/theme.dart';
+import 'package:comfypet/config/styles/themes/theme.dart';
 
 import 'package:flutter/material.dart';
 

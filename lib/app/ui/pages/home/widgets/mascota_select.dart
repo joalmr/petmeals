@@ -1,4 +1,4 @@
-import 'package:comfypet/src/utils/list_model/test/pets_list.dart';
+import 'package:comfypet/config/utils/local/pets_list.dart';
 import 'package:flutter/material.dart';
 
 class MascotaSelectHome extends StatelessWidget {
