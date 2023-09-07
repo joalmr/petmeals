@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SaludoHome extends StatelessWidget {
-  const SaludoHome({super.key});
+class SaludoWidget extends StatelessWidget {
+  const SaludoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +42,7 @@ class SaludoHome extends StatelessWidget {
               margin: const EdgeInsets.all(2),
               child: InkWell(
                 borderRadius: const BorderRadius.all(Radius.circular(100)),
-                onTap: () {
-                  // _navCubit.navPush(ProfileUserView(
-                  //   profile: context.read<HomeCubit>().profile,
-                  // ));
-                  //TODO
-                },
+                onTap: () {},
                 child: const ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(100)),
                   child: Image(

@@ -1,37 +1,16 @@
+import 'package:comfypet/app/ui/pages/home/widgets/add_pet.dart';
 import 'package:comfypet/config/utils/local/pets_list.dart';
 import 'package:flutter/material.dart';
+// import 'dart:developer' as developer;
 
-class MascotasHome extends StatelessWidget {
-  const MascotasHome({super.key});
+class MascotasWidget extends StatelessWidget {
+  const MascotasWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        InkWell(
-          borderRadius: const BorderRadius.all(Radius.circular(100)),
-          onTap: () {
-            //TODO
-          },
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(100)),
-            child: Container(
-              height: 50,
-              width: 50,
-              color: Colors.transparent,
-              padding: const EdgeInsets.all(10),
-              child: const Center(
-                child: Image(
-                  image: AssetImage('assets/images/add-pet.png'),
-                  height: 35,
-                  width: 35,
-                  fit: BoxFit.scaleDown,
-                  // color: subColor,
-                ),
-              ),
-            ),
-          ),
-        ),
+        const AddPetWidget(),
         Expanded(
           child: Container(
             margin: const EdgeInsets.only(left: 8),
@@ -41,9 +20,7 @@ class MascotasHome extends StatelessWidget {
                 children: [
                   for (var elemento in petsTest)
                     GestureDetector(
-                      onTap: () {
-                        //TODO
-                      },
+                      onTap: () {},
                       child: Container(
                         margin: const EdgeInsets.only(right: 8),
                         child: CircleAvatar(

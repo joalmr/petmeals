@@ -1,8 +1,8 @@
 import 'package:comfypet/config/utils/local/pets_list.dart';
 import 'package:flutter/material.dart';
 
-class MascotaSelectHome extends StatelessWidget {
-  const MascotaSelectHome({super.key});
+class MascotaHome extends StatelessWidget {
+  const MascotaHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,7 @@ class MascotaSelectHome extends StatelessWidget {
         vertical: 10,
       ),
       child: GestureDetector(
-        onTap: () {
-          //TODO
-        },
+        onTap: () {},
         child: Stack(
           children: [
             ClipRRect(

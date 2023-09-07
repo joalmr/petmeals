@@ -3,6 +3,7 @@ import 'package:comfypet/app/ui/pages/user/widgets/intro.dart';
 import 'package:comfypet/app/ui/pages/user/widgets/logo.dart';
 import 'package:comfypet/app/ui/widgets/button/other.button.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as developer;
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -31,7 +32,7 @@ class LoginView extends StatelessWidget {
                         imagenStr: 'assets/logo/google.jpg',
                         color: Colors.white,
                         onPressed: () {
-                          //TODO:
+                          developer.log("-> HomeView");
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const HomeView(),
