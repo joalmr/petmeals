@@ -16,8 +16,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // Provider<PetProvider>(create: (_) => PetProvider()),
         // Provider<UserProvider>(create: (_) => UserProvider()),
+        // Provider<PetProvider>(create: (_) => PetProvider()),
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => PetProvider()),
       ],

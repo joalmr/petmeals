@@ -13,43 +13,40 @@ class ButtonGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
     return Container(
       width: double.maxFinite,
       height: 46,
       margin: const EdgeInsets.symmetric(vertical: 2),
-      child: Consumer<UserProvider>(
-        builder: (context, state, child) {
-          return TextButton(
-            onPressed: () {
-              state.signInGoogle();
-              final name = state.user!.name;
-              log(name ?? 'no llega nombre');
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const HomeView(),
-                ),
-              );
-              log("->go to HomeView");
-            },
-            style: buttonStyleOther(Colors.white, Colors.black38),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  child: Image(
-                    image: AssetImage(imagenStr),
-                    fit: BoxFit.scaleDown,
-                    height: 40,
-                    width: 40,
-                  ),
-                ),
-                SizedBox(width: 4),
-                Text(text),
-              ],
+      child: TextButton(
+        onPressed: () {
+          userProvider.signInGoogle();
+          final name = userProvider.user!.name;
+          log(name ?? 'no llega nombre');
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const HomeView(),
             ),
           );
+          log("->go to HomeView");
         },
+        style: buttonStyleOther(Colors.white, Colors.black38),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(100)),
+              child: Image(
+                image: AssetImage(imagenStr),
+                fit: BoxFit.scaleDown,
+                height: 40,
+                width: 40,
+              ),
+            ),
+            SizedBox(width: 4),
+            Text(text),
+          ],
+        ),
       ),
     );
   }
