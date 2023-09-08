@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:comfypet/app/pet/domain/pet.provider.dart';
+import 'package:comfypet/app/pet/ui/pet/views/pet_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,11 @@ class PetWidget extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const PetProfileView(),
+            ),
+          );
           inspect(petProvider.pet);
           log("->go to ProfilePet");
         },

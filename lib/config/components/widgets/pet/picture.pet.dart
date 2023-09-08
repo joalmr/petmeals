@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PicturePet extends StatelessWidget {
@@ -22,32 +21,38 @@ class PicturePet extends StatelessWidget {
         Container(
           height: 175,
           width: double.maxFinite,
-          color: Colors.black.withOpacity(0.15),
+          color: Colors.black.withOpacity(0.1),
         ),
         Container(
           height: 220,
-          margin:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+          margin: const EdgeInsets.only(top: 18),
           child: Center(
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(15)),
               child: AspectRatio(
                 aspectRatio: aspectRatio,
-                child: imageStr == null
-                    ? const Image(
-                        image: AssetImage('assets/images/perro.jpg'),
-                        fit: BoxFit.cover,
-                      )
-                    : CachedNetworkImage(
-                        imageUrl: imageStr!,
-                        fit: BoxFit.cover,
-                      ),
+                child: Image(
+                  image: AssetImage(imageStr!),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
         ),
-        buttonLeft == null ? const SizedBox() : buttonLeft!,
-        buttonRight == null ? const SizedBox() : buttonRight!,
+        buttonLeft == null
+            ? const SizedBox()
+            : Positioned(
+                top: 32,
+                left: 10,
+                child: buttonLeft!,
+              ),
+        buttonRight == null
+            ? const SizedBox()
+            : Positioned(
+                top: 32,
+                right: 10,
+                child: buttonRight!,
+              ),
       ],
     );
   }

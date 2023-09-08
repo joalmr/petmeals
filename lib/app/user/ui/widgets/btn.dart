@@ -21,8 +21,8 @@ class ButtonGoogle extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           userProvider.signInGoogle();
-          final name = userProvider.user!.name;
-          log(name ?? 'no llega nombre');
+          // final name = userProvider.user!.name;
+          // log(name ?? 'no llega nombre');
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => const HomeView(),
