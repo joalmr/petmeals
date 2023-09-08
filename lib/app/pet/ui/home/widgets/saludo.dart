@@ -1,11 +1,15 @@
 import 'package:comfypet/app/user/data/local/users_list.dart';
+import 'package:comfypet/app/user/domain/user.provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SaludoWidget extends StatelessWidget {
   const SaludoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.read<UserProvider>();
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -25,7 +29,7 @@ class SaludoWidget extends StatelessWidget {
               ),
               const SizedBox(height: .5),
               Text(
-                "${usersTest.first.name!} 👋",
+                "${userProvider.user!.name} 👋",
                 style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,

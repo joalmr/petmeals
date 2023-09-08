@@ -1,4 +1,4 @@
-import 'base/grooming.model.dart';
+import 'package:comfypet/config/utils/model/grooming.model.dart';
 
 final groomingList = [
   GroomingModel(typeId: 1, typeName: 'Baño'),

@@ -1,4 +1,4 @@
-import 'base/breed.model.dart';
+import 'package:comfypet/config/utils/model/breed.model.dart';
 
 final breedList = [
   BreedModel(

@@ -1,6 +1,9 @@
+import 'package:comfypet/app/pet/domain/pet.provider.dart';
+import 'package:comfypet/app/user/domain/user.provider.dart';
 import 'package:comfypet/app/user/ui/views/login.dart';
-import 'package:comfypet/config/styles/themes/theme.dart';
+import 'package:comfypet/config/components/styles/themes/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,11 +14,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Comfypet',
-      home: const LoginView(),
-      theme: themeData,
+    return MultiProvider(
+      providers: [
+        // Provider<PetProvider>(create: (_) => PetProvider()),
+        // Provider<UserProvider>(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => PetProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Comfypet',
+        home: const LoginView(),
+        theme: themeData,
+      ),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:developer';
-import 'package:comfypet/app/home/ui/views/home.dart';
-import 'package:comfypet/config/widgets/button/styles/style.button.dart';
+import 'package:comfypet/app/pet/ui/home/views/home.dart';
+import 'package:comfypet/app/user/domain/user.provider.dart';
+import 'package:comfypet/config/components/widgets/button/styles/style.button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ButtonGoogle extends StatelessWidget {
   const ButtonGoogle({super.key});
@@ -15,32 +17,39 @@ class ButtonGoogle extends StatelessWidget {
       width: double.maxFinite,
       height: 46,
       margin: const EdgeInsets.symmetric(vertical: 2),
-      child: TextButton(
-        onPressed: () {
-          log("-> HomeView");
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const HomeView(),
+      child: Consumer<UserProvider>(
+        builder: (context, state, child) {
+          return TextButton(
+            onPressed: () {
+              state.signInGoogle();
+              final name = state.user!.name;
+              log(name ?? 'no llega nombre');
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const HomeView(),
+                ),
+              );
+              log("->go to HomeView");
+            },
+            style: buttonStyleOther(Colors.white, Colors.black38),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                  child: Image(
+                    image: AssetImage(imagenStr),
+                    fit: BoxFit.scaleDown,
+                    height: 40,
+                    width: 40,
+                  ),
+                ),
+                SizedBox(width: 4),
+                Text(text),
+              ],
             ),
           );
         },
-        style: buttonStyleOther(Colors.white, Colors.black38),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-              child: Image(
-                image: AssetImage(imagenStr),
-                fit: BoxFit.scaleDown,
-                height: 40,
-                width: 40,
-              ),
-            ),
-            SizedBox(width: 4),
-            Text(text),
-          ],
-        ),
       ),
     );
   }
