@@ -1,3 +1,4 @@
+import 'package:comfypet/app/user/data/local/users_list.dart';
 import 'package:flutter/material.dart';
 
 class SaludoWidget extends StatelessWidget {
@@ -9,13 +10,12 @@ class SaludoWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                // '${AppLocalizations.of(context)!.hola},',
+              const Text(
                 "Hola",
                 style: TextStyle(
                   fontSize: 16,
@@ -23,14 +23,12 @@ class SaludoWidget extends StatelessWidget {
                   color: Colors.black54,
                 ),
               ),
-              SizedBox(height: .5),
+              const SizedBox(height: .5),
               Text(
-                // '${provider.user.name} 👋',
-                "Alonso 👋",
-                style: TextStyle(
+                "${usersTest.first.name!} 👋",
+                style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  // color: primerColor,
                 ),
               ),
             ],
@@ -43,10 +41,10 @@ class SaludoWidget extends StatelessWidget {
               child: InkWell(
                 borderRadius: const BorderRadius.all(Radius.circular(100)),
                 onTap: () {},
-                child: const ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(100)),
                   child: Image(
-                    image: AssetImage("assets/images/me.png"),
+                    image: AssetImage(usersTest.first.photo!),
                     height: 48,
                   ),
                 ),

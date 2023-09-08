@@ -1,10 +1,10 @@
-import 'package:comfypet/app/ui/pages/home/widgets/add_pet.dart';
-import 'package:comfypet/config/utils/local/pets_list.dart';
+import 'package:comfypet/app/pet/data/local/pets_list.dart';
+import 'package:comfypet/app/ui/pages/home/ui/widgets/add_pet.dart';
 import 'package:flutter/material.dart';
 // import 'dart:developer' as developer;
 
-class MascotasWidget extends StatelessWidget {
-  const MascotasWidget({super.key});
+class ListPetsWidget extends StatelessWidget {
+  const ListPetsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

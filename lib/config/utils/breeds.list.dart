@@ -1,4 +1,4 @@
-import 'model/breed.model.dart';
+import 'base/breed.model.dart';
 
 final breedList = [
   BreedModel(

@@ -1,4 +1,4 @@
-import 'model/deworming.model.dart';
+import 'base/deworming.model.dart';
 
 final dewormingList = [
   DewormingModel(typeId: 1, typeName: 'Interna'),

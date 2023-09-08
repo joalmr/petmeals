@@ -1,0 +1,47 @@
+import 'dart:developer';
+import 'package:comfypet/app/home/ui/views/home.dart';
+import 'package:comfypet/config/widgets/button/styles/style.button.dart';
+import 'package:flutter/material.dart';
+
+class ButtonGoogle extends StatelessWidget {
+  const ButtonGoogle({super.key});
+
+  static const String text = 'Ingresar con Google';
+  static const String imagenStr = 'assets/logo/google.jpg';
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.maxFinite,
+      height: 46,
+      margin: const EdgeInsets.symmetric(vertical: 2),
+      child: TextButton(
+        onPressed: () {
+          log("-> HomeView");
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const HomeView(),
+            ),
+          );
+        },
+        style: buttonStyleOther(Colors.white, Colors.black38),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(100)),
+              child: Image(
+                image: AssetImage(imagenStr),
+                fit: BoxFit.scaleDown,
+                height: 40,
+                width: 40,
+              ),
+            ),
+            SizedBox(width: 4),
+            Text(text),
+          ],
+        ),
+      ),
+    );
+  }
+}

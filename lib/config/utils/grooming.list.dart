@@ -1,4 +1,4 @@
-import 'model/grooming.model.dart';
+import 'base/grooming.model.dart';
 
 final groomingList = [
   GroomingModel(typeId: 1, typeName: 'Baño'),

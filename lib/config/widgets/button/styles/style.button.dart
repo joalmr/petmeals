@@ -14,13 +14,6 @@ final ButtonStyle buttonStylePrimary = TextButton.styleFrom(
 );
 
 final ButtonStyle buttonStyleSecondary = TextButton.styleFrom(
-  // alignment: Alignment.center,
-  // backgroundColor: celestePet,
-  // foregroundColor: Colors.black54,
-  // disabledBackgroundColor: celestePet.withOpacity(0.45),
-  // disabledForegroundColor: Colors.black38,
-  // side: BorderSide(color: celestePet.withOpacity(0.95)),
-  // shape: RoundedRectangleBorder(borderRadius: _borderRadiusBtn),
   alignment: Alignment.center,
   foregroundColor: segundoColor,
   side: const BorderSide(color: segundoColor),

@@ -1,8 +1,8 @@
-import 'package:comfypet/config/utils/local/pets_list.dart';
+import 'package:comfypet/app/pet/data/local/pets_list.dart';
 import 'package:flutter/material.dart';
 
-class MascotaHome extends StatelessWidget {
-  const MascotaHome({super.key});
+class PetWidget extends StatelessWidget {
+  const PetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-import 'model/gender.model.dart';
+import 'base/gender.model.dart';
 
 final genderList = [
   GenderModel(value: 0, name: 'Mujer'),

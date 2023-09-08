@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'style.button.dart';
+import 'styles/style.button.dart';
 
 class ButtonPrimary extends StatelessWidget {
   final void Function()? onPressed;

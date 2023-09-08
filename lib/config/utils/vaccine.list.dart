@@ -1,6 +1,4 @@
-
-
-import 'model/vaccine.model.dart';
+import 'base/vaccine.model.dart';
 
 final vaccineList = [
   VaccineModel(typeId: 1, typeName: 'Leptospira', especieId: 2),
