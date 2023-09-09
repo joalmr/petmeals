@@ -1,11 +1,11 @@
-import 'package:comfypet/app/pet/domain/pet.provider.dart';
+import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/config/components/widgets/button/back.button.dart';
-import 'package:comfypet/config/components/widgets/pet/picture.pet.dart';
+import 'package:comfypet/app/pet/ui/pet/widgets/picture.pet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PetProfileView extends StatelessWidget {
-  const PetProfileView({super.key});
+class PetDetailView extends StatelessWidget {
+  const PetDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {

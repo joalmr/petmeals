@@ -1,6 +1,5 @@
-import 'package:comfypet/app/pet/data/local/pets_list.dart';
-import 'package:comfypet/app/pet/domain/pet.provider.dart';
-import 'package:comfypet/app/pet/ui/home/widgets/add_pet.dart';
+import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
+import 'package:comfypet/app/pet/ui/home/widgets/add_pet.home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +20,7 @@ class ListPetsWidget extends StatelessWidget {
                 builder: (context, state, child) {
                   return Row(
                     children: [
-                      for (var elemento in petsTest)
+                      for (var elemento in state.myPets)
                         GestureDetector(
                           onTap: () => state.myPet(elemento),
                           child: Container(

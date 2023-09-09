@@ -24,7 +24,7 @@ class PicturePet extends StatelessWidget {
           color: Colors.black.withOpacity(0.1),
         ),
         Container(
-          height: 220,
+          height: 240,
           margin: const EdgeInsets.only(top: 18),
           child: Center(
             child: ClipRRect(

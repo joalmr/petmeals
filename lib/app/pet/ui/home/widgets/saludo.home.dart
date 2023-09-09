@@ -1,5 +1,4 @@
-import 'package:comfypet/app/user/data/local/users_list.dart';
-import 'package:comfypet/app/user/domain/user.provider.dart';
+import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +47,7 @@ class SaludoWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(100)),
                   child: Image(
-                    image: AssetImage(usersTest.first.photo!),
+                    image: AssetImage(userProvider.user!.photo!),
                     height: 48,
                   ),
                 ),

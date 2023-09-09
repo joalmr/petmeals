@@ -1,0 +1,23 @@
+[
+  {
+    "id_pet": "abc-1",
+    "name": "Paco",
+    "photo": "assets/images/perro.png",
+    "sex": true,
+    "borndate": "2010-05-15"
+  },
+  {
+    "id_pet": "abc-2",
+    "name": "Perez",
+    "photo": "assets/images/perro2.png",
+    "sex": true,
+    "borndate": "2010-04-25"
+  },
+  {
+    "id_pet": "abc-3",
+    "name": "Lisa",
+    "photo": "assets/images/perro3.png",
+    "sex": false,
+    "borndate": "2010-03-05"
+  }
+]

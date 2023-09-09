@@ -1,6 +1,6 @@
-import 'package:comfypet/app/user/ui/widgets/btn.dart';
-import 'package:comfypet/app/user/ui/widgets/intro.dart';
-import 'package:comfypet/app/user/ui/widgets/logo.dart';
+import 'package:comfypet/app/user/ui/widgets/btn.login.dart';
+import 'package:comfypet/app/user/ui/widgets/intro.login.dart';
+import 'package:comfypet/app/user/ui/widgets/logo.login.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {

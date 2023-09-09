@@ -1,0 +1,14 @@
+[
+  {
+    "id_user": "abc-123",
+    "name": "Alonso",
+    "photo": "assets/images/me.png",
+    "gender": true
+  },
+  {
+    "id_user": "abc-456",
+    "name": "Paco",
+    "photo": "assets/images/me.png",
+    "gender": true
+  }
+]

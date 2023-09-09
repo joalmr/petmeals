@@ -1,6 +1,6 @@
-import 'package:comfypet/app/pet/ui/home/widgets/list_pets.dart';
-import 'package:comfypet/app/pet/ui/home/widgets/pet.dart';
-import 'package:comfypet/app/pet/ui/home/widgets/saludo.dart';
+import 'package:comfypet/app/pet/ui/home/widgets/list_pets.home.dart';
+import 'package:comfypet/app/pet/ui/home/widgets/pet.home.dart';
+import 'package:comfypet/app/pet/ui/home/widgets/saludo.home.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {

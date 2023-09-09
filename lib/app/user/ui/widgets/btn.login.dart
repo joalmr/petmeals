@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:comfypet/app/pet/ui/home/views/home.dart';
-import 'package:comfypet/app/user/domain/user.provider.dart';
-import 'package:comfypet/config/components/widgets/button/styles/style.button.dart';
+import 'package:comfypet/app/user/domain/provider/user_provider.dart';
+import 'package:comfypet/config/components/widgets/styles/style.button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +14,8 @@ class ButtonGoogle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
+    // final petProvider = context.watch<PetProvider>();
+
     return Container(
       width: double.maxFinite,
       height: 46,
@@ -21,8 +23,7 @@ class ButtonGoogle extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           userProvider.signInGoogle();
-          // final name = userProvider.user!.name;
-          // log(name ?? 'no llega nombre');
+          // petProvider.getPets();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => const HomeView(),
