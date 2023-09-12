@@ -21,6 +21,31 @@ Nueva version de Comfypet dev
   - WidgetsFlutterBinding.ensureInitialized();
   - await Firebase.initializeApp();
 
+### implementar auth
+
+SingIn => retorna UserCredential
+
+```dart
+  GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    return userCredential;
+```
+
+SignOut => void
+
+```dart
+  await FirebaseAuth.instance.signOut();
+```
+
 ## firebase firestore
 
 - en pubspec agregar:
