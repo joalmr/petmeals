@@ -31,13 +31,12 @@ Nueva version de Comfypet dev
 ### conectar a una colección
 
 ```dart
-final personRef =
-FirebaseFirestore.instance.collection('persons').withConverter(
-fromFirestore: (snapshot, _) {
-final person = Person.fromJson(snapshot.data()!);
-final newPerson = person.copyWith(id: snapshot.id);
-return newPerson;
-},
-toFirestore: (person, _) => person.toJson(),
+final personRef = FirebaseFirestore.instance.collection('persons').withConverter(
+  fromFirestore: (snapshot, _) {
+    final person = Person.fromJson(snapshot.data()!);
+    final newPerson = person.copyWith(id: snapshot.id);
+    return newPerson;
+  },
+  toFirestore: (person, _) => person.toJson(),
 );
 ```
