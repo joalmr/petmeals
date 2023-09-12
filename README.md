@@ -46,7 +46,7 @@ SignOut => void
   await FirebaseAuth.instance.signOut();
 ```
 
-## firebase firestore
+## implementar firestore
 
 - en pubspec agregar:
 
@@ -56,7 +56,7 @@ SignOut => void
 ### conectar a una colección
 
 ```dart
-final personRef = FirebaseFirestore.instance.collection('persons').withConverter(
+final personRef = FirebaseFirestore.instance.collection('pets').withConverter(
   fromFirestore: (snapshot, _) {
     final person = Person.fromJson(snapshot.data()!);
     final newPerson = person.copyWith(id: snapshot.id);

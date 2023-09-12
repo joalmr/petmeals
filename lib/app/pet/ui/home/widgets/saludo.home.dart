@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class SaludoWidget extends StatelessWidget {
               ),
               const SizedBox(height: .5),
               Text(
-                "${userProvider.user!.name} 👋",
+                "${userProvider.user!.user!.displayName} 👋",
                 style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -47,7 +48,8 @@ class SaludoWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(100)),
                   child: Image(
-                    image: AssetImage(userProvider.user!.photo!),
+                    image: CachedNetworkImageProvider(
+                        userProvider.user!.user!.photoURL!),
                     height: 48,
                   ),
                 ),

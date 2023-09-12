@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'package:comfypet/app/pet/ui/home/views/home.dart';
 import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:comfypet/config/components/widgets/styles/style.button.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +20,7 @@ class ButtonGoogle extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 2),
       child: TextButton(
         onPressed: () {
-          userProvider.signInGoogle();
-          // petProvider.getPets();
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const HomeView(),
-            ),
-          );
-          log("->go to HomeView");
+          userProvider.signInGoogle(context);
         },
         style: buttonStyleOther(Colors.white, Colors.black38),
         child: const Row(
