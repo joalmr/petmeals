@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1085650349965",
+    "project_id": "comfybd-7c374",
+    "storage_bucket": "comfybd-7c374.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085650349965:android:70d2e875e1cbb98805d7c4",
+        "android_client_info": {
+          "package_name": "com.joalmr.comfypet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085650349965-mfuic348i6i0idll1bcqp511u4lnfloa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.joalmr.comfypet",
+            "certificate_hash": "cfc1650292435612d0bf5a3673967fa9489b2abb"
+          }
+        },
+        {
+          "client_id": "1085650349965-0m4kta0dgm7r9smep82msruno8a593a2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1sDKyac6gp8K9OCCcwfsLxzs8D607HPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085650349965-0m4kta0dgm7r9smep82msruno8a593a2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1085650349965-v33ce0i55hmg4ej9ugui0abifkov0jju.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.comfypet.www"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
