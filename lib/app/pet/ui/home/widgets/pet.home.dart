@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/app/pet/ui/pet/views/pet_detail.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,8 @@ class PetWidget extends StatelessWidget {
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
                     child: Image(
-                      image: AssetImage(petProvider.pet!.photo!),
+                      image:
+                          CachedNetworkImageProvider(petProvider.pet!.photo!),
                       height: double.maxFinite,
                       fit: BoxFit.cover,
                     ),
@@ -45,7 +47,7 @@ class PetWidget extends StatelessWidget {
                       height: 45,
                       width: double.maxFinite,
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withOpacity(0.45),
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15),
@@ -55,7 +57,7 @@ class PetWidget extends StatelessWidget {
                         child: Text(
                           petProvider.pet!.name!,
                           style: const TextStyle(
-                            color: Colors.black54,
+                            color: Colors.white54,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

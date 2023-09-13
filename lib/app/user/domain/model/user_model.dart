@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final userModel = userModelFromJson(jsonString);
+
 import 'dart:convert';
 
 List<UserModel> userModelFromJson(String str) =>
@@ -7,42 +11,54 @@ String userModelToJson(List<UserModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UserModel {
-  final String? idUser;
+  final String? id;
+  final int? gender;
   final String? name;
   final String? photo;
-  final bool? gender;
+  final String? email;
+  final String? lastname;
 
   UserModel({
-    this.idUser,
+    this.id,
+    this.gender,
     this.name,
     this.photo,
-    this.gender,
+    this.email,
+    this.lastname,
   });
 
   UserModel copyWith({
-    String? idUser,
+    String? id,
+    int? gender,
     String? name,
     String? photo,
-    bool? gender,
+    String? email,
+    String? lastname,
+    List<dynamic>? pet,
   }) =>
       UserModel(
-        idUser: idUser ?? this.idUser,
+        id: id ?? this.id,
+        gender: gender ?? this.gender,
         name: name ?? this.name,
         photo: photo ?? this.photo,
-        gender: gender ?? this.gender,
+        email: email ?? this.email,
+        lastname: lastname ?? this.lastname,
       );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        idUser: json["id_user"],
+        id: json["id"],
+        gender: json["gender"],
         name: json["name"],
         photo: json["photo"],
-        gender: json["gender"],
+        email: json["email"],
+        lastname: json["lastname"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id_user": idUser,
+        "gender": gender,
         "name": name,
         "photo": photo,
-        "gender": gender,
+        "email": email,
+        "lastname": lastname,
       };
 }

@@ -29,7 +29,7 @@ class SaludoWidget extends StatelessWidget {
               ),
               const SizedBox(height: .5),
               Text(
-                "${userProvider.user!.user!.displayName} 👋",
+                "${userProvider.name} 👋",
                 style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -48,8 +48,7 @@ class SaludoWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(100)),
                   child: Image(
-                    image: CachedNetworkImageProvider(
-                        userProvider.user!.user!.photoURL!),
+                    image: CachedNetworkImageProvider(userProvider.photoUrl!),
                     height: 48,
                   ),
                 ),

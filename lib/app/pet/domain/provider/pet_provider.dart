@@ -1,6 +1,6 @@
 import 'dart:developer';
-
 import 'package:comfypet/app/pet/data/local/pets_local.dart';
+import 'package:comfypet/app/pet/data/services/pets_data.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 import 'package:flutter/material.dart';
 
@@ -10,13 +10,17 @@ class PetProvider extends ChangeNotifier {
     getPets();
   }
 
+  PetsData petsData = PetsData();
+
   List<PetModel> myPets = [];
   PetModel? pet;
 
   Future<void> getPets() async {
-    myPets = await petData.getPets();
-    pet = myPets.first;
-    inspect(myPets);
+    final dataPet = await petsData.getPets();
+    inspect(dataPet);
+
+    myPets = dataPet;
+    pet = dataPet.first;
     notifyListeners();
   }
 

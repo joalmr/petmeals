@@ -7,19 +7,34 @@ class UserProvider extends ChangeNotifier {
   final UserData userData;
   UserProvider({required this.userData});
 
-  UserCredential? user;
+  User? user;
+  String? name;
+  String? photoUrl;
+  String? uid;
 
   void signInGoogle(BuildContext context) async {
-    user = await userData.signInGoogle();
-    inspect(user);
+    final userResponse = await userData.signInGoogle();
 
-    if (user!.user == null) {
+    if (userResponse!.user == null) {
       throw Exception();
     }
 
+    user = userResponse.user;
+
+    uid = user?.uid;
+    name = user?.displayName.toString().split(' ')[0];
+    photoUrl = user?.photoURL;
+
+    getUser();
     // ignore: use_build_context_synchronously
-    Navigator.of(context).pushNamed('/home');
+    Navigator.pushNamed(context, '/home');
     log("->go to HomeView");
+
+    notifyListeners();
+  }
+
+  void getUser() async {
+    await userData.getUser(uid!);
     notifyListeners();
   }
 }

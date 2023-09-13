@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PicturePet extends StatelessWidget {
@@ -32,7 +33,7 @@ class PicturePet extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: aspectRatio,
                 child: Image(
-                  image: AssetImage(imageStr!),
+                  image: CachedNetworkImageProvider(imageStr!),
                   fit: BoxFit.cover,
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/app/pet/ui/home/widgets/add_pet.home.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,8 @@ class ListPetsWidget extends StatelessWidget {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(100)),
                                 child: Image(
-                                  image: AssetImage(elemento.photo!),
+                                  image: CachedNetworkImageProvider(
+                                      elemento.photo!),
                                   fit: BoxFit.fill,
                                   height: 50,
                                   width: 50,
