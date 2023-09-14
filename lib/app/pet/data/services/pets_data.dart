@@ -16,4 +16,8 @@ class PetsData {
     final pets = querySnapshot.docs.map((e) => e.data()).toList();
     return pets;
   }
+
+  Future<void> addPeT(PetModel pet) async {
+    await fireRef.add(pet);
+  }
 }

@@ -1,16 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PicturePet extends StatelessWidget {
   final double aspectRatio;
-  final String? imageStr;
+  final Widget child;
   final Widget? buttonLeft;
   final Widget? buttonRight;
 
   const PicturePet({
     super.key,
     required this.aspectRatio,
-    required this.imageStr,
+    required this.child,
     required this.buttonLeft,
     this.buttonRight,
   });
@@ -32,10 +31,7 @@ class PicturePet extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(15)),
               child: AspectRatio(
                 aspectRatio: aspectRatio,
-                child: Image(
-                  image: CachedNetworkImageProvider(imageStr!),
-                  fit: BoxFit.cover,
-                ),
+                child: child,
               ),
             ),
           ),

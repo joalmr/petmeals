@@ -1,6 +1,7 @@
 import 'package:comfypet/app/pet/data/local/pets_local.dart';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/app/pet/ui/home/views/home.dart';
+import 'package:comfypet/app/pet/ui/pet/views/pet_add.dart';
 import 'package:comfypet/app/user/data/services/user_data.dart';
 import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:comfypet/app/user/ui/views/login.dart';
@@ -35,6 +36,7 @@ class MainApp extends StatelessWidget {
         routes: {
           '/': (context) => const LoginView(),
           '/home': (context) => const HomeView(),
+          '/add': (context) => const PetAddView(),
         },
       ),
     );

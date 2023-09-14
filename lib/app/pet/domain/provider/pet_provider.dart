@@ -29,4 +29,8 @@ class PetProvider extends ChangeNotifier {
     inspect(pet);
     notifyListeners();
   }
+
+  addPet(PetModel newPet) {
+    petsData.addPeT(newPet);
+  }
 }

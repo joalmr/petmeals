@@ -9,6 +9,7 @@ class AddPetWidget extends StatelessWidget {
     return InkWell(
       borderRadius: const BorderRadius.all(Radius.circular(100)),
       onTap: () {
+        Navigator.pushNamed(context, "/add");
         developer.log("-> Agregar mascota");
       },
       child: ClipRRect(

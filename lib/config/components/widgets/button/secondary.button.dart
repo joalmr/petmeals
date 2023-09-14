@@ -1,45 +1,62 @@
+import 'package:comfypet/config/components/styles/colors/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../styles/style.button.dart';
-
-class ButtonSecondary extends StatelessWidget {
-  final void Function()? onPressed;
-  final String? text;
-  final IconData? icon;
-
+class ButtonSecondary extends BtnIOS {
   const ButtonSecondary({
+    super.key,
+    super.onPressed,
+    required super.text,
+  });
+}
+
+//ios
+abstract class BtnIOS extends StatelessWidget {
+  final void Function()? onPressed;
+  final String text;
+  const BtnIOS({
     super.key,
     this.onPressed,
     required this.text,
-    this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      height: 46,
-      margin: const EdgeInsets.symmetric(vertical: 2),
-      child: TextButton(
-        onPressed: onPressed,
-        style: buttonStyleSecondary,
-        child: icon == null
-            ? Text(text!)
-            : text == null
-                ? Icon(icon)
-                : Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Icon(icon),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(text!),
-                      ),
-                    ],
-                  ),
+    return CupertinoButton(
+      onPressed: onPressed,
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+      // pressedOpacity: 0.8,
+      child: Text(
+        text,
+        style: const TextStyle(color: primerColor),
       ),
+    );
+  }
+}
+
+//android
+abstract class BtnAndroid extends StatelessWidget {
+  final void Function()? onPressed;
+  final String text;
+  const BtnAndroid({
+    super.key,
+    this.onPressed,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: const ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll(primerColor),
+        shape: MaterialStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+        ),
+      ),
+      onPressed: onPressed,
+      child: Text(text),
     );
   }
 }

@@ -69,15 +69,14 @@ class PetModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "specie": specie!.toJson(),
-        "user_id": List<dynamic>.from(userId!.map((x) => x)),
-        "sex": sex,
         "name": name,
-        "photo": photo,
         "borndate":
             "${borndate!.year.toString().padLeft(4, '0')}-${borndate!.month.toString().padLeft(2, '0')}-${borndate!.day.toString().padLeft(2, '0')}",
-        "deleted_at": deletedAt,
+        "specie": specie!.toJson(),
+        "sex": sex,
         "sterillized": sterillized,
+        "user_id": List<dynamic>.from(userId!.map((x) => x)),
+        "photo": photo,
       };
 }
 
