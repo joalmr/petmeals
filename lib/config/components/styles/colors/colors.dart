@@ -1,10 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 const primerColor = poloBlue;
-const segundoColor = sinbad;
-const tercerColor = roseBud;
+const segundoColor = roseBud;
+const tercerColor = sinbad;
 const cuartoColor = givry;
 const quintoColor = mandy;
+
+const textoColor = CupertinoColors.systemGrey;
+const textoColorContraste = fondoColor;
 //fondo
 const fondoColor = Color(0xFFedede9);
 //texto secundario

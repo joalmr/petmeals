@@ -1,7 +1,8 @@
-import 'package:comfypet/app/pet/data/local/pets_local.dart';
+import 'package:comfypet/app/pet/data/services/pets_data.dart';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/app/pet/ui/home/views/home.dart';
 import 'package:comfypet/app/pet/ui/pet/views/pet_add.dart';
+import 'package:comfypet/app/pet/ui/pet/views/pet_detail.dart';
 import 'package:comfypet/app/user/data/services/user_data.dart';
 import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:comfypet/app/user/ui/views/login.dart';
@@ -16,17 +17,28 @@ Future<void> main() async {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  late UserProvider userProvider;
+
+  @override
   Widget build(BuildContext context) {
+    userProvider = UserProvider(userData: UserData());
+    final petProvider = PetProvider(
+      petData: PetsData(),
+      userProvider: userProvider,
+    );
+
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-            create: (context) => UserProvider(userData: UserData())),
-        ChangeNotifierProvider(
-            create: (context) => PetProvider(petData: PetsLocal())),
+        ChangeNotifierProvider(create: (context) => userProvider),
+        ChangeNotifierProvider(create: (context) => petProvider, lazy: true),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -37,6 +49,7 @@ class MainApp extends StatelessWidget {
           '/': (context) => const LoginView(),
           '/home': (context) => const HomeView(),
           '/add': (context) => const PetAddView(),
+          '/petdetail': (context) => const PetDetailView(),
         },
       ),
     );

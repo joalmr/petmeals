@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 
@@ -11,9 +13,22 @@ class PetsData {
         toFirestore: (pet, _) => pet.toJson(),
       );
 
-  Future<List<PetModel>> getPets() async {
-    final querySnapshot = await fireRef.get();
-    final pets = querySnapshot.docs.map((e) => e.data()).toList();
+  Future<List<PetModel>> getPets(String idUser) async {
+    log(idUser);
+    // .where("user_id", arrayContains: idUser)
+    final pets = fireRef.get().then(
+          (value) => value.docs
+              .map(
+                (e) => e.data(),
+              )
+              .toList(),
+        );
+    // .then(
+    //       (value) => value.docs.map((e) => e.data()).toList(),
+    //     );
+    // inspect(querySnapshot);
+    // final pets = querySnapshot.docs.map((e) => e.data()).toList();
+
     return pets;
   }
 

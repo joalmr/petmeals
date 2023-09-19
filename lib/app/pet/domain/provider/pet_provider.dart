@@ -1,22 +1,23 @@
 import 'dart:developer';
-import 'package:comfypet/app/pet/data/local/pets_local.dart';
 import 'package:comfypet/app/pet/data/services/pets_data.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
+import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 
 class PetProvider extends ChangeNotifier {
-  final PetsLocal petData;
-  PetProvider({required this.petData}) {
+  final PetsData petData;
+  final UserProvider userProvider;
+  PetProvider({required this.userProvider, required this.petData}) {
     getPets();
   }
 
-  PetsData petsData = PetsData();
+  // PetsData petsData = PetsData();
 
   List<PetModel> myPets = [];
   PetModel? pet;
 
   Future<void> getPets() async {
-    final dataPet = await petsData.getPets();
+    final dataPet = await petData.getPets("mNbVSbRK5gYCuzkwOdaKKi5eeAK2");
     inspect(dataPet);
 
     myPets = dataPet;
@@ -26,11 +27,10 @@ class PetProvider extends ChangeNotifier {
 
   void myPet(PetModel myPet) async {
     pet = myPet;
-    inspect(pet);
     notifyListeners();
   }
 
   addPet(PetModel newPet) {
-    petsData.addPeT(newPet);
+    petData.addPeT(newPet);
   }
 }

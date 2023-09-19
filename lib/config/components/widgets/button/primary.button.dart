@@ -7,6 +7,7 @@ class ButtonPrimary extends BtnIOS {
     super.key,
     super.onPressed,
     required super.child,
+    super.color,
   });
   // @override
   // Widget build(BuildContext context) {
@@ -20,17 +21,19 @@ class ButtonPrimary extends BtnIOS {
 abstract class BtnIOS extends StatelessWidget {
   final Widget child;
   final void Function()? onPressed;
+  final Color color;
 
   const BtnIOS({
     super.key,
     this.onPressed,
     required this.child,
+    this.color = primerColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      color: primerColor,
+      color: color,
       onPressed: onPressed,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
       pressedOpacity: 0.8,
@@ -43,20 +46,22 @@ abstract class BtnIOS extends StatelessWidget {
 abstract class BtnAndroid extends StatelessWidget {
   final Widget child;
   final void Function()? onPressed;
+  final Color color;
 
   const BtnAndroid({
     super.key,
     this.onPressed,
     required this.child,
+    this.color = primerColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: const ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(primerColor),
-        foregroundColor: MaterialStatePropertyAll(Colors.white),
-        shape: MaterialStatePropertyAll(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(color),
+        foregroundColor: const MaterialStatePropertyAll(Colors.white),
+        shape: const MaterialStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),

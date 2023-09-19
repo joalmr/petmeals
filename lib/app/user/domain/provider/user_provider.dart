@@ -26,8 +26,9 @@ class UserProvider extends ChangeNotifier {
     photoUrl = user?.photoURL;
 
     getUser();
+
     // ignore: use_build_context_synchronously
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushReplacementNamed(context, '/home');
     log("->go to HomeView");
 
     notifyListeners();

@@ -1,8 +1,9 @@
-import 'dart:developer';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
-import 'package:comfypet/app/pet/ui/pet/views/pet_detail.dart';
+import 'package:comfypet/app/pet/ui/home/widgets/card_pet.home.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:provider/provider.dart';
 
 class PetWidget extends StatelessWidget {
@@ -12,61 +13,24 @@ class PetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final petProvider = context.watch<PetProvider>();
 
-    return petProvider.pet == null
-        ? const SizedBox()
-        : Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 10,
-            ),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const PetDetailView(),
-                  ),
-                );
-                log("->go to ProfilePet");
-              },
-              child: Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    child: Image(
-                      image:
-                          CachedNetworkImageProvider(petProvider.pet!.photo!),
-                      height: double.maxFinite,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: 45,
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.45),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          petProvider.pet!.name!,
-                          style: const TextStyle(
-                            color: Colors.white54,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
+        child: LiquidSwipe(
+          positionSlideIcon: 0.8,
+          slideIconWidget: const Icon(
+            Icons.arrow_back_ios_new,
+            color: CupertinoColors.systemGrey,
+          ),
+          pages: [
+            for (PetModel pet in petProvider.myPets) CardPetWidget(pet: pet),
+          ],
+        ),
+      ),
+    );
   }
 }

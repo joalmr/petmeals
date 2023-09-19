@@ -12,7 +12,6 @@ class ButtonGoogle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProvider = context.watch<UserProvider>();
-    // final petProvider = context.watch<PetProvider>();
 
     return Container(
       width: double.maxFinite,

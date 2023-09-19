@@ -1,3 +1,4 @@
+import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 
@@ -15,9 +16,12 @@ class AddPetWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(100)),
         child: Container(
-          height: 50,
-          width: 50,
-          color: Colors.transparent,
+          height: 52,
+          width: 52,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+            color: fondoColor,
+          ),
           padding: const EdgeInsets.all(10),
           child: const Center(
             child: Image(
