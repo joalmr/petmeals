@@ -9,6 +9,7 @@ import 'package:comfypet/app/user/ui/views/login.dart';
 import 'package:comfypet/config/components/styles/themes/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -44,6 +45,14 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Comfypet',
         theme: themeData,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('es', 'ES'),
+        ],
         initialRoute: '/',
         routes: {
           '/': (context) => const LoginView(),

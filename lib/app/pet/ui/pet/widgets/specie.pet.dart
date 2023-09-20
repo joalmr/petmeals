@@ -1,6 +1,8 @@
+import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SpeciePetWidget extends StatefulWidget {
   const SpeciePetWidget({super.key});
@@ -10,10 +12,10 @@ class SpeciePetWidget extends StatefulWidget {
 }
 
 class _SpeciePetWidgetState extends State<SpeciePetWidget> {
-  bool specie = false;
-
   @override
   Widget build(BuildContext context) {
+    final petProvider = context.watch<PetProvider>();
+
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Column(
@@ -32,13 +34,13 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                   children: [
                     Image.asset(
                       "assets/images/cat.png",
-                      color: !specie ? primerColor : textoColorContraste,
+                      color: petProvider.specie == 0 ? primerColor : textoColorContraste,
                       height: 32,
                     ),
                     Text(
                       "Gato",
                       style: TextStyle(
-                        color: !specie ? primerColor : textoColorContraste,
+                        color: petProvider.specie == 0 ? primerColor : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -46,7 +48,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    specie = false;
+                    petProvider.specie = 0;
                   });
                 },
               ),
@@ -58,12 +60,12 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     Image.asset(
                       "assets/images/dog.png",
                       height: 32,
-                      color: specie ? primerColor : textoColorContraste,
+                      color: petProvider.specie == 1 ? primerColor : textoColorContraste,
                     ),
                     Text(
                       "Perro",
                       style: TextStyle(
-                        color: specie ? primerColor : textoColorContraste,
+                        color: petProvider.specie == 1 ? primerColor : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -71,7 +73,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    specie = true;
+                    petProvider.specie = 1;
                   });
                 },
               ),

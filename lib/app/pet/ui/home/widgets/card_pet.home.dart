@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
@@ -21,7 +20,6 @@ class CardPetWidget extends StatelessWidget {
       onTap: () {
         petProvider.myPet(pet);
         Navigator.pushNamed(context, "/petdetail");
-        log("->go to ProfilePet");
       },
       child: Stack(
         children: [
@@ -35,7 +33,7 @@ class CardPetWidget extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              height: 45,
+              height: 52,
               width: double.maxFinite,
               decoration: const BoxDecoration(
                 color: Colors.black54,
@@ -44,8 +42,9 @@ class CardPetWidget extends StatelessWidget {
                 child: Text(
                   pet.name!,
                   style: const TextStyle(
-                    color: fondoColor,
+                    color: textoColorContraste,
                     fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
                 ),
               ),

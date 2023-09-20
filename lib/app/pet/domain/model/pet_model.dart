@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-List<PetModel> petModelFromJson(String str) =>
-    List<PetModel>.from(json.decode(str).map((x) => PetModel.fromJson(x)));
+List<PetModel> petModelFromJson(String str) => List<PetModel>.from(json.decode(str).map((x) => PetModel.fromJson(x)));
 
-String petModelToJson(List<PetModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String petModelToJson(List<PetModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class PetModel {
   final String? id;
@@ -19,7 +17,7 @@ class PetModel {
   final String? photo;
   final DateTime? borndate;
   final dynamic deletedAt;
-  final dynamic sterillized;
+  final bool? sterillized;
 
   PetModel({
     this.id,
@@ -42,7 +40,7 @@ class PetModel {
     String? photo,
     DateTime? borndate,
     dynamic deletedAt,
-    dynamic sterillized,
+    bool? sterillized,
   }) =>
       PetModel(
         id: id ?? this.id,
@@ -65,7 +63,7 @@ class PetModel {
         photo: json["photo"],
         borndate: DateTime.parse(json["borndate"]),
         deletedAt: json["deleted_at"],
-        sterillized: json["sterillized"],
+        sterillized: json["sterillized"] ?? false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,8 +73,9 @@ class PetModel {
         "specie": specie!.toJson(),
         "sex": sex,
         "sterillized": sterillized,
-        "user_id": List<dynamic>.from(userId!.map((x) => x)),
         "photo": photo,
+        "created_at": DateTime.timestamp(),
+        "user_id": List<dynamic>.from(userId!.map((x) => x)),
       };
 }
 

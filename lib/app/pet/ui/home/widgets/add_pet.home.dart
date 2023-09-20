@@ -1,6 +1,5 @@
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as developer;
 
 class AddPetWidget extends StatelessWidget {
   const AddPetWidget({super.key});
@@ -11,7 +10,6 @@ class AddPetWidget extends StatelessWidget {
       borderRadius: const BorderRadius.all(Radius.circular(100)),
       onTap: () {
         Navigator.pushNamed(context, "/add");
-        developer.log("-> Agregar mascota");
       },
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(100)),

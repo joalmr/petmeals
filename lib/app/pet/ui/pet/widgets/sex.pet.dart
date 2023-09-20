@@ -1,6 +1,8 @@
+import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SexPetWidget extends StatefulWidget {
   const SexPetWidget({super.key});
@@ -10,10 +12,10 @@ class SexPetWidget extends StatefulWidget {
 }
 
 class _SexPetWidgetState extends State<SexPetWidget> {
-  bool sex = false;
-
   @override
   Widget build(BuildContext context) {
+    final petProvider = context.watch<PetProvider>();
+
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Column(
@@ -30,11 +32,11 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.female, color: !sex ? primerColor : textoColorContraste),
+                    Icon(Icons.female, color: !petProvider.sex ? primerColor : textoColorContraste),
                     Text(
                       "Hembra",
                       style: TextStyle(
-                        color: !sex ? primerColor : textoColorContraste,
+                        color: !petProvider.sex ? primerColor : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -42,7 +44,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    sex = false;
+                    petProvider.sex = false;
                   });
                 },
               ),
@@ -51,11 +53,11 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.male, color: sex ? primerColor : textoColorContraste),
+                    Icon(Icons.male, color: petProvider.sex ? primerColor : textoColorContraste),
                     Text(
                       "Macho",
                       style: TextStyle(
-                        color: sex ? primerColor : textoColorContraste,
+                        color: petProvider.sex ? primerColor : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -63,7 +65,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    sex = true;
+                    petProvider.sex = true;
                   });
                 },
               ),
