@@ -6,18 +6,19 @@ class MyTextField extends MyTextFieldIOS {
   const MyTextField({
     super.key,
     required super.textField,
-    required super.controller,
+    super.controller,
   });
 }
 
 //ios
 abstract class MyTextFieldIOS extends StatefulWidget {
   final String textField;
-  final TextEditingController controller;
+  final TextEditingController? controller;
+
   const MyTextFieldIOS({
     super.key,
     required this.textField,
-    required this.controller,
+    this.controller,
   });
 
   @override
@@ -45,7 +46,11 @@ class _TextFieldIOSState extends State<MyTextFieldIOS> {
                 )
               : const SizedBox(height: 12.6),
           CupertinoTextField(
+            textCapitalization: TextCapitalization.sentences,
             controller: widget.controller,
+            onTap: () {
+              setState(() => texting = true);
+            },
             onChanged: (value) {
               if (value.isNotEmpty) {
                 setState(() => texting = true);
@@ -73,11 +78,11 @@ class _TextFieldIOSState extends State<MyTextFieldIOS> {
 //android
 abstract class MyTextFieldAndroid extends StatelessWidget {
   final String textField;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   const MyTextFieldAndroid({
     super.key,
     required this.textField,
-    required this.controller,
+    this.controller,
   });
 
   @override

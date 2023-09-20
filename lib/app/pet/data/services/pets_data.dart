@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:comfypet/app/pet/data/services/firebase_storage.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 
 class PetsData {
@@ -10,20 +12,6 @@ class PetsData {
         },
         toFirestore: (pet, _) => pet.toJson(),
       );
-
-  // Future<List<PetModel>> getPets(String idUser) async {
-  //   log(idUser);
-  //   // .where("user_id", arrayContains: idUser)
-  //   final pets = fireRef.get().then(
-  //         (value) => value.docs
-  //             .map(
-  //               (e) => e.data(),
-  //             )
-  //             .toList(),
-  //       );
-
-  //   return pets;
-  // }
 
   Stream<List<PetModel>> getPetStream(String idUser) {
     final result = fireRef.snapshots().map(
@@ -37,8 +25,10 @@ class PetsData {
     return result;
   }
 
-  Future<bool> addPeT(PetModel pet) async {
-    final response = await fireRef.add(pet);
+  Future<bool> addPeT(PetModel pet, File image, String userId) async {
+    final imgStorage = await uploadImage(image, userId);
+    final petWithImg = pet.copyWith(photo: imgStorage);
+    final response = await fireRef.add(petWithImg);
     if (response.id.isNotEmpty) {
       return true;
     } else {
@@ -47,6 +37,9 @@ class PetsData {
   }
 
   Future<void> deletePet(String id) async {
-    await fireRef.doc(id).delete();
+    final ejec = fireRef.doc(id);
+    final photoForDelete = await ejec.get().then((value) => value.data()!.photo);
+    await deleteImage(photoForDelete!);
+    await ejec.delete();
   }
 }

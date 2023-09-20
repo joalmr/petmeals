@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:comfypet/app/pet/data/services/pets_data.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PetProvider extends ChangeNotifier {
   final PetsData petData;
@@ -10,54 +12,63 @@ class PetProvider extends ChangeNotifier {
     loadStream();
   }
 
-  // PetsData petsData = PetsData();
-
   List<PetModel> myPets = [];
   PetModel? pet;
 
   int specie = 0;
   bool sex = false;
-  DateTime borndate = DateTime.now(); //
+  DateTime borndate = DateTime.now();
   bool sterillized = false;
-  // List<String>? userId;
-  // String? photo;
   Map<int, Specie> specieJson = {
     0: Specie(id: "0", name: "Gato"),
     1: Specie(id: "1", name: "Perro"),
   };
 
-  // Future<void> getPets() async {
-  //   final dataPet = await petData.getPets("mNbVSbRK5gYCuzkwOdaKKi5eeAK2");
-  //   inspect(dataPet);
+  XFile? imagen;
+  FileImage? imageFile;
 
-  //   myPets = dataPet;
-  //   pet = dataPet.first;
-  //   notifyListeners();
-  // }
+  final controllerName = TextEditingController();
+  final controllerDate = TextEditingController();
 
-  Stream<List<PetModel>> loadStream() => petData.getPetStream("mNbVSbRK5gYCuzkwOdaKKi5eeAK2");
+  // "mNbVSbRK5gYCuzkwOdaKKi5eeAK2"
+  Stream<List<PetModel>> loadStream() => petData.getPetStream("");
 
   void myPet(PetModel myPet) async {
     pet = myPet;
-
     notifyListeners();
   }
 
-  Future<bool> addPet(PetModel newPet) async {
-    final myPet = newPet.copyWith(
+  Future<bool> addPet() async {
+    PetModel newPet = PetModel(
+      name: controllerName.text,
       borndate: borndate,
       specie: specieJson[specie],
       sex: sex,
       sterillized: sterillized,
       userId: ["mNbVSbRK5gYCuzkwOdaKKi5eeAK2"],
-      photo:
-          "https://as01.epimg.net/diarioas/imagenes/2022/01/09/actualidad/1641723199_369382_1641723267_noticia_normal.jpg",
     );
-    final response = await petData.addPeT(myPet);
+    final img = File(imagen!.path);
+    final response = await petData.addPeT(newPet, img, "mNbVSbRK5gYCuzkwOdaKKi5eeAK2");
+    if (response) {
+      controllerDate.text = "";
+      controllerName.text = "";
+      specie = 0;
+      sex = false;
+      borndate = DateTime.now();
+      sterillized = false;
+      imagen = null;
+    }
     return response;
   }
 
-  Future<void> deletePet(String id) async {
+  void deletePet(String id) async {
     await petData.deletePet(id);
+  }
+
+  void procesarImagen(ImageSource origen) async {
+    imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
+
+    imageFile = FileImage(File(imagen!.path));
+    notifyListeners();
   }
 }

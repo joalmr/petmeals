@@ -1,14 +1,15 @@
-import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/app/pet/ui/pet/widgets/sex.pet.dart';
 import 'package:comfypet/app/pet/ui/pet/widgets/specie.pet.dart';
 import 'package:comfypet/app/pet/ui/pet/widgets/sterillized.pet.dart';
+import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/back.button.dart';
 import 'package:comfypet/app/pet/ui/pet/widgets/picture.pet.dart';
 import 'package:comfypet/config/components/widgets/button/primary.button.dart';
 import 'package:comfypet/app/pet/ui/pet/widgets/date_textfield.pet.dart';
 import 'package:comfypet/config/components/widgets/textfield/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class PetAddView extends StatelessWidget {
@@ -17,9 +18,6 @@ class PetAddView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final petProvider = context.watch<PetProvider>();
-    final controllerName = TextEditingController();
-    final controllerDate = TextEditingController();
-    // final date = DateTime.now();
 
     return Scaffold(
       body: SafeArea(
@@ -27,10 +25,51 @@ class PetAddView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 6),
           child: Column(
             children: [
-              const PicturePet(
-                buttonLeft: BackBtn(),
-                aspectRatio: 3 / 4,
-                child: Placeholder(),
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return SimpleDialog(
+                          children: [
+                            SimpleDialogOption(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                petProvider.procesarImagen(ImageSource.camera);
+                              },
+                              child: const Text('Tomar foto'),
+                            ),
+                            SimpleDialogOption(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                petProvider.procesarImagen(ImageSource.gallery);
+                              },
+                              child: const Text('Seleccionar foto'),
+                            ),
+                          ],
+                        );
+                      });
+                },
+                child: PicturePet(
+                  buttonLeft: const BackBtn(),
+                  aspectRatio: 3 / 4,
+                  child: petProvider.imageFile != null
+                      ? Image(
+                          image: petProvider.imageFile!,
+                          fit: BoxFit.cover,
+                        )
+                      : Container(
+                          decoration: const BoxDecoration(color: primerColor),
+                          height: 120,
+                          child: const Center(
+                            child: Icon(
+                              Icons.photo,
+                              size: 42,
+                              color: textoColorContraste,
+                            ),
+                          ),
+                        ),
+                ),
               ),
               const SizedBox(height: 24),
               const Text(
@@ -42,11 +81,11 @@ class PetAddView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               MyTextField(
-                controller: controllerName,
+                controller: petProvider.controllerName,
                 textField: "Nombre",
               ),
               DatePetWidget(
-                controller: controllerDate,
+                controller: petProvider.controllerDate,
                 textField: "Fecha de nacimiento",
               ),
               const SizedBox(height: 4),
@@ -57,10 +96,7 @@ class PetAddView extends StatelessWidget {
               ButtonPrimary(
                 child: const Text("Agregar mascota"),
                 onPressed: () {
-                  final newPet = PetModel(
-                    name: controllerName.text,
-                  );
-                  petProvider.addPet(newPet).then(
+                  petProvider.addPet().then(
                     (value) {
                       if (value) {
                         Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);

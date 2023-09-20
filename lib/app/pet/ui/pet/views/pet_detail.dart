@@ -20,7 +20,7 @@ class PetDetailView extends StatelessWidget {
             PicturePet(
               buttonLeft: const BackBtn(),
               buttonRight: const DeletePetWidget(),
-              aspectRatio: 4 / 3,
+              aspectRatio: 3 / 4,
               child: Image(
                 image: CachedNetworkImageProvider(petProvider.pet!.photo!),
                 fit: BoxFit.cover,

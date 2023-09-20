@@ -39,8 +39,6 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
   void initState() {
     super.initState();
     widget.controller.text = format().format(date);
-
-    // Future.microtask(() => context.watch<PetProvider>().borndate = date);
   }
 
   @override

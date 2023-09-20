@@ -35,13 +35,15 @@ class PetWidget extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
               ),
-              child: CardSwiper(
-                padding: EdgeInsets.only(bottom: petData.length > 1 ? 8 : 0),
-                maxAngle: 15,
-                cardsCount: petData.length,
-                cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
-                    CardPetWidget(pet: petData[index]),
-              ),
+              child: petData.length == 1
+                  ? CardPetWidget(pet: petData.first)
+                  : CardSwiper(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      maxAngle: 15,
+                      cardsCount: petData.length,
+                      cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
+                          CardPetWidget(pet: petData[index]),
+                    ),
             );
           }),
     );

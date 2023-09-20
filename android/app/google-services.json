@@ -39,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "1085650349965-v33ce0i55hmg4ej9ugui0abifkov0jju.apps.googleusercontent.com",
+              "client_id": "1085650349965-u2qtvuoltb2v4d5incggoq1dqa4jjlqs.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "app.comfypet.www"
+                "bundle_id": "com.joalmr.comfypet"
               }
             }
           ]
