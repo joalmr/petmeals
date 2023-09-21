@@ -9,7 +9,10 @@ class PetProvider extends ChangeNotifier {
   final PetsData petData;
   final UserProvider userProvider;
   PetProvider({required this.userProvider, required this.petData}) {
-    loadStream();
+    loadStream().listen((event) {
+      myPets = event;
+      pet = myPets.first;
+    });
   }
 
   List<PetModel> myPets = [];
@@ -48,7 +51,7 @@ class PetProvider extends ChangeNotifier {
       userId: ["mNbVSbRK5gYCuzkwOdaKKi5eeAK2"],
     );
     final img = File(imagen!.path);
-    final response = await petData.addPeT(newPet, img, "mNbVSbRK5gYCuzkwOdaKKi5eeAK2");
+    final response = await petData.addPeT(newPet, img, "mNbVSbRK5gYCuzkwOdaKKi5eeAK2"); //TODO: OBTENER Y MANDAR USER ID
     if (response) {
       controllerDate.text = "";
       controllerName.text = "";
@@ -61,8 +64,10 @@ class PetProvider extends ChangeNotifier {
     return response;
   }
 
-  void deletePet(String id) async {
+  Future<void> deletePet(String id) async {
     await petData.deletePet(id);
+    pet = myPets.first;
+    notifyListeners();
   }
 
   void procesarImagen(ImageSource origen) async {

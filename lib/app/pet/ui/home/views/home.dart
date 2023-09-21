@@ -1,5 +1,4 @@
-import 'package:comfypet/app/pet/ui/home/widgets/add_pet.home.dart';
-import 'package:comfypet/app/pet/ui/home/widgets/pet.home.dart';
+import 'package:comfypet/app/pet/ui/home/widgets/list_pet.home.dart';
 import 'package:comfypet/app/pet/ui/home/widgets/saludo.home.dart';
 import 'package:flutter/material.dart';
 
@@ -32,16 +31,9 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           children: [
             SaludoWidget(),
-            SizedBox(height: 25),
-            Flexible(
-              child: Stack(children: [
-                PetWidget(),
-                Positioned(
-                  top: 12,
-                  right: 12,
-                  child: AddPetWidget(),
-                ),
-              ]),
+            SizedBox(height: 12),
+            Expanded(
+              child: ListPetWidget(),
             ),
           ],
         ),

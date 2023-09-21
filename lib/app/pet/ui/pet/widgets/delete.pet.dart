@@ -18,9 +18,11 @@ class DeletePetWidget extends StatelessWidget {
         Icons.delete_forever_rounded,
         color: CupertinoColors.systemGrey,
       ),
-      onPressed: () {
-        petProvider.deletePet(petProvider.pet!.id!);
-        Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+      onPressed: () async {
+        await petProvider.deletePet(petProvider.pet!.id!);
+        if (context.mounted) {
+          Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+        }
       },
     );
   }
