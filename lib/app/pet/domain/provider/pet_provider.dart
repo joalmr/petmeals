@@ -51,7 +51,7 @@ class PetProvider extends ChangeNotifier {
       specie: specieJson[specie],
       sex: sex,
       sterillized: sterillized,
-      userId: [MyStorage().uid],
+      userId: [userId],
     );
     final img = File(imagen!.path);
     final response = await petData.addPeT(newPet, img, userId);
