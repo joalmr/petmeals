@@ -13,7 +13,7 @@ class DatePetWidget extends MyDateTextFieldAdaptive {
 }
 
 format() {
-  return DateFormat('dd-MM-yyyy');
+  return DateFormat("dd-MM-yyyy");
 }
 
 //ios

@@ -4,7 +4,7 @@ import 'package:comfypet/app/pet/data/services/firebase_storage.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 
 class PetsData {
-  final fireRef = FirebaseFirestore.instance.collection('pets').withConverter(
+  final fireRef = FirebaseFirestore.instance.collection("pets").withConverter(
         fromFirestore: (snapshot, _) {
           final pet = PetModel.fromJson(snapshot.data()!);
           final newPet = pet.copyWith(id: snapshot.id);
@@ -14,6 +14,7 @@ class PetsData {
       );
 
   Stream<List<PetModel>> getPetStream(String idUser) {
+    //TODO: CONSULTAR CON USER ID
     final result = fireRef.snapshots().map(
           (event) => event.docs
               .map(
@@ -36,10 +37,10 @@ class PetsData {
     }
   }
 
-  Future<void> deletePet(String id) async {
+  Future<void> deletePet(String id, String userId) async {
     final ejec = fireRef.doc(id);
     final photoForDelete = await ejec.get().then((value) => value.data()!.photo);
-    await deleteImage(photoForDelete!);
+    await deleteImage(photoForDelete!, userId);
     await ejec.delete();
   }
 }

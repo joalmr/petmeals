@@ -1,5 +1,6 @@
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AddPetWidget extends StatelessWidget {
   const AddPetWidget({super.key});
@@ -21,13 +22,11 @@ class AddPetWidget extends StatelessWidget {
             color: fondoColor,
           ),
           padding: const EdgeInsets.all(10),
-          child: const Center(
-            child: Image(
-              image: AssetImage('assets/images/add-pet.png'),
-              height: 35,
-              width: 35,
-              fit: BoxFit.scaleDown,
-              // color: subColor,
+          child: Center(
+            child: SvgPicture.asset(
+              "assets/images/icons/apps.svg",
+              height: 32,
+              width: 32,
             ),
           ),
         ),

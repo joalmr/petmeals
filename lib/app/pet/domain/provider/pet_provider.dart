@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:comfypet/app/pet/data/services/pets_data.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 import 'package:comfypet/app/user/domain/provider/user_provider.dart';
+import 'package:comfypet/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,6 +15,9 @@ class PetProvider extends ChangeNotifier {
       pet = myPets.first;
     });
   }
+
+  String userId = MyStorage().uid;
+  //? OBTIENE USER ID
 
   List<PetModel> myPets = [];
   PetModel? pet;
@@ -33,8 +37,7 @@ class PetProvider extends ChangeNotifier {
   final controllerName = TextEditingController();
   final controllerDate = TextEditingController();
 
-  // "mNbVSbRK5gYCuzkwOdaKKi5eeAK2"
-  Stream<List<PetModel>> loadStream() => petData.getPetStream("");
+  Stream<List<PetModel>> loadStream() => petData.getPetStream(userId);
 
   void myPet(PetModel myPet) async {
     pet = myPet;
@@ -48,10 +51,10 @@ class PetProvider extends ChangeNotifier {
       specie: specieJson[specie],
       sex: sex,
       sterillized: sterillized,
-      userId: ["mNbVSbRK5gYCuzkwOdaKKi5eeAK2"],
+      userId: [MyStorage().uid],
     );
     final img = File(imagen!.path);
-    final response = await petData.addPeT(newPet, img, "mNbVSbRK5gYCuzkwOdaKKi5eeAK2"); //TODO: OBTENER Y MANDAR USER ID
+    final response = await petData.addPeT(newPet, img, userId);
     if (response) {
       controllerDate.text = "";
       controllerName.text = "";
@@ -60,12 +63,13 @@ class PetProvider extends ChangeNotifier {
       borndate = DateTime.now();
       sterillized = false;
       imagen = null;
+      imageFile = null;
     }
     return response;
   }
 
   Future<void> deletePet(String id) async {
-    await petData.deletePet(id);
+    await petData.deletePet(id, userId);
     pet = myPets.first;
     notifyListeners();
   }

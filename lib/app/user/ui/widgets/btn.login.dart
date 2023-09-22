@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 class ButtonGoogle extends StatelessWidget {
   const ButtonGoogle({super.key});
 
-  static const String text = 'Ingresar con Google';
-  static const String imagenStr = 'assets/logo/google.jpg';
+  static const String text = "Ingresar con Google";
+  static const String imagenStr = "assets/logo/google.jpg";
 
   @override
   Widget build(BuildContext context) {

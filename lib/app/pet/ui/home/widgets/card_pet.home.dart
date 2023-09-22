@@ -11,40 +11,43 @@ class CardPetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final petProvider = context.watch<PetProvider>();
 
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, "/petdetail"),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        child: Stack(
-          children: [
-            Image(
-              image: CachedNetworkImageProvider(petProvider.pet!.photo!),
-              height: double.maxFinite,
-              fit: BoxFit.cover,
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 52,
-                width: double.maxFinite,
-                decoration: const BoxDecoration(
-                  color: Colors.black54,
-                ),
-                child: Center(
-                  child: Text(
-                    petProvider.pet!.name!,
-                    style: const TextStyle(
-                      color: textoColorContraste,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: () => Navigator.pushNamed(context, "/petdetail"),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          child: Stack(
+            children: [
+              Image(
+                image: CachedNetworkImageProvider(petProvider.pet!.photo!),
+                height: double.maxFinite,
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 52,
+                  width: double.maxFinite,
+                  decoration: const BoxDecoration(
+                    color: Colors.black54,
+                  ),
+                  child: Center(
+                    child: Text(
+                      petProvider.pet!.name!,
+                      style: const TextStyle(
+                        color: textoColorContraste,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

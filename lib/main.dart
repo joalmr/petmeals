@@ -8,13 +8,16 @@ import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:comfypet/app/user/ui/views/login.dart';
 import 'package:comfypet/config/components/styles/themes/theme.dart';
 import 'package:comfypet/firebase_options.dart';
+import 'package:comfypet/storage.data.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -47,7 +50,7 @@ class _MainAppState extends State<MainApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Comfypet',
+        title: "Comfypet",
         theme: themeData,
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
@@ -55,14 +58,14 @@ class _MainAppState extends State<MainApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [
-          Locale('es', 'ES'),
+          Locale("es", "ES"),
         ],
-        initialRoute: '/',
+        initialRoute: MyStorage().uid.isEmpty ? "/" : "/home",
         routes: {
-          '/': (context) => const LoginView(),
-          '/home': (context) => const HomeView(),
-          '/add': (context) => const PetAddView(),
-          '/petdetail': (context) => const PetDetailView(),
+          "/": (context) => const LoginView(),
+          "/home": (context) => const HomeView(),
+          "/add": (context) => const PetAddView(),
+          "/petdetail": (context) => const PetDetailView(),
         },
       ),
     );

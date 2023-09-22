@@ -23,7 +23,7 @@ class UserData {
   }
 
   //Firebase
-  final fireRef = FirebaseFirestore.instance.collection('user').withConverter(
+  final fireRef = FirebaseFirestore.instance.collection("user").withConverter(
         fromFirestore: (snapshot, _) {
           final user = UserModel.fromJson(snapshot.data()!);
           final newUser = user.copyWith(id: snapshot.id);

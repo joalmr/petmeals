@@ -18,6 +18,7 @@ class PetModel {
   final DateTime? borndate;
   final dynamic deletedAt;
   final bool? sterillized;
+  final int? age;
 
   PetModel({
     this.id,
@@ -29,6 +30,7 @@ class PetModel {
     this.borndate,
     this.deletedAt,
     this.sterillized,
+    this.age,
   });
 
   PetModel copyWith({
@@ -41,6 +43,7 @@ class PetModel {
     DateTime? borndate,
     dynamic deletedAt,
     bool? sterillized,
+    int? age,
   }) =>
       PetModel(
         id: id ?? this.id,
@@ -52,6 +55,7 @@ class PetModel {
         borndate: borndate ?? this.borndate,
         deletedAt: deletedAt ?? this.deletedAt,
         sterillized: sterillized ?? this.sterillized,
+        age: age ?? this.age,
       );
 
   factory PetModel.fromJson(Map<String, dynamic> json) => PetModel(
@@ -61,9 +65,10 @@ class PetModel {
         sex: json["sex"],
         name: json["name"],
         photo: json["photo"],
-        borndate: DateTime.parse(json["borndate"]),
         deletedAt: json["deleted_at"],
         sterillized: json["sterillized"] ?? false,
+        borndate: DateTime.parse(json["borndate"]),
+        age: ((DateTime.now().difference(DateTime.parse(json["borndate"])).inDays) / 365).round(),
       );
 
   Map<String, dynamic> toJson() => {

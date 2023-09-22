@@ -1,4 +1,5 @@
 import 'package:comfypet/app/user/data/services/user_data.dart';
+import 'package:comfypet/storage.data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -7,9 +8,9 @@ class UserProvider extends ChangeNotifier {
   UserProvider({required this.userData});
 
   User? user;
-  String? name;
-  String? photoUrl;
-  String? uid;
+  String? uid = MyStorage().uid;
+  String? name = MyStorage().name;
+  String? photoUrl = MyStorage().photo;
 
   void signInGoogle(BuildContext context) async {
     final userResponse = await userData.signInGoogle();
@@ -21,13 +22,17 @@ class UserProvider extends ChangeNotifier {
     user = userResponse.user;
 
     uid = user?.uid;
-    name = user?.displayName.toString().split(' ')[0];
+    name = user?.displayName.toString().split(" ")[0];
     photoUrl = user?.photoURL;
+
+    MyStorage().uid = uid!;
+    MyStorage().name = name!;
+    MyStorage().photo = photoUrl!;
 
     getUser();
 
     // ignore: use_build_context_synchronously
-    Navigator.pushReplacementNamed(context, '/home');
+    Navigator.pushReplacementNamed(context, "/home");
     notifyListeners();
   }
 

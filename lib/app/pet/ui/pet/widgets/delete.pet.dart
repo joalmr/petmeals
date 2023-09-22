@@ -12,18 +12,38 @@ class DeletePetWidget extends StatelessWidget {
     final petProvider = context.watch<PetProvider>();
 
     return CupertinoButton(
-      color: fondoColor.withOpacity(0.8),
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: const Icon(
-        Icons.delete_forever_rounded,
-        color: CupertinoColors.systemGrey,
-      ),
-      onPressed: () async {
-        await petProvider.deletePet(petProvider.pet!.id!);
-        if (context.mounted) {
-          Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
-        }
-      },
-    );
+        color: Colors.transparent,
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: const Icon(
+          Icons.delete_forever_rounded,
+          color: mandy,
+        ),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("¿Deseas eliminar tu mascota?"),
+                content: const Text("Al eliminar tu mascota perderás los datos de forma permanente."),
+                actions: [
+                  TextButton(
+                    style: const ButtonStyle(foregroundColor: MaterialStatePropertyAll(mandy)),
+                    onPressed: () async {
+                      await petProvider.deletePet(petProvider.pet!.id!);
+                      if (context.mounted) {
+                        Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                      }
+                    },
+                    child: const Text("Eliminar"),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("Cancelar"),
+                  ),
+                ],
+              );
+            },
+          );
+        });
   }
 }

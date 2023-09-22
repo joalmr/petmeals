@@ -1,4 +1,3 @@
-import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,7 @@ class BackBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      color: fondoColor.withOpacity(0.8),
+      color: Colors.transparent,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: const Icon(
         Icons.arrow_back_rounded,
@@ -16,18 +15,5 @@ class BackBtn extends StatelessWidget {
       ),
       onPressed: () => Navigator.pop(context),
     );
-    // InkWell(
-    //   borderRadius: const BorderRadius.all(Radius.circular(7.5)),
-    //   onTap: () => Navigator.pop(context),
-    //   child: ClipRRect(
-    //     borderRadius: const BorderRadius.all(Radius.circular(7.5)),
-    //     child: Container(
-    //       color: fondoColor.withOpacity(0.75),
-    //       height: 40,
-    //       width: 60,
-    //       child: const Icon(Icons.arrow_back_rounded),
-    //     ),
-    //   ),
-    // );
   }
 }
