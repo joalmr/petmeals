@@ -1,14 +1,14 @@
-import 'package:comfypet/app/pet/data/services/pets_data.dart';
+import 'package:comfypet/app/pet/data/pets_data.dart';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/app/pet/ui/home/views/home.dart';
 import 'package:comfypet/app/pet/ui/pet/views/pet_add.dart';
 import 'package:comfypet/app/pet/ui/pet/views/pet_detail.dart';
-import 'package:comfypet/app/user/data/services/user_data.dart';
+import 'package:comfypet/app/user/data/user_data.dart';
 import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:comfypet/app/user/ui/views/login.dart';
 import 'package:comfypet/config/components/styles/themes/theme.dart';
 import 'package:comfypet/firebase_options.dart';
-import 'package:comfypet/storage.data.dart';
+import 'package:comfypet/config/storage/storage.data.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -37,7 +37,7 @@ class _MainAppState extends State<MainApp> {
     userProvider = UserProvider(userData: UserData());
     final petProvider = PetProvider(
       petData: PetsData(),
-      userProvider: userProvider,
+      userProvider: userProvider, //TODO: CAMBIARLO POR GET_IT
     );
 
     return MultiProvider(

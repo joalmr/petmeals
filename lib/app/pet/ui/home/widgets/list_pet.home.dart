@@ -34,12 +34,12 @@ class ListPetWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
           child: Column(
             children: [
-              Row(
-                children: [
-                  const AddPetWidget(),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    const AddPetWidget(),
+                    Row(
                       children: [
                         for (final element in petData)
                           Container(
@@ -63,8 +63,8 @@ class ListPetWidget extends StatelessWidget {
                           ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const Expanded(
                 child: CardPetWidget(),

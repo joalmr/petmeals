@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:comfypet/app/pet/data/services/pets_data.dart';
+import 'package:comfypet/app/pet/data/pets_data.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 import 'package:comfypet/app/user/domain/provider/user_provider.dart';
-import 'package:comfypet/storage.data.dart';
+import 'package:comfypet/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -65,6 +65,7 @@ class PetProvider extends ChangeNotifier {
       imagen = null;
       imageFile = null;
     }
+
     return response;
   }
 

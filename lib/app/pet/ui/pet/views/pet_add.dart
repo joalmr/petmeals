@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/app/pet/ui/pet/widgets/sex.pet.dart';
 import 'package:comfypet/app/pet/ui/pet/widgets/specie.pet.dart';
@@ -97,16 +98,20 @@ class PetAddView extends StatelessWidget {
                     const SterillizedPetWidget(),
                     const SizedBox(height: 20),
                     ButtonPrimary(
-                      child: const Text('Agregar mascota'),
                       onPressed: () {
-                        petProvider.addPet().then(
-                          (value) {
-                            if (value) {
-                              Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-                            }
-                          },
-                        );
+                        if (petProvider.controllerName.text.isEmpty || petProvider.imagen == null) {
+                          log('error *');
+                        } else {
+                          petProvider.addPet().then(
+                            (value) {
+                              if (value) {
+                                Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+                              }
+                            },
+                          );
+                        }
                       },
+                      child: const Text('Agregar mascota'),
                     ),
                   ],
                 ),

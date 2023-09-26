@@ -1,5 +1,5 @@
-import 'package:comfypet/app/user/data/services/user_data.dart';
-import 'package:comfypet/storage.data.dart';
+import 'package:comfypet/app/user/data/user_data.dart';
+import 'package:comfypet/config/storage/storage.data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class UserData {
-  //sign in
+  //*sign in
   Future<UserCredential?> signInGoogle() async {
     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
@@ -17,10 +17,10 @@ class UserData {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  //sign out
+  //*sign out
   Future<void> signOut() async => await FirebaseAuth.instance.signOut();
 
-  //Firebase
+  //*Firebase
   final fireRef = FirebaseFirestore.instance.collection('user').withConverter(
         fromFirestore: (snapshot, _) {
           final user = UserModel.fromJson(snapshot.data()!);
@@ -30,7 +30,7 @@ class UserData {
         toFirestore: (user, _) => user.toJson(),
       );
 
-  //get users
+  //*get users
   getUser(String uid) async {
     return await fireRef.doc(uid).get();
   }

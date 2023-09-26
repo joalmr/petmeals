@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final PetModel = PetModelFromJson(jsonString);
-
 import 'dart:convert';
 
 List<PetModel> petModelFromJson(String str) => List<PetModel>.from(json.decode(str).map((x) => PetModel.fromJson(x)));
@@ -68,7 +64,7 @@ class PetModel {
         deletedAt: json["deleted_at"],
         sterillized: json["sterillized"] ?? false,
         borndate: DateTime.parse(json["borndate"]),
-        age: ((DateTime.now().difference(DateTime.parse(json["borndate"])).inDays) / 365).round(),
+        age: (DateTime.now().difference(DateTime.parse(json["borndate"])).inDays) ~/ 365, //* division resp entero
       );
 
   Map<String, dynamic> toJson() => {

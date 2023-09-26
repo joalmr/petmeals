@@ -19,10 +19,10 @@ Future<String> uploadImage(File image, String userId) async {
   return url;
 }
 
-Future<void> deleteImage(String imageName, String userId) async {
+void deleteImage(String imageName, String userId) async {
   String img = imageName.split('___')[1];
 
   final desertRef = storage.ref().child('images').child(userId).child('pets').child('___${img}___');
 
-  await desertRef.delete();
+  desertRef.delete();
 }

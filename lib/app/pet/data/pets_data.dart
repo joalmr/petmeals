@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:comfypet/app/pet/data/services/firebase_storage.dart';
+import 'package:comfypet/app/pet/data/firebase_storage.dart';
+
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 
 class PetsData {
@@ -40,7 +41,7 @@ class PetsData {
   Future<void> deletePet(String id, String userId) async {
     final ejec = fireRef.doc(id);
     final photoForDelete = await ejec.get().then((value) => value.data()!.photo);
-    await deleteImage(photoForDelete!, userId);
+    deleteImage(photoForDelete!, userId);
     await ejec.delete();
   }
 }
