@@ -23,22 +23,22 @@ class DeletePetWidget extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text("¿Deseas eliminar tu mascota?"),
-                content: const Text("Al eliminar tu mascota perderás los datos de forma permanente."),
+                title: const Text('¿Deseas eliminar tu mascota?'),
+                content: const Text('Al eliminar tu mascota perderás los datos de forma permanente.'),
                 actions: [
                   TextButton(
                     style: const ButtonStyle(foregroundColor: MaterialStatePropertyAll(mandy)),
                     onPressed: () async {
                       await petProvider.deletePet(petProvider.pet!.id!);
                       if (context.mounted) {
-                        Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
                       }
                     },
-                    child: const Text("Eliminar"),
+                    child: const Text('Eliminar'),
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: const Text("Cancelar"),
+                    child: const Text('Cancelar'),
                   ),
                 ],
               );

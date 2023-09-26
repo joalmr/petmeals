@@ -4,7 +4,7 @@ import 'package:comfypet/app/pet/data/services/firebase_storage.dart';
 import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 
 class PetsData {
-  final fireRef = FirebaseFirestore.instance.collection("pets").withConverter(
+  final fireRef = FirebaseFirestore.instance.collection('pets').withConverter(
         fromFirestore: (snapshot, _) {
           final pet = PetModel.fromJson(snapshot.data()!);
           final newPet = pet.copyWith(id: snapshot.id);

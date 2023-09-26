@@ -10,7 +10,7 @@ class AddPetWidget extends StatelessWidget {
     return InkWell(
       borderRadius: const BorderRadius.all(Radius.circular(100)),
       onTap: () {
-        Navigator.pushNamed(context, "/add");
+        Navigator.pushNamed(context, 'add');
       },
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(100)),
@@ -24,7 +24,7 @@ class AddPetWidget extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Center(
             child: SvgPicture.asset(
-              "assets/images/icons/apps.svg",
+              'assets/images/icons/apps.svg',
               height: 32,
               width: 32,
             ),

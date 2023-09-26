@@ -36,14 +36,14 @@ class PetAddView extends StatelessWidget {
                                 Navigator.pop(context);
                                 petProvider.procesarImagen(ImageSource.camera);
                               },
-                              child: const Text("Tomar foto"),
+                              child: const Text('Tomar foto'),
                             ),
                             SimpleDialogOption(
                               onPressed: () {
                                 Navigator.pop(context);
                                 petProvider.procesarImagen(ImageSource.gallery);
                               },
-                              child: const Text("Seleccionar foto"),
+                              child: const Text('Seleccionar foto'),
                             ),
                           ],
                         );
@@ -76,7 +76,7 @@ class PetAddView extends StatelessWidget {
                 child: Column(
                   children: [
                     const Text(
-                      "Agregar mascota",
+                      'Agregar mascota',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -85,11 +85,11 @@ class PetAddView extends StatelessWidget {
                     const SizedBox(height: 8),
                     MyTextField(
                       controller: petProvider.controllerName,
-                      textField: "Nombre",
+                      textField: 'Nombre',
                     ),
                     DatePetWidget(
                       controller: petProvider.controllerDate,
-                      textField: "Fecha de nacimiento",
+                      textField: 'Fecha de nacimiento',
                     ),
                     const SizedBox(height: 4),
                     const SpeciePetWidget(),
@@ -97,12 +97,12 @@ class PetAddView extends StatelessWidget {
                     const SterillizedPetWidget(),
                     const SizedBox(height: 20),
                     ButtonPrimary(
-                      child: const Text("Agregar mascota"),
+                      child: const Text('Agregar mascota'),
                       onPressed: () {
                         petProvider.addPet().then(
                           (value) {
                             if (value) {
-                              Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                              Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                             }
                           },
                         );

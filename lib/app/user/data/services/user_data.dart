@@ -18,12 +18,10 @@ class UserData {
   }
 
   //sign out
-  Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
+  Future<void> signOut() async => await FirebaseAuth.instance.signOut();
 
   //Firebase
-  final fireRef = FirebaseFirestore.instance.collection("user").withConverter(
+  final fireRef = FirebaseFirestore.instance.collection('user').withConverter(
         fromFirestore: (snapshot, _) {
           final user = UserModel.fromJson(snapshot.data()!);
           final newUser = user.copyWith(id: snapshot.id);
@@ -35,13 +33,5 @@ class UserData {
   //get users
   getUser(String uid) async {
     return await fireRef.doc(uid).get();
-
-    // .then((value) => value.docs).then(
-    //       (value) => value
-    //           .map(
-    //             (e) => e.data(),
-    //           )
-    //           .toList(),
-    //     );
   }
 }

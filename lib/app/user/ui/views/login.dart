@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:comfypet/app/user/ui/widgets/btn.login.dart';
 import 'package:comfypet/app/user/ui/widgets/intro.login.dart';
 import 'package:comfypet/app/user/ui/widgets/logo.login.dart';
@@ -8,6 +10,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('login *');
     return Scaffold(
       body: SafeArea(
         child: Container(

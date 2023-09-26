@@ -17,11 +17,8 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
   runApp(const MainApp());
 }
 
@@ -50,22 +47,20 @@ class _MainAppState extends State<MainApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "Comfypet",
+        title: 'Comfypet',
         theme: themeData,
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: const [
-          Locale("es", "ES"),
-        ],
-        initialRoute: MyStorage().uid.isEmpty ? "/" : "/home",
+        supportedLocales: const [Locale('es', 'ES')],
+        initialRoute: MyStorage().uid.isNotEmpty ? 'home' : '/',
         routes: {
-          "/": (context) => const LoginView(),
-          "/home": (context) => const HomeView(),
-          "/add": (context) => const PetAddView(),
-          "/petdetail": (context) => const PetDetailView(),
+          '/': (context) => const LoginView(),
+          'home': (context) => const HomeView(),
+          'add': (context) => const PetAddView(),
+          'petdetail': (context) => const PetDetailView(),
         },
       ),
     );

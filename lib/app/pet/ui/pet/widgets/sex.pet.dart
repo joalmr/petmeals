@@ -22,7 +22,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Sexo",
+            'Sexo',
             style: TextStyle(color: textoColor),
           ),
           Row(
@@ -34,7 +34,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                   children: [
                     Icon(Icons.female, color: !petProvider.sex ? primerColor : textoColorContraste),
                     Text(
-                      "Hembra",
+                      'Hembra',
                       style: TextStyle(
                         color: !petProvider.sex ? primerColor : textoColorContraste,
                         fontSize: 12,
@@ -55,7 +55,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                   children: [
                     Icon(Icons.male, color: petProvider.sex ? primerColor : textoColorContraste),
                     Text(
-                      "Macho",
+                      'Macho',
                       style: TextStyle(
                         color: petProvider.sex ? primerColor : textoColorContraste,
                         fontSize: 12,

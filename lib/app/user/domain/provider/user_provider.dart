@@ -12,7 +12,7 @@ class UserProvider extends ChangeNotifier {
   String? name = MyStorage().name;
   String? photoUrl = MyStorage().photo;
 
-  void signInGoogle(BuildContext context) async {
+  Future<bool> signInGoogle(BuildContext context) async {
     final userResponse = await userData.signInGoogle();
 
     if (userResponse!.user == null) {
@@ -22,18 +22,19 @@ class UserProvider extends ChangeNotifier {
     user = userResponse.user;
 
     uid = user?.uid;
-    name = user?.displayName.toString().split(" ")[0];
+    name = user?.displayName.toString().split(' ')[0];
     photoUrl = user?.photoURL;
 
     MyStorage().uid = uid!;
     MyStorage().name = name!;
     MyStorage().photo = photoUrl!;
 
-    getUser();
-
-    // ignore: use_build_context_synchronously
-    Navigator.pushReplacementNamed(context, "/home");
-    notifyListeners();
+    if (user != null) {
+      return true;
+    }
+    return false;
+    // getUser();
+    // notifyListeners();
   }
 
   void getUser() async {

@@ -26,7 +26,7 @@ class ListPetWidget extends StatelessWidget {
 
         if (petData.isEmpty) {
           return const Center(
-            child: Text("No tiene datos"),
+            child: Text('No tiene datos'),
           );
         }
 

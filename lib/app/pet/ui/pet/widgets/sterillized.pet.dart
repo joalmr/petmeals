@@ -20,7 +20,7 @@ class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
       child: Row(
         children: [
           const Text(
-            "Esterilizado",
+            'Esterilizado',
             style: TextStyle(color: textoColor),
           ),
           const SizedBox(width: 110),

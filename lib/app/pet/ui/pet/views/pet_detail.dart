@@ -37,22 +37,22 @@ class PetDetailView extends StatelessWidget {
               ),
             ),
             Text(
-              "${petProvider.pet!.age!} ${petProvider.pet!.age == 1 ? "año" : "años"}",
+              '${petProvider.pet!.age!} ${petProvider.pet!.age == 1 ? 'año' : 'años'}',
               style: const TextStyle(color: primerColor, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                petProvider.pet!.specie!.id! == "0"
+                petProvider.pet!.specie!.id! == '0'
                     ? Column(
                         children: [
                           SvgPicture.asset(
-                            "assets/images/icons/cat.svg",
+                            'assets/images/icons/cat.svg',
                             height: 42,
                           ),
                           const Text(
-                            "Gato",
+                            'Gato',
                             style: TextStyle(fontSize: 10),
                           ),
                         ],
@@ -60,11 +60,11 @@ class PetDetailView extends StatelessWidget {
                     : Column(
                         children: [
                           SvgPicture.asset(
-                            "assets/images/icons/dog.svg",
+                            'assets/images/icons/dog.svg',
                             height: 42,
                           ),
                           const Text(
-                            "Perro",
+                            'Perro',
                             style: TextStyle(fontSize: 10),
                           ),
                         ],
@@ -75,7 +75,7 @@ class PetDetailView extends StatelessWidget {
                         children: [
                           Icon(Icons.male, size: 42),
                           Text(
-                            "Macho",
+                            'Macho',
                             style: TextStyle(fontSize: 10),
                           ),
                         ],
@@ -84,7 +84,7 @@ class PetDetailView extends StatelessWidget {
                         children: [
                           Icon(Icons.female, size: 42),
                           Text(
-                            "Hebra",
+                            'Hebra',
                             style: TextStyle(fontSize: 10),
                           ),
                         ],
@@ -92,7 +92,7 @@ class PetDetailView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            Text(petProvider.pet!.sterillized! ? "Estirilizado" : "No esterilizado")
+            Text(petProvider.pet!.sterillized! ? 'Estirilizado' : 'No esterilizado')
           ],
         ),
       ),

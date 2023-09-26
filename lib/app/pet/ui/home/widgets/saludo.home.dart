@@ -22,7 +22,7 @@ class SaludoWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text(
-                  "Hola",
+                  'Hola',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -31,7 +31,7 @@ class SaludoWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: .5),
                 Text(
-                  "${userProvider.name} 👋",
+                  '${userProvider.name} 👋',
                   style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,

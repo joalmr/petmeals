@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 class ButtonGoogle extends StatelessWidget {
   const ButtonGoogle({super.key});
 
-  static const String text = "Ingresar con Google";
-  static const String imagenStr = "assets/logo/google.jpg";
+  static const String text = 'Ingresar con Google';
+  static const String imagenStr = 'assets/logo/google.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,10 @@ class ButtonGoogle extends StatelessWidget {
       height: 46,
       margin: const EdgeInsets.symmetric(vertical: 2),
       child: TextButton(
-        onPressed: () {
-          userProvider.signInGoogle(context);
+        onPressed: () async {
+          userProvider.signInGoogle(context).then((value) {
+            if (value) Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+          });
         },
         style: buttonStyleOther(Colors.white, Colors.black38),
         child: const Row(

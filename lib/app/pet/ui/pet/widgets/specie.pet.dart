@@ -23,7 +23,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Especie",
+            'Especie',
             style: TextStyle(color: textoColor),
           ),
           Row(
@@ -34,13 +34,13 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                 child: Column(
                   children: [
                     SvgPicture.asset(
-                      "assets/images/icons/cat.svg",
+                      'assets/images/icons/cat.svg',
                       colorFilter: ColorFilter.mode(
                           petProvider.specie == 0 ? primerColor : textoColorContraste, BlendMode.srcIn),
                       height: 32,
                     ),
                     Text(
-                      "Gato",
+                      'Gato',
                       style: TextStyle(
                         color: petProvider.specie == 0 ? primerColor : textoColorContraste,
                         fontSize: 12,
@@ -60,13 +60,13 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                 child: Column(
                   children: [
                     SvgPicture.asset(
-                      "assets/images/icons/dog.svg",
+                      'assets/images/icons/dog.svg',
                       colorFilter: ColorFilter.mode(
                           petProvider.specie == 1 ? primerColor : textoColorContraste, BlendMode.srcIn),
                       height: 32,
                     ),
                     Text(
-                      "Perro",
+                      'Perro',
                       style: TextStyle(
                         color: petProvider.specie == 1 ? primerColor : textoColorContraste,
                         fontSize: 12,

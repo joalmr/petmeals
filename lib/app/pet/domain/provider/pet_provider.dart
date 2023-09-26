@@ -27,8 +27,8 @@ class PetProvider extends ChangeNotifier {
   DateTime borndate = DateTime.now();
   bool sterillized = false;
   Map<int, Specie> specieJson = {
-    0: Specie(id: "0", name: "Gato"),
-    1: Specie(id: "1", name: "Perro"),
+    0: Specie(id: '0', name: 'Gato'),
+    1: Specie(id: '1', name: 'Perro'),
   };
 
   XFile? imagen;
@@ -56,8 +56,8 @@ class PetProvider extends ChangeNotifier {
     final img = File(imagen!.path);
     final response = await petData.addPeT(newPet, img, userId);
     if (response) {
-      controllerDate.text = "";
-      controllerName.text = "";
+      controllerDate.text = '';
+      controllerName.text = '';
       specie = 0;
       sex = false;
       borndate = DateTime.now();
