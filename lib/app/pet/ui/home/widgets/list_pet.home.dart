@@ -3,15 +3,15 @@ import 'package:comfypet/app/pet/domain/model/pet_model.dart';
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/app/pet/ui/home/widgets/add_pet.home.dart';
 import 'package:comfypet/app/pet/ui/home/widgets/card_pet.home.dart';
+import 'package:comfypet/providers.main.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ListPetWidget extends StatelessWidget {
   const ListPetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    final petProvider = getIt<PetProvider>();
 
     return StreamBuilder<List<PetModel>>(
       stream: petProvider.loadStream(),
@@ -66,7 +66,7 @@ class ListPetWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: CardPetWidget(),
               ),
             ],

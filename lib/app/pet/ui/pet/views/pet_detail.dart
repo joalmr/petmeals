@@ -4,16 +4,16 @@ import 'package:comfypet/app/pet/ui/pet/widgets/delete.pet.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/back.button.dart';
 import 'package:comfypet/app/pet/ui/pet/widgets/picture.pet.dart';
+import 'package:comfypet/providers.main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
 class PetDetailView extends StatelessWidget {
   const PetDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    final petProvider = getIt<PetProvider>();
 
     return Scaffold(
       body: SafeArea(

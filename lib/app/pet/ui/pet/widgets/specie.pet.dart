@@ -1,9 +1,9 @@
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/primary.button.dart';
+import 'package:comfypet/providers.main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
 class SpeciePetWidget extends StatefulWidget {
   const SpeciePetWidget({super.key});
@@ -15,7 +15,7 @@ class SpeciePetWidget extends StatefulWidget {
 class _SpeciePetWidgetState extends State<SpeciePetWidget> {
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    final petProvider = getIt<PetProvider>();
 
     return Padding(
       padding: const EdgeInsets.all(4.0),

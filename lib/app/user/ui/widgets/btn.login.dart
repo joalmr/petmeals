@@ -1,7 +1,7 @@
 import 'package:comfypet/app/user/domain/provider/user_provider.dart';
 import 'package:comfypet/config/components/widgets/styles/style.button.dart';
+import 'package:comfypet/providers.main.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ButtonGoogle extends StatelessWidget {
   const ButtonGoogle({super.key});
@@ -11,7 +11,7 @@ class ButtonGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserProvider>();
+    final userProvider = getIt<UserProvider>();
 
     return Container(
       width: double.maxFinite,

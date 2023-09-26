@@ -1,8 +1,8 @@
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
+import 'package:comfypet/providers.main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class DatePetWidget extends MyDateTextFieldAdaptive {
   const DatePetWidget({
@@ -43,7 +43,8 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    // final petProvider = context.watch<PetProvider>();
+    final petProvider = getIt<PetProvider>();
     return dateiOS(context, petProvider);
   }
 

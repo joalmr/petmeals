@@ -1,15 +1,15 @@
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
+import 'package:comfypet/providers.main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class DeletePetWidget extends StatelessWidget {
   const DeletePetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    final petProvider = getIt<PetProvider>();
 
     return CupertinoButton(
         color: Colors.transparent,

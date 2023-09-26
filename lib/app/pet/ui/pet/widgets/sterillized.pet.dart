@@ -1,7 +1,7 @@
 import 'package:comfypet/app/pet/domain/provider/pet_provider.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
+import 'package:comfypet/providers.main.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 class SterillizedPetWidget extends StatefulWidget {
   const SterillizedPetWidget({super.key});
@@ -13,7 +13,7 @@ class SterillizedPetWidget extends StatefulWidget {
 class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    final petProvider = getIt<PetProvider>();
 
     return Padding(
       padding: const EdgeInsets.all(4.0),

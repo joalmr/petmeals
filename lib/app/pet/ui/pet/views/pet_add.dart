@@ -9,16 +9,17 @@ import 'package:comfypet/app/pet/ui/pet/widgets/picture.pet.dart';
 import 'package:comfypet/config/components/widgets/button/primary.button.dart';
 import 'package:comfypet/app/pet/ui/pet/widgets/date_textfield.pet.dart';
 import 'package:comfypet/config/components/widgets/textfield/textfield.dart';
+import 'package:comfypet/providers.main.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it_mixin/get_it_mixin.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
-class PetAddView extends StatelessWidget {
-  const PetAddView({super.key});
+class PetAddView extends StatelessWidget with GetItMixin {
+  PetAddView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    final petProvider = getIt<PetProvider>();
 
     return Scaffold(
       body: SafeArea(
@@ -53,9 +54,9 @@ class PetAddView extends StatelessWidget {
                 child: PicturePet(
                   buttonLeft: const BackBtn(),
                   aspectRatio: 3 / 4,
-                  child: petProvider.imageFile != null
+                  child: watchOnly((PetProvider p) => p.imageFile) != null
                       ? Image(
-                          image: petProvider.imageFile!,
+                          image: watchOnly((PetProvider p) => p.imageFile!),
                           fit: BoxFit.cover,
                         )
                       : Container(
