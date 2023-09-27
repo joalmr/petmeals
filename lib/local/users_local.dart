@@ -1,4 +1,4 @@
-import 'package:comfypet/app/user/domain/model/user_model.dart';
+import 'package:comfypet/app/domain/user/model/user_model.dart';
 import 'package:flutter/services.dart';
 
 class UsersLocal {
