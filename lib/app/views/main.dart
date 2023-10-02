@@ -9,5 +9,5 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
 
-  runApp(MainAppCubit());
+  runApp(const MainAppCubit());
 }
