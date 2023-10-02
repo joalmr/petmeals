@@ -1,5 +1,4 @@
-import 'package:comfypet/app/views/get_it/setup.get_it.dart';
-import 'package:comfypet/app/views/main.run.dart';
+import 'package:comfypet/app/views/cubit/main.cubit.dart';
 import 'package:comfypet/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
-  setupProvidersGetIt();
 
-  runApp(app['getit']!);
+  runApp(MainAppCubit());
 }

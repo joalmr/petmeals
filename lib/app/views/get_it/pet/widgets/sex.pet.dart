@@ -1,4 +1,4 @@
-import 'package:comfypet/app/domain/pet/provider/pet_provider.dart';
+import 'package:comfypet/app/domain/pet/pet_provider.dart';
 import 'package:comfypet/app/views/get_it/setup.get_it.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/primary.button.dart';

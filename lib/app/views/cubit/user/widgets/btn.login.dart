@@ -1,4 +1,4 @@
-import 'package:comfypet/app/domain/user/user_provider.dart';
+import 'package:comfypet/app/domain/user/cubit/user_cubit.dart';
 import 'package:comfypet/config/components/widgets/styles/style.button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,7 @@ class ButtonGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserProvider>();
+    final userProvider = context.watch<UserCubit>();
 
     return Container(
       width: double.maxFinite,
@@ -19,9 +19,7 @@ class ButtonGoogle extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 2),
       child: TextButton(
         onPressed: () async {
-          userProvider.signInGoogle().then((value) {
-            if (value) Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-          });
+          userProvider.signInGoogle();
         },
         style: buttonStyleOther(Colors.white, Colors.black38),
         child: const Row(

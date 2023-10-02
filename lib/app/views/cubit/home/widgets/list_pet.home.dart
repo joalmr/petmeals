@@ -1,17 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
 import 'package:comfypet/app/domain/pet/model/pet_model.dart';
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
-import 'package:comfypet/app/views/provider/home/widgets/add_pet.home.dart';
-import 'package:comfypet/app/views/provider/home/widgets/card_pet.home.dart';
+import 'package:comfypet/app/views/get_it/home/widgets/add_pet.home.dart';
+import 'package:comfypet/app/views/get_it/home/widgets/card_pet.home.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListPetWidget extends StatelessWidget {
   const ListPetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    final petProvider = context.watch<PetCubit>();
 
     return StreamBuilder<List<PetModel>>(
       stream: petProvider.loadStream(),
@@ -66,7 +66,7 @@ class ListPetWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: CardPetWidget(),
               ),
             ],

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
-import 'package:comfypet/app/views/get_it/setup.get_it.dart';
+import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 
 class CardPetWidget extends StatelessWidget with GetItMixin {
@@ -10,7 +10,7 @@ class CardPetWidget extends StatelessWidget with GetItMixin {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.watch<PetCubit>();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -21,7 +21,7 @@ class CardPetWidget extends StatelessWidget with GetItMixin {
           child: Stack(
             children: [
               Image(
-                image: CachedNetworkImageProvider(watchOnly((PetProvider p) => p.pet!.photo!)),
+                image: CachedNetworkImageProvider(petProvider.pet!.photo!),
                 height: double.maxFinite,
                 fit: BoxFit.cover,
               ),

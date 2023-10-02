@@ -1,7 +1,7 @@
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
-import 'package:comfypet/app/views/get_it/setup.get_it.dart';
+import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class DatePetWidget extends MyDateTextFieldAdaptive {
@@ -43,11 +43,11 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.watch<PetCubit>();
     return dateiOS(context, petProvider);
   }
 
-  Widget dateiOS(BuildContext context, PetProvider petProvider) {
+  Widget dateiOS(BuildContext context, PetCubit petProvider) {
     return Padding(
       padding: const EdgeInsets.only(top: 2, bottom: 0, left: 4, right: 4),
       child: Column(
@@ -76,7 +76,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
     );
   }
 
-  Widget dateAndroid(BuildContext context, PetProvider petProvider) {
+  Widget dateAndroid(BuildContext context, PetCubit petProvider) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: TextField(
@@ -100,7 +100,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
     );
   }
 
-  showModaliOS(PetProvider petProvider) {
+  showModaliOS(PetCubit petProvider) {
     return showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -136,7 +136,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
     );
   }
 
-  showModalAndroid(PetProvider petProvider) {
+  showModalAndroid(PetCubit petProvider) {
     return showDatePicker(
       context: context,
       initialDate: date,

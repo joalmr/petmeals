@@ -1,15 +1,15 @@
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
+import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeletePetWidget extends StatelessWidget {
   const DeletePetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    final petProvider = context.watch<PetCubit>();
 
     return CupertinoButton(
         color: Colors.transparent,
@@ -29,10 +29,7 @@ class DeletePetWidget extends StatelessWidget {
                   TextButton(
                     style: const ButtonStyle(foregroundColor: MaterialStatePropertyAll(mandy)),
                     onPressed: () async {
-                      await petProvider.deletePet(petProvider.pet!.id!);
-                      if (context.mounted) {
-                        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-                      }
+                      petProvider.deletePet(petProvider.pet!.id!);
                     },
                     child: const Text('Eliminar'),
                   ),

@@ -1,38 +1,28 @@
 import 'dart:developer';
 import 'package:comfypet/app/data/pet/pets_data.dart';
 import 'package:comfypet/app/data/user/user_data.dart';
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
-import 'package:comfypet/app/domain/user/user_provider.dart';
-import 'package:comfypet/app/views/provider/home/views/home.dart';
-import 'package:comfypet/app/views/provider/pet/views/pet_add.dart';
-import 'package:comfypet/app/views/provider/pet/views/pet_detail.dart';
-import 'package:comfypet/app/views/provider/user/views/login.dart';
+import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
+import 'package:comfypet/app/domain/user/cubit/user_cubit.dart';
+import 'package:comfypet/app/views/cubit/home/views/home.dart';
+import 'package:comfypet/app/views/cubit/pet/views/pet_add.dart';
+import 'package:comfypet/app/views/cubit/pet/views/pet_detail.dart';
+import 'package:comfypet/app/views/cubit/user/views/login.dart';
 import 'package:comfypet/config/components/styles/themes/theme.dart';
 import 'package:comfypet/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
 
-class MainAppProvider extends StatefulWidget {
-  const MainAppProvider({super.key});
-
-  @override
-  State<MainAppProvider> createState() => _MainAppProviderState();
-}
-
-class _MainAppProviderState extends State<MainAppProvider> {
-  late UserProvider userProvider;
-
+class MainAppCubit extends StatelessWidget {
+  const MainAppCubit({super.key});
   @override
   Widget build(BuildContext context) {
-    log('provider * state');
-    userProvider = UserProvider(userData: UserData());
-    final petProvider = PetProvider(petData: PetsData());
+    log('cubit * state');
 
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => userProvider),
-        ChangeNotifierProvider(create: (context) => petProvider, lazy: true),
+        BlocProvider(create: (context) => UserCubit(userData: UserData())),
+        BlocProvider(create: (context) => PetCubit(petData: PetsData())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -48,7 +38,7 @@ class _MainAppProviderState extends State<MainAppProvider> {
         routes: {
           '/': (context) => const LoginView(),
           'home': (context) => const HomeView(),
-          'add': (context) => const PetAddView(),
+          'add': (context) => PetAddView(),
           'petdetail': (context) => const PetDetailView(),
         },
       ),

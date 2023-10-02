@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:comfypet/app/domain/pet/provider/pet_provider.dart';
+import 'package:comfypet/app/domain/pet/pet_provider.dart';
 import 'package:comfypet/app/views/provider/pet/widgets/date_textfield.pet.dart';
 import 'package:comfypet/app/views/provider/pet/widgets/picture.pet.dart';
 import 'package:comfypet/app/views/provider/pet/widgets/sex.pet.dart';
@@ -102,7 +102,8 @@ class PetAddView extends StatelessWidget {
                         if (petProvider.controllerName.text.isEmpty || petProvider.imagen == null) {
                           log('error *');
                         } else {
-                          petProvider.addPet().then(
+                          //TODO: MEJORAR ESTA PARTE
+                          petProvider.addPet(null).then(
                             (value) {
                               if (value) {
                                 Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);

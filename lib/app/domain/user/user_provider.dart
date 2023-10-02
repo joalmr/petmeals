@@ -12,7 +12,7 @@ class UserProvider extends ChangeNotifier {
   String? name = MyStorage().name;
   String? photoUrl = MyStorage().photo;
 
-  Future<bool> signInGoogle(BuildContext context) async {
+  Future<bool> signInGoogle() async {
     final userResponse = await userData.signInGoogle();
 
     if (userResponse!.user == null) {

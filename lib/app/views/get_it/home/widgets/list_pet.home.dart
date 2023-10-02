@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comfypet/app/domain/pet/model/pet_model.dart';
-import 'package:comfypet/app/domain/pet/provider/pet_provider.dart';
+import 'package:comfypet/app/domain/pet/pet_provider.dart';
 import 'package:comfypet/app/views/get_it/home/widgets/add_pet.home.dart';
 import 'package:comfypet/app/views/get_it/home/widgets/card_pet.home.dart';
 import 'package:comfypet/app/views/get_it/setup.get_it.dart';

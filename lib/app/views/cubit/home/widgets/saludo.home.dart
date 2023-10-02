@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comfypet/app/domain/user/user_provider.dart';
-import 'package:comfypet/app/views/get_it/setup.get_it.dart';
+import 'package:comfypet/app/domain/user/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SaludoWidget extends StatelessWidget {
   const SaludoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = getIt<UserProvider>();
+    final userProvider = context.watch<UserCubit>();
 
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 8),

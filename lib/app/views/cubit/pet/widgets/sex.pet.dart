@@ -1,8 +1,8 @@
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
+import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SexPetWidget extends StatefulWidget {
   const SexPetWidget({super.key});
@@ -14,7 +14,7 @@ class SexPetWidget extends StatefulWidget {
 class _SexPetWidgetState extends State<SexPetWidget> {
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetProvider>();
+    final petProvider = context.watch<PetCubit>();
 
     return Padding(
       padding: const EdgeInsets.all(4.0),

@@ -1,5 +1,6 @@
 import 'dart:developer';
-import 'package:comfypet/app/domain/pet/provider/pet_provider.dart';
+import 'package:comfypet/app/domain/pet/model/pet_model.dart';
+import 'package:comfypet/app/domain/pet/pet_provider.dart';
 import 'package:comfypet/app/views/get_it/pet/widgets/date_textfield.pet.dart';
 import 'package:comfypet/app/views/get_it/pet/widgets/picture.pet.dart';
 import 'package:comfypet/app/views/get_it/pet/widgets/sex.pet.dart';
@@ -17,6 +18,8 @@ import 'package:image_picker/image_picker.dart';
 class PetAddView extends StatelessWidget with GetItMixin {
   PetAddView({super.key});
 
+  final controllerName = TextEditingController();
+  final controllerDate = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final petProvider = getIt<PetProvider>();
@@ -85,12 +88,13 @@ class PetAddView extends StatelessWidget with GetItMixin {
                       ),
                     ),
                     const SizedBox(height: 8),
+                    //TODO: REVISAR
                     MyTextField(
-                      controller: petProvider.controllerName,
+                      controller: controllerName,
                       textField: 'Nombre',
                     ),
                     DatePetWidget(
-                      controller: petProvider.controllerDate,
+                      controller: controllerDate,
                       textField: 'Fecha de nacimiento',
                     ),
                     const SizedBox(height: 4),
@@ -100,10 +104,11 @@ class PetAddView extends StatelessWidget with GetItMixin {
                     const SizedBox(height: 20),
                     ButtonPrimary(
                       onPressed: () {
-                        if (petProvider.controllerName.text.isEmpty || petProvider.imagen == null) {
+                        if (controllerName.text.isEmpty || petProvider.imagen == null) {
                           log('error *');
                         } else {
-                          petProvider.addPet().then(
+                          PetModel newPet = PetModel(name: controllerName.text);
+                          petProvider.addPet(newPet).then(
                             (value) {
                               if (value) {
                                 Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);

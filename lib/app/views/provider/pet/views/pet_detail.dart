@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comfypet/app/domain/pet/provider/pet_provider.dart';
+import 'package:comfypet/app/domain/pet/pet_provider.dart';
 import 'package:comfypet/app/views/provider/pet/widgets/delete.pet.dart';
 import 'package:comfypet/app/views/provider/pet/widgets/picture.pet.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
