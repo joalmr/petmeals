@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
 import 'package:comfypet/app/domain/pet/model/pet_model.dart';
-import 'package:comfypet/app/views/get_it/home/widgets/add_pet.home.dart';
-import 'package:comfypet/app/views/get_it/home/widgets/card_pet.home.dart';
+import 'package:comfypet/app/views/cubit/home/widgets/add_pet.home.dart';
+import 'package:comfypet/app/views/cubit/home/widgets/card_pet.home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

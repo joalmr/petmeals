@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
-import 'package:comfypet/app/views/get_it/pet/widgets/delete.pet.dart';
-import 'package:comfypet/app/views/get_it/pet/widgets/picture.pet.dart';
+import 'package:comfypet/app/views/cubit/pet/widgets/delete.pet.dart';
+import 'package:comfypet/app/views/cubit/pet/widgets/picture.pet.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/back.button.dart';
 import 'package:flutter/material.dart';

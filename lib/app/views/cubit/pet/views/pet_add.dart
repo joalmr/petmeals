@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
 import 'package:comfypet/app/domain/pet/model/pet_model.dart';
-import 'package:comfypet/app/views/get_it/pet/widgets/date_textfield.pet.dart';
-import 'package:comfypet/app/views/get_it/pet/widgets/picture.pet.dart';
-import 'package:comfypet/app/views/get_it/pet/widgets/sex.pet.dart';
-import 'package:comfypet/app/views/get_it/pet/widgets/specie.pet.dart';
-import 'package:comfypet/app/views/get_it/pet/widgets/sterillized.pet.dart';
+import 'package:comfypet/app/views/cubit/pet/widgets/date_textfield.pet.dart';
+import 'package:comfypet/app/views/cubit/pet/widgets/picture.pet.dart';
+import 'package:comfypet/app/views/cubit/pet/widgets/sex.pet.dart';
+import 'package:comfypet/app/views/cubit/pet/widgets/specie.pet.dart';
+import 'package:comfypet/app/views/cubit/pet/widgets/sterillized.pet.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/back.button.dart';
 import 'package:comfypet/config/components/widgets/button/primary.button.dart';

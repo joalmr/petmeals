@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:comfypet/app/domain/user/cubit/user_cubit.dart';
-import 'package:comfypet/app/views/get_it/user/widgets/btn.login.dart';
-import 'package:comfypet/app/views/get_it/user/widgets/intro.login.dart';
-import 'package:comfypet/app/views/get_it/user/widgets/logo.login.dart';
+import 'package:comfypet/app/views/cubit/user/widgets/btn.login.dart';
+import 'package:comfypet/app/views/cubit/user/widgets/intro.login.dart';
+import 'package:comfypet/app/views/cubit/user/widgets/logo.login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
