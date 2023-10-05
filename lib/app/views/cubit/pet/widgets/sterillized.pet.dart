@@ -16,7 +16,7 @@ class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
     final petProvider = context.watch<PetCubit>();
 
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4),
       child: Row(
         children: [
           const Text(
@@ -25,13 +25,14 @@ class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
           ),
           const SizedBox(width: 110),
           CupertinoSwitch(
-              activeColor: primerColor,
-              value: petProvider.state.sterillized,
-              onChanged: (value) {
-                setState(() {
-                  petProvider.state.sterillized = !petProvider.state.sterillized;
-                });
-              }),
+            activeColor: primerColor,
+            value: petProvider.state.sterillized,
+            onChanged: (value) {
+              setState(() {
+                petProvider.state.sterillized = !petProvider.state.sterillized;
+              });
+            },
+          ),
         ],
       ),
     );

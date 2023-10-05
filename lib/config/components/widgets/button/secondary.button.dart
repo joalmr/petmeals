@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 
 class ButtonSecondary extends BtnIOS {
   const ButtonSecondary({
+    required super.text,
     super.key,
     super.onPressed,
-    required super.text,
   });
 }
 
 //ios
 abstract class BtnIOS extends StatelessWidget {
-  final void Function()? onPressed;
-  final String text;
   const BtnIOS({
+    required this.text,
     super.key,
     this.onPressed,
-    required this.text,
   });
+  final void Function()? onPressed;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +36,13 @@ abstract class BtnIOS extends StatelessWidget {
 
 //android
 abstract class BtnAndroid extends StatelessWidget {
-  final void Function()? onPressed;
-  final String text;
   const BtnAndroid({
+    required this.text,
     super.key,
     this.onPressed,
-    required this.text,
   });
+  final void Function()? onPressed;
+  final String text;
 
   @override
   Widget build(BuildContext context) {

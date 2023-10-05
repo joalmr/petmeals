@@ -19,7 +19,7 @@ class ButtonGoogle extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 2),
       child: TextButton(
         onPressed: () async {
-          userProvider.signInGoogle();
+          await userProvider.signInGoogle();
         },
         style: buttonStyleOther(Colors.white, Colors.black38),
         child: const Row(

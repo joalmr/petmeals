@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
@@ -9,20 +8,29 @@ Future<String> uploadImage(File image, String userId) async {
   final format = DateFormat('ddMMyyyyHHmmss');
   final nameImg = format.format(DateTime.now());
 
-  Reference ref = storage.ref().child('images').child(userId).child('pets').child('___${nameImg}___');
+  final ref = storage
+      .ref()
+      .child('images')
+      .child(userId)
+      .child('pets')
+      .child('___${nameImg}___');
 
-  final UploadTask uploadTask = ref.putFile(image);
-  final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => true);
-  inspect(taskSnapshot);
-  final String url = await taskSnapshot.ref.getDownloadURL();
-  log(url);
+  final uploadTask = ref.putFile(image);
+  final taskSnapshot = await uploadTask.whenComplete(() => true);
+
+  final url = await taskSnapshot.ref.getDownloadURL();
+
   return url;
 }
 
-void deleteImage(String imageName, String userId) async {
-  String img = imageName.split('___')[1];
+void deleteImage(String imageName, String userId) {
+  final img = imageName.split('___')[1];
 
-  final desertRef = storage.ref().child('images').child(userId).child('pets').child('___${img}___');
-
-  desertRef.delete();
+  storage
+      .ref()
+      .child('images')
+      .child(userId)
+      .child('pets')
+      .child('___${img}___')
+      .delete();
 }

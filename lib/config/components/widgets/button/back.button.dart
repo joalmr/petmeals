@@ -1,3 +1,4 @@
+import 'package:comfypet/app/domain/cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class BackBtn extends StatelessWidget {
         Icons.arrow_back_rounded,
         color: CupertinoColors.systemGrey,
       ),
-      onPressed: () => Navigator.pop(context),
+      onPressed: () => context.read<RouterCubit>().goBack(),
     );
   }
 }

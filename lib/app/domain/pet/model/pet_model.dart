@@ -1,21 +1,12 @@
 import 'dart:convert';
 
-List<PetModel> petModelFromJson(String str) => List<PetModel>.from(json.decode(str).map((x) => PetModel.fromJson(x)));
+List<PetModel> petModelFromJson(String str) =>
+    List<PetModel>.from(json.decode(str).map((x) => PetModel.fromJson(x)));
 
-String petModelToJson(List<PetModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String petModelToJson(List<PetModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class PetModel {
-  final String? id;
-  final Specie? specie;
-  final List<String>? userId;
-  final bool? sex;
-  final String? name;
-  final String? photo;
-  final DateTime? borndate;
-  final dynamic deletedAt;
-  final bool? sterillized;
-  final int? age;
-
   PetModel({
     this.id,
     this.specie,
@@ -28,6 +19,32 @@ class PetModel {
     this.sterillized,
     this.age,
   });
+
+  factory PetModel.fromJson(Map<String, dynamic> json) => PetModel(
+        id: json['id'],
+        specie: Specie.fromJson(json['specie']),
+        userId: List<String>.from(json['user_id'].map((x) => x)),
+        sex: json['sex'],
+        name: json['name'],
+        photo: json['photo'],
+        deletedAt: json['deleted_at'],
+        sterillized: json['sterillized'] ?? false,
+        borndate: DateTime.parse(json['borndate']),
+        age: (DateTime.now()
+                .difference(DateTime.parse(json['borndate']))
+                .inDays) ~/
+            365, //* division resp entero
+      );
+  final String? id;
+  final Specie? specie;
+  final List<String>? userId;
+  final bool? sex;
+  final String? name;
+  final String? photo;
+  final DateTime? borndate;
+  final dynamic deletedAt;
+  final bool? sterillized;
+  final int? age;
 
   PetModel copyWith({
     String? id,
@@ -54,40 +71,31 @@ class PetModel {
         age: age ?? this.age,
       );
 
-  factory PetModel.fromJson(Map<String, dynamic> json) => PetModel(
-        id: json["id"],
-        specie: Specie.fromJson(json["specie"]),
-        userId: List<String>.from(json["user_id"].map((x) => x)),
-        sex: json["sex"],
-        name: json["name"],
-        photo: json["photo"],
-        deletedAt: json["deleted_at"],
-        sterillized: json["sterillized"] ?? false,
-        borndate: DateTime.parse(json["borndate"]),
-        age: (DateTime.now().difference(DateTime.parse(json["borndate"])).inDays) ~/ 365, //* division resp entero
-      );
-
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "borndate":
+        'name': name,
+        'borndate':
             "${borndate!.year.toString().padLeft(4, '0')}-${borndate!.month.toString().padLeft(2, '0')}-${borndate!.day.toString().padLeft(2, '0')}",
-        "specie": specie!.toJson(),
-        "sex": sex,
-        "sterillized": sterillized,
-        "photo": photo,
-        "created_at": DateTime.timestamp(),
-        "user_id": List<dynamic>.from(userId!.map((x) => x)),
+        'specie': specie!.toJson(),
+        'sex': sex,
+        'sterillized': sterillized,
+        'photo': photo,
+        'created_at': DateTime.timestamp(),
+        'user_id': List<dynamic>.from(userId!.map((x) => x)),
       };
 }
 
 class Specie {
-  final String? name;
-  final String? id;
-
   Specie({
     this.name,
     this.id,
   });
+
+  factory Specie.fromJson(Map<String, dynamic> json) => Specie(
+        name: json['name'],
+        id: json['id'],
+      );
+  final String? name;
+  final String? id;
 
   Specie copyWith({
     String? name,
@@ -98,13 +106,8 @@ class Specie {
         id: id ?? this.id,
       );
 
-  factory Specie.fromJson(Map<String, dynamic> json) => Specie(
-        name: json["name"],
-        id: json["id"],
-      );
-
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "id": id,
+        'name': name,
+        'id': id,
       };
 }

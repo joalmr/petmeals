@@ -10,5 +10,5 @@ final groomingList = [
   GroomingModel(typeId: 7, typeName: 'Limpieza de glándulas anales'),
   GroomingModel(typeId: 8, typeName: 'Limpieza dental'),
   GroomingModel(typeId: 9, typeName: 'Cepillado'),
-  GroomingModel(typeId: 10, typeName: 'Perfumado')
+  GroomingModel(typeId: 10, typeName: 'Perfumado'),
 ];

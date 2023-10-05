@@ -17,7 +17,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
     final petProvider = context.watch<PetCubit>();
 
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -32,11 +32,18 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.female, color: !petProvider.state.sex ? primerColor : textoColorContraste),
+                    Icon(
+                      Icons.female,
+                      color: !petProvider.state.sex
+                          ? primerColor
+                          : textoColorContraste,
+                    ),
                     Text(
                       'Hembra',
                       style: TextStyle(
-                        color: !petProvider.state.sex ? primerColor : textoColorContraste,
+                        color: !petProvider.state.sex
+                            ? primerColor
+                            : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -53,11 +60,18 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.male, color: petProvider.state.sex ? primerColor : textoColorContraste),
+                    Icon(
+                      Icons.male,
+                      color: petProvider.state.sex
+                          ? primerColor
+                          : textoColorContraste,
+                    ),
                     Text(
                       'Macho',
                       style: TextStyle(
-                        color: petProvider.state.sex ? primerColor : textoColorContraste,
+                        color: petProvider.state.sex
+                            ? primerColor
+                            : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),

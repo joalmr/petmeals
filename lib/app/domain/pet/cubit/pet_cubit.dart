@@ -9,21 +9,22 @@ import 'package:image_picker/image_picker.dart';
 part 'pet_state.dart';
 
 class PetCubit extends Cubit<PetState> {
-  final PetsData petData;
   PetCubit({required this.petData}) : super(PetInitial()) {
     loadStream().listen((event) {
-      state.myPets = event;
-      state.pet = state.myPets.first;
+      state
+        ..myPets = event
+        ..pet = state.myPets.first;
     });
   }
+  final PetsData petData;
 
   Stream<List<PetModel>> loadStream() => petData.getPetStream(state.userId);
 
   void myPet(PetModel myPet) => emit(PetSelected(myPet));
 
-  void addPet(PetModel? newPet) async {
-    newPet = PetModel(
-      name: newPet?.name,
+  Future<void> addPet(PetModel? tempPet) async {
+    final pet = PetModel(
+      name: tempPet?.name,
       borndate: state.borndate,
       specie: state.specieJson[state.specie],
       sex: state.sex,
@@ -32,21 +33,22 @@ class PetCubit extends Cubit<PetState> {
     );
 
     final img = File(state.imagen!.path);
-    final response = await petData.addPeT(newPet, img, state.userId);
+    final response = await petData.addPeT(pet, img, state.userId);
 
     if (response != null) {
-      state.specie = 0;
-      state.sex = false;
-      state.borndate = DateTime.now();
-      state.sterillized = false;
-      state.imagen = null;
-      state.imageFile = null;
+      state
+        ..specie = 0
+        ..sex = false
+        ..borndate = DateTime.now()
+        ..sterillized = false
+        ..imagen = null
+        ..imageFile = null;
 
       emit(PetAdded(response));
     }
   }
 
-  void deletePet(String id) async {
+  Future<void> deletePet(String id) async {
     await petData.deletePet(id, state.userId);
 
     emit(PetDeleted(state.myPets.first));

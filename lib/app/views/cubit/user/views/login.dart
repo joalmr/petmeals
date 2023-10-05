@@ -1,10 +1,9 @@
 import 'dart:developer';
-import 'package:comfypet/app/domain/user/cubit/user_cubit.dart';
+import 'package:comfypet/app/domain/cubit.dart';
 import 'package:comfypet/app/views/cubit/user/widgets/btn.login.dart';
 import 'package:comfypet/app/views/cubit/user/widgets/intro.login.dart';
 import 'package:comfypet/app/views/cubit/user/widgets/logo.login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -15,16 +14,17 @@ class LoginView extends StatelessWidget {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
         if (state is UserLoaded) {
-          Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+          context.read<RouterCubit>().goHome();
         }
       },
       builder: (context, state) {
         if (state is UserLoading) {
           return const Scaffold(
             body: SafeArea(
-                child: Center(
-              child: CircularProgressIndicator(),
-            )),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
           );
         }
         return Scaffold(
@@ -32,11 +32,10 @@ class LoginView extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 25, bottom: 0),
+                      margin: const EdgeInsets.only(top: 25),
                       width: double.maxFinite,
                       child: ListView(
                         children: const [

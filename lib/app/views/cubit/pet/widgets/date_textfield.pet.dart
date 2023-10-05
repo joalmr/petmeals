@@ -6,26 +6,25 @@ import 'package:intl/intl.dart';
 
 class DatePetWidget extends MyDateTextFieldAdaptive {
   const DatePetWidget({
-    super.key,
     required super.textField,
     required super.controller,
+    super.key,
   });
 }
 
-format() {
+DateFormat format() {
   return DateFormat('dd-MM-yyyy');
 }
 
 //ios
 abstract class MyDateTextFieldAdaptive extends StatefulWidget {
-  final String textField;
-  final TextEditingController controller;
-
   const MyDateTextFieldAdaptive({
-    super.key,
     required this.textField,
     required this.controller,
+    super.key,
   });
+  final String textField;
+  final TextEditingController controller;
 
   @override
   State<MyDateTextFieldAdaptive> createState() => _MyDateTextFieldAdaptive();
@@ -49,7 +48,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
 
   Widget dateiOS(BuildContext context, PetCubit petProvider) {
     return Padding(
-      padding: const EdgeInsets.only(top: 2, bottom: 0, left: 4, right: 4),
+      padding: const EdgeInsets.only(top: 2, left: 4, right: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -78,7 +77,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
 
   Widget dateAndroid(BuildContext context, PetCubit petProvider) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4),
       child: TextField(
         controller: widget.controller,
         readOnly: true,
@@ -92,7 +91,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
           filled: true,
           fillColor: Colors.white70,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(style: BorderStyle.none, width: 0),
           ),
         ),
@@ -100,7 +99,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
     );
   }
 
-  showModaliOS(PetCubit petProvider) {
+  Future<dynamic> showModaliOS(PetCubit petProvider) {
     return showCupertinoModalPopup(
       context: context,
       builder: (context) {
@@ -136,7 +135,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
     );
   }
 
-  showModalAndroid(PetCubit petProvider) {
+  Future<dynamic> showModalAndroid(PetCubit petProvider) {
     return showDatePicker(
       context: context,
       initialDate: date,

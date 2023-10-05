@@ -10,6 +10,7 @@ import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/back.button.dart';
 import 'package:comfypet/config/components/widgets/button/primary.button.dart';
 import 'package:comfypet/config/components/widgets/textfield/textfield.dart';
+import 'package:comfypet/config/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,7 +28,7 @@ class PetAddView extends StatelessWidget {
     return BlocConsumer<PetCubit, PetState>(
       listener: (context, state) {
         if (state is PetAdded) {
-          Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+          context.read<RouterCubit>().goHome();
         }
       },
       builder: (context, state) {
@@ -38,61 +39,67 @@ class PetAddView extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return SimpleDialog(
-                              children: [
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    petProvider
-                                        .procesarImagen(ImageSource.camera)
-                                        .then((value) =>
-                                            petProvider.changeImage(value!));
-                                  },
-                                  child: const Text('Tomar foto'),
-                                ),
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    petProvider
-                                        .procesarImagen(ImageSource.gallery)
-                                        .then((value) =>
-                                            petProvider.changeImage(value!));
-                                  },
-                                  child: const Text('Seleccionar foto'),
-                                ),
-                              ],
-                            );
-                          });
+                      showDialog<Widget>(
+                        context: context,
+                        builder: (context) {
+                          return SimpleDialog(
+                            children: [
+                              SimpleDialogOption(
+                                onPressed: () {
+                                  context.read<RouterCubit>().goBack();
+                                  petProvider
+                                      .procesarImagen(ImageSource.camera)
+                                      .then(
+                                        (value) =>
+                                            petProvider.changeImage(value!),
+                                      );
+                                },
+                                child: const Text('Tomar foto'),
+                              ),
+                              SimpleDialogOption(
+                                onPressed: () {
+                                  context.read<RouterCubit>().goBack();
+                                  petProvider
+                                      .procesarImagen(ImageSource.gallery)
+                                      .then(
+                                        (value) =>
+                                            petProvider.changeImage(value!),
+                                      );
+                                },
+                                child: const Text('Seleccionar foto'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     child: PicturePet(
-                        buttonLeft: const BackBtn(),
-                        aspectRatio: 3 / 4,
-                        child: BlocBuilder<PetCubit, PetState>(
-                          builder: (context, state) {
-                            if (state is PetAddImg) {
-                              return Image(
-                                image: state.imageFile!,
-                                fit: BoxFit.cover,
-                              );
-                            } else {
-                              return Container(
-                                decoration:
-                                    const BoxDecoration(color: primerColor),
-                                height: 120,
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.photo,
-                                    size: 42,
-                                    color: textoColorContraste,
-                                  ),
+                      buttonLeft: const BackBtn(),
+                      aspectRatio: 3 / 4,
+                      child: BlocBuilder<PetCubit, PetState>(
+                        builder: (context, state) {
+                          if (state is PetAddImg) {
+                            return Image(
+                              image: state.imageFile!,
+                              fit: BoxFit.cover,
+                            );
+                          } else {
+                            return Container(
+                              decoration:
+                                  const BoxDecoration(color: primerColor),
+                              height: 120,
+                              child: const Center(
+                                child: Icon(
+                                  Icons.photo,
+                                  size: 42,
+                                  color: textoColorContraste,
                                 ),
-                              );
-                            }
-                          },
-                        )),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Padding(
@@ -126,7 +133,7 @@ class PetAddView extends StatelessWidget {
                                 petProvider.state.imagen == null) {
                               log('error *');
                             } else {
-                              PetModel newPet =
+                              final newPet =
                                   PetModel(name: controllerName.text);
                               petProvider.addPet(newPet);
                             }

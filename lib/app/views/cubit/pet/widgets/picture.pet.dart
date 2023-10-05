@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
 class PicturePet extends StatelessWidget {
+  const PicturePet({
+    required this.aspectRatio,
+    required this.child,
+    required this.buttonLeft,
+    super.key,
+    this.buttonRight,
+  });
   final double aspectRatio;
   final Widget child;
   final Widget? buttonLeft;
   final Widget? buttonRight;
-
-  const PicturePet({
-    super.key,
-    required this.aspectRatio,
-    required this.child,
-    required this.buttonLeft,
-    this.buttonRight,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +35,22 @@ class PicturePet extends StatelessWidget {
             ),
           ),
         ),
-        buttonLeft == null
-            ? const SizedBox()
-            : Positioned(
-                top: 32,
-                left: 10,
-                child: buttonLeft!,
-              ),
-        buttonRight == null
-            ? const SizedBox()
-            : Positioned(
-                top: 32,
-                right: 10,
-                child: buttonRight!,
-              ),
+        if (buttonLeft == null)
+          const SizedBox()
+        else
+          Positioned(
+            top: 32,
+            left: 10,
+            child: buttonLeft!,
+          ),
+        if (buttonRight == null)
+          const SizedBox()
+        else
+          Positioned(
+            top: 32,
+            right: 10,
+            child: buttonRight!,
+          ),
       ],
     );
   }

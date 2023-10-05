@@ -18,7 +18,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
     final petProvider = context.watch<PetCubit>();
 
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,7 +36,9 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     SvgPicture.asset(
                       'assets/images/icons/cat.svg',
                       colorFilter: ColorFilter.mode(
-                        petProvider.state.specie == 0 ? primerColor : textoColorContraste,
+                        petProvider.state.specie == 0
+                            ? primerColor
+                            : textoColorContraste,
                         BlendMode.srcIn,
                       ),
                       height: 32,
@@ -44,7 +46,9 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     Text(
                       'Gato',
                       style: TextStyle(
-                        color: petProvider.state.specie == 0 ? primerColor : textoColorContraste,
+                        color: petProvider.state.specie == 0
+                            ? primerColor
+                            : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -64,7 +68,9 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     SvgPicture.asset(
                       'assets/images/icons/dog.svg',
                       colorFilter: ColorFilter.mode(
-                        petProvider.state.specie == 1 ? primerColor : textoColorContraste,
+                        petProvider.state.specie == 1
+                            ? primerColor
+                            : textoColorContraste,
                         BlendMode.srcIn,
                       ),
                       height: 32,
@@ -72,7 +78,9 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     Text(
                       'Perro',
                       style: TextStyle(
-                        color: petProvider.state.specie == 1 ? primerColor : textoColorContraste,
+                        color: petProvider.state.specie == 1
+                            ? primerColor
+                            : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),

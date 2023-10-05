@@ -32,7 +32,7 @@ class ListPetWidget extends StatelessWidget {
         }
 
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             children: [
               SingleChildScrollView(
@@ -49,12 +49,14 @@ class ListPetWidget extends StatelessWidget {
                               onTap: () => petProvider.myPet(element),
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.all(
-                                    Radius.circular(100)),
+                                  Radius.circular(100),
+                                ),
                                 child: Stack(
                                   children: [
                                     Image(
                                       image: CachedNetworkImageProvider(
-                                          element.photo!),
+                                        element.photo!,
+                                      ),
                                       height: 52,
                                       width: 52,
                                       fit: BoxFit.cover,

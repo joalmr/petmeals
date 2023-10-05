@@ -7,15 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
-  final UserData userData;
   UserCubit({required this.userData}) : super(UserInitial());
+  final UserData userData;
 
   User? user;
   String? uid = MyStorage().uid;
   String? name = MyStorage().name;
   String? photoUrl = MyStorage().photo;
 
-  void signInGoogle() async {
+  Future<void> signInGoogle() async {
     emit(UserLoading());
     final userResponse = await userData.signInGoogle();
 
@@ -39,7 +39,7 @@ class UserCubit extends Cubit<UserState> {
     emit(UserError());
   }
 
-  void getUser() async {
+  Future<void> getUser() async {
     await userData.getUser(uid!);
   }
 }

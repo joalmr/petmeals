@@ -14,12 +14,10 @@ class SaludoWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Text(
                   'Hola',

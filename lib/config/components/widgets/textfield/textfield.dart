@@ -4,22 +4,21 @@ import 'package:flutter/material.dart';
 
 class MyTextField extends MyTextFieldIOS {
   const MyTextField({
-    super.key,
     required super.textField,
+    super.key,
     super.controller,
   });
 }
 
 //ios
 abstract class MyTextFieldIOS extends StatefulWidget {
-  final String textField;
-  final TextEditingController? controller;
-
   const MyTextFieldIOS({
-    super.key,
     required this.textField,
+    super.key,
     this.controller,
   });
+  final String textField;
+  final TextEditingController? controller;
 
   @override
   State<MyTextFieldIOS> createState() => _TextFieldIOSState();
@@ -31,20 +30,21 @@ class _TextFieldIOSState extends State<MyTextFieldIOS> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 2, bottom: 0, left: 4, right: 4),
+      padding: const EdgeInsets.only(top: 2, left: 4, right: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          texting
-              ? FadeInUp(
-                  from: 15,
-                  duration: const Duration(milliseconds: 500),
-                  child: Text(
-                    widget.textField,
-                    style: const TextStyle(fontSize: 10),
-                  ),
-                )
-              : const SizedBox(height: 12.6),
+          if (texting)
+            FadeInUp(
+              from: 15,
+              duration: const Duration(milliseconds: 500),
+              child: Text(
+                widget.textField,
+                style: const TextStyle(fontSize: 10),
+              ),
+            )
+          else
+            const SizedBox(height: 12.6),
           CupertinoTextField(
             textCapitalization: TextCapitalization.sentences,
             controller: widget.controller,
@@ -77,18 +77,18 @@ class _TextFieldIOSState extends State<MyTextFieldIOS> {
 
 //android
 abstract class MyTextFieldAndroid extends StatelessWidget {
-  final String textField;
-  final TextEditingController? controller;
   const MyTextFieldAndroid({
-    super.key,
     required this.textField,
+    super.key,
     this.controller,
   });
+  final String textField;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4),
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
@@ -100,7 +100,7 @@ abstract class MyTextFieldAndroid extends StatelessWidget {
           filled: true,
           fillColor: Colors.white70,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(style: BorderStyle.none, width: 0),
           ),
         ),

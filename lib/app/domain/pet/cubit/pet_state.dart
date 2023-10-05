@@ -1,6 +1,9 @@
+// ignore_for_file: overridden_fields
+
 part of 'pet_cubit.dart';
 
 class PetState {
+  PetState();
   String userId = MyStorage().uid;
 
   List<PetModel> myPets = [];
@@ -17,8 +20,6 @@ class PetState {
 
   XFile? imagen;
   FileImage? imageFile;
-
-  PetState();
 }
 
 final class PetInitial extends PetState {}

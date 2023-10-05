@@ -6,19 +6,19 @@ import 'package:google_sign_in/google_sign_in.dart';
 class UserData {
   //*sign in
   Future<UserCredential?> signInGoogle() async {
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final googleUser = await GoogleSignIn().signIn();
+    final googleAuth = await googleUser?.authentication;
 
-    AuthCredential credential = GoogleAuthProvider.credential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
 
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    return FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   //*sign out
-  Future<void> signOut() async => await FirebaseAuth.instance.signOut();
+  Future<void> signOut() async => FirebaseAuth.instance.signOut();
 
   //*Firebase
   final fireRef = FirebaseFirestore.instance.collection('user').withConverter(
@@ -31,7 +31,7 @@ class UserData {
       );
 
   //*get users
-  getUser(String uid) async {
-    return await fireRef.doc(uid).get();
+  Future<DocumentSnapshot<UserModel>> getUser(String uid) {
+    return fireRef.doc(uid).get();
   }
 }

@@ -2,14 +2,8 @@ import 'dart:developer';
 import 'package:comfypet/app/data/pet/pets_data.dart';
 import 'package:comfypet/app/data/user/user_data.dart';
 import 'package:comfypet/app/domain/cubit.dart';
-import 'package:comfypet/app/views/cubit/home/views/home.dart';
-import 'package:comfypet/app/views/cubit/pet/views/pet_add.dart';
-import 'package:comfypet/app/views/cubit/pet/views/pet_detail.dart';
-import 'package:comfypet/app/views/cubit/user/views/login.dart';
 import 'package:comfypet/config/components/styles/themes/theme.dart';
-import 'package:comfypet/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MainAppCubit extends StatelessWidget {
@@ -17,13 +11,14 @@ class MainAppCubit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log('cubit * state');
-
+    final appRouter = context.watch<RouterCubit>().state;
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => UserCubit(userData: UserData())),
         BlocProvider(create: (context) => PetCubit(petData: PetsData())),
+        BlocProvider(create: (context) => RouterCubit()),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Comfypet',
         theme: themeData,
@@ -33,31 +28,7 @@ class MainAppCubit extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [Locale('es', 'ES')],
-        initialRoute: MyStorage().uid.isNotEmpty ? 'home' : '/',
-        routes: {
-          '/': (context) => const LoginView(),
-          'home': (context) => const HomeView(),
-          'add': (context) => PetAddView(),
-          'petdetail': (context) => const PetDetailView(),
-        },
-        // home: BlocConsumer<PetCubit, PetState>(
-        //   listener: (context, state) {
-        //     if (state is PetAdd) {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) => PetAddView(),
-        //         ),
-        //       );
-        //     }
-        //     if (state is PetDeleted) {}
-        //   },
-        //   builder: (context, state) {
-        //     return MyStorage().uid.isNotEmpty
-        //         ? const HomeView()
-        //         : const LoginView();
-        //   },
-        // ),
+        routerConfig: appRouter,
       ),
     );
   }

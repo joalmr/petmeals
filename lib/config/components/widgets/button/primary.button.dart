@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class ButtonPrimary extends BtnIOS {
   const ButtonPrimary({
+    required super.child,
     super.key,
     super.onPressed,
-    required super.child,
     super.color,
   });
   // @override
@@ -19,16 +19,15 @@ class ButtonPrimary extends BtnIOS {
 
 //ios
 abstract class BtnIOS extends StatelessWidget {
+  const BtnIOS({
+    required this.child,
+    super.key,
+    this.onPressed,
+    this.color = primerColor,
+  });
   final Widget child;
   final void Function()? onPressed;
   final Color color;
-
-  const BtnIOS({
-    super.key,
-    this.onPressed,
-    required this.child,
-    this.color = primerColor,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,16 +43,15 @@ abstract class BtnIOS extends StatelessWidget {
 
 //android
 abstract class BtnAndroid extends StatelessWidget {
+  const BtnAndroid({
+    required this.child,
+    super.key,
+    this.onPressed,
+    this.color = primerColor,
+  });
   final Widget child;
   final void Function()? onPressed;
   final Color color;
-
-  const BtnAndroid({
-    super.key,
-    this.onPressed,
-    required this.child,
-    this.color = primerColor,
-  });
 
   @override
   Widget build(BuildContext context) {
