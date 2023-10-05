@@ -1,4 +1,3 @@
-import 'package:comfypet/app/domain/cubit.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

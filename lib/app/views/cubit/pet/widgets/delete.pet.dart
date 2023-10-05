@@ -2,7 +2,6 @@ import 'package:comfypet/app/domain/cubit.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class DeletePetWidget extends StatelessWidget {
@@ -37,7 +36,7 @@ class DeletePetWidget extends StatelessWidget {
                     child: const Text('Eliminar'),
                   ),
                   TextButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => context.pop(),
                     child: const Text('Cancelar'),
                   ),
                 ],
