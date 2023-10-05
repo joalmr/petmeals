@@ -4,6 +4,7 @@ import 'package:comfypet/app/views/cubit/user/widgets/btn.login.dart';
 import 'package:comfypet/app/views/cubit/user/widgets/intro.login.dart';
 import 'package:comfypet/app/views/cubit/user/widgets/logo.login.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -14,7 +15,7 @@ class LoginView extends StatelessWidget {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
         if (state is UserLoaded) {
-          context.read<RouterCubit>().goHome();
+          context.go('/home');
         }
       },
       builder: (context, state) {
