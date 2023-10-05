@@ -9,9 +9,7 @@ class AddPetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: const BorderRadius.all(Radius.circular(100)),
-      onTap: () {
-        Navigator.pushNamed(context, 'add');
-      },
+      onTap: () => Navigator.pushNamed(context, 'add'),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(100)),
         child: Container(

@@ -26,10 +26,10 @@ class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
           const SizedBox(width: 110),
           CupertinoSwitch(
               activeColor: primerColor,
-              value: petProvider.sterillized,
+              value: petProvider.state.sterillized,
               onChanged: (value) {
                 setState(() {
-                  petProvider.sterillized = !petProvider.sterillized;
+                  petProvider.state.sterillized = !petProvider.state.sterillized;
                 });
               }),
         ],

@@ -3,15 +3,12 @@ import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it_mixin/get_it_mixin.dart';
 
-class CardPetWidget extends StatelessWidget with GetItMixin {
-  CardPetWidget({super.key});
+class CardPetWidget extends StatelessWidget {
+  const CardPetWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetCubit>();
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
@@ -20,10 +17,15 @@ class CardPetWidget extends StatelessWidget with GetItMixin {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           child: Stack(
             children: [
-              Image(
-                image: CachedNetworkImageProvider(petProvider.pet!.photo!),
-                height: double.maxFinite,
-                fit: BoxFit.cover,
+              BlocBuilder<PetCubit, PetState>(
+                builder: (context, state) {
+                  final petPhoto = state.pet!.photo;
+                  return Image(
+                    image: CachedNetworkImageProvider(petPhoto!),
+                    height: double.maxFinite,
+                    fit: BoxFit.cover,
+                  );
+                },
               ),
               Positioned(
                 top: 0,
@@ -36,13 +38,18 @@ class CardPetWidget extends StatelessWidget with GetItMixin {
                     color: Colors.black54,
                   ),
                   child: Center(
-                    child: Text(
-                      petProvider.pet!.name!,
-                      style: const TextStyle(
-                        color: textoColorContraste,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
+                    child: BlocBuilder<PetCubit, PetState>(
+                      builder: (context, state) {
+                        final petName = state.pet?.name ?? '';
+                        return Text(
+                          petName,
+                          style: const TextStyle(
+                            color: textoColorContraste,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),

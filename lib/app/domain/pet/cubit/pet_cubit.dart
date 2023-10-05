@@ -1,9 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
-import 'package:bloc/bloc.dart';
 import 'package:comfypet/app/data/pet/pets_data.dart';
 import 'package:comfypet/app/domain/pet/model/pet_model.dart';
 import 'package:comfypet/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 part 'pet_state.dart';
@@ -12,57 +13,39 @@ class PetCubit extends Cubit<PetState> {
   final PetsData petData;
   PetCubit({required this.petData}) : super(PetInitial()) {
     loadStream().listen((event) {
-      myPets = event;
-      pet = myPets.first;
+      state.myPets = event;
+      state.pet = state.myPets.first;
     });
   }
 
-  String userId = MyStorage().uid;
-  //? OBTIENE USER ID
+  Stream<List<PetModel>> loadStream() => petData.getPetStream(state.userId);
 
-  List<PetModel> myPets = [];
-  PetModel? pet;
-
-  int specie = 0;
-  bool sex = false;
-  DateTime borndate = DateTime.now();
-  bool sterillized = false;
-  Map<int, Specie> specieJson = {
-    0: Specie(id: '0', name: 'Gato'),
-    1: Specie(id: '1', name: 'Perro'),
-  };
-
-  XFile? imagen;
-  FileImage? imageFile;
-
-  Stream<List<PetModel>> loadStream() => petData.getPetStream(userId);
-
-  void myPet(PetModel myPet) => pet = myPet;
+  void myPet(PetModel myPet) => emit(PetSelected(myPet));
 
   void addPet(PetModel? newPet) async {
-    emit(PetLoading());
-
+    // emit(PetLoading());
     newPet = PetModel(
       name: newPet?.name,
-      borndate: borndate,
-      specie: specieJson[specie],
-      sex: sex,
-      sterillized: sterillized,
-      userId: [userId],
+      borndate: state.borndate,
+      specie: state.specieJson[state.specie],
+      sex: state.sex,
+      sterillized: state.sterillized,
+      userId: [state.userId],
     );
 
-    final img = File(imagen!.path);
-    final response = await petData.addPeT(newPet, img, userId);
+    final img = File(state.imagen!.path);
+    final response = await petData.addPeT(newPet, img, state.userId);
+    inspect(response);
 
     if (response) {
       // controllerDate.text = '';
       // controllerName.text = '';
-      specie = 0;
-      sex = false;
-      borndate = DateTime.now();
-      sterillized = false;
-      imagen = null;
-      imageFile = null;
+      state.specie = 0;
+      state.sex = false;
+      state.borndate = DateTime.now();
+      state.sterillized = false;
+      state.imagen = null;
+      state.imageFile = null;
     }
 
     emit(PetAdded());
@@ -70,13 +53,20 @@ class PetCubit extends Cubit<PetState> {
 
   void deletePet(String id) async {
     emit(PetLoading());
-    await petData.deletePet(id, userId);
-    pet = myPets.first;
+    await petData.deletePet(id, state.userId);
+    state.pet = state.myPets.first;
     emit(PetDeleted());
   }
 
-  void procesarImagen(ImageSource origen) async {
-    imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
-    imageFile = FileImage(File(imagen!.path));
+  Future<XFile?> procesarImagen(ImageSource origen) async {
+    final imagen =
+        await ImagePicker().pickImage(source: origen, imageQuality: 80);
+    // final imageFile = FileImage(File(state.imagen!.path));
+    return imagen;
+  }
+
+  void changeImage(XFile image) {
+    final imageFile = FileImage(File(image.path));
+    emit(PetAddImg(image, imageFile));
   }
 }

@@ -17,9 +17,9 @@ class PetDetailView extends StatelessWidget {
 
     return BlocConsumer<PetCubit, PetState>(
       listener: (context, state) {
-        if (state is PetDeleted) {
-          Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-        }
+        // if (state is PetDeleted) {
+        //   Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+        // }
       },
       builder: (context, state) {
         return Scaffold(
@@ -31,27 +31,27 @@ class PetDetailView extends StatelessWidget {
                   buttonRight: const DeletePetWidget(),
                   aspectRatio: 3 / 4,
                   child: Image(
-                    image: CachedNetworkImageProvider(petProvider.pet!.photo!),
+                    image: CachedNetworkImageProvider(petProvider.state.pet!.photo!),
                     fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  petProvider.pet!.name!,
+                  petProvider.state.pet!.name!,
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  '${petProvider.pet!.age!} ${petProvider.pet!.age == 1 ? 'año' : 'años'}',
+                  '${petProvider.state.pet!.age!} ${petProvider.state.pet!.age == 1 ? 'año' : 'años'}',
                   style: const TextStyle(color: primerColor, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    petProvider.pet!.specie!.id! == '0'
+                    petProvider.state.pet!.specie!.id! == '0'
                         ? Column(
                             children: [
                               SvgPicture.asset(
@@ -77,7 +77,7 @@ class PetDetailView extends StatelessWidget {
                             ],
                           ),
                     const SizedBox(width: 24),
-                    petProvider.pet!.sex!
+                    petProvider.state.pet!.sex!
                         ? const Column(
                             children: [
                               Icon(Icons.male, size: 42),
@@ -99,7 +99,7 @@ class PetDetailView extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                Text(petProvider.pet!.sterillized! ? 'Estirilizado' : 'No esterilizado')
+                Text(petProvider.state.pet!.sterillized! ? 'Estirilizado' : 'No esterilizado')
               ],
             ),
           ),

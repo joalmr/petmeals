@@ -126,7 +126,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
                 setState(() {
                   date = value;
                   widget.controller.text = format().format(date);
-                  petProvider.borndate = date;
+                  petProvider.state.borndate = date;
                 });
               },
             ),
@@ -145,7 +145,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
     ).then((value) {
       date = value!;
       widget.controller.text = format().format(date);
-      petProvider.borndate = date;
+      petProvider.state.borndate = date;
     });
   }
 }

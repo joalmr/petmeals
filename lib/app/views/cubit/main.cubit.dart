@@ -1,8 +1,7 @@
 import 'dart:developer';
 import 'package:comfypet/app/data/pet/pets_data.dart';
 import 'package:comfypet/app/data/user/user_data.dart';
-import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
-import 'package:comfypet/app/domain/user/cubit/user_cubit.dart';
+import 'package:comfypet/app/domain/cubit.dart';
 import 'package:comfypet/app/views/cubit/home/views/home.dart';
 import 'package:comfypet/app/views/cubit/pet/views/pet_add.dart';
 import 'package:comfypet/app/views/cubit/pet/views/pet_detail.dart';
@@ -41,6 +40,24 @@ class MainAppCubit extends StatelessWidget {
           'add': (context) => PetAddView(),
           'petdetail': (context) => const PetDetailView(),
         },
+        // home: BlocConsumer<PetCubit, PetState>(
+        //   listener: (context, state) {
+        //     if (state is PetAdd) {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) => PetAddView(),
+        //         ),
+        //       );
+        //     }
+        //     if (state is PetDeleted) {}
+        //   },
+        //   builder: (context, state) {
+        //     return MyStorage().uid.isNotEmpty
+        //         ? const HomeView()
+        //         : const LoginView();
+        //   },
+        // ),
       ),
     );
   }

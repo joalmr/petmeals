@@ -32,11 +32,11 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.female, color: !petProvider.sex ? primerColor : textoColorContraste),
+                    Icon(Icons.female, color: !petProvider.state.sex ? primerColor : textoColorContraste),
                     Text(
                       'Hembra',
                       style: TextStyle(
-                        color: !petProvider.sex ? primerColor : textoColorContraste,
+                        color: !petProvider.state.sex ? primerColor : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -44,7 +44,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    petProvider.sex = false;
+                    petProvider.state.sex = false;
                   });
                 },
               ),
@@ -53,11 +53,11 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.male, color: petProvider.sex ? primerColor : textoColorContraste),
+                    Icon(Icons.male, color: petProvider.state.sex ? primerColor : textoColorContraste),
                     Text(
                       'Macho',
                       style: TextStyle(
-                        color: petProvider.sex ? primerColor : textoColorContraste,
+                        color: petProvider.state.sex ? primerColor : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -65,7 +65,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    petProvider.sex = true;
+                    petProvider.state.sex = true;
                   });
                 },
               ),

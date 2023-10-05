@@ -36,7 +36,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     SvgPicture.asset(
                       'assets/images/icons/cat.svg',
                       colorFilter: ColorFilter.mode(
-                        petProvider.specie == 0 ? primerColor : textoColorContraste,
+                        petProvider.state.specie == 0 ? primerColor : textoColorContraste,
                         BlendMode.srcIn,
                       ),
                       height: 32,
@@ -44,7 +44,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     Text(
                       'Gato',
                       style: TextStyle(
-                        color: petProvider.specie == 0 ? primerColor : textoColorContraste,
+                        color: petProvider.state.specie == 0 ? primerColor : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -52,7 +52,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    petProvider.specie = 0;
+                    petProvider.state.specie = 0;
                   });
                 },
               ),
@@ -64,7 +64,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     SvgPicture.asset(
                       'assets/images/icons/dog.svg',
                       colorFilter: ColorFilter.mode(
-                        petProvider.specie == 1 ? primerColor : textoColorContraste,
+                        petProvider.state.specie == 1 ? primerColor : textoColorContraste,
                         BlendMode.srcIn,
                       ),
                       height: 32,
@@ -72,7 +72,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     Text(
                       'Perro',
                       style: TextStyle(
-                        color: petProvider.specie == 1 ? primerColor : textoColorContraste,
+                        color: petProvider.state.specie == 1 ? primerColor : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -80,7 +80,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    petProvider.specie = 1;
+                    petProvider.state.specie = 1;
                   });
                 },
               ),

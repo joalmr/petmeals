@@ -16,7 +16,8 @@ class ListPetWidget extends StatelessWidget {
     return StreamBuilder<List<PetModel>>(
       stream: petProvider.loadStream(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+        if (!snapshot.hasData ||
+            snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -47,11 +48,13 @@ class ListPetWidget extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () => petProvider.myPet(element),
                               child: ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(100)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(100)),
                                 child: Stack(
                                   children: [
                                     Image(
-                                      image: CachedNetworkImageProvider(element.photo!),
+                                      image: CachedNetworkImageProvider(
+                                          element.photo!),
                                       height: 52,
                                       width: 52,
                                       fit: BoxFit.cover,
@@ -66,7 +69,7 @@ class ListPetWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
+              const Expanded(
                 child: CardPetWidget(),
               ),
             ],
