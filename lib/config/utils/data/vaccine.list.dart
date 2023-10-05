@@ -18,5 +18,5 @@ final vaccineList = [
   VaccineModel(typeId: 15, typeName: 'Triple + Rabia', especieId: 1),
   VaccineModel(typeId: 16, typeName: 'Leucemia', especieId: 1),
   VaccineModel(typeId: 17, typeName: 'Antirrabica', especieId: 1),
-  VaccineModel(typeId: 18, typeName: 'Refuerzo anual', especieId: 1)
+  VaccineModel(typeId: 18, typeName: 'Refuerzo anual', especieId: 1),
 ];

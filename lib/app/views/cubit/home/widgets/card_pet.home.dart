@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comfypet/app/domain/cubit.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CardPetWidget extends StatelessWidget {
   const CardPetWidget({super.key});
@@ -11,7 +13,7 @@ class CardPetWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: GestureDetector(
-        onTap: () => context.read<RouterCubit>().goPetDetail(),
+        onTap: () => Navigator.pushNamed(context, 'petdetail'),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           child: Stack(

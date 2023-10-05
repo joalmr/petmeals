@@ -2,6 +2,7 @@ import 'package:comfypet/app/domain/cubit.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class AddPetWidget extends StatelessWidget {
   const AddPetWidget({super.key});
@@ -10,7 +11,7 @@ class AddPetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: const BorderRadius.all(Radius.circular(100)),
-      onTap: () => context.read<RouterCubit>().goAdd(),
+      onTap: () => context.push('/add'),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(100)),
         child: Container(

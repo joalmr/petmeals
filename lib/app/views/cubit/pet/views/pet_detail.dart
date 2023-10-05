@@ -6,6 +6,7 @@ import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:comfypet/config/components/widgets/button/back.button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class PetDetailView extends StatelessWidget {
   const PetDetailView({super.key});
@@ -15,7 +16,7 @@ class PetDetailView extends StatelessWidget {
     return BlocConsumer<PetCubit, PetState>(
       listener: (context, state) {
         if (state is PetDeleted) {
-          context.read<RouterCubit>().goHome();
+          context.pushReplacement('/home');
         }
       },
       builder: (context, state) {
@@ -43,67 +44,63 @@ class PetDetailView extends StatelessWidget {
                 Text(
                   '${state.pet!.age!} ${state.pet!.age == 1 ? 'año' : 'años'}',
                   style: const TextStyle(
-                    color: primerColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      color: primerColor, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (state.pet!.specie!.id! == '0')
-                      Column(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/icons/cat.svg',
-                            height: 42,
+                    state.pet!.specie!.id! == '0'
+                        ? Column(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/icons/cat.svg',
+                                height: 42,
+                              ),
+                              const Text(
+                                'Gato',
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/icons/dog.svg',
+                                height: 42,
+                              ),
+                              const Text(
+                                'Perro',
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ],
                           ),
-                          const Text(
-                            'Gato',
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ],
-                      )
-                    else
-                      Column(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/icons/dog.svg',
-                            height: 42,
-                          ),
-                          const Text(
-                            'Perro',
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ],
-                      ),
                     const SizedBox(width: 24),
-                    if (state.pet!.sex!)
-                      const Column(
-                        children: [
-                          Icon(Icons.male, size: 42),
-                          Text(
-                            'Macho',
-                            style: TextStyle(fontSize: 10),
+                    state.pet!.sex!
+                        ? const Column(
+                            children: [
+                              Icon(Icons.male, size: 42),
+                              Text(
+                                'Macho',
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ],
+                          )
+                        : const Column(
+                            children: [
+                              Icon(Icons.female, size: 42),
+                              Text(
+                                'Hebra',
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ],
                           ),
-                        ],
-                      )
-                    else
-                      const Column(
-                        children: [
-                          Icon(Icons.female, size: 42),
-                          Text(
-                            'Hebra',
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ],
-                      ),
                   ],
                 ),
                 const SizedBox(height: 12),
-                Text(
-                  state.pet!.sterillized! ? 'Estirilizado' : 'No esterilizado',
-                ),
+                Text(state.pet!.sterillized!
+                    ? 'Estirilizado'
+                    : 'No esterilizado')
               ],
             ),
           ),

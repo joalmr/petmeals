@@ -11,12 +11,11 @@ class MainAppCubit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log('cubit * state');
-    final appRouter = context.watch<RouterCubit>().state;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => UserCubit(userData: UserData())),
         BlocProvider(create: (context) => PetCubit(petData: PetsData())),
-        BlocProvider(create: (context) => RouterCubit()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
@@ -28,7 +27,7 @@ class MainAppCubit extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [Locale('es', 'ES')],
-        routerConfig: appRouter,
+        routerConfig: goRouter,
       ),
     );
   }

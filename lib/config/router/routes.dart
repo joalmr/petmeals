@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-final GoRouter _router = GoRouter(
+final GoRouter goRouter = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const LoginView();
+        return MyStorage().uid.isNotEmpty
+            ? const HomeView()
+            : const LoginView();
       },
     ),
     GoRoute(
@@ -37,7 +39,7 @@ final GoRouter _router = GoRouter(
 );
 
 class RouterCubit extends Cubit<GoRouter> {
-  RouterCubit() : super(_router) {
+  RouterCubit() : super(goRouter) {
     MyStorage().uid.isNotEmpty ? goHome() : goLogin();
   }
 
@@ -50,15 +52,14 @@ class RouterCubit extends Cubit<GoRouter> {
   }
 
   void goHome() {
-    // state.go('/home');
-    state.replace<String>('/home');
+    state.go('/home');
   }
 
   void goAdd() {
-    state.go('/add');
+    state.push('/add');
   }
 
   void goPetDetail() {
-    state.go('/petdetail');
+    state.push('/petdetail');
   }
 }

@@ -13,6 +13,7 @@ import 'package:comfypet/config/components/widgets/textfield/textfield.dart';
 import 'package:comfypet/config/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PetAddView extends StatelessWidget {
@@ -28,7 +29,7 @@ class PetAddView extends StatelessWidget {
     return BlocConsumer<PetCubit, PetState>(
       listener: (context, state) {
         if (state is PetAdded) {
-          context.read<RouterCubit>().goHome();
+          context.go('/home');
         }
       },
       builder: (context, state) {
@@ -46,7 +47,7 @@ class PetAddView extends StatelessWidget {
                             children: [
                               SimpleDialogOption(
                                 onPressed: () {
-                                  context.read<RouterCubit>().goBack();
+                                  context.pop(true);
                                   petProvider
                                       .procesarImagen(ImageSource.camera)
                                       .then(
@@ -58,7 +59,7 @@ class PetAddView extends StatelessWidget {
                               ),
                               SimpleDialogOption(
                                 onPressed: () {
-                                  context.read<RouterCubit>().goBack();
+                                  context.pop(true);
                                   petProvider
                                       .procesarImagen(ImageSource.gallery)
                                       .then(
