@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:comfypet/app/data/pet/pets_data.dart';
 import 'package:comfypet/app/domain/pet/model/pet_model.dart';
@@ -23,7 +22,6 @@ class PetCubit extends Cubit<PetState> {
   void myPet(PetModel myPet) => emit(PetSelected(myPet));
 
   void addPet(PetModel? newPet) async {
-    // emit(PetLoading());
     newPet = PetModel(
       name: newPet?.name,
       borndate: state.borndate,
@@ -35,27 +33,23 @@ class PetCubit extends Cubit<PetState> {
 
     final img = File(state.imagen!.path);
     final response = await petData.addPeT(newPet, img, state.userId);
-    inspect(response);
 
-    if (response) {
-      // controllerDate.text = '';
-      // controllerName.text = '';
+    if (response != null) {
       state.specie = 0;
       state.sex = false;
       state.borndate = DateTime.now();
       state.sterillized = false;
       state.imagen = null;
       state.imageFile = null;
-    }
 
-    emit(PetAdded());
+      emit(PetAdded(response));
+    }
   }
 
   void deletePet(String id) async {
-    emit(PetLoading());
     await petData.deletePet(id, state.userId);
-    state.pet = state.myPets.first;
-    emit(PetDeleted());
+
+    emit(PetDeleted(state.myPets.first));
   }
 
   Future<XFile?> procesarImagen(ImageSource origen) async {

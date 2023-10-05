@@ -30,7 +30,7 @@ final class PetSelected extends PetState {
   final PetModel pet;
 }
 
-final class PetLoading extends PetState {}
+// final class PetLoading extends PetState {}
 
 final class PetAddImg extends PetState {
   PetAddImg(this.imagen, this.imageFile);
@@ -41,6 +41,16 @@ final class PetAddImg extends PetState {
   final FileImage? imageFile;
 }
 
-final class PetAdded extends PetState {}
+final class PetAdded extends PetState {
+  PetAdded(this.pet);
 
-final class PetDeleted extends PetState {}
+  @override
+  final PetModel pet;
+}
+
+final class PetDeleted extends PetState {
+  PetDeleted(this.pet);
+
+  @override
+  final PetModel pet;
+}

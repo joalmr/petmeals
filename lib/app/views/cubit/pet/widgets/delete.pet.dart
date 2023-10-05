@@ -9,7 +9,7 @@ class DeletePetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetCubit>();
+    final petProvider = context.read<PetCubit>();
 
     return CupertinoButton(
         color: Colors.transparent,
@@ -24,10 +24,12 @@ class DeletePetWidget extends StatelessWidget {
             builder: (context) {
               return AlertDialog(
                 title: const Text('¿Deseas eliminar tu mascota?'),
-                content: const Text('Al eliminar tu mascota perderás los datos de forma permanente.'),
+                content: const Text(
+                    'Al eliminar tu mascota perderás los datos de forma permanente.'),
                 actions: [
                   TextButton(
-                    style: const ButtonStyle(foregroundColor: MaterialStatePropertyAll(mandy)),
+                    style: const ButtonStyle(
+                        foregroundColor: MaterialStatePropertyAll(mandy)),
                     onPressed: () async {
                       petProvider.deletePet(petProvider.state.pet!.id!);
                     },

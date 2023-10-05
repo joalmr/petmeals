@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 import 'package:comfypet/app/domain/pet/cubit/pet_cubit.dart';
 import 'package:comfypet/app/domain/pet/model/pet_model.dart';
 import 'package:comfypet/app/views/cubit/pet/widgets/date_textfield.pet.dart';
@@ -27,9 +26,9 @@ class PetAddView extends StatelessWidget {
 
     return BlocConsumer<PetCubit, PetState>(
       listener: (context, state) {
-        // if (state is PetAdded) {
-        //   Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-        // }
+        if (state is PetAdded) {
+          Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+        }
       },
       builder: (context, state) {
         return Scaffold(

@@ -13,13 +13,11 @@ class PetDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.watch<PetCubit>();
-
     return BlocConsumer<PetCubit, PetState>(
       listener: (context, state) {
-        // if (state is PetDeleted) {
-        //   Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-        // }
+        if (state is PetDeleted) {
+          Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -31,27 +29,28 @@ class PetDetailView extends StatelessWidget {
                   buttonRight: const DeletePetWidget(),
                   aspectRatio: 3 / 4,
                   child: Image(
-                    image: CachedNetworkImageProvider(petProvider.state.pet!.photo!),
+                    image: CachedNetworkImageProvider(state.pet!.photo!),
                     fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  petProvider.state.pet!.name!,
+                  state.pet!.name!,
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  '${petProvider.state.pet!.age!} ${petProvider.state.pet!.age == 1 ? 'año' : 'años'}',
-                  style: const TextStyle(color: primerColor, fontWeight: FontWeight.bold),
+                  '${state.pet!.age!} ${state.pet!.age == 1 ? 'año' : 'años'}',
+                  style: const TextStyle(
+                      color: primerColor, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    petProvider.state.pet!.specie!.id! == '0'
+                    state.pet!.specie!.id! == '0'
                         ? Column(
                             children: [
                               SvgPicture.asset(
@@ -77,7 +76,7 @@ class PetDetailView extends StatelessWidget {
                             ],
                           ),
                     const SizedBox(width: 24),
-                    petProvider.state.pet!.sex!
+                    state.pet!.sex!
                         ? const Column(
                             children: [
                               Icon(Icons.male, size: 42),
@@ -99,7 +98,9 @@ class PetDetailView extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                Text(petProvider.state.pet!.sterillized! ? 'Estirilizado' : 'No esterilizado')
+                Text(state.pet!.sterillized!
+                    ? 'Estirilizado'
+                    : 'No esterilizado')
               ],
             ),
           ),
