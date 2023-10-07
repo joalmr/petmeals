@@ -30,11 +30,8 @@ class PetProvider extends ChangeNotifier {
     1: Specie(id: '1', name: 'Perro'),
   };
 
-  XFile? imagen;
+  XFile? _imagen;
   FileImage? imageFile;
-
-  final controllerName = TextEditingController(); //TODO: PROBAR QUITARLO
-  final controllerDate = TextEditingController(); //TODO: PROBAR QUITARLO
 
   Stream<List<PetModel>> loadStream() => petData.getPetStream(userId);
 
@@ -45,23 +42,21 @@ class PetProvider extends ChangeNotifier {
 
   Future<bool> addPet(PetModel? newPet) async {
     newPet = PetModel(
-      name: newPet?.name ?? controllerName.text,
+      name: newPet?.name,
       borndate: borndate,
       specie: specieJson[specie],
       sex: sex,
       sterillized: sterillized,
       userId: [userId],
     );
-    final img = File(imagen!.path);
+    final img = File(_imagen!.path);
     final response = await petData.addPeT(newPet, img, userId);
     if (response) {
-      controllerDate.text = '';
-      controllerName.text = '';
       specie = 0;
       sex = false;
       borndate = DateTime.now();
       sterillized = false;
-      imagen = null;
+      _imagen = null;
       imageFile = null;
     }
 
@@ -75,9 +70,8 @@ class PetProvider extends ChangeNotifier {
   }
 
   void procesarImagen(ImageSource origen) async {
-    imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
-
-    imageFile = FileImage(File(imagen!.path));
+    _imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
+    imageFile = FileImage(File(_imagen!.path));
     notifyListeners();
   }
 }

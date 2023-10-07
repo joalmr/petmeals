@@ -13,6 +13,7 @@ import 'package:comfypet/config/components/widgets/button/primary.button.dart';
 import 'package:comfypet/config/components/widgets/textfield/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PetAddView extends StatelessWidget with GetItMixin {
@@ -38,14 +39,14 @@ class PetAddView extends StatelessWidget with GetItMixin {
                           children: [
                             SimpleDialogOption(
                               onPressed: () {
-                                Navigator.pop(context);
+                                context.pop();
                                 petProvider.procesarImagen(ImageSource.camera);
                               },
                               child: const Text('Tomar foto'),
                             ),
                             SimpleDialogOption(
                               onPressed: () {
-                                Navigator.pop(context);
+                                context.pop();
                                 petProvider.procesarImagen(ImageSource.gallery);
                               },
                               child: const Text('Seleccionar foto'),
@@ -88,7 +89,6 @@ class PetAddView extends StatelessWidget with GetItMixin {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    //TODO: REVISAR
                     MyTextField(
                       controller: controllerName,
                       textField: 'Nombre',
@@ -104,14 +104,15 @@ class PetAddView extends StatelessWidget with GetItMixin {
                     const SizedBox(height: 20),
                     ButtonPrimary(
                       onPressed: () {
-                        if (controllerName.text.isEmpty || petProvider.imagen == null) {
+                        if (controllerName.text.isEmpty ||
+                            petProvider.imageFile == null) {
                           log('error *');
                         } else {
                           PetModel newPet = PetModel(name: controllerName.text);
                           petProvider.addPet(newPet).then(
                             (value) {
                               if (value) {
-                                Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+                                context.go('/home');
                               }
                             },
                           );

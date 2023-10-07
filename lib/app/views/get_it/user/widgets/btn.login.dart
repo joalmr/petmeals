@@ -2,6 +2,7 @@ import 'package:comfypet/app/domain/user/user_provider.dart';
 import 'package:comfypet/app/views/get_it/setup.get_it.dart';
 import 'package:comfypet/config/components/widgets/styles/style.button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ButtonGoogle extends StatelessWidget {
   const ButtonGoogle({super.key});
@@ -20,7 +21,7 @@ class ButtonGoogle extends StatelessWidget {
       child: TextButton(
         onPressed: () async {
           userProvider.signInGoogle().then((value) {
-            if (value) Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+            if (value) context.go('/home');
           });
         },
         style: buttonStyleOther(Colors.white, Colors.black38),

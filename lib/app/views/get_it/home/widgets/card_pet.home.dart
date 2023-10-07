@@ -4,6 +4,7 @@ import 'package:comfypet/app/views/get_it/setup.get_it.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
+import 'package:go_router/go_router.dart';
 
 class CardPetWidget extends StatelessWidget with GetItMixin {
   CardPetWidget({super.key});
@@ -15,13 +16,14 @@ class CardPetWidget extends StatelessWidget with GetItMixin {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () => Navigator.pushNamed(context, 'petdetail'),
+        onTap: () => context.push('/petdetail'),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           child: Stack(
             children: [
               Image(
-                image: CachedNetworkImageProvider(watchOnly((PetProvider p) => p.pet!.photo!)),
+                image: CachedNetworkImageProvider(
+                    watchOnly((PetProvider p) => p.pet!.photo!)),
                 height: double.maxFinite,
                 fit: BoxFit.cover,
               ),

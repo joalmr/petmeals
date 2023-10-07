@@ -12,7 +12,7 @@ class DatePetWidget extends MyDateTextFieldAdaptive {
   });
 }
 
-format() {
+DateFormat format() {
   return DateFormat('dd-MM-yyyy');
 }
 
@@ -33,7 +33,7 @@ abstract class MyDateTextFieldAdaptive extends StatefulWidget {
 
 class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
   bool texting = false;
-  DateTime date = DateTime.now();
+  DateTime date = getIt<PetProvider>().borndate;
 
   @override
   void initState() {

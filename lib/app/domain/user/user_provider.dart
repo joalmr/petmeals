@@ -7,7 +7,7 @@ class UserProvider extends ChangeNotifier {
   final UserData userData;
   UserProvider({required this.userData});
 
-  User? user;
+  User? _user;
   String? uid = MyStorage().uid;
   String? name = MyStorage().name;
   String? photoUrl = MyStorage().photo;
@@ -19,22 +19,20 @@ class UserProvider extends ChangeNotifier {
       throw Exception();
     }
 
-    user = userResponse.user;
+    _user = userResponse.user;
 
-    uid = user?.uid;
-    name = user?.displayName.toString().split(' ')[0];
-    photoUrl = user?.photoURL;
+    uid = _user?.uid;
+    name = _user?.displayName.toString().split(' ')[0];
+    photoUrl = _user?.photoURL;
 
     MyStorage().uid = uid!;
     MyStorage().name = name!;
     MyStorage().photo = photoUrl!;
 
-    if (user != null) {
+    if (_user != null) {
       return true;
     }
     return false;
-    // getUser();
-    // notifyListeners();
   }
 
   void getUser() async {

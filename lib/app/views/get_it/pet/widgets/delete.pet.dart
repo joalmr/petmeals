@@ -3,6 +3,7 @@ import 'package:comfypet/app/views/get_it/setup.get_it.dart';
 import 'package:comfypet/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DeletePetWidget extends StatelessWidget {
   const DeletePetWidget({super.key});
@@ -24,20 +25,22 @@ class DeletePetWidget extends StatelessWidget {
             builder: (context) {
               return AlertDialog(
                 title: const Text('¿Deseas eliminar tu mascota?'),
-                content: const Text('Al eliminar tu mascota perderás los datos de forma permanente.'),
+                content: const Text(
+                    'Al eliminar tu mascota perderás los datos de forma permanente.'),
                 actions: [
                   TextButton(
-                    style: const ButtonStyle(foregroundColor: MaterialStatePropertyAll(mandy)),
+                    style: const ButtonStyle(
+                        foregroundColor: MaterialStatePropertyAll(mandy)),
                     onPressed: () async {
                       await petProvider.deletePet(petProvider.pet!.id!);
                       if (context.mounted) {
-                        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+                        context.go('/home');
                       }
                     },
                     child: const Text('Eliminar'),
                   ),
                   TextButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => context.pop(),
                     child: const Text('Cancelar'),
                   ),
                 ],
