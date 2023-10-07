@@ -17,7 +17,8 @@ class IntroWidget extends StatelessWidget {
         SizedBox(height: 12),
         Center(
           child: Text(
-            '''Te ayudamos a cuidar 
+            '''
+Te ayudamos a cuidar 
 a tu mascota''',
             textAlign: TextAlign.center,
             style: TextStyle(
