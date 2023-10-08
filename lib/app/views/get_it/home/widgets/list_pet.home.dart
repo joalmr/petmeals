@@ -4,7 +4,9 @@ import 'package:comfypet/app/domain/pet/pet_provider.dart';
 import 'package:comfypet/app/views/get_it/home/widgets/add_pet.home.dart';
 import 'package:comfypet/app/views/get_it/home/widgets/card_pet.home.dart';
 import 'package:comfypet/app/views/get_it/setup.get_it.dart';
+import 'package:comfypet/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ListPetWidget extends StatelessWidget {
   const ListPetWidget({super.key});
@@ -16,7 +18,8 @@ class ListPetWidget extends StatelessWidget {
     return StreamBuilder<List<PetModel>>(
       stream: petProvider.loadStream(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) {
+        if (!snapshot.hasData ||
+            snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -25,8 +28,16 @@ class ListPetWidget extends StatelessWidget {
         final petData = snapshot.data!;
 
         if (petData.isEmpty) {
-          return const Center(
-            child: Text('No tiene datos'),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ButtonPrimary(
+                child: const Text("Agregar mascota"),
+                onPressed: () => context.push('/add'),
+              ),
+              const SizedBox(height: 32),
+              const Text('No tiene mascotas'),
+            ],
           );
         }
 
@@ -47,11 +58,13 @@ class ListPetWidget extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () => petProvider.myPet(element),
                               child: ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(100)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(100)),
                                 child: Stack(
                                   children: [
                                     Image(
-                                      image: CachedNetworkImageProvider(element.photo!),
+                                      image: CachedNetworkImageProvider(
+                                          element.photo!),
                                       height: 52,
                                       width: 52,
                                       fit: BoxFit.cover,

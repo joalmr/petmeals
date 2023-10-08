@@ -28,7 +28,7 @@ class PicturePet extends StatelessWidget {
           margin: const EdgeInsets.only(top: 18),
           child: Center(
             child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              borderRadius: const BorderRadius.all(Radius.circular(5)),
               child: AspectRatio(
                 aspectRatio: aspectRatio,
                 child: child,

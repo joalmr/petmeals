@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:comfypet/app/data/pet/pets_data.dart';
 import 'package:comfypet/app/domain/pet/model/pet_model.dart';
+import 'package:comfypet/app/domain/pet/model/specie_model.dart';
 import 'package:comfypet/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,8 +12,9 @@ class PetProvider extends ChangeNotifier {
 
   PetProvider({required this.petData}) {
     loadStream().listen((event) {
-      myPets = event;
-      pet = myPets.first;
+      if (event.isNotEmpty) {
+        pet = event.first;
+      }
     });
   }
 
@@ -25,7 +28,7 @@ class PetProvider extends ChangeNotifier {
   bool sex = false;
   DateTime borndate = DateTime.now();
   bool sterillized = false;
-  Map<int, Specie> specieJson = {
+  final specieJson = {
     0: Specie(id: '0', name: 'Gato'),
     1: Specie(id: '1', name: 'Perro'),
   };
@@ -42,13 +45,14 @@ class PetProvider extends ChangeNotifier {
 
   Future<bool> addPet(PetModel? newPet) async {
     newPet = PetModel(
-      name: newPet?.name,
+      name: newPet!.name,
       borndate: borndate,
-      specie: specieJson[specie],
+      specie: specieJson[specie]!,
       sex: sex,
       sterillized: sterillized,
       userId: [userId],
     );
+    inspect(newPet);
     final img = File(_imagen!.path);
     final response = await petData.addPeT(newPet, img, userId);
     if (response) {
@@ -65,7 +69,9 @@ class PetProvider extends ChangeNotifier {
 
   Future<void> deletePet(String id) async {
     await petData.deletePet(id, userId);
-    pet = myPets.first;
+    if (myPets.isNotEmpty) {
+      pet = myPets.first;
+    }
     notifyListeners();
   }
 

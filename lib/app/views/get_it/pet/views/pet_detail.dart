@@ -23,9 +23,12 @@ class PetDetailView extends StatelessWidget {
               buttonLeft: const BackBtn(),
               buttonRight: const DeletePetWidget(),
               aspectRatio: 3 / 4,
-              child: Image(
-                image: CachedNetworkImageProvider(petProvider.pet!.photo!),
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: 'imgpet',
+                child: Image(
+                  image: CachedNetworkImageProvider(petProvider.pet!.photo!),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(height: 12),
@@ -38,7 +41,8 @@ class PetDetailView extends StatelessWidget {
             ),
             Text(
               '${petProvider.pet!.age!} ${petProvider.pet!.age == 1 ? 'año' : 'años'}',
-              style: const TextStyle(color: primerColor, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: primerColor, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             Row(
@@ -92,7 +96,11 @@ class PetDetailView extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            Text(petProvider.pet!.sterillized! ? 'Estirilizado' : 'No esterilizado')
+            Text(
+              petProvider.pet!.sterillized!
+                  ? 'Estirilizado'
+                  : 'No esterilizado',
+            )
           ],
         ),
       ),

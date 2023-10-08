@@ -21,7 +21,7 @@ class ButtonGoogle extends StatelessWidget {
       child: TextButton(
         onPressed: () async {
           userProvider.signInGoogle().then((value) {
-            if (value) context.go('/home');
+            if (value) context.pushReplacement('/home');
           });
         },
         style: buttonStyleOther(Colors.white, Colors.black38),

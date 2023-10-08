@@ -39,7 +39,8 @@ class PetsData {
 
   Future<void> deletePet(String id, String userId) async {
     final ejec = fireRef.doc(id);
-    final photoForDelete = await ejec.get().then((value) => value.data()!.photo);
+    final photoForDelete =
+        await ejec.get().then((value) => value.data()!.photo);
     deleteImage(photoForDelete!, userId);
     await ejec.delete();
   }

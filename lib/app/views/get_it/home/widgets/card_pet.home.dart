@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comfypet/app/domain/pet/pet_provider.dart';
 import 'package:comfypet/app/views/get_it/setup.get_it.dart';
@@ -18,32 +19,37 @@ class CardPetWidget extends StatelessWidget with GetItMixin {
       child: GestureDetector(
         onTap: () => context.push('/petdetail'),
         child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           child: Stack(
             children: [
-              Image(
-                image: CachedNetworkImageProvider(
-                    watchOnly((PetProvider p) => p.pet!.photo!)),
-                height: double.maxFinite,
-                fit: BoxFit.cover,
+              Hero(
+                tag: 'imgpet',
+                child: Image(
+                  image: CachedNetworkImageProvider(
+                      watchOnly((PetProvider p) => p.pet!.photo!)),
+                  height: double.maxFinite,
+                  fit: BoxFit.cover,
+                ),
               ),
               Positioned(
                 top: 0,
                 left: 0,
                 right: 0,
-                child: Container(
-                  height: 52,
-                  width: double.maxFinite,
-                  decoration: const BoxDecoration(
-                    color: Colors.black54,
-                  ),
-                  child: Center(
-                    child: Text(
-                      petProvider.pet!.name!,
-                      style: const TextStyle(
-                        color: textoColorContraste,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                child: FadeIn(
+                  child: Container(
+                    height: 52,
+                    width: double.maxFinite,
+                    decoration: const BoxDecoration(
+                      color: Colors.black54,
+                    ),
+                    child: Center(
+                      child: Text(
+                        petProvider.pet!.name!,
+                        style: const TextStyle(
+                          color: textoColorContraste,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),

@@ -1,0 +1,10 @@
+go router
+hero
+freezed
+
+===
+mustcallsuper
+
+age: (DateTime.now().difference(DateTime.parse(json["borndate"])).inDays) ~/ 365, //? [solo fromJson PetModel]
+
+"created_at": DateTime.timestamp(), //? [solo toJson PetModel]

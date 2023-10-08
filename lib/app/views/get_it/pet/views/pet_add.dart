@@ -112,7 +112,7 @@ class PetAddView extends StatelessWidget with GetItMixin {
                           petProvider.addPet(newPet).then(
                             (value) {
                               if (value) {
-                                context.go('/home');
+                                context.push('/home');
                               }
                             },
                           );

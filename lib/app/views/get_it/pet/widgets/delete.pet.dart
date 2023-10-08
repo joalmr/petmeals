@@ -31,11 +31,10 @@ class DeletePetWidget extends StatelessWidget {
                   TextButton(
                     style: const ButtonStyle(
                         foregroundColor: MaterialStatePropertyAll(mandy)),
-                    onPressed: () async {
-                      await petProvider.deletePet(petProvider.pet!.id!);
-                      if (context.mounted) {
-                        context.go('/home');
-                      }
+                    onPressed: () {
+                      petProvider
+                          .deletePet(petProvider.pet!.id!)
+                          .then((value) => context.pushReplacement('/home'));
                     },
                     child: const Text('Eliminar'),
                   ),
