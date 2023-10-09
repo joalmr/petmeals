@@ -1,10 +1,21 @@
 go router
 hero
 freezed
-
 ===
+flutter pub add freezed_annotation
+flutter pub add --dev build_runner
+flutter pub add --dev freezed
+# if using freezed to generate fromJson/toJson, also add:
+flutter pub add json_annotation
+flutter pub add --dev json_serializable
+===
+dart run build_runner build
+===
+**
 mustcallsuper
-
+**
+PetModel
+===
 age: (DateTime.now().difference(DateTime.parse(json["borndate"])).inDays) ~/ 365, //? [solo fromJson PetModel]
-
 "created_at": DateTime.timestamp(), //? [solo toJson PetModel]
+===
