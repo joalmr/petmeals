@@ -19,7 +19,7 @@ class MainAppCubit extends StatelessWidget {
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        title: 'Comfypet',
+        title: 'Petmeals',
         theme: themeData,
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
