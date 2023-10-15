@@ -1,4 +1,4 @@
-import 'package:petmeals/app/domain/user/model/user_model.dart';
+import 'package:petmeals/app/data/user/models/user_model.dart';
 import 'package:flutter/services.dart';
 
 class UsersLocal {
