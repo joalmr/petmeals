@@ -1,6 +1,6 @@
 import 'dart:developer';
-import 'package:comfypet/app/views/routers/routes.dart';
-import 'package:comfypet/config/components/styles/themes/theme.dart';
+import 'package:petmeals/app/views/routers/routes.dart';
+import 'package:petmeals/config/components/styles/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -12,7 +12,7 @@ class MainAppGetIt extends StatelessWidget {
     log('get_it * state');
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Comfypet',
+      title: 'Petmeals',
       theme: themeData,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

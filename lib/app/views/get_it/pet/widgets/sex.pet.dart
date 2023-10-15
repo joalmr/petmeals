@@ -1,7 +1,7 @@
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
-import 'package:comfypet/app/views/get_it/setup.get_it.dart';
-import 'package:comfypet/config/components/styles/colors/colors.dart';
-import 'package:comfypet/config/components/widgets/button/primary.button.dart';
+import 'package:petmeals/app/domain/pet/pet_provider.dart';
+import 'package:petmeals/app/views/get_it/setup.get_it.dart';
+import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
 
 class SexPetWidget extends StatefulWidget {
@@ -32,11 +32,16 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.female, color: !petProvider.sex ? primerColor : textoColorContraste),
+                    Icon(Icons.female,
+                        color: !petProvider.sex
+                            ? primerColor
+                            : textoColorContraste),
                     Text(
                       'Hembra',
                       style: TextStyle(
-                        color: !petProvider.sex ? primerColor : textoColorContraste,
+                        color: !petProvider.sex
+                            ? primerColor
+                            : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -53,11 +58,15 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.male, color: petProvider.sex ? primerColor : textoColorContraste),
+                    Icon(Icons.male,
+                        color: petProvider.sex
+                            ? primerColor
+                            : textoColorContraste),
                     Text(
                       'Macho',
                       style: TextStyle(
-                        color: petProvider.sex ? primerColor : textoColorContraste,
+                        color:
+                            petProvider.sex ? primerColor : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),

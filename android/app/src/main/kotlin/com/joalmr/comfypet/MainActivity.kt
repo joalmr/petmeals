@@ -1,4 +1,4 @@
-package com.joalmr.comfypet
+package com.joalmr.petmeals
 
 import io.flutter.embedding.android.FlutterActivity
 

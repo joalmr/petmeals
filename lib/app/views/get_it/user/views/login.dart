@@ -1,7 +1,7 @@
 import 'dart:developer';
-import 'package:comfypet/app/views/get_it/user/widgets/btn.login.dart';
-import 'package:comfypet/app/views/get_it/user/widgets/intro.login.dart';
-import 'package:comfypet/app/views/get_it/user/widgets/logo.login.dart';
+import 'package:petmeals/app/views/get_it/user/widgets/btn.login.dart';
+import 'package:petmeals/app/views/get_it/user/widgets/intro.login.dart';
+import 'package:petmeals/app/views/get_it/user/widgets/logo.login.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {

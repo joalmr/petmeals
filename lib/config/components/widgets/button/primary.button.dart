@@ -1,4 +1,4 @@
-import 'package:comfypet/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

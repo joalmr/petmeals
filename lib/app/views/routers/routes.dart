@@ -1,8 +1,8 @@
-import 'package:comfypet/app/views/get_it/home/views/home.dart';
-import 'package:comfypet/app/views/get_it/pet/views/pet_add.dart';
-import 'package:comfypet/app/views/get_it/pet/views/pet_detail.dart';
-import 'package:comfypet/app/views/get_it/user/views/login.dart';
-import 'package:comfypet/config/storage/storage.data.dart';
+import 'package:petmeals/app/views/get_it/home/views/home.dart';
+import 'package:petmeals/app/views/get_it/pet/views/pet_add.dart';
+import 'package:petmeals/app/views/get_it/pet/views/pet_detail.dart';
+import 'package:petmeals/app/views/get_it/user/views/login.dart';
+import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

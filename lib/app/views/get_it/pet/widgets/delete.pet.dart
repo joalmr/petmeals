@@ -1,6 +1,6 @@
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
-import 'package:comfypet/app/views/get_it/setup.get_it.dart';
-import 'package:comfypet/config/components/styles/colors/colors.dart';
+import 'package:petmeals/app/domain/pet/pet_provider.dart';
+import 'package:petmeals/app/views/get_it/setup.get_it.dart';
+import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

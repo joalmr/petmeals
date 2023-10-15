@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:comfypet/app/data/pet/pets_data.dart';
-import 'package:comfypet/app/domain/pet/model/pet_model.dart';
-import 'package:comfypet/app/domain/pet/model/specie_model.dart';
-import 'package:comfypet/config/storage/storage.data.dart';
+import 'package:petmeals/app/data/pet/pets_data.dart';
+import 'package:petmeals/app/domain/pet/model/pet_model.dart';
+import 'package:petmeals/app/domain/pet/model/specie_model.dart';
+import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

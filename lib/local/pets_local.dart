@@ -1,4 +1,4 @@
-import 'package:comfypet/app/domain/pet/model/pet_model.dart';
+import 'package:petmeals/app/domain/pet/model/pet_model.dart';
 import 'package:flutter/services.dart';
 
 class PetsLocal {

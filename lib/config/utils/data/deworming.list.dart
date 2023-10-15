@@ -1,4 +1,4 @@
-import 'package:comfypet/config/utils/model/deworming.model.dart';
+import 'package:petmeals/config/utils/model/deworming.model.dart';
 
 final dewormingList = [
   DewormingModel(typeId: 1, typeName: 'Interna'),

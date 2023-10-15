@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:comfypet/app/data/pet/firebase_storage.dart';
-import 'package:comfypet/app/domain/pet/model/pet_model.dart';
+import 'package:petmeals/app/data/pet/firebase_storage.dart';
+import 'package:petmeals/app/domain/pet/model/pet_model.dart';
 
 class PetsData {
   final fireRef = FirebaseFirestore.instance.collection('pets').withConverter(

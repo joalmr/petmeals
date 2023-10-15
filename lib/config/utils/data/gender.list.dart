@@ -1,4 +1,4 @@
-import 'package:comfypet/config/utils/model/gender.model.dart';
+import 'package:petmeals/config/utils/model/gender.model.dart';
 
 final genderList = [
   GenderModel(value: 0, name: 'Mujer'),

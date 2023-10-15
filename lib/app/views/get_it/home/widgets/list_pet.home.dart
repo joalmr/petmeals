@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:comfypet/app/domain/pet/model/pet_model.dart';
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
-import 'package:comfypet/app/views/get_it/home/widgets/add_pet.home.dart';
-import 'package:comfypet/app/views/get_it/home/widgets/card_pet.home.dart';
-import 'package:comfypet/app/views/get_it/setup.get_it.dart';
-import 'package:comfypet/config/components/widgets/button/primary.button.dart';
+import 'package:petmeals/app/domain/pet/model/pet_model.dart';
+import 'package:petmeals/app/domain/pet/pet_provider.dart';
+import 'package:petmeals/app/views/get_it/home/widgets/add_pet.home.dart';
+import 'package:petmeals/app/views/get_it/home/widgets/card_pet.home.dart';
+import 'package:petmeals/app/views/get_it/setup.get_it.dart';
+import 'package:petmeals/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

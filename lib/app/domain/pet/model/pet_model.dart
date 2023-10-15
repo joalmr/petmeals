@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:comfypet/app/domain/pet/model/specie_model.dart';
+import 'package:petmeals/app/domain/pet/model/specie_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 

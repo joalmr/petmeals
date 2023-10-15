@@ -1,7 +1,7 @@
-import 'package:comfypet/app/domain/pet/pet_provider.dart';
-import 'package:comfypet/app/views/get_it/setup.get_it.dart';
-import 'package:comfypet/config/components/styles/colors/colors.dart';
-import 'package:comfypet/config/components/widgets/button/primary.button.dart';
+import 'package:petmeals/app/domain/pet/pet_provider.dart';
+import 'package:petmeals/app/views/get_it/setup.get_it.dart';
+import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -36,13 +36,18 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     SvgPicture.asset(
                       'assets/images/icons/cat.svg',
                       colorFilter: ColorFilter.mode(
-                          petProvider.specie == 0 ? primerColor : textoColorContraste, BlendMode.srcIn),
+                          petProvider.specie == 0
+                              ? primerColor
+                              : textoColorContraste,
+                          BlendMode.srcIn),
                       height: 32,
                     ),
                     Text(
                       'Gato',
                       style: TextStyle(
-                        color: petProvider.specie == 0 ? primerColor : textoColorContraste,
+                        color: petProvider.specie == 0
+                            ? primerColor
+                            : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -62,13 +67,18 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                     SvgPicture.asset(
                       'assets/images/icons/dog.svg',
                       colorFilter: ColorFilter.mode(
-                          petProvider.specie == 1 ? primerColor : textoColorContraste, BlendMode.srcIn),
+                          petProvider.specie == 1
+                              ? primerColor
+                              : textoColorContraste,
+                          BlendMode.srcIn),
                       height: 32,
                     ),
                     Text(
                       'Perro',
                       style: TextStyle(
-                        color: petProvider.specie == 1 ? primerColor : textoColorContraste,
+                        color: petProvider.specie == 1
+                            ? primerColor
+                            : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),

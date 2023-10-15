@@ -9,7 +9,7 @@ class LogoWidget extends StatelessWidget {
       backgroundColor: Colors.transparent,
       radius: 65,
       child: Image(
-        image: AssetImage('assets/logo/comfypet.png'),
+        image: AssetImage('assets/logo/petmeals.png'),
         fit: BoxFit.scaleDown,
         height: 112,
         width: 112,

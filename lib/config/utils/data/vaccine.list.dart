@@ -1,4 +1,4 @@
-import 'package:comfypet/config/utils/model/vaccine.model.dart';
+import 'package:petmeals/config/utils/model/vaccine.model.dart';
 
 final vaccineList = [
   VaccineModel(typeId: 1, typeName: 'Leptospira', especieId: 2),
