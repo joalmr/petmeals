@@ -28,6 +28,8 @@ class PetProvider extends ChangeNotifier {
   bool sex = false;
   DateTime borndate = DateTime.now();
   bool sterillized = false;
+  int actions = 0;
+
   final specieJson = {
     0: Specie(id: '0', name: 'Gato'),
     1: Specie(id: '1', name: 'Perro'),
@@ -78,6 +80,11 @@ class PetProvider extends ChangeNotifier {
   void procesarImagen(ImageSource origen) async {
     _imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
     imageFile = FileImage(File(_imagen!.path));
+    notifyListeners();
+  }
+
+  void actionSet(int action) {
+    actions = action;
     notifyListeners();
   }
 }
