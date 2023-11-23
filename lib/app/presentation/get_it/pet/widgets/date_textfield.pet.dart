@@ -38,7 +38,9 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
   @override
   void initState() {
     super.initState();
-    widget.controller.text = format().format(date);
+    if (widget.controller.text.isEmpty) {
+      widget.controller.text = format().format(date);
+    }
   }
 
   @override

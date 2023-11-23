@@ -3,18 +3,24 @@ import 'package:petmeals/app/presentation/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class SexPetWidget extends StatefulWidget {
-  const SexPetWidget({super.key});
+class SpeciePetWidget extends StatefulWidget {
+  const SpeciePetWidget({super.key});
+  // final int? specie;
 
   @override
-  State<SexPetWidget> createState() => _SexPetWidgetState();
+  State<SpeciePetWidget> createState() => _SpeciePetWidgetState();
 }
 
-class _SexPetWidgetState extends State<SexPetWidget> {
+class _SpeciePetWidgetState extends State<SpeciePetWidget> {
   @override
   Widget build(BuildContext context) {
     final petProvider = getIt<PetProvider>();
+
+    // if (widget.specie != null) {
+    //   petProvider.specie = widget.specie!;
+    // }
 
     return Padding(
       padding: const EdgeInsets.all(4.0),
@@ -22,7 +28,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Sexo',
+            'Especie',
             style: TextStyle(color: textoColor),
           ),
           Row(
@@ -32,14 +38,19 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.female,
-                        color: !petProvider.sex
-                            ? primerColor
-                            : textoColorContraste),
+                    SvgPicture.asset(
+                      'assets/images/icons/cat.svg',
+                      colorFilter: ColorFilter.mode(
+                          petProvider.specie == 0
+                              ? primerColor
+                              : textoColorContraste,
+                          BlendMode.srcIn),
+                      height: 32,
+                    ),
                     Text(
-                      'Hembra',
+                      'Gato',
                       style: TextStyle(
-                        color: !petProvider.sex
+                        color: petProvider.specie == 0
                             ? primerColor
                             : textoColorContraste,
                         fontSize: 12,
@@ -49,7 +60,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    petProvider.sex = false;
+                    petProvider.specie = 0;
                   });
                 },
               ),
@@ -58,15 +69,21 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    Icon(Icons.male,
-                        color: petProvider.sex
-                            ? primerColor
-                            : textoColorContraste),
+                    SvgPicture.asset(
+                      'assets/images/icons/dog.svg',
+                      colorFilter: ColorFilter.mode(
+                          petProvider.specie == 1
+                              ? primerColor
+                              : textoColorContraste,
+                          BlendMode.srcIn),
+                      height: 32,
+                    ),
                     Text(
-                      'Macho',
+                      'Perro',
                       style: TextStyle(
-                        color:
-                            petProvider.sex ? primerColor : textoColorContraste,
+                        color: petProvider.specie == 1
+                            ? primerColor
+                            : textoColorContraste,
                         fontSize: 12,
                       ),
                     ),
@@ -74,7 +91,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                 ),
                 onPressed: () {
                   setState(() {
-                    petProvider.sex = true;
+                    petProvider.specie = 1;
                   });
                 },
               ),

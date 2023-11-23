@@ -7,6 +7,7 @@ class ButtonSecondary extends BtnIOS {
     super.key,
     super.onPressed,
     required super.text,
+    super.color,
   });
 }
 
@@ -14,10 +15,13 @@ class ButtonSecondary extends BtnIOS {
 abstract class BtnIOS extends StatelessWidget {
   final void Function()? onPressed;
   final String text;
+  final Color color;
+
   const BtnIOS({
     super.key,
     this.onPressed,
     required this.text,
+    this.color = primerColor,
   });
 
   @override
@@ -28,7 +32,7 @@ abstract class BtnIOS extends StatelessWidget {
       // pressedOpacity: 0.8,
       child: Text(
         text,
-        style: const TextStyle(color: primerColor),
+        style: TextStyle(color: color),
       ),
     );
   }
@@ -38,18 +42,20 @@ abstract class BtnIOS extends StatelessWidget {
 abstract class BtnAndroid extends StatelessWidget {
   final void Function()? onPressed;
   final String text;
+  final Color color;
   const BtnAndroid({
     super.key,
     this.onPressed,
     required this.text,
+    this.color = primerColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      style: const ButtonStyle(
-        foregroundColor: MaterialStatePropertyAll(primerColor),
-        shape: MaterialStatePropertyAll(
+      style: ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll(color),
+        shape: const MaterialStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),

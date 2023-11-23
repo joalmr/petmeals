@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
+import 'package:logger/logger.dart';
 import 'package:petmeals/app/data/pet/datasources/pets_data.dart';
 import 'package:petmeals/app/data/pet/models/pet_model.dart';
 import 'package:petmeals/app/data/pet/models/specie_model.dart';
@@ -28,7 +28,7 @@ class PetProvider extends ChangeNotifier {
   bool sex = false;
   DateTime borndate = DateTime.now();
   bool sterillized = false;
-  int actions = 0;
+  // int actions = 0;
 
   final specieJson = {
     0: Specie(id: '0', name: 'Gato'),
@@ -46,17 +46,20 @@ class PetProvider extends ChangeNotifier {
   }
 
   Future<bool> addPet(PetModel? newPet) async {
-    newPet = PetModel(
-      name: newPet!.name,
+    final addPet = newPet!.copyWith(
       borndate: borndate,
       specie: specieJson[specie]!,
       sex: sex,
       sterillized: sterillized,
       userId: [userId],
     );
-    inspect(newPet);
+
+    // newPet = PetModel(
+    //   name: newPet!.name,
+    // );
+
     final img = File(_imagen!.path);
-    final response = await petData.addPeT(newPet, img, userId);
+    final response = await petData.addPet(addPet, img, userId);
     if (response) {
       specie = 0;
       sex = false;
@@ -66,6 +69,34 @@ class PetProvider extends ChangeNotifier {
       imageFile = null;
     }
 
+    return response;
+  }
+
+  Future<bool> updatePet(PetModel updatePet) async {
+    File? img;
+    if (_imagen != null) {
+      img = File(_imagen!.path);
+    }
+    final updPet = updatePet.copyWith(
+      borndate: borndate,
+      specie: specieJson[specie]!,
+      sex: sex,
+      sterillized: sterillized,
+      userId: [userId],
+    );
+    // newPet = PetModel(
+    //   name: newPet!.name,
+    // );
+    Logger().d(updatePet);
+    final response = await petData.updatePet(updPet, img, userId);
+    if (response) {
+      specie = 0;
+      sex = false;
+      borndate = DateTime.now();
+      sterillized = false;
+      _imagen = null;
+      imageFile = null;
+    }
     return response;
   }
 
@@ -80,11 +111,6 @@ class PetProvider extends ChangeNotifier {
   void procesarImagen(ImageSource origen) async {
     _imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
     imageFile = FileImage(File(_imagen!.path));
-    notifyListeners();
-  }
-
-  void actionSet(int action) {
-    actions = action;
     notifyListeners();
   }
 }

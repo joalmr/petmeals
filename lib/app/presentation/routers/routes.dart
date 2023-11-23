@@ -1,7 +1,10 @@
-import 'package:petmeals/app/presentation/get_it_views/home/views/home.dart';
-import 'package:petmeals/app/presentation/get_it_views/pet/views/pet_add.dart';
-import 'package:petmeals/app/presentation/get_it_views/pet/views/pet_detail.dart';
-import 'package:petmeals/app/presentation/get_it_views/user/views/login.dart';
+import 'package:petmeals/app/presentation/get_it/home/views/home.dart';
+import 'package:petmeals/app/presentation/get_it/pet/views/pet_add.dart';
+import 'package:petmeals/app/presentation/get_it/pet/views/pet_detail.dart';
+import 'package:petmeals/app/presentation/get_it/pet/widgets/actions/food.dart';
+import 'package:petmeals/app/presentation/get_it/pet/widgets/actions/leash.dart';
+import 'package:petmeals/app/presentation/get_it/pet/widgets/actions/litter.dart';
+import 'package:petmeals/app/presentation/get_it/user/views/login.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -25,13 +28,41 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/add',
       builder: (BuildContext context, GoRouterState state) {
-        return PetAddView();
+        return const PetAddView();
       },
     ),
+    // GoRoute(
+    //   path: '/edit',
+    //   builder: (BuildContext context, GoRouterState state) {
+    //     return PetAddView(
+    //       // petUpd: state.pathParameters['petUpd'] as PetModel?,
+    //       petUpd: state.uri.queryParameters['petUpd'] as PetModel?,
+    //     );
+    //   },
+    // ),
     GoRoute(
       path: '/petdetail',
       builder: (BuildContext context, GoRouterState state) {
         return PetDetailView();
+      },
+    ),
+    //
+    GoRoute(
+      path: '/food',
+      builder: (BuildContext context, GoRouterState state) {
+        return const FoodPetWidget();
+      },
+    ),
+    GoRoute(
+      path: '/leash',
+      builder: (BuildContext context, GoRouterState state) {
+        return const LeashPetWidget();
+      },
+    ),
+    GoRoute(
+      path: '/litter',
+      builder: (BuildContext context, GoRouterState state) {
+        return const LitterPetWidget();
       },
     ),
   ],

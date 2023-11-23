@@ -1,6 +1,6 @@
 import 'dart:developer';
-import 'package:petmeals/app/presentation/get_it_views/home/widgets/list_pet.home.dart';
-import 'package:petmeals/app/presentation/get_it_views/home/widgets/saludo.home.dart';
+import 'package:petmeals/app/presentation/get_it/home/widgets/list_pet.home.dart';
+import 'package:petmeals/app/presentation/get_it/home/widgets/saludo.home.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {

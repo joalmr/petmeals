@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 class SterillizedPetWidget extends StatefulWidget {
   const SterillizedPetWidget({super.key});
+  // final bool? sterillized;
 
   @override
   State<SterillizedPetWidget> createState() => _SterillizedPetWidgetState();
@@ -14,6 +15,10 @@ class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
   @override
   Widget build(BuildContext context) {
     final petProvider = getIt<PetProvider>();
+
+    // if (widget.sterillized != null) {
+    //   petProvider.sterillized = widget.sterillized!;
+    // }
 
     return Padding(
       padding: const EdgeInsets.all(4.0),

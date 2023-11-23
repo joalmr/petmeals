@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:petmeals/app/data/pet/models/pet_model.dart';
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
-import 'package:petmeals/app/presentation/get_it_views/home/widgets/add_pet.home.dart';
-import 'package:petmeals/app/presentation/get_it_views/home/widgets/card_pet.home.dart';
+import 'package:petmeals/app/presentation/get_it/home/widgets/add_pet.home.dart';
+import 'package:petmeals/app/presentation/get_it/home/widgets/card_pet.home.dart';
 import 'package:petmeals/app/presentation/setup.get_it.dart';
 import 'package:petmeals/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';

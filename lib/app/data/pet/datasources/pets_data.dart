@@ -26,7 +26,7 @@ class PetsData {
     return result;
   }
 
-  Future<bool> addPeT(PetModel pet, File image, String userId) async {
+  Future<bool> addPet(PetModel pet, File image, String userId) async {
     final imgStorage = await uploadImage(image, userId);
     final petWithImg = pet.copyWith(photo: imgStorage);
     final response = await fireRef.add(petWithImg);
@@ -35,6 +35,20 @@ class PetsData {
     } else {
       return false;
     }
+  }
+
+  Future<bool> updatePet(PetModel pet, File? image, String userId) async {
+    String imgStorage = "";
+    PetModel petWithImg = pet;
+    if (image != null) {
+      imgStorage = await uploadImage(image, userId);
+      petWithImg = pet.copyWith(photo: imgStorage);
+    }
+
+    return await fireRef
+        .doc(pet.id)
+        .update(petWithImg.toJson())
+        .then((value) => true);
   }
 
   Future<void> deletePet(String id, String userId) async {
