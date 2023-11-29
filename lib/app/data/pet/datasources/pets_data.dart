@@ -15,13 +15,16 @@ class PetsData {
       );
 
   Stream<List<PetModel>> getPetStream(String idUser) {
-    //TODO: CONSULTAR CON USER ID
-    final result = fireRef.snapshots().map(
-          (event) => event.docs
-              .map(
-                (e) => e.data(),
-              )
-              .toList(),
+    Logger().i(idUser);
+
+    final result = fireRef
+        .where(
+          'userId',
+          arrayContains: idUser,
+        )
+        .snapshots()
+        .map(
+          (event) => event.docs.map((e) => e.data()).toList(),
         );
 
     return result;
