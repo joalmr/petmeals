@@ -1,3 +1,4 @@
+import 'package:logger/logger.dart';
 import 'package:petmeals/app/data/user/datasources/user_data.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,38 +6,41 @@ import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
   final UserData userData;
-  UserProvider({required this.userData});
+  UserProvider({required this.userData}) {
+    if (MyStorage().uid.isNotEmpty) {
+      uid = MyStorage().uid;
+    }
+    if (MyStorage().name.isNotEmpty) {
+      name = MyStorage().name;
+    }
+    if (MyStorage().photo.isNotEmpty) {
+      photoUrl = MyStorage().photo;
+    }
+  }
 
-  User? _user;
-  String? uid = MyStorage().uid;
-  String? name = MyStorage().name;
-  String? photoUrl = MyStorage().photo;
+  String? uid;
+  String? name;
+  String? photoUrl;
 
-  Future<bool> signInGoogle() async {
+  Future<User?> signInGoogle() async {
     final userResponse = await userData.signInGoogle();
+    Logger().d(userResponse);
 
     if (userResponse!.user == null) {
       throw Exception();
+    } else {
+      final user = userResponse.user;
+
+      uid = user?.uid;
+      name = user?.displayName.toString().split(' ')[0];
+      photoUrl = user?.photoURL;
+      // notifyListeners();
+      return user;
     }
-
-    _user = userResponse.user;
-
-    uid = _user?.uid;
-    name = _user?.displayName.toString().split(' ')[0];
-    photoUrl = _user?.photoURL;
-
-    MyStorage().uid = uid!;
-    MyStorage().name = name!;
-    MyStorage().photo = photoUrl!;
-
-    if (_user != null) {
-      return true;
-    }
-    return false;
   }
 
-  void getUser() async {
-    await userData.getUser(uid!);
-    notifyListeners();
-  }
+  // void getUser() async {
+  //   await userData.getUser(uid!);
+  //   notifyListeners();
+  // }
 }
