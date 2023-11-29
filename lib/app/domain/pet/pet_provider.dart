@@ -81,7 +81,6 @@ class PetProvider extends ChangeNotifier {
       userId: [userId],
     );
 
-    Logger().d(updatePet);
     final response = await petData.updatePet(updPet, img, userId);
     if (response) {
       specie = 0;
@@ -96,7 +95,6 @@ class PetProvider extends ChangeNotifier {
 
   //registra los horarios de comidas
   Future<bool> foodPet(PetModel updatePet) async {
-    Logger().d(updatePet);
     final response = await petData.updatePet(updatePet, null, userId);
     if (response) {
       Logger().i('Comida registrada');
@@ -106,7 +104,6 @@ class PetProvider extends ChangeNotifier {
 
 //registra los horarios de actividades
   Future<bool> actionPet(PetModel updatePet) async {
-    Logger().d(updatePet);
     final response = await petData.updatePet(updatePet, null, userId);
     if (response) {
       Logger().i('Acción registrada');
