@@ -3,6 +3,7 @@ import 'package:petmeals/app/presentation/setup.get_it.dart';
 import 'package:petmeals/config/components/widgets/styles/style.button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:petmeals/config/storage/storage.data.dart';
 
 class ButtonGoogle extends StatelessWidget {
   const ButtonGoogle({super.key});
@@ -21,7 +22,13 @@ class ButtonGoogle extends StatelessWidget {
       child: TextButton(
         onPressed: () async {
           userProvider.signInGoogle().then((value) {
-            if (value) context.pushReplacement('/home');
+            if (value != null) {
+              MyStorage().uid = value.uid;
+              MyStorage().name = value.displayName.toString().split(' ')[0];
+              MyStorage().photo = value.photoURL!;
+
+              context.pushReplacement('/home');
+            }
           });
         },
         style: buttonStyleOther(Colors.white, Colors.black38),

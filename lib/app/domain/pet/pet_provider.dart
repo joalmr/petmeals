@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:logger/logger.dart';
 import 'package:petmeals/app/data/pet/datasources/pets_data.dart';
@@ -11,6 +12,18 @@ class PetProvider extends ChangeNotifier {
   final PetsData petData;
 
   PetProvider({required this.petData}) {
+    //first login
+    MyStorage().box.listen(() {
+      userId = MyStorage().uid;
+      loadStream().listen((event) {
+        if (event.isNotEmpty) {
+          pet = event.first;
+        }
+      });
+
+      notifyListeners();
+    });
+    //storage
     loadStream().listen((event) {
       if (event.isNotEmpty) {
         pet = event.first;
@@ -18,17 +31,17 @@ class PetProvider extends ChangeNotifier {
     });
   }
 
-  String userId = MyStorage().uid;
-  //? OBTIENE USER ID
+  String userId = MyStorage().uid; //? OBTIENE USER ID
 
   List<PetModel> myPets = [];
   PetModel? pet;
+
+  // StreamSubscription<dynamic>? subscription;
 
   int specie = 0;
   bool sex = false;
   DateTime borndate = DateTime.now();
   bool sterillized = false;
-  // int actions = 0;
 
   final specieJson = {
     0: Specie(id: '0', name: 'Gato'),

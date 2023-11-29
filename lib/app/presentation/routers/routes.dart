@@ -31,15 +31,6 @@ final GoRouter goRouter = GoRouter(
         return const PetAddView();
       },
     ),
-    // GoRoute(
-    //   path: '/edit',
-    //   builder: (BuildContext context, GoRouterState state) {
-    //     return PetAddView(
-    //       // petUpd: state.pathParameters['petUpd'] as PetModel?,
-    //       petUpd: state.uri.queryParameters['petUpd'] as PetModel?,
-    //     );
-    //   },
-    // ),
     GoRoute(
       path: '/petdetail',
       builder: (BuildContext context, GoRouterState state) {

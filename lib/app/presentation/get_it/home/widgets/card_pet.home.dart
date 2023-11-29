@@ -7,12 +7,28 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:watch_it/watch_it.dart';
 
-class CardPetWidget extends StatelessWidget with WatchItMixin {
-  CardPetWidget({super.key});
+class CardPetWidget extends WatchingStatefulWidget {
+  const CardPetWidget({super.key});
+
+  @override
+  State<CardPetWidget> createState() => _CardPetWidgetState();
+}
+
+class _CardPetWidgetState extends State<CardPetWidget> {
+  final petProvider = getIt<PetProvider>();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
     final watchPet = watch(petProvider);
 
     return Padding(

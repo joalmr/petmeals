@@ -79,7 +79,7 @@ class ListPetWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
+              const Expanded(
                 child: CardPetWidget(),
               ),
             ],
