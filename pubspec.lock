@@ -257,6 +257,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.3"
+  easy_mask:
+    dependency: "direct main"
+    description:
+      name: easy_mask
+      sha256: be5e8c5e25a25f840e5679c6ad3f79602898783b6df4d97583c2d462f4757b1a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -1058,6 +1066,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
+  time_parser:
+    dependency: "direct main"
+    description:
+      name: time_parser
+      sha256: "9876bbf498e65752330ba09bc151662f45d553b9ba7fe9b7510222a23c7c8724"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
   timing:
     dependency: transitive
     description:

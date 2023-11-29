@@ -1,9 +1,9 @@
 import 'package:petmeals/app/presentation/get_it/home/views/home.dart';
 import 'package:petmeals/app/presentation/get_it/pet/views/pet_add.dart';
 import 'package:petmeals/app/presentation/get_it/pet/views/pet_detail.dart';
-import 'package:petmeals/app/presentation/get_it/pet/widgets/actions/food.dart';
-import 'package:petmeals/app/presentation/get_it/pet/widgets/actions/leash.dart';
-import 'package:petmeals/app/presentation/get_it/pet/widgets/actions/litter.dart';
+import 'package:petmeals/app/presentation/get_it/pet/views/actions/food.dart';
+import 'package:petmeals/app/presentation/get_it/pet/views/actions/leash.dart';
+import 'package:petmeals/app/presentation/get_it/pet/views/actions/litter.dart';
 import 'package:petmeals/app/presentation/get_it/user/views/login.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';

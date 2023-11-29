@@ -20,15 +20,17 @@ PetModel _$PetModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PetModel {
-  String? get name => throw _privateConstructorUsedError;
-  Specie? get specie => throw _privateConstructorUsedError;
+  List<String>? get actions => throw _privateConstructorUsedError;
+  int? get age => throw _privateConstructorUsedError;
   DateTime? get borndate => throw _privateConstructorUsedError;
+  List<String>? get foods => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   String? get photo => throw _privateConstructorUsedError;
   bool? get sex => throw _privateConstructorUsedError;
+  Specie? get specie => throw _privateConstructorUsedError;
   bool? get sterillized => throw _privateConstructorUsedError;
   List<String>? get userId => throw _privateConstructorUsedError;
-  int? get age => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,15 +44,17 @@ abstract class $PetModelCopyWith<$Res> {
       _$PetModelCopyWithImpl<$Res, PetModel>;
   @useResult
   $Res call(
-      {String? name,
-      Specie? specie,
+      {List<String>? actions,
+      int? age,
       DateTime? borndate,
+      List<String>? foods,
       String? id,
+      String? name,
       String? photo,
       bool? sex,
+      Specie? specie,
       bool? sterillized,
-      List<String>? userId,
-      int? age});
+      List<String>? userId});
 
   $SpecieCopyWith<$Res>? get specie;
 }
@@ -68,32 +72,42 @@ class _$PetModelCopyWithImpl<$Res, $Val extends PetModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? specie = freezed,
+    Object? actions = freezed,
+    Object? age = freezed,
     Object? borndate = freezed,
+    Object? foods = freezed,
     Object? id = freezed,
+    Object? name = freezed,
     Object? photo = freezed,
     Object? sex = freezed,
+    Object? specie = freezed,
     Object? sterillized = freezed,
     Object? userId = freezed,
-    Object? age = freezed,
   }) {
     return _then(_value.copyWith(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      specie: freezed == specie
-          ? _value.specie
-          : specie // ignore: cast_nullable_to_non_nullable
-              as Specie?,
+      actions: freezed == actions
+          ? _value.actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      age: freezed == age
+          ? _value.age
+          : age // ignore: cast_nullable_to_non_nullable
+              as int?,
       borndate: freezed == borndate
           ? _value.borndate
           : borndate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      foods: freezed == foods
+          ? _value.foods
+          : foods // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
       photo: freezed == photo
           ? _value.photo
@@ -103,6 +117,10 @@ class _$PetModelCopyWithImpl<$Res, $Val extends PetModel>
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
               as bool?,
+      specie: freezed == specie
+          ? _value.specie
+          : specie // ignore: cast_nullable_to_non_nullable
+              as Specie?,
       sterillized: freezed == sterillized
           ? _value.sterillized
           : sterillized // ignore: cast_nullable_to_non_nullable
@@ -111,10 +129,6 @@ class _$PetModelCopyWithImpl<$Res, $Val extends PetModel>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      age: freezed == age
-          ? _value.age
-          : age // ignore: cast_nullable_to_non_nullable
-              as int?,
     ) as $Val);
   }
 
@@ -140,15 +154,17 @@ abstract class _$$PetModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? name,
-      Specie? specie,
+      {List<String>? actions,
+      int? age,
       DateTime? borndate,
+      List<String>? foods,
       String? id,
+      String? name,
       String? photo,
       bool? sex,
+      Specie? specie,
       bool? sterillized,
-      List<String>? userId,
-      int? age});
+      List<String>? userId});
 
   @override
   $SpecieCopyWith<$Res>? get specie;
@@ -165,32 +181,42 @@ class __$$PetModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? specie = freezed,
+    Object? actions = freezed,
+    Object? age = freezed,
     Object? borndate = freezed,
+    Object? foods = freezed,
     Object? id = freezed,
+    Object? name = freezed,
     Object? photo = freezed,
     Object? sex = freezed,
+    Object? specie = freezed,
     Object? sterillized = freezed,
     Object? userId = freezed,
-    Object? age = freezed,
   }) {
     return _then(_$PetModelImpl(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      specie: freezed == specie
-          ? _value.specie
-          : specie // ignore: cast_nullable_to_non_nullable
-              as Specie?,
+      actions: freezed == actions
+          ? _value._actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      age: freezed == age
+          ? _value.age
+          : age // ignore: cast_nullable_to_non_nullable
+              as int?,
       borndate: freezed == borndate
           ? _value.borndate
           : borndate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      foods: freezed == foods
+          ? _value._foods
+          : foods // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
       photo: freezed == photo
           ? _value.photo
@@ -200,6 +226,10 @@ class __$$PetModelImplCopyWithImpl<$Res>
           ? _value.sex
           : sex // ignore: cast_nullable_to_non_nullable
               as bool?,
+      specie: freezed == specie
+          ? _value.specie
+          : specie // ignore: cast_nullable_to_non_nullable
+              as Specie?,
       sterillized: freezed == sterillized
           ? _value.sterillized
           : sterillized // ignore: cast_nullable_to_non_nullable
@@ -208,10 +238,6 @@ class __$$PetModelImplCopyWithImpl<$Res>
           ? _value._userId
           : userId // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      age: freezed == age
-          ? _value.age
-          : age // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -220,32 +246,58 @@ class __$$PetModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PetModelImpl with DiagnosticableTreeMixin implements _PetModel {
   _$PetModelImpl(
-      {this.name,
-      this.specie,
+      {final List<String>? actions,
+      this.age,
       this.borndate,
+      final List<String>? foods,
       this.id,
+      this.name,
       this.photo,
       this.sex,
+      this.specie,
       this.sterillized,
-      final List<String>? userId,
-      this.age})
-      : _userId = userId;
+      final List<String>? userId})
+      : _actions = actions,
+        _foods = foods,
+        _userId = userId;
 
   factory _$PetModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PetModelImplFromJson(json);
 
+  final List<String>? _actions;
   @override
-  final String? name;
+  List<String>? get actions {
+    final value = _actions;
+    if (value == null) return null;
+    if (_actions is EqualUnmodifiableListView) return _actions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
-  final Specie? specie;
+  final int? age;
   @override
   final DateTime? borndate;
+  final List<String>? _foods;
+  @override
+  List<String>? get foods {
+    final value = _foods;
+    if (value == null) return null;
+    if (_foods is EqualUnmodifiableListView) return _foods;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? id;
+  @override
+  final String? name;
   @override
   final String? photo;
   @override
   final bool? sex;
+  @override
+  final Specie? specie;
   @override
   final bool? sterillized;
   final List<String>? _userId;
@@ -259,11 +311,8 @@ class _$PetModelImpl with DiagnosticableTreeMixin implements _PetModel {
   }
 
   @override
-  final int? age;
-
-  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PetModel(name: $name, specie: $specie, borndate: $borndate, id: $id, photo: $photo, sex: $sex, sterillized: $sterillized, userId: $userId, age: $age)';
+    return 'PetModel(actions: $actions, age: $age, borndate: $borndate, foods: $foods, id: $id, name: $name, photo: $photo, sex: $sex, specie: $specie, sterillized: $sterillized, userId: $userId)';
   }
 
   @override
@@ -271,15 +320,17 @@ class _$PetModelImpl with DiagnosticableTreeMixin implements _PetModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'PetModel'))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('specie', specie))
+      ..add(DiagnosticsProperty('actions', actions))
+      ..add(DiagnosticsProperty('age', age))
       ..add(DiagnosticsProperty('borndate', borndate))
+      ..add(DiagnosticsProperty('foods', foods))
       ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('photo', photo))
       ..add(DiagnosticsProperty('sex', sex))
+      ..add(DiagnosticsProperty('specie', specie))
       ..add(DiagnosticsProperty('sterillized', sterillized))
-      ..add(DiagnosticsProperty('userId', userId))
-      ..add(DiagnosticsProperty('age', age));
+      ..add(DiagnosticsProperty('userId', userId));
   }
 
   @override
@@ -287,32 +338,36 @@ class _$PetModelImpl with DiagnosticableTreeMixin implements _PetModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PetModelImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.specie, specie) || other.specie == specie) &&
+            const DeepCollectionEquality().equals(other._actions, _actions) &&
+            (identical(other.age, age) || other.age == age) &&
             (identical(other.borndate, borndate) ||
                 other.borndate == borndate) &&
+            const DeepCollectionEquality().equals(other._foods, _foods) &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.photo, photo) || other.photo == photo) &&
             (identical(other.sex, sex) || other.sex == sex) &&
+            (identical(other.specie, specie) || other.specie == specie) &&
             (identical(other.sterillized, sterillized) ||
                 other.sterillized == sterillized) &&
-            const DeepCollectionEquality().equals(other._userId, _userId) &&
-            (identical(other.age, age) || other.age == age));
+            const DeepCollectionEquality().equals(other._userId, _userId));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      name,
-      specie,
+      const DeepCollectionEquality().hash(_actions),
+      age,
       borndate,
+      const DeepCollectionEquality().hash(_foods),
       id,
+      name,
       photo,
       sex,
+      specie,
       sterillized,
-      const DeepCollectionEquality().hash(_userId),
-      age);
+      const DeepCollectionEquality().hash(_userId));
 
   @JsonKey(ignore: true)
   @override
@@ -330,37 +385,43 @@ class _$PetModelImpl with DiagnosticableTreeMixin implements _PetModel {
 
 abstract class _PetModel implements PetModel {
   factory _PetModel(
-      {final String? name,
-      final Specie? specie,
+      {final List<String>? actions,
+      final int? age,
       final DateTime? borndate,
+      final List<String>? foods,
       final String? id,
+      final String? name,
       final String? photo,
       final bool? sex,
+      final Specie? specie,
       final bool? sterillized,
-      final List<String>? userId,
-      final int? age}) = _$PetModelImpl;
+      final List<String>? userId}) = _$PetModelImpl;
 
   factory _PetModel.fromJson(Map<String, dynamic> json) =
       _$PetModelImpl.fromJson;
 
   @override
-  String? get name;
+  List<String>? get actions;
   @override
-  Specie? get specie;
+  int? get age;
   @override
   DateTime? get borndate;
   @override
+  List<String>? get foods;
+  @override
   String? get id;
+  @override
+  String? get name;
   @override
   String? get photo;
   @override
   bool? get sex;
   @override
+  Specie? get specie;
+  @override
   bool? get sterillized;
   @override
   List<String>? get userId;
-  @override
-  int? get age;
   @override
   @JsonKey(ignore: true)
   _$$PetModelImplCopyWith<_$PetModelImpl> get copyWith =>
