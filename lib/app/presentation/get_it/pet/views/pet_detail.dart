@@ -117,7 +117,7 @@ class PetDetailView extends StatelessWidget with WatchItMixin {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Logger().d('Action: food');
+                      Logger().i('Action: food');
                       context.push('/food');
                     },
                     child: Column(
@@ -148,7 +148,6 @@ class PetDetailView extends StatelessWidget with WatchItMixin {
                             "Action: paseo ${petProvider.pet!.specie!.name}"); //perro
                         context.push('/leash');
                       }
-                      Logger().d("ir a action");
                     },
                     child: Column(
                       children: [

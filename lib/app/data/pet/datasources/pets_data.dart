@@ -15,7 +15,7 @@ class PetsData {
       );
 
   Stream<List<PetModel>> getPetStream(String idUser) {
-    Logger().i(idUser);
+    Logger().d(idUser);
 
     final result = fireRef
         .where(
