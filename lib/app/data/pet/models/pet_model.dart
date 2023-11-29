@@ -12,15 +12,17 @@ List<PetModel> petModelFromJson(String str) =>
 @freezed
 class PetModel with _$PetModel {
   factory PetModel({
-    String? name,
-    Specie? specie,
+    List<String>? actions,
+    int? age,
     DateTime? borndate,
+    List<String>? foods,
     String? id,
+    String? name,
     String? photo,
     bool? sex,
+    Specie? specie,
     bool? sterillized,
     List<String>? userId,
-    int? age,
   }) = _PetModel;
 
   factory PetModel.fromJson(Map<String, Object?> json) =>

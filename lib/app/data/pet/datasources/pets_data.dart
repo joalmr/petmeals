@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:logger/logger.dart';
 import 'package:petmeals/app/data/pet/datasources/firebase_storage.dart';
 import 'package:petmeals/app/data/pet/models/pet_model.dart';
 
@@ -14,48 +15,70 @@ class PetsData {
       );
 
   Stream<List<PetModel>> getPetStream(String idUser) {
-    //TODO: CONSULTAR CON USER ID
-    final result = fireRef.snapshots().map(
-          (event) => event.docs
-              .map(
-                (e) => e.data(),
-              )
-              .toList(),
+    Logger().i(idUser);
+
+    final result = fireRef
+        .where(
+          'userId',
+          arrayContains: idUser,
+        )
+        .snapshots()
+        .map(
+          (event) => event.docs.map((e) => e.data()).toList(),
         );
 
     return result;
   }
 
+  Future<PetModel> getPet(String pet) async {
+    final result = await fireRef.doc(pet).get();
+    return result.data()!;
+  }
+
   Future<bool> addPet(PetModel pet, File image, String userId) async {
-    final imgStorage = await uploadImage(image, userId);
-    final petWithImg = pet.copyWith(photo: imgStorage);
-    final response = await fireRef.add(petWithImg);
-    if (response.id.isNotEmpty) {
-      return true;
-    } else {
+    try {
+      final imgStorage = await uploadImage(image, userId);
+      final petWithImg = pet.copyWith(photo: imgStorage);
+      final response = await fireRef.add(petWithImg);
+      if (response.id.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      Logger().e(e);
       return false;
     }
   }
 
   Future<bool> updatePet(PetModel pet, File? image, String userId) async {
-    String imgStorage = "";
-    PetModel petWithImg = pet;
-    if (image != null) {
-      imgStorage = await uploadImage(image, userId);
-      petWithImg = pet.copyWith(photo: imgStorage);
-    }
+    try {
+      String imgStorage = "";
+      PetModel petWithImg = pet;
+      if (image != null) {
+        imgStorage = await uploadImage(image, userId);
+        petWithImg = pet.copyWith(photo: imgStorage);
+      }
 
-    return await fireRef
-        .doc(pet.id)
-        .update(petWithImg.toJson())
-        .then((value) => true);
+      return await fireRef
+          .doc(pet.id)
+          .update(petWithImg.toJson())
+          .then((value) => true);
+    } catch (e) {
+      Logger().e(e);
+      return false;
+    }
   }
 
   Future<void> deletePet(String id, String userId) async {
-    final ejec = fireRef.doc(id);
-    final photoForDelete =
-        await ejec.get().then((value) => value.data()!.photo);
-    deleteImage(photoForDelete!, userId);
-    await ejec.delete();
+    try {
+      final ejec = fireRef.doc(id);
+      final photoForDelete =
+          await ejec.get().then((value) => value.data()!.photo);
+      deleteImage(photoForDelete!, userId);
+      await ejec.delete();
+    } catch (e) {
+      Logger().e(e);
+    }
   }
 }

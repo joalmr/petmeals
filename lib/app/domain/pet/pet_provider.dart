@@ -54,10 +54,6 @@ class PetProvider extends ChangeNotifier {
       userId: [userId],
     );
 
-    // newPet = PetModel(
-    //   name: newPet!.name,
-    // );
-
     final img = File(_imagen!.path);
     final response = await petData.addPet(addPet, img, userId);
     if (response) {
@@ -84,9 +80,7 @@ class PetProvider extends ChangeNotifier {
       sterillized: sterillized,
       userId: [userId],
     );
-    // newPet = PetModel(
-    //   name: newPet!.name,
-    // );
+
     Logger().d(updatePet);
     final response = await petData.updatePet(updPet, img, userId);
     if (response) {
@@ -100,8 +94,34 @@ class PetProvider extends ChangeNotifier {
     return response;
   }
 
+  //registra los horarios de comidas
+  Future<bool> foodPet(PetModel updatePet) async {
+    Logger().d(updatePet);
+    final response = await petData.updatePet(updatePet, null, userId);
+    if (response) {
+      Logger().i('Comida registrada');
+    }
+    return response;
+  }
+
+//registra los horarios de actividades
+  Future<bool> actionPet(PetModel updatePet) async {
+    Logger().d(updatePet);
+    final response = await petData.updatePet(updatePet, null, userId);
+    if (response) {
+      Logger().i('Acción registrada');
+    }
+    return response;
+  }
+
   Future<void> deletePet(String id) async {
     await petData.deletePet(id, userId);
+    specie = 0;
+    sex = false;
+    borndate = DateTime.now();
+    sterillized = false;
+    _imagen = null;
+    imageFile = null;
     if (myPets.isNotEmpty) {
       pet = myPets.first;
     }

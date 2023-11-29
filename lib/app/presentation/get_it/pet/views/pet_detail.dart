@@ -6,6 +6,7 @@ import 'package:petmeals/app/presentation/get_it/pet/widgets/edit.pet.dart';
 import 'package:petmeals/app/presentation/get_it/pet/widgets/picture.pet.dart';
 import 'package:petmeals/app/presentation/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/components/utils/for_elements.dart';
 import 'package:petmeals/config/components/widgets/button/back.button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -112,23 +113,28 @@ class PetDetailView extends StatelessWidget with WatchItMixin {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GestureDetector(
                     onTap: () {
                       Logger().d('Action: food');
-                      //TODO: ir a food
                       context.push('/food');
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: const Color(0xffF3F3DE),
-                      ),
-                      height: 145,
-                      width: 120,
-                      child: SvgPicture.asset(
-                        'assets/images/icons/pet-food.svg',
-                      ),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color(0xffF3F3DE),
+                          ),
+                          height: 145,
+                          width: 120,
+                          child: SvgPicture.asset(
+                            'assets/images/icons/pet-food.svg',
+                          ),
+                        ),
+                        forElements(petProvider.pet!.foods)
+                      ],
                     ),
                   ),
                   GestureDetector(
@@ -144,18 +150,23 @@ class PetDetailView extends StatelessWidget with WatchItMixin {
                       }
                       Logger().d("ir a action");
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: const Color(0xffF3F3DE),
-                      ),
-                      height: 145,
-                      width: 120,
-                      child: SvgPicture.asset(
-                        petProvider.pet!.specie!.id! == '0'
-                            ? 'assets/images/icons/cat-litter.svg'
-                            : 'assets/images/icons/leash.svg',
-                      ),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color(0xffF3F3DE),
+                          ),
+                          height: 145,
+                          width: 120,
+                          child: SvgPicture.asset(
+                            petProvider.pet!.specie!.id! == '0'
+                                ? 'assets/images/icons/cat-litter.svg'
+                                : 'assets/images/icons/leash.svg',
+                          ),
+                        ),
+                        forElements(petProvider.pet!.actions)
+                      ],
                     ),
                   ),
                 ],

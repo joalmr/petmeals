@@ -19,15 +19,17 @@ dependencies:
   google_sign_in: ^6.1.5
   intl: ^0.18.1
   #** dependencias
-  cached_network_image: ^3.2.3
-  image_picker: ^1.0.4
-  flutter_svg: ^2.0.7
   animate_do: ^3.1.2
+  cached_network_image: ^3.2.3
+  easy_mask: ^2.0.1
+  flutter_svg: ^2.0.7
+  freezed_annotation: ^2.4.1
   get_storage: ^2.1.1
   go_router: ^11.1.2
-  freezed_annotation: ^2.4.1
+  image_picker: ^1.0.4
   json_annotation: ^4.8.1
   logger: ^2.0.2+1
+  time_parser: ^1.2.1
   #** manejadores
   #* get_it
   get_it: ^7.6.4
@@ -45,8 +47,8 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/logo/logo_app.png"
-  adaptive_icon_background: "assets/logo/logo_app.png"
+  image_path: "assets/logo/pet.png"
+  adaptive_icon_background: "assets/logo/pet.png"
 
 flutter:
   uses-material-design: true
