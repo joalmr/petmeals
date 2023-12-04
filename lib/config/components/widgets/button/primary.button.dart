@@ -1,30 +1,73 @@
+import 'dart:io';
+
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ButtonPrimary extends BtnIOS {
+// typedef PlatformApp = String;
+
+class ButtonPrimary extends StatelessWidget {
+  final void Function()? onPressed;
+  final Color color;
+  final Widget child;
+  final PlatformApp platformApp;
   const ButtonPrimary({
     super.key,
-    super.onPressed,
-    required super.child,
-    super.color,
+    this.onPressed,
+    required this.child,
+    this.color = primerColor,
+    required this.platformApp,
   });
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Platform.isIOS
-  //       ? _BtnIOS(text: text, onPressed: onPressed)
-  //       : _BtnAndroid(onPressed: onPressed, text: text);
-  // }
+  @override
+  Widget build(BuildContext context) {
+    switch (platformApp) {
+      case PlatformApp.ios:
+        return _BtnIOS(
+          onPressed: onPressed,
+          color: color,
+          child: child,
+        );
+      case PlatformApp.android:
+        return _BtnAndroid(
+          onPressed: onPressed,
+          color: color,
+          child: child,
+        );
+      // case PlatformApp.auto:
+      //   return Platform.isIOS
+      //       ? _BtnIOS(
+      //           onPressed: onPressed,
+      //           color: color,
+      //           child: child,
+      //         )
+      //       : _BtnAndroid(
+      //           onPressed: onPressed,
+      //           color: color,
+      //           child: child,
+      //         );
+      default:
+        return Platform.isIOS
+            ? _BtnIOS(
+                onPressed: onPressed,
+                color: color,
+                child: child,
+              )
+            : _BtnAndroid(
+                onPressed: onPressed,
+                color: color,
+                child: child,
+              );
+    }
+  }
 }
 
 //ios
-abstract class BtnIOS extends StatelessWidget {
+class _BtnIOS extends StatelessWidget {
   final Widget child;
   final void Function()? onPressed;
   final Color color;
 
-  const BtnIOS({
-    super.key,
+  const _BtnIOS({
     this.onPressed,
     required this.child,
     this.color = primerColor,
@@ -43,13 +86,12 @@ abstract class BtnIOS extends StatelessWidget {
 }
 
 //android
-abstract class BtnAndroid extends StatelessWidget {
+class _BtnAndroid extends StatelessWidget {
   final Widget child;
   final void Function()? onPressed;
   final Color color;
 
-  const BtnAndroid({
-    super.key,
+  const _BtnAndroid({
     this.onPressed,
     required this.child,
     this.color = primerColor,

@@ -32,8 +32,9 @@ class ListPetWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ButtonPrimary(
-                child: const Text("Agregar mascota"),
                 onPressed: () => context.push('/add'),
+                platformApp: PlatformApp.ios,
+                child: const Text("Agregar mascota"),
               ),
               const SizedBox(height: 32),
               const Text('No tiene mascotas'),

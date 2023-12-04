@@ -142,6 +142,7 @@ class _PetAddViewState extends State<PetAddView> {
                         ),
                     const SizedBox(height: 20),
                     ButtonPrimary(
+                      platformApp: PlatformApp.ios,
                       onPressed: () {
                         if (controllerName.text.isEmpty) {
                           Logger().i('Falta nombre');
@@ -215,6 +216,7 @@ class _PetAddViewState extends State<PetAddView> {
                                   },
                                 );
                               },
+                              platformApp: PlatformApp.ios,
                             ),
                           ),
                   ],

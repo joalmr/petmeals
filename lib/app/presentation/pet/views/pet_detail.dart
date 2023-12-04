@@ -118,7 +118,7 @@ class PetDetailView extends StatelessWidget with WatchItMixin {
                   GestureDetector(
                     onTap: () {
                       Logger().i('Action: food');
-                      context.push('/food');
+                      context.push('/petdetail/food');
                     },
                     child: Column(
                       children: [
@@ -142,11 +142,11 @@ class PetDetailView extends StatelessWidget with WatchItMixin {
                       if (petProvider.pet!.specie!.id! == '0') {
                         Logger().i(
                             "Action: arena ${petProvider.pet!.specie!.name}"); //gato
-                        context.push('/litter');
+                        context.push('/petdetail/litter');
                       } else {
                         Logger().i(
                             "Action: paseo ${petProvider.pet!.specie!.name}"); //perro
-                        context.push('/leash');
+                        context.push('/petdetail/leash');
                       }
                     },
                     child: Column(

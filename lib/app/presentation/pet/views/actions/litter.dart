@@ -28,11 +28,10 @@ class _LitterPetWidgetState extends State<LitterPetWidget> {
   ];
   double litter = 0;
 
-  final petProvider = getIt<PetProvider>();
-
   @override
   void initState() {
     super.initState();
+    final petProvider = getIt<PetProvider>();
     if (petProvider.pet!.actions != null) {
       for (var i = 0; i < petProvider.pet!.actions!.length; i++) {
         if (petProvider.pet!.actions![i].isNotEmpty) {
@@ -47,6 +46,7 @@ class _LitterPetWidgetState extends State<LitterPetWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final petProvider = getIt<PetProvider>();
     void snackBarNegative(String text) {
       snackBar(negativeColor, text, context);
     }
@@ -176,6 +176,7 @@ class _LitterPetWidgetState extends State<LitterPetWidget> {
               ),
               const SizedBox(height: 12),
               ButtonPrimary(
+                platformApp: PlatformApp.ios,
                 onPressed: () {
                   final myActions = petProvider.pet!.copyWith(
                     actions: [

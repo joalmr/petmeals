@@ -1,3 +1,4 @@
+import 'package:petmeals/app/data/pet/models/pet_model.dart';
 import 'package:petmeals/app/presentation/home/views/home.dart';
 import 'package:petmeals/app/presentation/pet/views/pet_add.dart';
 import 'package:petmeals/app/presentation/pet/views/pet_detail.dart';
@@ -36,25 +37,33 @@ final GoRouter goRouter = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return PetDetailView();
       },
-    ),
-    //
-    GoRoute(
-      path: '/food',
-      builder: (BuildContext context, GoRouterState state) {
-        return const FoodPetWidget();
-      },
-    ),
-    GoRoute(
-      path: '/leash',
-      builder: (BuildContext context, GoRouterState state) {
-        return const LeashPetWidget();
-      },
-    ),
-    GoRoute(
-      path: '/litter',
-      builder: (BuildContext context, GoRouterState state) {
-        return const LitterPetWidget();
-      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'update',
+          builder: (BuildContext context, GoRouterState state) {
+            var pet = state.extra as PetModel;
+            return PetAddView(petUpd: pet);
+          },
+        ),
+        GoRoute(
+          path: 'food',
+          builder: (BuildContext context, GoRouterState state) {
+            return const FoodPetWidget();
+          },
+        ),
+        GoRoute(
+          path: 'leash',
+          builder: (BuildContext context, GoRouterState state) {
+            return const LeashPetWidget();
+          },
+        ),
+        GoRoute(
+          path: 'litter',
+          builder: (BuildContext context, GoRouterState state) {
+            return const LitterPetWidget();
+          },
+        ),
+      ],
     ),
   ],
 );

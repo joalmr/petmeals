@@ -34,6 +34,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ButtonPrimary(
+                platformApp: PlatformApp.ios,
                 color: Colors.white,
                 child: Column(
                   children: [
@@ -60,6 +61,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
               ),
               const SizedBox(width: 20),
               ButtonPrimary(
+                platformApp: PlatformApp.ios,
                 color: Colors.white,
                 child: Column(
                   children: [

@@ -1,3 +1,4 @@
+import 'package:petmeals/global.dart';
 import 'package:petmeals/main.get_it.dart';
 import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/firebase_options.dart';
@@ -11,5 +12,6 @@ Future<void> main() async {
   await GetStorage.init();
   setupProvidersGetIt();
 
+  Global.app = "Development";
   runApp(const MainAppGetIt());
 }

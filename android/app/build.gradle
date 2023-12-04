@@ -83,6 +83,17 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "default"
+    productFlavors {
+        prod{
+            resValue "string", "app_name", "PetMeals"
+        }
+        dev{
+            resValue "string", "app_name", "PetMeals Dev"
+            applicationIdSuffix ".dev"
+        }
+    }    
 }
 
 flutter {

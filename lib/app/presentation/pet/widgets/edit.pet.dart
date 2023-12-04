@@ -1,5 +1,6 @@
+import 'package:go_router/go_router.dart';
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
-import 'package:petmeals/app/presentation/pet/views/pet_add.dart';
+// import 'package:petmeals/app/presentation/pet/views/pet_add.dart';
 import 'package:petmeals/setup.get_it.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,7 @@ class EditPetWidget extends StatelessWidget {
         color: CupertinoColors.systemGrey,
       ),
       onPressed: () {
-        // context.push('/edit', extra: {'petUpd': petProvider.pet});
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => PetAddView(petUpd: petProvider.pet),
-          ),
-        );
+        context.push('/petdetail/update', extra: petProvider.pet);
       },
     );
   }

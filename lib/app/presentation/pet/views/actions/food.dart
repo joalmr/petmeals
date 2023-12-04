@@ -28,11 +28,10 @@ class _FoodPetWidgetState extends State<FoodPetWidget> {
   ];
   double foods = 0;
 
-  final petProvider = getIt<PetProvider>();
-
   @override
   void initState() {
     super.initState();
+    final petProvider = getIt<PetProvider>();
     if (petProvider.pet!.foods != null) {
       for (var i = 0; i < petProvider.pet!.foods!.length; i++) {
         if (petProvider.pet!.foods![i].isNotEmpty) {
@@ -47,6 +46,7 @@ class _FoodPetWidgetState extends State<FoodPetWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final petProvider = getIt<PetProvider>();
     void snackBarNegative(String text) {
       snackBar(negativeColor, text, context);
     }
@@ -178,6 +178,7 @@ class _FoodPetWidgetState extends State<FoodPetWidget> {
               ),
               const SizedBox(height: 12),
               ButtonPrimary(
+                platformApp: PlatformApp.ios,
                 onPressed: () async {
                   final myFoods = petProvider.pet!.copyWith(
                     foods: [
