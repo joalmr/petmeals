@@ -5,12 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:petmeals/app/data/pet/models/pet_model.dart';
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
 import 'package:petmeals/app/presentation/pet/widgets/picture.pet.dart';
+import 'package:petmeals/config/components/widgets/widgets.dart';
+import 'package:petmeals/global.dart';
 import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/utils/hour_mask.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
-import 'package:petmeals/config/components/widgets/button/back.button.dart';
-import 'package:petmeals/config/components/widgets/button/primary.button.dart';
 import 'package:time_parser/time_parser.dart';
 
 class FoodPetWidget extends StatefulWidget {
@@ -178,7 +178,7 @@ class _FoodPetWidgetState extends State<FoodPetWidget> {
               ),
               const SizedBox(height: 12),
               ButtonPrimary(
-                platformApp: PlatformApp.ios,
+                platformApp: Global.platformApp,
                 onPressed: () async {
                   final myFoods = petProvider.pet!.copyWith(
                     foods: [

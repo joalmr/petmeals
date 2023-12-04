@@ -7,12 +7,10 @@ import 'package:petmeals/app/presentation/pet/widgets/picture.pet.dart';
 import 'package:petmeals/app/presentation/pet/widgets/sex.pet.dart';
 import 'package:petmeals/app/presentation/pet/widgets/specie.pet.dart';
 import 'package:petmeals/app/presentation/pet/widgets/sterillized.pet.dart';
+import 'package:petmeals/config/components/widgets/widgets.dart';
+import 'package:petmeals/global.dart';
 import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
-import 'package:petmeals/config/components/widgets/button/back.button.dart';
-import 'package:petmeals/config/components/widgets/button/primary.button.dart';
-import 'package:petmeals/config/components/widgets/button/secondary.button.dart';
-import 'package:petmeals/config/components/widgets/textfield/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -125,6 +123,7 @@ class _PetAddViewState extends State<PetAddView> {
                     MyTextField(
                       controller: controllerName,
                       textField: 'Nombre',
+                      platformApp: Global.platformApp,
                     ),
                     DatePetWidget(
                       controller: controllerDate,
@@ -142,7 +141,7 @@ class _PetAddViewState extends State<PetAddView> {
                         ),
                     const SizedBox(height: 20),
                     ButtonPrimary(
-                      platformApp: PlatformApp.ios,
+                      platformApp: Global.platformApp,
                       onPressed: () {
                         if (controllerName.text.isEmpty) {
                           Logger().i('Falta nombre');
@@ -216,7 +215,7 @@ class _PetAddViewState extends State<PetAddView> {
                                   },
                                 );
                               },
-                              platformApp: PlatformApp.ios,
+                              platformApp: Global.platformApp,
                             ),
                           ),
                   ],

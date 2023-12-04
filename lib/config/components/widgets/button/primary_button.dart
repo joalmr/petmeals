@@ -1,9 +1,8 @@
 import 'dart:io';
-
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:petmeals/config/components/widgets/button/platform_app.dart';
+import 'package:petmeals/config/components/widgets/platform_app.dart';
 
 // typedef PlatformApp = String;
 
@@ -19,33 +18,23 @@ class ButtonPrimary extends StatelessWidget {
     this.color = primerColor,
     required this.platformApp,
   });
+
   @override
   Widget build(BuildContext context) {
     switch (platformApp) {
-      case PlatformApp.ios:
+      case PlatformApp.IOS:
         return _BtnIOS(
           onPressed: onPressed,
           color: color,
           child: child,
         );
-      case PlatformApp.android:
+      case PlatformApp.ANDROID:
         return _BtnAndroid(
           onPressed: onPressed,
           color: color,
           child: child,
         );
       // case PlatformApp.auto:
-      //   return Platform.isIOS
-      //       ? _BtnIOS(
-      //           onPressed: onPressed,
-      //           color: color,
-      //           child: child,
-      //         )
-      //       : _BtnAndroid(
-      //           onPressed: onPressed,
-      //           color: color,
-      //           child: child,
-      //         );
       default:
         return Platform.isIOS
             ? _BtnIOS(

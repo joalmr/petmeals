@@ -1,9 +1,10 @@
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
+import 'package:petmeals/global.dart';
 import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
-import 'package:petmeals/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:petmeals/config/components/widgets/widgets.dart';
 
 class SpeciePetWidget extends StatefulWidget {
   const SpeciePetWidget({super.key});
@@ -35,7 +36,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ButtonPrimary(
-                platformApp: PlatformApp.ios,
+                platformApp: Global.platformApp,
                 color: Colors.white,
                 child: Column(
                   children: [
@@ -67,7 +68,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
               ),
               const SizedBox(width: 20),
               ButtonPrimary(
-                platformApp: PlatformApp.ios,
+                platformApp: Global.platformApp,
                 color: Colors.white,
                 child: Column(
                   children: [

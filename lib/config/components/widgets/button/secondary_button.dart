@@ -1,9 +1,8 @@
 import 'dart:io';
-
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:petmeals/config/components/widgets/button/platform_app.dart';
+import 'package:petmeals/config/components/widgets/platform_app.dart';
 
 class ButtonSecondary extends StatelessWidget {
   final void Function()? onPressed;
@@ -21,30 +20,19 @@ class ButtonSecondary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (platformApp) {
-      case PlatformApp.ios:
+      case PlatformApp.IOS:
         return _BtnIOS(
           onPressed: onPressed,
           color: color,
           text: text,
         );
-      case PlatformApp.android:
+      case PlatformApp.ANDROID:
         return _BtnAndroid(
           onPressed: onPressed,
           color: color,
           text: text,
         );
       // case PlatformApp.auto:
-      //   return Platform.isIOS
-      //       ? _BtnIOS(
-      //           onPressed: onPressed,
-      //           color: color,
-      //           text: text,
-      //         )
-      //       : _BtnAndroid(
-      //           onPressed: onPressed,
-      //           color: color,
-      //           text: text,
-      //         );
       default:
         return Platform.isIOS
             ? _BtnIOS(
@@ -68,7 +56,6 @@ class _BtnIOS extends StatelessWidget {
   final Color color;
 
   const _BtnIOS({
-    super.key,
     this.onPressed,
     required this.text,
     this.color = primerColor,
@@ -94,7 +81,6 @@ class _BtnAndroid extends StatelessWidget {
   final String text;
   final Color color;
   const _BtnAndroid({
-    super.key,
     this.onPressed,
     required this.text,
     this.color = primerColor,

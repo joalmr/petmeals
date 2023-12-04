@@ -3,8 +3,9 @@ import 'package:petmeals/app/data/pet/models/pet_model.dart';
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
 import 'package:petmeals/app/presentation/home/widgets/add_pet.home.dart';
 import 'package:petmeals/app/presentation/home/widgets/card_pet.home.dart';
+import 'package:petmeals/config/components/widgets/widgets.dart';
+import 'package:petmeals/global.dart';
 import 'package:petmeals/setup.get_it.dart';
-import 'package:petmeals/config/components/widgets/button/primary.button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,7 +34,7 @@ class ListPetWidget extends StatelessWidget {
             children: [
               ButtonPrimary(
                 onPressed: () => context.push('/add'),
-                platformApp: PlatformApp.ios,
+                platformApp: Global.platformApp,
                 child: const Text("Agregar mascota"),
               ),
               const SizedBox(height: 32),
