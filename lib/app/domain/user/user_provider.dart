@@ -24,7 +24,6 @@ class UserProvider extends ChangeNotifier {
 
   Future<User?> signInGoogle() async {
     final userResponse = await userData.signInGoogle();
-    Logger().d(userResponse);
 
     if (userResponse!.user == null) {
       throw Exception();
@@ -39,6 +38,10 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> signOut() async {
+    await userData.signOut();
+    MyStorage().box.erase();
+  }
   // void getUser() async {
   //   await userData.getUser(uid!);
   //   notifyListeners();

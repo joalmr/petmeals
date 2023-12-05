@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final userProvider = UserProvider(userData: UserData());
     final petProvider = PetProvider(petData: PetsData());
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => userProvider),

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 import 'package:petmeals/app/domain/user/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,16 +46,39 @@ class SaludoWidget extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.all(2),
-                child: InkWell(
-                  borderRadius: const BorderRadius.all(Radius.circular(100)),
-                  onTap: () {},
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(100)),
-                    child: Image(
-                      image: CachedNetworkImageProvider(userProvider.photoUrl!),
-                      height: 48,
+                child: MenuAnchor(
+                  builder: (context, controller, child) {
+                    return InkWell(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(100)),
+                      onTap: () {
+                        if (controller.isOpen) {
+                          controller.close();
+                        } else {
+                          controller.open();
+                        }
+                      },
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(100)),
+                        child: Image(
+                          image: CachedNetworkImageProvider(
+                              userProvider.photoUrl!),
+                          height: 48,
+                        ),
+                      ),
+                    );
+                  },
+                  menuChildren: [
+                    InkWell(
+                      onTap: () {
+                        userProvider.signOut().then((value) => context.go("/"));
+                      },
+                      child: const ListTile(
+                        title: Text('Cerrar sesión'),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],

@@ -33,7 +33,7 @@ class _PetAddViewState extends State<PetAddView> {
     super.initState();
     final petProvider = context.read<PetProvider>();
     if (widget.petUpd != null) {
-      Logger().d(widget.petUpd);
+      // Logger().d(widget.petUpd);
       controllerName.text = widget.petUpd!.name!;
       controllerDate.text = format().format(widget.petUpd!.borndate!);
 
