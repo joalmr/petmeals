@@ -1,11 +1,11 @@
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class SterillizedPetWidget extends StatefulWidget {
   const SterillizedPetWidget({super.key});
-  // final bool? sterillized;
 
   @override
   State<SterillizedPetWidget> createState() => _SterillizedPetWidgetState();
@@ -14,11 +14,7 @@ class SterillizedPetWidget extends StatefulWidget {
 class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
-
-    // if (widget.sterillized != null) {
-    //   petProvider.sterillized = widget.sterillized!;
-    // }
+    final petProvider = context.read<PetProvider>();
 
     return Padding(
       padding: const EdgeInsets.all(4.0),

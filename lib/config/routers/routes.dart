@@ -35,7 +35,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/petdetail',
       builder: (BuildContext context, GoRouterState state) {
-        return PetDetailView();
+        return const PetDetailView();
       },
       routes: <RouteBase>[
         GoRoute(

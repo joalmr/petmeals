@@ -1,13 +1,14 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:watch_it/watch_it.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
+// import 'package:watch_it/watch_it.dart';
 
-class CardPetWidget extends WatchingStatefulWidget {
+class CardPetWidget extends StatefulWidget {
   const CardPetWidget({super.key});
 
   @override
@@ -15,8 +16,6 @@ class CardPetWidget extends WatchingStatefulWidget {
 }
 
 class _CardPetWidgetState extends State<CardPetWidget> {
-  final petProvider = getIt<PetProvider>();
-
   // @override
   // void initState() {
   //   super.initState();
@@ -29,7 +28,8 @@ class _CardPetWidgetState extends State<CardPetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final watchPet = watch(petProvider);
+    final petProvider = context.read<PetProvider>();
+    final petWatch = context.watch<PetProvider>();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -43,7 +43,7 @@ class _CardPetWidgetState extends State<CardPetWidget> {
                 tag: 'imgpet',
                 child: Image(
                   image: CachedNetworkImageProvider(
-                    watchPet.pet!.photo!,
+                    petWatch.pet!.photo!,
                   ),
                   height: double.maxFinite,
                   fit: BoxFit.cover,

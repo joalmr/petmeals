@@ -5,19 +5,21 @@ import 'package:petmeals/app/domain/pet/pet_provider.dart';
 import 'package:petmeals/app/presentation/pet/widgets/edit.pet.dart';
 import 'package:petmeals/app/presentation/pet/widgets/picture.pet.dart';
 import 'package:petmeals/config/components/widgets/button/buttons.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/utils/for_elements.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:watch_it/watch_it.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
+// import 'package:watch_it/watch_it.dart';
 
-class PetDetailView extends StatelessWidget with WatchItMixin {
-  PetDetailView({super.key});
+class PetDetailView extends StatelessWidget {
+  const PetDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.read<PetProvider>();
+    final petWatch = context.watch<PetProvider>();
 
     return Scaffold(
       body: SafeArea(
@@ -133,7 +135,7 @@ class PetDetailView extends StatelessWidget with WatchItMixin {
                             'assets/images/icons/pet-food.svg',
                           ),
                         ),
-                        forElements(petProvider.pet!.foods)
+                        forElements(petWatch.pet!.foods)
                       ],
                     ),
                   ),
@@ -164,7 +166,7 @@ class PetDetailView extends StatelessWidget with WatchItMixin {
                                 : 'assets/images/icons/leash.svg',
                           ),
                         ),
-                        forElements(petProvider.pet!.actions)
+                        forElements(petWatch.pet!.actions)
                       ],
                     ),
                   ),

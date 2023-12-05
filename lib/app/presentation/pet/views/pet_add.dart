@@ -9,14 +9,14 @@ import 'package:petmeals/app/presentation/pet/widgets/specie.pet.dart';
 import 'package:petmeals/app/presentation/pet/widgets/sterillized.pet.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/global.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:watch_it/watch_it.dart';
+import 'package:provider/provider.dart';
+// import 'package:watch_it/watch_it.dart';
 
-class PetAddView extends WatchingStatefulWidget {
+class PetAddView extends StatefulWidget {
   const PetAddView({super.key, this.petUpd});
   final PetModel? petUpd;
 
@@ -28,11 +28,10 @@ class _PetAddViewState extends State<PetAddView> {
   final controllerName = TextEditingController();
   final controllerDate = TextEditingController();
 
-  final petProvider = getIt<PetProvider>();
   @override
   void initState() {
     super.initState();
-
+    final petProvider = context.read<PetProvider>();
     if (widget.petUpd != null) {
       Logger().d(widget.petUpd);
       controllerName.text = widget.petUpd!.name!;
@@ -48,6 +47,9 @@ class _PetAddViewState extends State<PetAddView> {
 
   @override
   Widget build(BuildContext context) {
+    final petProvider = context.read<PetProvider>(); //TODO: watch
+    final petWatch = context.watch<PetProvider>();
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -81,7 +83,7 @@ class _PetAddViewState extends State<PetAddView> {
                 child: PicturePet(
                   buttonLeft: const BackBtn(),
                   aspectRatio: 3 / 4,
-                  child: watch(petProvider).imageFile != null
+                  child: petWatch.imageFile != null
                       ? Image(
                           image: petProvider.imageFile!, //?
                           fit: BoxFit.cover,
@@ -155,7 +157,7 @@ class _PetAddViewState extends State<PetAddView> {
                           petProvider.addPet(newPet).then(
                             (value) {
                               if (value) {
-                                context.push('/home');
+                                context.go('/home');
                               }
                             },
                           );
@@ -165,8 +167,8 @@ class _PetAddViewState extends State<PetAddView> {
                           );
                           petProvider.updatePet(updatePet).then(
                             (value) {
-                              if (value) {
-                                context.push('/home');
+                              if (value != null) {
+                                context.go('/home');
                               }
                             },
                           );
@@ -201,8 +203,8 @@ class _PetAddViewState extends State<PetAddView> {
                                           onPressed: () {
                                             petProvider
                                                 .deletePet(widget.petUpd!.id!)
-                                                .then((value) => context
-                                                    .pushReplacement('/home'));
+                                                .then((value) =>
+                                                    context.go('/home'));
                                           },
                                           child: const Text('Eliminar'),
                                         ),

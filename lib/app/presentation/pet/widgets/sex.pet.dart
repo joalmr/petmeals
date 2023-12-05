@@ -1,9 +1,10 @@
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/global.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class SexPetWidget extends StatefulWidget {
   const SexPetWidget({super.key});
@@ -16,11 +17,7 @@ class SexPetWidget extends StatefulWidget {
 class _SexPetWidgetState extends State<SexPetWidget> {
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
-
-    // if (widget.sex != null) {
-    //   petProvider.sex = widget.sex!;
-    // }
+    final petProvider = context.read<PetProvider>();
 
     return Padding(
       padding: const EdgeInsets.all(4.0),

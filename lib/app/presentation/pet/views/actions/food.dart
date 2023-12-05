@@ -2,16 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:logger/logger.dart';
 import 'package:petmeals/app/data/pet/models/pet_model.dart';
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
 import 'package:petmeals/app/presentation/pet/widgets/picture.pet.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/global.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/utils/hour_mask.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
+import 'package:provider/provider.dart';
 import 'package:time_parser/time_parser.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class FoodPetWidget extends StatefulWidget {
   const FoodPetWidget({super.key});
@@ -31,7 +33,7 @@ class _FoodPetWidgetState extends State<FoodPetWidget> {
   @override
   void initState() {
     super.initState();
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.read<PetProvider>();
     if (petProvider.pet!.foods != null) {
       for (var i = 0; i < petProvider.pet!.foods!.length; i++) {
         if (petProvider.pet!.foods![i].isNotEmpty) {
@@ -46,7 +48,7 @@ class _FoodPetWidgetState extends State<FoodPetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.read<PetProvider>();
     void snackBarNegative(String text) {
       snackBar(negativeColor, text, context);
     }
@@ -54,7 +56,7 @@ class _FoodPetWidgetState extends State<FoodPetWidget> {
     void foodPet(PetModel myFoods) {
       petProvider.foodPet(myFoods).then(
             (value) => {
-              if (value)
+              if (value != null)
                 {
                   snackBar(
                     positiveColor,
@@ -180,6 +182,7 @@ class _FoodPetWidgetState extends State<FoodPetWidget> {
               ButtonPrimary(
                 platformApp: Global.platformApp,
                 onPressed: () async {
+                  Logger().i(petProvider.pet!.name!);
                   final myFoods = petProvider.pet!.copyWith(
                     foods: [
                       food[0].text,

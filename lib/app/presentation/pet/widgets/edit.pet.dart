@@ -1,16 +1,16 @@
 import 'package:go_router/go_router.dart';
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
-// import 'package:petmeals/app/presentation/pet/views/pet_add.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class EditPetWidget extends StatelessWidget {
   const EditPetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.read<PetProvider>();
 
     return CupertinoButton(
       color: Colors.transparent,

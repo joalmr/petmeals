@@ -90,7 +90,7 @@ android {
             resValue "string", "app_name", "PetMeals"
         }
         dev{
-            resValue "string", "app_name", "PetMeals Dev"
+            resValue "string", "app_name", "PetMeals [Dev]"
             applicationIdSuffix ".dev"
         }
     }    
