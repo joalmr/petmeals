@@ -32,7 +32,7 @@ class ButtonSecondary extends StatelessWidget {
           color: color,
           text: text,
         );
-      // case PlatformApp.auto:
+      case PlatformApp.AUTO:
       default:
         return Platform.isIOS
             ? _BtnIOS(

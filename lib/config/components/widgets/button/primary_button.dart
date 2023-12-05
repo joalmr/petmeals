@@ -34,7 +34,7 @@ class ButtonPrimary extends StatelessWidget {
           color: color,
           child: child,
         );
-      // case PlatformApp.auto:
+      case PlatformApp.AUTO:
       default:
         return Platform.isIOS
             ? _BtnIOS(

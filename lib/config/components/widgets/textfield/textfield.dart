@@ -30,7 +30,7 @@ class MyTextField extends StatelessWidget {
           textField: textField,
           controller: controller,
         );
-      // case PlatformApp.auto:
+      case PlatformApp.AUTO:
       default:
         return Platform.isIOS
             ? _MyTextFieldIOS(
