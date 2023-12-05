@@ -8,7 +8,14 @@ class MainAppGetIt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    userProvider = UserProvider(userData: UserData());
+    final petProvider = PetProvider(petData: PetsData());
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => userProvider),
+        ChangeNotifierProvider(create: (_) => petProvider, lazy: true),
+      ],
+      child: return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Petmeals',
       theme: themeData,
@@ -19,6 +26,7 @@ class MainAppGetIt extends StatelessWidget {
       ],
       supportedLocales: const [Locale('es', 'ES')],
       routerConfig: goRouter,
+    ),
     );
   }
 }
