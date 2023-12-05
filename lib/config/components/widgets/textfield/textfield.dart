@@ -1,31 +1,65 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:petmeals/config/components/widgets/widgets.dart';
 
-class MyTextField extends MyTextFieldIOS {
+class MyTextField extends StatelessWidget {
+  final String textField;
+  final TextEditingController? controller;
+  final PlatformApp platformApp;
+
   const MyTextField({
     super.key,
-    required super.textField,
-    super.controller,
+    required this.textField,
+    this.controller,
+    required this.platformApp,
   });
+
+  @override
+  Widget build(BuildContext context) {
+    switch (platformApp) {
+      case PlatformApp.IOS:
+        return _MyTextFieldIOS(
+          textField: textField,
+          controller: controller,
+        );
+      case PlatformApp.ANDROID:
+        return _MyTextFieldAndroid(
+          textField: textField,
+          controller: controller,
+        );
+      case PlatformApp.AUTO:
+      default:
+        return Platform.isIOS
+            ? _MyTextFieldIOS(
+                textField: textField,
+                controller: controller,
+              )
+            : _MyTextFieldAndroid(
+                textField: textField,
+                controller: controller,
+              );
+    }
+  }
 }
 
 //ios
-abstract class MyTextFieldIOS extends StatefulWidget {
+class _MyTextFieldIOS extends StatefulWidget {
   final String textField;
   final TextEditingController? controller;
 
-  const MyTextFieldIOS({
-    super.key,
+  const _MyTextFieldIOS({
     required this.textField,
     this.controller,
   });
 
   @override
-  State<MyTextFieldIOS> createState() => _TextFieldIOSState();
+  State<_MyTextFieldIOS> createState() => _TextFieldIOSState();
 }
 
-class _TextFieldIOSState extends State<MyTextFieldIOS> {
+class _TextFieldIOSState extends State<_MyTextFieldIOS> {
   bool texting = false;
 
   @override
@@ -76,11 +110,10 @@ class _TextFieldIOSState extends State<MyTextFieldIOS> {
 }
 
 //android
-abstract class MyTextFieldAndroid extends StatelessWidget {
+class _MyTextFieldAndroid extends StatelessWidget {
   final String textField;
   final TextEditingController? controller;
-  const MyTextFieldAndroid({
-    super.key,
+  const _MyTextFieldAndroid({
     required this.textField,
     this.controller,
   });
