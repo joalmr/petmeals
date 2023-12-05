@@ -5,16 +5,17 @@ import 'package:petmeals/app/presentation/home/widgets/add_pet.home.dart';
 import 'package:petmeals/app/presentation/home/widgets/card_pet.home.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/global.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class ListPetWidget extends StatelessWidget {
   const ListPetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.read<PetProvider>();
 
     return StreamBuilder<List<PetModel>>(
       stream: petProvider.loadStream(),

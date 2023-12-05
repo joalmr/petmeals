@@ -1,14 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:petmeals/app/domain/user/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:petmeals/setup.get_it.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class SaludoWidget extends StatelessWidget {
   const SaludoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = getIt<UserProvider>();
+    final userProvider = context.read<UserProvider>();
 
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 8),

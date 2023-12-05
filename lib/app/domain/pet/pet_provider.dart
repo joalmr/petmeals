@@ -81,7 +81,7 @@ class PetProvider extends ChangeNotifier {
     return response;
   }
 
-  Future<bool> updatePet(PetModel updatePet) async {
+  Future<PetModel?> updatePet(PetModel updatePet) async {
     File? img;
     if (_imagen != null) {
       img = File(_imagen!.path);
@@ -95,7 +95,7 @@ class PetProvider extends ChangeNotifier {
     );
 
     final response = await petData.updatePet(updPet, img, userId);
-    if (response) {
+    if (response != null) {
       specie = 0;
       sex = false;
       borndate = DateTime.now();
@@ -107,18 +107,22 @@ class PetProvider extends ChangeNotifier {
   }
 
   //registra los horarios de comidas
-  Future<bool> foodPet(PetModel updatePet) async {
+  Future<PetModel?> foodPet(PetModel updatePet) async {
     final response = await petData.updatePet(updatePet, null, userId);
-    if (response) {
+    if (response != null) {
+      pet = response;
+      notifyListeners();
       Logger().i('Comida registrada');
     }
     return response;
   }
 
 //registra los horarios de actividades
-  Future<bool> actionPet(PetModel updatePet) async {
+  Future<PetModel?> actionPet(PetModel updatePet) async {
     final response = await petData.updatePet(updatePet, null, userId);
-    if (response) {
+    if (response != null) {
+      pet = response;
+      notifyListeners();
       Logger().i('Acción registrada');
     }
     return response;

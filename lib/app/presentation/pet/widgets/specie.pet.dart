@@ -1,10 +1,11 @@
 import 'package:petmeals/app/domain/pet/pet_provider.dart';
 import 'package:petmeals/global.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class SpeciePetWidget extends StatefulWidget {
   const SpeciePetWidget({super.key});
@@ -17,11 +18,7 @@ class SpeciePetWidget extends StatefulWidget {
 class _SpeciePetWidgetState extends State<SpeciePetWidget> {
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
-
-    // if (widget.specie != null) {
-    //   petProvider.specie = widget.specie!;
-    // }
+    final petProvider = context.read<PetProvider>();
 
     return Padding(
       padding: const EdgeInsets.all(4.0),

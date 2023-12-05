@@ -2,7 +2,8 @@ import 'package:petmeals/app/domain/pet/pet_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:petmeals/setup.get_it.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class DatePetWidget extends MyDateTextFieldAdaptive {
   const DatePetWidget({
@@ -33,11 +34,12 @@ abstract class MyDateTextFieldAdaptive extends StatefulWidget {
 
 class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
   bool texting = false;
-  DateTime date = getIt<PetProvider>().borndate;
+  late DateTime date;
 
   @override
   void initState() {
     super.initState();
+    date = context.read<PetProvider>().borndate;
     if (widget.controller.text.isEmpty) {
       widget.controller.text = format().format(date);
     }
@@ -45,7 +47,7 @@ class _MyDateTextFieldAdaptive extends State<MyDateTextFieldAdaptive> {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.read<PetProvider>();
     return dateiOS(context, petProvider);
   }
 

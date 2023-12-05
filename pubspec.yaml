@@ -31,9 +31,11 @@ dependencies:
   logger: ^2.0.2+1
   time_parser: ^1.2.1
   #** manejadores
+  #* provider
+  provider: ^6.0.5
   #* get_it
-  get_it: ^7.6.4
-  watch_it: ^1.1.0
+  # get_it: ^7.6.4
+  # watch_it: ^1.1.0
 
 dev_dependencies:
   flutter_test:

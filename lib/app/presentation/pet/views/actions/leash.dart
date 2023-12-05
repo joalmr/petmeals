@@ -7,11 +7,12 @@ import 'package:petmeals/app/domain/pet/pet_provider.dart';
 import 'package:petmeals/app/presentation/pet/widgets/picture.pet.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/global.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/utils/hour_mask.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
+import 'package:provider/provider.dart';
 import 'package:time_parser/time_parser.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class LeashPetWidget extends StatefulWidget {
   const LeashPetWidget({super.key});
@@ -31,7 +32,7 @@ class _LeashPetWidgetState extends State<LeashPetWidget> {
   @override
   void initState() {
     super.initState();
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.read<PetProvider>();
     if (petProvider.pet!.actions != null) {
       for (var i = 0; i < petProvider.pet!.actions!.length; i++) {
         if (petProvider.pet!.actions![i].isNotEmpty) {
@@ -46,7 +47,7 @@ class _LeashPetWidgetState extends State<LeashPetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = getIt<PetProvider>();
+    final petProvider = context.read<PetProvider>();
     void snackBarNegative(String text) {
       snackBar(negativeColor, text, context);
     }
@@ -54,7 +55,7 @@ class _LeashPetWidgetState extends State<LeashPetWidget> {
     void actionPet(PetModel myActions) {
       petProvider.actionPet(myActions).then(
             (value) => {
-              if (value)
+              if (value != null)
                 snackBar(
                   positiveColor,
                   'Horarios de paseos registrados',

@@ -51,7 +51,7 @@ class PetsData {
     }
   }
 
-  Future<bool> updatePet(PetModel pet, File? image, String userId) async {
+  Future<PetModel?> updatePet(PetModel pet, File? image, String userId) async {
     try {
       String imgStorage = "";
       PetModel petWithImg = pet;
@@ -63,10 +63,10 @@ class PetsData {
       return await fireRef
           .doc(pet.id)
           .update(petWithImg.toJson())
-          .then((value) => true);
+          .then((value) => petWithImg);
     } catch (e) {
       Logger().e(e);
-      return false;
+      return null;
     }
   }
 

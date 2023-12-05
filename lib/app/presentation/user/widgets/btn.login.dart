@@ -1,9 +1,10 @@
 import 'package:petmeals/app/domain/user/user_provider.dart';
-import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/config/components/widgets/styles/style.button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
+import 'package:provider/provider.dart';
+// import 'package:petmeals/setup.get_it.dart';
 
 class ButtonGoogle extends StatelessWidget {
   const ButtonGoogle({super.key});
@@ -13,7 +14,7 @@ class ButtonGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = getIt<UserProvider>();
+    final userProvider = context.read<UserProvider>();
 
     return Container(
       width: double.maxFinite,
@@ -27,7 +28,7 @@ class ButtonGoogle extends StatelessWidget {
               MyStorage().name = value.displayName.toString().split(' ')[0];
               MyStorage().photo = value.photoURL!;
 
-              context.pushReplacement('/home');
+              context.go('/home');
             }
           });
         },
