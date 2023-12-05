@@ -47,7 +47,7 @@ class _PetAddViewState extends State<PetAddView> {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.read<PetProvider>(); //TODO: watch
+    final petProvider = context.read<PetProvider>();
     final petWatch = context.watch<PetProvider>();
 
     return Scaffold(
