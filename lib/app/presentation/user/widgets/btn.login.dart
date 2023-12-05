@@ -27,7 +27,7 @@ class ButtonGoogle extends StatelessWidget {
               MyStorage().name = value.displayName.toString().split(' ')[0];
               MyStorage().photo = value.photoURL!;
 
-              context.pushReplacement('/home');
+              context.go('/home');
             }
           });
         },

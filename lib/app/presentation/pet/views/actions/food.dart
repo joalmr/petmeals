@@ -54,7 +54,7 @@ class _FoodPetWidgetState extends State<FoodPetWidget> {
     void foodPet(PetModel myFoods) {
       petProvider.foodPet(myFoods).then(
             (value) => {
-              if (value)
+              if (value != null)
                 {
                   snackBar(
                     positiveColor,

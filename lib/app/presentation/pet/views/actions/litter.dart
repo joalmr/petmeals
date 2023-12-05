@@ -54,7 +54,7 @@ class _LitterPetWidgetState extends State<LitterPetWidget> {
     void actionPet(PetModel myActions) {
       petProvider.actionPet(myActions).then(
             (value) => {
-              if (value)
+              if (value != null)
                 snackBar(
                   positiveColor,
                   'Horarios de cambios de arena registrados',

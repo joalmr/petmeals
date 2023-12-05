@@ -155,7 +155,7 @@ class _PetAddViewState extends State<PetAddView> {
                           petProvider.addPet(newPet).then(
                             (value) {
                               if (value) {
-                                context.push('/home');
+                                context.go('/home');
                               }
                             },
                           );
@@ -165,8 +165,8 @@ class _PetAddViewState extends State<PetAddView> {
                           );
                           petProvider.updatePet(updatePet).then(
                             (value) {
-                              if (value) {
-                                context.push('/home');
+                              if (value != null) {
+                                context.go('/home');
                               }
                             },
                           );
@@ -201,8 +201,8 @@ class _PetAddViewState extends State<PetAddView> {
                                           onPressed: () {
                                             petProvider
                                                 .deletePet(widget.petUpd!.id!)
-                                                .then((value) => context
-                                                    .pushReplacement('/home'));
+                                                .then((value) =>
+                                                    context.go('/home'));
                                           },
                                           child: const Text('Eliminar'),
                                         ),

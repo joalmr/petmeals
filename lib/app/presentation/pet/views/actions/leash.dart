@@ -54,7 +54,7 @@ class _LeashPetWidgetState extends State<LeashPetWidget> {
     void actionPet(PetModel myActions) {
       petProvider.actionPet(myActions).then(
             (value) => {
-              if (value)
+              if (value != null)
                 snackBar(
                   positiveColor,
                   'Horarios de paseos registrados',
