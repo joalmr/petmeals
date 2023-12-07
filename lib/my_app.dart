@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:petmeals/app/data/pet/datasources/pets_data.dart';
-import 'package:petmeals/app/data/user/datasources/user_data.dart';
-import 'package:petmeals/app/domain/pet/pet_provider.dart';
-import 'package:petmeals/app/domain/user/user_provider.dart';
+import 'package:petmeals/src/pet/data/datasources/pets_data.dart';
+import 'package:petmeals/src/user/data/datasources/user_data.dart';
+import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
+import 'package:petmeals/src/user/presentation/provider/user_provider.dart';
 import 'package:petmeals/config/components/styles/themes/theme.dart';
 import 'package:petmeals/config/routers/routes.dart';
 import 'package:provider/provider.dart';
