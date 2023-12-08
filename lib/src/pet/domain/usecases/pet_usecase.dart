@@ -9,36 +9,32 @@ class PetUseCase implements PetRepository {
   PetUseCase({required this.petData});
 
   @override
-  Future<PetModel?> actionPet(PetModel updatePet, String userId) async {
-    return await petData.updatePet(updatePet, null, userId);
+  Future<PetModel?> actionPet(PetModel pet, String userId) async {
+    return await petData.updatePet(pet, null, userId);
   }
 
   @override
-  Future<bool> addPet(PetModel addPet, File image, String userId) async {
-    return await petData.addPet(addPet, image, userId);
+  Future<bool> addPet(PetModel newPet, File image, String userId) async {
+    return await petData.addPet(newPet, image, userId);
   }
 
   @override
-  Future<void> deletePet(String id) {
-    // TODO: implement deletePet
-    throw UnimplementedError();
+  Future<void> deletePet(String id, String userId) async {
+    await petData.deletePet(id, userId);
   }
 
   @override
-  Future<PetModel?> foodPet(PetModel updatePet) {
-    // TODO: implement foodPet
-    throw UnimplementedError();
+  Future<PetModel?> foodPet(PetModel pet, String userId) async {
+    return await petData.updatePet(pet, null, userId);
   }
 
   @override
-  Stream<List<PetModel>> loadStream() {
-    // TODO: implement loadStream
-    throw UnimplementedError();
+  Stream<List<PetModel>> loadStream(String userId) {
+    return petData.getPetStream(userId);
   }
 
   @override
-  Future<PetModel?> updatePet(PetModel updatePet) {
-    // TODO: implement updatePet
-    throw UnimplementedError();
+  Future<PetModel?> updatePet(PetModel pet, String userId, File? img) async {
+    return await petData.updatePet(pet, img, userId);
   }
 }

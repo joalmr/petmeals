@@ -88,6 +88,7 @@ class PetProvider extends ChangeNotifier {
   }
 
   Future<PetModel?> updatePet(PetModel updatePet) async {
+    //TODO: APUNTAR A USECASE
     File? img;
     if (_imagen != null) {
       img = File(_imagen!.path);
@@ -114,6 +115,7 @@ class PetProvider extends ChangeNotifier {
 
   //registra los horarios de comidas
   Future<PetModel?> foodPet(PetModel updatePet) async {
+    //TODO: APUNTAR A USECASE
     final response = await petData.updatePet(updatePet, null, userId);
     if (response != null) {
       pet = response;
@@ -136,6 +138,7 @@ class PetProvider extends ChangeNotifier {
   }
 
   Future<void> deletePet(String id) async {
+    //TODO: APUNTAR A USECASE
     await petData.deletePet(id, userId);
     specie = 0;
     sex = false;
