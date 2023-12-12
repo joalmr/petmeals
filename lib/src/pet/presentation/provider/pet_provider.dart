@@ -1,16 +1,18 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:petmeals/src/pet/data/datasources/pets_data.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/data/models/specie_model.dart';
 import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
 
 class PetProvider extends ChangeNotifier {
-  PetUseCase petUseCase = PetUseCase(petData: petData);
+  PetUseCase petUseCase = PetUseCase(petData: GetIt.I<PetsData>);
   PetProvider() {
     //first login
     MyStorage().box.listen(() {

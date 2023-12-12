@@ -5,8 +5,8 @@ import 'package:petmeals/src/user/data/datasources/user_data.dart';
 final getIt = GetIt.instance;
 
 setupProvidersGetIt() {
-  final getItUser = getIt.registerSingleton<UserData>(UserData());
-  final getItPets = getIt.registerSingleton<PetsData>(PetsData());
+  getIt.registerSingleton<UserData>(UserData());
+  getIt.registerSingleton<PetsData>(PetsData());
   // getIt.registerSingleton<UserProvider>(UserProvider(userData: getItUser));
   // getIt.registerSingleton<PetProvider>(PetProvider(petData: getItPets));
 }
