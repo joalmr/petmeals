@@ -63,6 +63,12 @@ flutter_launcher_icons:
 
 para crear el icono de la app
 
-```yaml
+```bash
 flutter pub run flutter_launcher_icons
+```
+
+## Flavor
+
+```bash
+flutter build appbundle --flavor prod
 ```
