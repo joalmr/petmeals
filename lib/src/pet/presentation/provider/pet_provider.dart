@@ -12,23 +12,22 @@ class PetProvider extends ChangeNotifier {
   final PetUseCase petUseCase;
 
   PetProvider({required this.petUseCase}) {
-    // MyStorage().box.listen(() {
-    //   //first login
-    //   userId = MyStorage().uid;
-    //   loadStream().listen((event) {
-    //     if (event.isNotEmpty) {
-    //       pet = event.first;
-    //     }
-    //   });
+    MyStorage().box.listen(() {
+      userId = MyStorage().uid;
+      loadStream().listen((event) {
+        if (event.isNotEmpty) {
+          myPet(event.first);
+        }
+      });
+    });
 
-    //   notifyListeners();
-    // });
-    //storage
     loadStream().listen((event) {
       if (event.isNotEmpty) {
-        pet = event.first;
+        myPet(event.first);
       }
     });
+
+    notifyListeners();
 
     // subscriptionLoad = loadStream().listen((event) {});
   }
@@ -137,9 +136,8 @@ class PetProvider extends ChangeNotifier {
       _imagen = null;
       imageFile = null;
       if (myPets.isNotEmpty) {
-        pet = myPets.first;
+        myPet(myPets.first);
       }
-      notifyListeners();
     });
   }
 

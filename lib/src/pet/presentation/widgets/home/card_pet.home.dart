@@ -6,14 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class CardPetWidget extends StatefulWidget {
+class CardPetWidget extends StatelessWidget {
   const CardPetWidget({super.key});
 
-  @override
-  State<CardPetWidget> createState() => _CardPetWidgetState();
-}
-
-class _CardPetWidgetState extends State<CardPetWidget> {
   @override
   Widget build(BuildContext context) {
     final petProvider = context.read<PetProvider>();
@@ -27,15 +22,12 @@ class _CardPetWidgetState extends State<CardPetWidget> {
           borderRadius: const BorderRadius.all(Radius.circular(5)),
           child: Stack(
             children: [
-              Hero(
-                tag: 'imgpet',
-                child: Image(
-                  image: CachedNetworkImageProvider(
-                    petWatch.pet!.photo!,
-                  ),
-                  height: double.maxFinite,
-                  fit: BoxFit.cover,
+              Image(
+                image: CachedNetworkImageProvider(
+                  petWatch.pet!.photo!,
                 ),
+                height: double.maxFinite,
+                fit: BoxFit.cover,
               ),
               Positioned(
                 top: 0,

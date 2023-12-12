@@ -17,15 +17,14 @@ class UserUsecase implements UserRepository {
 
   @override
   Future<UserCredential?> signInGoogle() async {
-    userData.signInGoogle().then((value) {
-      if (value!.user != null) {
-        MyStorage().uid = value.user!.uid;
-        MyStorage().name = value.user!.displayName.toString().split(' ')[0];
-        MyStorage().photo = value.user!.photoURL!;
-      }
-      return value;
-    });
-    return null;
+    final response = await userData.signInGoogle();
+
+    if (response?.user != null) {
+      MyStorage().uid = response!.user!.uid;
+      MyStorage().name = response.user!.displayName.toString().split(' ')[0];
+      MyStorage().photo = response.user!.photoURL!;
+    }
+    return response;
   }
 
   @override
