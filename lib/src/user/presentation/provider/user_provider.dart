@@ -1,11 +1,12 @@
-import 'package:petmeals/src/user/data/datasources/user_data.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:petmeals/src/user/domain/usecases/user_usecase.dart';
 
 class UserProvider extends ChangeNotifier {
-  final UserData userData;
-  UserProvider({required this.userData}) {
+  final UserUsecase userUsecase;
+
+  UserProvider({required this.userUsecase}) {
     if (MyStorage().uid.isNotEmpty) {
       uid = MyStorage().uid;
     }
@@ -22,7 +23,7 @@ class UserProvider extends ChangeNotifier {
   String? photoUrl;
 
   Future<User?> signInGoogle() async {
-    final userResponse = await userData.signInGoogle();
+    final userResponse = await userUsecase.signInGoogle();
 
     if (userResponse!.user == null) {
       throw Exception();
@@ -38,7 +39,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> signOut() async {
-    await userData.signOut();
+    await userUsecase.signOut();
     MyStorage().box.erase();
   }
 }

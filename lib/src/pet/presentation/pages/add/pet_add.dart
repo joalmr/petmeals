@@ -14,7 +14,6 @@ import 'package:petmeals/src/pet/presentation/widgets/sex.pet.dart';
 import 'package:petmeals/src/pet/presentation/widgets/specie.pet.dart';
 import 'package:petmeals/src/pet/presentation/widgets/sterillized.pet.dart';
 import 'package:provider/provider.dart';
-// import 'package:watch_it/watch_it.dart';
 
 class PetAddPage extends StatefulWidget {
   const PetAddPage({super.key, this.petUpd});
@@ -148,24 +147,20 @@ class _PetAddPageState extends State<PetAddPage> {
                             Logger().i('Falta imagen');
                           }
                           PetModel newPet = PetModel(name: controllerName.text);
-                          petProvider.addPet(newPet).then(
-                            (value) {
-                              if (value) {
-                                context.go('/home');
-                              }
-                            },
-                          );
+                          petProvider.addPet(newPet).then((value) {
+                            if (value) {
+                              context.go('/home');
+                            }
+                          });
                         } else {
                           var updatePet = petProvider.pet!.copyWith(
                             name: controllerName.text,
                           );
-                          petProvider.updatePet(updatePet).then(
-                            (value) {
-                              if (value != null) {
-                                context.go('/home');
-                              }
-                            },
-                          );
+                          petProvider.updatePet(updatePet).then((value) {
+                            if (value != null) {
+                              context.go('/home');
+                            }
+                          });
                         }
                       },
                       child: Text(widget.petUpd != null

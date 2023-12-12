@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
-import 'package:petmeals/src/user/data/datasources/user_data.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
+import 'package:petmeals/src/user/domain/usecases/user_usecase.dart';
 import 'package:petmeals/src/user/presentation/provider/user_provider.dart';
 import 'package:petmeals/config/components/styles/themes/theme.dart';
 import 'package:petmeals/config/routers/routes.dart';
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = UserProvider(userData: UserData());
+    final userProvider = UserProvider(userUsecase: getIt<UserUsecase>());
     final petProvider = PetProvider(petUseCase: getIt<PetUseCase>());
 
     return MultiProvider(

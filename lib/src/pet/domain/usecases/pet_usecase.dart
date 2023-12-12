@@ -10,7 +10,7 @@ class PetUseCase implements PetRepository {
 
   @override
   Future<PetModel?> actionPet(PetModel pet, String userId) async {
-    return await petData.updatePet(pet, null, userId);
+    return await petData.actionPet(pet, userId);
   }
 
   @override
@@ -25,16 +25,16 @@ class PetUseCase implements PetRepository {
 
   @override
   Future<PetModel?> foodPet(PetModel pet, String userId) async {
-    return await petData.updatePet(pet, null, userId);
+    return await petData.foodPet(pet, userId);
   }
 
   @override
   Stream<List<PetModel>> loadStream(String userId) {
-    return petData.getPetStream(userId);
+    return petData.loadStream(userId);
   }
 
   @override
   Future<PetModel?> updatePet(PetModel pet, String userId, File? img) async {
-    return await petData.updatePet(pet, img, userId);
+    return await petData.updatePet(pet, userId, img);
   }
 }

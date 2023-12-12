@@ -52,6 +52,7 @@ class PetProvider extends ChangeNotifier {
 
   Stream<List<PetModel>> loadStream() => petUseCase.loadStream(userId);
 
+  //agregar mascota por usuario
   Future<bool> addPet(PetModel? newPet) {
     final addPet = newPet!.copyWith(
       borndate: borndate,
@@ -75,6 +76,7 @@ class PetProvider extends ChangeNotifier {
     });
   }
 
+  //editar mascota por usuario
   Future<PetModel?> updatePet(PetModel updatePet) {
     File? img;
     if (_imagen != null) {
@@ -113,7 +115,7 @@ class PetProvider extends ChangeNotifier {
     });
   }
 
-//registra los horarios de actividades
+  //registra los horarios de actividades
   Future<PetModel?> actionPet(PetModel updatePet) async {
     return await petUseCase.actionPet(updatePet, userId).then((value) {
       if (value != null) {
@@ -125,27 +127,30 @@ class PetProvider extends ChangeNotifier {
     });
   }
 
+  //eliminar mascota por usuario
   Future<void> deletePet(String id) async {
-    //TODO: APUNTAR A USECASE
-    await petUseCase.deletePet(id, userId);
-    specie = 0;
-    sex = false;
-    borndate = DateTime.now();
-    sterillized = false;
-    _imagen = null;
-    imageFile = null;
-    if (myPets.isNotEmpty) {
-      pet = myPets.first;
-    }
-    notifyListeners();
+    await petUseCase.deletePet(id, userId).then((value) {
+      specie = 0;
+      sex = false;
+      borndate = DateTime.now();
+      sterillized = false;
+      _imagen = null;
+      imageFile = null;
+      if (myPets.isNotEmpty) {
+        pet = myPets.first;
+      }
+      notifyListeners();
+    });
   }
 
   //* funciones
+  //actualizar el modelo de mascota para mostrar
   void myPet(PetModel myPet) {
     pet = myPet;
     notifyListeners();
   }
 
+  //cambiar imagen para mascota
   void procesarImagen(ImageSource origen) async {
     _imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
     imageFile = FileImage(File(_imagen!.path));
