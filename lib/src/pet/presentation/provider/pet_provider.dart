@@ -5,14 +5,13 @@ import 'package:logger/logger.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:petmeals/src/pet/data/datasources/pets_data.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/data/models/specie_model.dart';
+import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
 
 class PetProvider extends ChangeNotifier {
-  final PetsData petData;
-
-  PetProvider({required this.petData}) {
+  PetUseCase petUseCase = PetUseCase(petData: petData);
+  PetProvider() {
     //first login
     MyStorage().box.listen(() {
       userId = MyStorage().uid;
