@@ -1,30 +1,28 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
-
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:petmeals/src/pet/data/datasources/pets_data.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/data/models/specie_model.dart';
 import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
 
 class PetProvider extends ChangeNotifier {
-  PetUseCase petUseCase = PetUseCase(petData: GetIt.I<PetsData>);
-  PetProvider() {
-    //first login
-    MyStorage().box.listen(() {
-      userId = MyStorage().uid;
-      loadStream().listen((event) {
-        if (event.isNotEmpty) {
-          pet = event.first;
-        }
-      });
+  final PetUseCase petUseCase;
 
-      notifyListeners();
-    });
+  PetProvider({required this.petUseCase}) {
+    // MyStorage().box.listen(() {
+    //   //first login
+    //   userId = MyStorage().uid;
+    //   loadStream().listen((event) {
+    //     if (event.isNotEmpty) {
+    //       pet = event.first;
+    //     }
+    //   });
+
+    //   notifyListeners();
+    // });
     //storage
     loadStream().listen((event) {
       if (event.isNotEmpty) {
@@ -32,39 +30,29 @@ class PetProvider extends ChangeNotifier {
       }
     });
 
-    subscriptionLoad = loadStream().listen((event) {});
+    // subscriptionLoad = loadStream().listen((event) {});
   }
-
-  String userId = MyStorage().uid; //? OBTIENE USER ID
-
-  List<PetModel> myPets = [];
-  PetModel? pet;
 
   StreamSubscription<dynamic>? subscriptionLoad;
 
+  String userId = MyStorage().uid; //? OBTIENE USER ID
+  List<PetModel> myPets = [];
+  PetModel? pet;
   int specie = 0;
   bool sex = false;
   DateTime borndate = DateTime.now();
   bool sterillized = false;
+  XFile? _imagen;
+  FileImage? imageFile;
 
   final specieJson = {
     0: Specie(id: '0', name: 'Gato'),
     1: Specie(id: '1', name: 'Perro'),
   };
 
-  XFile? _imagen;
-  FileImage? imageFile;
+  Stream<List<PetModel>> loadStream() => petUseCase.loadStream(userId);
 
-  Stream<List<PetModel>> loadStream() => petData.getPetStream(userId);
-
-  void myPet(PetModel myPet) {
-    pet = myPet;
-    notifyListeners();
-  }
-
-  Future<bool> addPet(PetModel? newPet) async {
-    //TODO: APUNTAR A USECASE
-
+  Future<bool> addPet(PetModel? newPet) {
     final addPet = newPet!.copyWith(
       borndate: borndate,
       specie: specieJson[specie]!,
@@ -72,24 +60,22 @@ class PetProvider extends ChangeNotifier {
       sterillized: sterillized,
       userId: [userId],
     );
-
     final img = File(_imagen!.path);
-    final response = await petData.addPet(addPet, img, userId);
-    //? cambiar
-    if (response) {
-      specie = 0;
-      sex = false;
-      borndate = DateTime.now();
-      sterillized = false;
-      _imagen = null;
-      imageFile = null;
-    }
 
-    return response;
+    return petUseCase.addPet(addPet, img, userId).then((value) {
+      if (value) {
+        specie = 0;
+        sex = false;
+        borndate = DateTime.now();
+        sterillized = false;
+        _imagen = null;
+        imageFile = null;
+      }
+      return value;
+    });
   }
 
-  Future<PetModel?> updatePet(PetModel updatePet) async {
-    //TODO: APUNTAR A USECASE
+  Future<PetModel?> updatePet(PetModel updatePet) {
     File? img;
     if (_imagen != null) {
       img = File(_imagen!.path);
@@ -102,45 +88,46 @@ class PetProvider extends ChangeNotifier {
       userId: [userId],
     );
 
-    final response = await petData.updatePet(updPet, img, userId);
-    if (response != null) {
-      specie = 0;
-      sex = false;
-      borndate = DateTime.now();
-      sterillized = false;
-      _imagen = null;
-      imageFile = null;
-    }
-    return response;
+    return petUseCase.updatePet(updPet, userId, img).then((value) {
+      if (value != null) {
+        specie = 0;
+        sex = false;
+        borndate = DateTime.now();
+        sterillized = false;
+        _imagen = null;
+        imageFile = null;
+      }
+      return value;
+    });
   }
 
   //registra los horarios de comidas
   Future<PetModel?> foodPet(PetModel updatePet) async {
-    //TODO: APUNTAR A USECASE
-    final response = await petData.updatePet(updatePet, null, userId);
-    if (response != null) {
-      pet = response;
-      notifyListeners();
-      Logger().i('Comida registrada');
-    }
-    return response;
+    return await petUseCase.foodPet(updatePet, userId).then((value) {
+      if (value != null) {
+        pet = value;
+        notifyListeners();
+        Logger().i('Comida registrada');
+      }
+      return value;
+    });
   }
 
 //registra los horarios de actividades
   Future<PetModel?> actionPet(PetModel updatePet) async {
-    //TODO: APUNTAR A USECASE
-    final response = await petData.updatePet(updatePet, null, userId);
-    if (response != null) {
-      pet = response;
-      notifyListeners();
-      Logger().i('Acción registrada');
-    }
-    return response;
+    return await petUseCase.actionPet(updatePet, userId).then((value) {
+      if (value != null) {
+        pet = value;
+        notifyListeners();
+        Logger().i('Acción registrada');
+      }
+      return value;
+    });
   }
 
   Future<void> deletePet(String id) async {
     //TODO: APUNTAR A USECASE
-    await petData.deletePet(id, userId);
+    await petUseCase.deletePet(id, userId);
     specie = 0;
     sex = false;
     borndate = DateTime.now();
@@ -150,6 +137,12 @@ class PetProvider extends ChangeNotifier {
     if (myPets.isNotEmpty) {
       pet = myPets.first;
     }
+    notifyListeners();
+  }
+
+  //* funciones
+  void myPet(PetModel myPet) {
+    pet = myPet;
     notifyListeners();
   }
 
