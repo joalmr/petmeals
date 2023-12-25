@@ -1,12 +1,13 @@
-import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:logger/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:logger/logger.dart';
+import 'package:petmeals/src/user/data/datasources/login.dart';
 import 'package:petmeals/src/user/data/models/user_model.dart';
 import 'package:petmeals/src/user/domain/repositories/user_repository.dart';
 
 class UserData implements UserRepository {
+  final supabaseAuth = AuthSupabase();
   final fireRef = FirebaseFirestore.instance.collection('user').withConverter(
         fromFirestore: (snapshot, _) {
           final user = UserModel.fromJson(snapshot.data()!);
@@ -25,6 +26,10 @@ class UserData implements UserRepository {
   @override
   Future<UserCredential?> signInGoogle() async {
     try {
+      final response = await supabaseAuth.googleSignIn();
+
+      Logger().d('Supabase', error: response);
+
       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
