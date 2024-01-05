@@ -133,7 +133,7 @@ class PetDetailPage extends StatelessWidget {
                             'assets/images/icons/pet-food.svg',
                           ),
                         ),
-                        forElements(petWatch.pet!.foods)
+                        forElements(petWatch.pet!.foods, 'pet-food.svg')
                       ],
                     ),
                   ),
@@ -164,7 +164,11 @@ class PetDetailPage extends StatelessWidget {
                                 : 'assets/images/icons/leash.svg',
                           ),
                         ),
-                        forElements(petWatch.pet!.actions)
+                        forElements(
+                            petWatch.pet!.actions,
+                            petProvider.pet!.specie!.id! == '0'
+                                ? 'cat-litter.svg'
+                                : 'leash.svg')
                       ],
                     ),
                   ),

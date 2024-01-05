@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-Widget forElements(List<String>? elements) {
+Widget forElements(List<String>? elements, String svgImg) {
   if (elements != null) {
     return Column(
       children: [
@@ -10,7 +11,20 @@ Widget forElements(List<String>? elements) {
             child: element.isNotEmpty
                 ? Row(
                     children: [
-                      const Icon(Icons.watch_later_outlined, size: 16),
+                      Stack(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/icons/$svgImg',
+                            height: 24,
+                            // width: 18,
+                          ),
+                          const Positioned(
+                            top: 0.5,
+                            right: 0,
+                            child: Icon(Icons.watch_later_outlined, size: 6),
+                          )
+                        ],
+                      ),
                       const SizedBox(width: 2),
                       Text(
                         element,

@@ -3,10 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:logger/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-<<<<<<< Updated upstream
-=======
-import 'package:logger/logger.dart';
->>>>>>> Stashed changes
 import 'package:petmeals/src/user/data/models/user_model.dart';
 import 'package:petmeals/src/user/domain/repositories/user_repository.dart';
 
