@@ -9,11 +9,6 @@ class PetUseCase implements PetRepository {
   PetUseCase({required this.petData});
 
   @override
-  Future<PetModel?> actionPet(PetModel pet, String userId) async {
-    return await petData.actionPet(pet, userId);
-  }
-
-  @override
   Future<bool> addPet(PetModel newPet, File image, String userId) async {
     return await petData.addPet(newPet, image, userId);
   }
@@ -24,11 +19,6 @@ class PetUseCase implements PetRepository {
   }
 
   @override
-  Future<PetModel?> foodPet(PetModel pet, String userId) async {
-    return await petData.foodPet(pet, userId);
-  }
-
-  @override
   Stream<List<PetModel>> loadStream(String userId) {
     return petData.loadStream(userId);
   }
@@ -36,5 +26,13 @@ class PetUseCase implements PetRepository {
   @override
   Future<PetModel?> updatePet(PetModel pet, String userId, File? img) async {
     return await petData.updatePet(pet, userId, img);
+  }
+
+  Future<PetModel?> actionPet(PetModel pet, String userId) async {
+    return await petData.updatePet(pet, userId, null);
+  }
+
+  Future<PetModel?> foodPet(PetModel pet, String userId) async {
+    return await petData.updatePet(pet, userId, null);
   }
 }

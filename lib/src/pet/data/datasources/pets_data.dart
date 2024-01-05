@@ -1,46 +1,37 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:logger/logger.dart';
-import 'package:petmeals/src/pet/data/datasources/firebase_storage.dart';
-
+import 'package:petmeals/src/pet/data/datasources/image_storage.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/domain/repositories/pet_repository.dart';
 
 class PetsData implements PetRepository {
-  final fireRef = FirebaseFirestore.instance.collection('pets').withConverter(
-        fromFirestore: (snapshot, _) {
-          final pet = PetModel.fromJson(snapshot.data()!);
-          final newPet = pet.copyWith(id: snapshot.id);
-          return newPet;
-        },
-        toFirestore: (pet, _) => pet.toJson(),
-      );
-
-  @override
-  Future<PetModel?> actionPet(PetModel pet, String userId) async {
-    try {
-      PetModel petAction = pet;
-      return await fireRef
-          .doc(pet.id)
-          .update(pet.toJson())
-          .then((value) => petAction);
-    } catch (e) {
-      Logger().e(e);
-      return null;
-    }
-  }
+  // final fireRef = FirebaseFirestore.instance.collection('pets').withConverter(
+  //       fromFirestore: (snapshot, _) {
+  //         final pet = PetModel.fromJson(snapshot.data()!);
+  //         final newPet = pet.copyWith(id: snapshot.id);
+  //         return newPet;
+  //       },
+  //       toFirestore: (pet, _) => pet.toJson(),
+  //     );
+  final ref = FirebaseFirestore.instance.collection('pets');
 
   @override
   Future<bool> addPet(PetModel newPet, File image, String userId) async {
     try {
       final imgStorage = await uploadImage(image, userId);
       final petWithImg = newPet.copyWith(photo: imgStorage);
-      final response = await fireRef.add(petWithImg);
-      if (response.id.isNotEmpty) {
-        return true;
-      } else {
-        return false;
-      }
+
+      return ref
+          .add(petWithImg.toJson())
+          .then((value) => value.get())
+          .then((value) {
+        if (value.data() != null) {
+          return true;
+        } else {
+          return false;
+        }
+      });
     } catch (e) {
       Logger().e(e);
       return false;
@@ -50,59 +41,46 @@ class PetsData implements PetRepository {
   @override
   Future<void> deletePet(String id, String userId) async {
     try {
-      final ejec = fireRef.doc(id);
-      final photoForDelete =
-          await ejec.get().then((value) => value.data()!.photo);
-      deleteImage(photoForDelete!, userId);
-      await ejec.delete();
+      final refDoc = ref.doc(id);
+      refDoc
+          .get()
+          .then((value) => PetModel.fromJson(value.data()!))
+          .then((value) => value.photo) //* obtiene foto
+          .then((value) =>
+              deleteImage(value!, userId)) //* elimina foto del storage
+          .then((value) => refDoc.delete()); //* elimina documento
     } catch (e) {
       Logger().e(e);
-    }
-  }
-
-  @override
-  Future<PetModel?> foodPet(PetModel pet, String userId) async {
-    try {
-      PetModel petFood = pet;
-      return await fireRef
-          .doc(pet.id)
-          .update(pet.toJson())
-          .then((value) => petFood);
-    } catch (e) {
-      Logger().e(e);
-      return null;
     }
   }
 
   @override
   Stream<List<PetModel>> loadStream(String userId) {
-    final result = fireRef
-        .where(
-          'userId',
-          arrayContains: userId,
-        )
+    return ref
+        .where('userId', arrayContains: userId)
+        // .orderBy('created_at', descending: true)
         .snapshots()
-        .map(
-          (event) => event.docs.map((e) => e.data()).toList(),
-        );
-
-    return result;
+        .map((event) => event.docs.map((e) {
+              final pet = PetModel.fromJson(e.data());
+              final newPet = pet.copyWith(id: e.id);
+              return newPet;
+            }).toList());
+    //* carga en tiempo real
   }
 
   @override
   Future<PetModel?> updatePet(PetModel pet, String userId, File? img) async {
     try {
       String imgStorage = "";
-      PetModel petWithImg = pet;
+      PetModel petUpdate = pet;
+
       if (img != null) {
         imgStorage = await uploadImage(img, userId);
-        petWithImg = pet.copyWith(photo: imgStorage);
+        petUpdate = pet.copyWith(photo: imgStorage);
       }
 
-      return await fireRef
-          .doc(pet.id)
-          .update(petWithImg.toJson())
-          .then((value) => petWithImg);
+      final refDoc = ref.doc(pet.id);
+      return refDoc.update(petUpdate.toJson()).then((value) => petUpdate);
     } catch (e) {
       Logger().e(e);
       return null;

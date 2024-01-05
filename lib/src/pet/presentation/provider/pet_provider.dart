@@ -49,10 +49,11 @@ class PetProvider extends ChangeNotifier {
     1: Specie(id: '1', name: 'Perro'),
   };
 
+  //cargar mascota por usuario
   Stream<List<PetModel>> loadStream() => petUseCase.loadStream(userId);
 
   //agregar mascota por usuario
-  Future<bool> addPet(PetModel? newPet) {
+  Future<void> addPet(PetModel? newPet) {
     final addPet = newPet!.copyWith(
       borndate: borndate,
       specie: specieJson[specie]!,
@@ -71,7 +72,6 @@ class PetProvider extends ChangeNotifier {
         _imagen = null;
         imageFile = null;
       }
-      return value;
     });
   }
 
