@@ -42,4 +42,8 @@ class UserProvider extends ChangeNotifier {
     await userUsecase.signOut();
     MyStorage().box.erase();
   }
+
+  Future<void> deleteUserAuth() async {
+    await userUsecase.deleteUserAuth();
+  }
 }

@@ -9,6 +9,7 @@ import 'package:petmeals/src/user/presentation/pages/login.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:petmeals/src/user/presentation/pages/user.dart';
 
 final GoRouter goRouter = GoRouter(
   routes: <RouteBase>[
@@ -18,6 +19,12 @@ final GoRouter goRouter = GoRouter(
         return MyStorage().uid.isNotEmpty
             ? const HomePage()
             : const LoginPage();
+      },
+    ),
+    GoRoute(
+      path: '/user',
+      builder: (BuildContext context, GoRouterState state) {
+        return const UserPage();
       },
     ),
     GoRoute(

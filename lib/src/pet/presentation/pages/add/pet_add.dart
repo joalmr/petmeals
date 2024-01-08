@@ -194,7 +194,7 @@ class _PetAddPageState extends State<PetAddPage> {
                                   padding: const EdgeInsets.only(top: 32),
                                   child: ButtonSecondary(
                                     text: 'Eliminar mascota',
-                                    color: Colors.red,
+                                    color: mandy,
                                     onPressed: () {
                                       showDialog(
                                         context: context,

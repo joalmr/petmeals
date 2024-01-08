@@ -58,7 +58,7 @@ class _LitterPetPageState extends State<LitterPetPage> {
               if (value != null)
                 snackBar(
                   positiveColor,
-                  'Horarios de cambios de arena registrados',
+                  'Horarios de limpieza de arena registrados',
                   context,
                 )
             },
@@ -83,7 +83,7 @@ class _LitterPetPageState extends State<LitterPetPage> {
               ),
               const SizedBox(height: 12),
               const Text(
-                'Cambios de arena',
+                'Limpieza de arena',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),

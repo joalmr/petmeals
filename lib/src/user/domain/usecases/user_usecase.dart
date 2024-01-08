@@ -31,4 +31,9 @@ class UserUsecase implements UserRepository {
   Future<void> signOut() async {
     return await userData.signOut();
   }
+
+  @override
+  Future<void> deleteUserAuth() async {
+    await userData.deleteUserAuth();
+  }
 }

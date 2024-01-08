@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:logger/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:petmeals/src/user/data/models/user_model.dart';
 import 'package:petmeals/src/user/domain/repositories/user_repository.dart';
 
@@ -15,6 +16,8 @@ class UserData implements UserRepository {
         },
         toFirestore: (user, _) => user.toJson(),
       );
+
+  MyStorage storage = MyStorage();
 
   @override
   Future getUser(String uid) async {
@@ -45,8 +48,20 @@ class UserData implements UserRepository {
     try {
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();
+      storage.box.erase();
     } catch (e) {
       Logger().e("Error signOut", error: e);
+    }
+  }
+
+  @override
+  Future<void> deleteUserAuth() async {
+    try {
+      await FirebaseAuth.instance.currentUser?.delete();
+      await GoogleSignIn().signOut();
+      storage.box.erase();
+    } catch (e) {
+      Logger().e("Error deleteUserAuth", error: e);
     }
   }
 }
