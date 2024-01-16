@@ -28,7 +28,7 @@ mixin _$PetModel {
   String? get name => throw _privateConstructorUsedError;
   String? get photo => throw _privateConstructorUsedError;
   bool? get sex => throw _privateConstructorUsedError;
-  Specie? get specie => throw _privateConstructorUsedError;
+  int? get specie => throw _privateConstructorUsedError;
   bool? get sterillized => throw _privateConstructorUsedError;
   List<String>? get userId => throw _privateConstructorUsedError;
 
@@ -52,11 +52,9 @@ abstract class $PetModelCopyWith<$Res> {
       String? name,
       String? photo,
       bool? sex,
-      Specie? specie,
+      int? specie,
       bool? sterillized,
       List<String>? userId});
-
-  $SpecieCopyWith<$Res>? get specie;
 }
 
 /// @nodoc
@@ -120,7 +118,7 @@ class _$PetModelCopyWithImpl<$Res, $Val extends PetModel>
       specie: freezed == specie
           ? _value.specie
           : specie // ignore: cast_nullable_to_non_nullable
-              as Specie?,
+              as int?,
       sterillized: freezed == sterillized
           ? _value.sterillized
           : sterillized // ignore: cast_nullable_to_non_nullable
@@ -130,18 +128,6 @@ class _$PetModelCopyWithImpl<$Res, $Val extends PetModel>
           : userId // ignore: cast_nullable_to_non_nullable
               as List<String>?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $SpecieCopyWith<$Res>? get specie {
-    if (_value.specie == null) {
-      return null;
-    }
-
-    return $SpecieCopyWith<$Res>(_value.specie!, (value) {
-      return _then(_value.copyWith(specie: value) as $Val);
-    });
   }
 }
 
@@ -162,12 +148,9 @@ abstract class _$$PetModelImplCopyWith<$Res>
       String? name,
       String? photo,
       bool? sex,
-      Specie? specie,
+      int? specie,
       bool? sterillized,
       List<String>? userId});
-
-  @override
-  $SpecieCopyWith<$Res>? get specie;
 }
 
 /// @nodoc
@@ -229,7 +212,7 @@ class __$$PetModelImplCopyWithImpl<$Res>
       specie: freezed == specie
           ? _value.specie
           : specie // ignore: cast_nullable_to_non_nullable
-              as Specie?,
+              as int?,
       sterillized: freezed == sterillized
           ? _value.sterillized
           : sterillized // ignore: cast_nullable_to_non_nullable
@@ -297,7 +280,7 @@ class _$PetModelImpl with DiagnosticableTreeMixin implements _PetModel {
   @override
   final bool? sex;
   @override
-  final Specie? specie;
+  final int? specie;
   @override
   final bool? sterillized;
   final List<String>? _userId;
@@ -393,7 +376,7 @@ abstract class _PetModel implements PetModel {
       final String? name,
       final String? photo,
       final bool? sex,
-      final Specie? specie,
+      final int? specie,
       final bool? sterillized,
       final List<String>? userId}) = _$PetModelImpl;
 
@@ -417,7 +400,7 @@ abstract class _PetModel implements PetModel {
   @override
   bool? get sex;
   @override
-  Specie? get specie;
+  int? get specie;
   @override
   bool? get sterillized;
   @override

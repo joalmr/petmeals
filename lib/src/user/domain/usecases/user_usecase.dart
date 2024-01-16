@@ -11,7 +11,6 @@ class UserUsecase implements UserRepository {
 
   @override
   Future<dynamic> getUser(String uid) {
-    // TODO: implement getUser
     throw UnimplementedError();
   }
 

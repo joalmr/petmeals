@@ -55,7 +55,7 @@ class PetDetailPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      petProvider.pet!.specie!.id! == '0'
+                      petProvider.pet!.specie! == 0
                           ? Column(
                               children: [
                                 SvgPicture.asset(
@@ -139,13 +139,13 @@ class PetDetailPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      if (petProvider.pet!.specie!.id! == '0') {
+                      if (petProvider.pet!.specie == 0) {
                         Logger().i(
-                            "Action: arena ${petProvider.pet!.specie!.name}"); //gato
+                            "Action: arena ${petProvider.pet!.specie!}"); //gato
                         context.push('/petdetail/litter');
                       } else {
                         Logger().i(
-                            "Action: paseo ${petProvider.pet!.specie!.name}"); //perro
+                            "Action: paseo ${petProvider.pet!.specie!}"); //perro
                         context.push('/petdetail/leash');
                       }
                     },
@@ -159,14 +159,14 @@ class PetDetailPage extends StatelessWidget {
                           height: 145,
                           width: 120,
                           child: SvgPicture.asset(
-                            petProvider.pet!.specie!.id! == '0'
+                            petProvider.pet!.specie! == 0
                                 ? 'assets/images/icons/cat-litter.svg'
                                 : 'assets/images/icons/leash.svg',
                           ),
                         ),
                         forElements(
                             petWatch.pet!.actions,
-                            petProvider.pet!.specie!.id! == '0'
+                            petProvider.pet!.specie == 0
                                 ? 'cat-litter.svg'
                                 : 'leash.svg')
                       ],

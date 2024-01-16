@@ -5,37 +5,23 @@ import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
-import 'package:petmeals/src/pet/data/models/specie_model.dart';
 import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
 
 class PetProvider extends ChangeNotifier {
   final PetUseCase petUseCase;
 
   PetProvider({required this.petUseCase}) {
-    MyStorage().box.listen(() {
-      userId = MyStorage().uid;
-      loadStream().listen((event) {
-        if (event.isNotEmpty) {
-          myPet(event.first);
-        }
-      });
-    });
-
     loadStream().listen((event) {
       if (event.isNotEmpty) {
         myPet(event.first);
       }
     });
-
-    notifyListeners();
-
-    // subscriptionLoad = loadStream().listen((event) {});
+    // notifyListeners();
   }
 
-  StreamSubscription<dynamic>? subscriptionLoad;
+  // StreamSubscription<dynamic>? subscriptionLoad;
 
-  String userId = MyStorage().uid; //? OBTIENE USER ID
-  List<PetModel> myPets = [];
+  String userId = MyStorage().uid;
   PetModel? pet;
   int specie = 0;
   bool sex = false;
@@ -44,19 +30,19 @@ class PetProvider extends ChangeNotifier {
   XFile? _imagen;
   FileImage? imageFile;
 
-  final specieJson = {
-    0: Specie(id: '0', name: 'Gato'),
-    1: Specie(id: '1', name: 'Perro'),
-  };
+  // final specieJson = {
+  //   0: Specie(id: '0', name: 'Gato'),
+  //   1: Specie(id: '1', name: 'Perro'),
+  // };
 
   //cargar mascota por usuario
-  Stream<List<PetModel>> loadStream() => petUseCase.loadStream(userId);
+  Stream<List<PetModel>> loadStream() => petUseCase.loadPets(userId);
 
   //agregar mascota por usuario
   Future<void> addPet(PetModel? newPet) {
     final addPet = newPet!.copyWith(
       borndate: borndate,
-      specie: specieJson[specie]!,
+      specie: specie,
       sex: sex,
       sterillized: sterillized,
       userId: [userId],
@@ -65,12 +51,7 @@ class PetProvider extends ChangeNotifier {
 
     return petUseCase.addPet(addPet, img, userId).then((value) {
       if (value) {
-        specie = 0;
-        sex = false;
-        borndate = DateTime.now();
-        sterillized = false;
-        _imagen = null;
-        imageFile = null;
+        _cleanPet();
       }
     });
   }
@@ -83,7 +64,7 @@ class PetProvider extends ChangeNotifier {
     }
     final updPet = updatePet.copyWith(
       borndate: borndate,
-      specie: specieJson[specie]!,
+      specie: specie,
       sex: sex,
       sterillized: sterillized,
       userId: [userId],
@@ -91,12 +72,7 @@ class PetProvider extends ChangeNotifier {
 
     return petUseCase.updatePet(updPet, userId, img).then((value) {
       if (value != null) {
-        specie = 0;
-        sex = false;
-        borndate = DateTime.now();
-        sterillized = false;
-        _imagen = null;
-        imageFile = null;
+        _cleanPet();
       }
       return value;
     });
@@ -128,17 +104,7 @@ class PetProvider extends ChangeNotifier {
 
   //eliminar mascota por usuario
   Future<void> deletePet(String id) async {
-    await petUseCase.deletePet(id, userId).then((value) {
-      specie = 0;
-      sex = false;
-      borndate = DateTime.now();
-      sterillized = false;
-      _imagen = null;
-      imageFile = null;
-      if (myPets.isNotEmpty) {
-        myPet(myPets.first);
-      }
-    });
+    await petUseCase.deletePet(id, userId).then((value) => _cleanPet());
   }
 
   //* funciones
@@ -153,5 +119,15 @@ class PetProvider extends ChangeNotifier {
     _imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
     imageFile = FileImage(File(_imagen!.path));
     notifyListeners();
+  }
+
+  //limpiar
+  void _cleanPet() {
+    specie = 0;
+    sex = false;
+    borndate = DateTime.now();
+    sterillized = false;
+    _imagen = null;
+    imageFile = null;
   }
 }

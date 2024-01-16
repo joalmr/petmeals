@@ -42,8 +42,8 @@ en PetModelImplToJson agregar:
 ```dart
 "created_at": DateTime.timestamp(), //? [solo toJson PetModel]
 //quitar: id & age
-//cambiar
-'specie': instance.specie!.toJson(),
+<!-- //cambiar -->
+<!-- //'specie': instance.specie!.toJson(), -->
 ```
 
 ## Icono
@@ -72,3 +72,8 @@ flutter pub run flutter_launcher_icons
 ```bash
 flutter build appbundle --flavor prod
 ```
+
+## Specie
+
+0 = gato
+1 = perro

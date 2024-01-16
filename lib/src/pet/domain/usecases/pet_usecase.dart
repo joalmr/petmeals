@@ -19,8 +19,8 @@ class PetUseCase implements PetRepository {
   }
 
   @override
-  Stream<List<PetModel>> loadStream(String userId) {
-    return petData.loadStream(userId);
+  Stream<List<PetModel>> loadPets(String userId) {
+    return petData.loadPets(userId);
   }
 
   @override
@@ -34,5 +34,10 @@ class PetUseCase implements PetRepository {
 
   Future<PetModel?> foodPet(PetModel pet, String userId) async {
     return await petData.updatePet(pet, userId, null);
+  }
+
+  @override
+  Future<List<PetModel>> getPets(String userId) {
+    return petData.getPets(userId);
   }
 }

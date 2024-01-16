@@ -6,14 +6,6 @@ import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/domain/repositories/pet_repository.dart';
 
 class PetsData implements PetRepository {
-  // final fireRef = FirebaseFirestore.instance.collection('pets').withConverter(
-  //       fromFirestore: (snapshot, _) {
-  //         final pet = PetModel.fromJson(snapshot.data()!);
-  //         final newPet = pet.copyWith(id: snapshot.id);
-  //         return newPet;
-  //       },
-  //       toFirestore: (pet, _) => pet.toJson(),
-  //     );
   final ref = FirebaseFirestore.instance.collection('pets');
 
   @override
@@ -39,36 +31,6 @@ class PetsData implements PetRepository {
   }
 
   @override
-  Future<void> deletePet(String id, String userId) async {
-    try {
-      final refDoc = ref.doc(id);
-      refDoc
-          .get()
-          .then((value) => PetModel.fromJson(value.data()!))
-          .then((value) => value.photo) //* obtiene foto
-          .then((value) =>
-              deleteImage(value!, userId)) //* elimina foto del storage
-          .then((value) => refDoc.delete()); //* elimina documento
-    } catch (e) {
-      Logger().e(e);
-    }
-  }
-
-  @override
-  Stream<List<PetModel>> loadStream(String userId) {
-    return ref
-        .where('userId', arrayContains: userId)
-        // .orderBy('created_at', descending: true)
-        .snapshots()
-        .map((event) => event.docs.map((e) {
-              final pet = PetModel.fromJson(e.data());
-              final newPet = pet.copyWith(id: e.id);
-              return newPet;
-            }).toList());
-    //* carga en tiempo real
-  }
-
-  @override
   Future<PetModel?> updatePet(PetModel pet, String userId, File? img) async {
     try {
       String imgStorage = "";
@@ -85,5 +47,51 @@ class PetsData implements PetRepository {
       Logger().e(e);
       return null;
     }
+  }
+
+  @override
+  Future<void> deletePet(String id, String userId) async {
+    try {
+      final refDoc = ref.doc(id);
+      refDoc
+          .get()
+          .then((value) => PetModel.fromJson(value.data()!))
+          .then((value) => value.photo) //* obtiene foto
+          .then((value) =>
+              deleteImage(value!, userId)) //* elimina foto del storage
+          .then((value) => refDoc.delete()); //* elimina documento
+    } catch (e) {
+      Logger().e(e);
+    }
+  }
+
+  @override
+  Stream<List<PetModel>> loadPets(String userId) {
+    return ref
+        .where('userId', arrayContains: userId)
+        .snapshots()
+        .map((event) => event.docs.map((e) {
+              final pet = PetModel.fromJson(e.data());
+              final newPet = pet.copyWith(id: e.id);
+              return newPet;
+            }).toList());
+    //.orderBy('created_at', descending: true)
+    //* carga en tiempo real
+  }
+
+  @override
+  Future<List<PetModel>> getPets(String userId) async {
+    //no se usa
+    final docs = await ref
+        .where('userId', arrayContains: userId)
+        // .orderBy('created_at', descending: true)
+        .get()
+        .then((value) => value.docs);
+
+    return docs.map((doc) {
+      final pet = PetModel.fromJson(doc.data());
+      final newPet = pet.copyWith(id: doc.id);
+      return newPet;
+    }).toList();
   }
 }

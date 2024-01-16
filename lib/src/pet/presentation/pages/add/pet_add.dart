@@ -38,7 +38,7 @@ class _PetAddPageState extends State<PetAddPage> {
 
       petProvider.pet = widget.petUpd;
       petProvider.borndate = widget.petUpd!.borndate!;
-      petProvider.specie = int.parse(widget.petUpd!.specie!.id!);
+      petProvider.specie = widget.petUpd!.specie!;
       petProvider.sex = widget.petUpd!.sex!;
       petProvider.sterillized = widget.petUpd!.sterillized!;
     }

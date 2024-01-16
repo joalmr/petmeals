@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:petmeals/src/pet/data/models/specie_model.dart';
 
 part 'pet_model.freezed.dart';
 part 'pet_model.g.dart';
@@ -21,7 +20,7 @@ class PetModel with _$PetModel {
     String? name,
     String? photo,
     bool? sex,
-    Specie? specie,
+    int? specie,
     bool? sterillized,
     List<String>? userId,
   }) = _PetModel;
