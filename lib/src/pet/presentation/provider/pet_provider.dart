@@ -30,11 +30,6 @@ class PetProvider extends ChangeNotifier {
   XFile? _imagen;
   FileImage? imageFile;
 
-  // final specieJson = {
-  //   0: Specie(id: '0', name: 'Gato'),
-  //   1: Specie(id: '1', name: 'Perro'),
-  // };
-
   //cargar mascota por usuario
   Stream<List<PetModel>> loadStream() => petUseCase.loadPets(userId);
 
