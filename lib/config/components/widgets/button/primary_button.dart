@@ -15,7 +15,7 @@ class ButtonPrimary extends StatelessWidget {
     super.key,
     this.onPressed,
     required this.child,
-    this.color = primerColor,
+    this.color = kPrimaryColor,
     required this.platformApp,
   });
 
@@ -60,7 +60,7 @@ class _BtnIOS extends StatelessWidget {
   const _BtnIOS({
     this.onPressed,
     required this.child,
-    this.color = primerColor,
+    this.color = kPrimaryColor,
   });
 
   @override
@@ -84,7 +84,7 @@ class _BtnAndroid extends StatelessWidget {
   const _BtnAndroid({
     this.onPressed,
     required this.child,
-    this.color = primerColor,
+    this.color = kPrimaryColor,
   });
 
   @override

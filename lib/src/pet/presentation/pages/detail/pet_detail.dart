@@ -47,7 +47,7 @@ class PetDetailPage extends StatelessWidget {
               Text(
                 '${petProvider.pet!.age!} ${petProvider.pet!.age == 1 ? 'año' : 'años'}',
                 style: const TextStyle(
-                    color: primerColor, fontWeight: FontWeight.bold),
+                    color: kPrimaryColor, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
               Column(

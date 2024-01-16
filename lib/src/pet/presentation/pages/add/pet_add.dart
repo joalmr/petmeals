@@ -108,14 +108,14 @@ class _PetAddPageState extends State<PetAddPage> {
                               )
                             : widget.petUpd == null
                                 ? Container(
-                                    decoration:
-                                        const BoxDecoration(color: primerColor),
+                                    decoration: const BoxDecoration(
+                                        color: kPrimaryColor),
                                     height: 120,
                                     child: const Center(
                                       child: Icon(
                                         Icons.photo,
                                         size: 42,
-                                        color: textoColorContraste,
+                                        color: kTextColorContrast,
                                       ),
                                     ),
                                   )

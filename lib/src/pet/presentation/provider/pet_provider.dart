@@ -11,6 +11,15 @@ class PetProvider extends ChangeNotifier {
   final PetUseCase petUseCase;
 
   PetProvider({required this.petUseCase}) {
+    MyStorage().box.listen(() {
+      userId = MyStorage().uid;
+      loadStream().listen((event) {
+        if (event.isNotEmpty) {
+          myPet(event.first);
+        }
+      });
+    });
+
     loadStream().listen((event) {
       if (event.isNotEmpty) {
         myPet(event.first);

@@ -21,11 +21,11 @@ class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
         children: [
           const Text(
             'Esterilizado',
-            style: TextStyle(color: textoColor),
+            style: TextStyle(color: kTextColor),
           ),
           const SizedBox(width: 110),
           CupertinoSwitch(
-              activeColor: primerColor,
+              activeColor: kPrimaryColor,
               value: petProvider.sterillized,
               onChanged: (value) {
                 setState(() {

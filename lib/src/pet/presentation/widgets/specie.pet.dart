@@ -25,7 +25,7 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
         children: [
           const Text(
             'Especie',
-            style: TextStyle(color: textoColor),
+            style: TextStyle(color: kTextColor),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -39,8 +39,8 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                       'assets/images/icons/cat.svg',
                       colorFilter: ColorFilter.mode(
                           petProvider.specie == 0
-                              ? primerColor
-                              : textoColorContraste,
+                              ? kPrimaryColor
+                              : kTextColorContrast,
                           BlendMode.srcIn),
                       height: 32,
                     ),
@@ -48,8 +48,8 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                       'Gato',
                       style: TextStyle(
                         color: petProvider.specie == 0
-                            ? primerColor
-                            : textoColorContraste,
+                            ? kPrimaryColor
+                            : kTextColorContrast,
                         fontSize: 12,
                       ),
                     ),
@@ -71,8 +71,8 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                       'assets/images/icons/dog.svg',
                       colorFilter: ColorFilter.mode(
                           petProvider.specie == 1
-                              ? primerColor
-                              : textoColorContraste,
+                              ? kPrimaryColor
+                              : kTextColorContrast,
                           BlendMode.srcIn),
                       height: 32,
                     ),
@@ -80,8 +80,8 @@ class _SpeciePetWidgetState extends State<SpeciePetWidget> {
                       'Perro',
                       style: TextStyle(
                         color: petProvider.specie == 1
-                            ? primerColor
-                            : textoColorContraste,
+                            ? kPrimaryColor
+                            : kTextColorContrast,
                         fontSize: 12,
                       ),
                     ),

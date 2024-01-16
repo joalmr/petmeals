@@ -20,7 +20,7 @@ class AddPetWidget extends StatelessWidget {
           width: 52,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(100)),
-            color: fondoColor,
+            color: kBackgroundColor,
           ),
           padding: const EdgeInsets.all(10),
           child: Center(

@@ -44,7 +44,7 @@ class CardPetWidget extends StatelessWidget {
                       child: Text(
                         petProvider.pet!.name!,
                         style: const TextStyle(
-                          color: textoColorContraste,
+                          color: kTextColorContrast,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),

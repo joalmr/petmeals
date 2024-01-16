@@ -24,7 +24,7 @@ class _SexPetWidgetState extends State<SexPetWidget> {
         children: [
           const Text(
             'Sexo',
-            style: TextStyle(color: textoColor),
+            style: TextStyle(color: kTextColor),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -36,14 +36,14 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                   children: [
                     Icon(Icons.female,
                         color: !petProvider.sex
-                            ? primerColor
-                            : textoColorContraste),
+                            ? kPrimaryColor
+                            : kTextColorContrast),
                     Text(
                       'Hembra',
                       style: TextStyle(
                         color: !petProvider.sex
-                            ? primerColor
-                            : textoColorContraste,
+                            ? kPrimaryColor
+                            : kTextColorContrast,
                         fontSize: 12,
                       ),
                     ),
@@ -63,13 +63,14 @@ class _SexPetWidgetState extends State<SexPetWidget> {
                   children: [
                     Icon(Icons.male,
                         color: petProvider.sex
-                            ? primerColor
-                            : textoColorContraste),
+                            ? kPrimaryColor
+                            : kTextColorContrast),
                     Text(
                       'Macho',
                       style: TextStyle(
-                        color:
-                            petProvider.sex ? primerColor : textoColorContraste,
+                        color: petProvider.sex
+                            ? kPrimaryColor
+                            : kTextColorContrast,
                         fontSize: 12,
                       ),
                     ),

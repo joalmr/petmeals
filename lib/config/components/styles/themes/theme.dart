@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 ThemeData themeData = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
-  scaffoldBackgroundColor: fondoColor,
+  scaffoldBackgroundColor: kBackgroundColor,
   textTheme: const TextTheme(
     headlineSmall: TextStyle(fontSize: 26.0),
     titleLarge: TextStyle(fontSize: 20.0),
@@ -13,6 +13,6 @@ ThemeData themeData = ThemeData(
     bodyLarge: TextStyle(fontSize: 16.0),
     bodyMedium: TextStyle(fontSize: 14.0),
   ),
-  textSelectionTheme: const TextSelectionThemeData(cursorColor: primerColor),
-  colorSchemeSeed: primerColor,
+  textSelectionTheme: const TextSelectionThemeData(cursorColor: kPrimaryColor),
+  colorSchemeSeed: kPrimaryColor,
 );
