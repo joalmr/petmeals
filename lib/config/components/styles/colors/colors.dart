@@ -7,7 +7,7 @@ const kAlternative2Color = givry;
 const kAlternative3Color = mandy;
 
 //TEXTO
-const kTextColor = CupertinoColors.systemGrey;
+const kTextColor = Color(0xFF5a5a5a);
 const kTextColorContrast = kBackgroundColor;
 //FONDO
 const kBackgroundColor = Color(0xFFedede9);

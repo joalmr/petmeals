@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:logger/logger.dart';
+import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
@@ -59,9 +59,8 @@ class _PetAddPageState extends State<PetAddPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // CircularProgressIndicator(),
                     Image(
-                      image: AssetImage('assets/logo/petbg.png'),
+                      image: AssetImage('assets/logo/pet_loading.png'),
                       width: 64,
                     ),
                     Text('Cargando...'),
@@ -158,30 +157,41 @@ class _PetAddPageState extends State<PetAddPage> {
                             platformApp: Global.platformApp,
                             onPressed: () {
                               setState(() => loading = true);
-                              if (controllerName.text.isEmpty) {
-                                Logger().i('Falta nombre');
-                                setState(() => loading = false);
-                              }
-
-                              if (widget.petUpd == null) {
-                                if (petProvider.imageFile == null) {
-                                  Logger().i('Falta imagen');
-                                  setState(() => loading = false);
+                              if (controllerName.text.isEmpty ||
+                                  petProvider.imageFile == null) {
+                                if (controllerName.text.isEmpty) {
+                                  snackBar(
+                                    negativeColor,
+                                    'Ingrese nombre',
+                                    context,
+                                  );
+                                } else {
+                                  snackBar(
+                                    negativeColor,
+                                    'Agregue imagen',
+                                    context,
+                                  );
                                 }
-                                PetModel newPet =
-                                    PetModel(name: controllerName.text);
-                                petProvider.addPet(newPet).then((value) {
-                                  context.go('/home');
-                                });
+                                setState(() => loading = false);
                               } else {
-                                var updatePet = petProvider.pet!.copyWith(
-                                  name: controllerName.text,
-                                );
-                                petProvider.updatePet(updatePet).then((value) {
-                                  if (value != null) {
+                                if (widget.petUpd == null) {
+                                  PetModel newPet =
+                                      PetModel(name: controllerName.text);
+                                  petProvider.addPet(newPet).then((value) {
                                     context.go('/home');
-                                  }
-                                });
+                                  });
+                                } else {
+                                  var updatePet = petProvider.pet!.copyWith(
+                                    name: controllerName.text,
+                                  );
+                                  petProvider
+                                      .updatePet(updatePet)
+                                      .then((value) {
+                                    if (value != null) {
+                                      context.go('/home');
+                                    }
+                                  });
+                                }
                               }
                             },
                             child: Text(widget.petUpd != null
@@ -191,7 +201,7 @@ class _PetAddPageState extends State<PetAddPage> {
                           widget.petUpd == null
                               ? const SizedBox()
                               : Padding(
-                                  padding: const EdgeInsets.only(top: 32),
+                                  padding: const EdgeInsets.only(top: 24),
                                   child: ButtonSecondary(
                                     text: 'Eliminar mascota',
                                     color: mandy,
