@@ -29,6 +29,7 @@ dependencies:
   image_picker: ^1.0.4
   json_annotation: ^4.8.1
   logger: ^2.0.2+1
+  lottie: ^3.0.0
   time_parser: ^1.2.1
   #** manejadores
   #* provider
@@ -55,6 +56,7 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/
     - assets/images/
     - assets/logo/
     - assets/images/icono/

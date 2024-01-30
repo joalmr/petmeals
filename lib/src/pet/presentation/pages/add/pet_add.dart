@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:lottie/lottie.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
@@ -32,7 +33,6 @@ class _PetAddPageState extends State<PetAddPage> {
     super.initState();
     final petProvider = context.read<PetProvider>();
     if (widget.petUpd != null) {
-      // Logger().d(widget.petUpd);
       controllerName.text = widget.petUpd!.name!;
       controllerDate.text = format().format(widget.petUpd!.borndate!);
 
@@ -54,17 +54,10 @@ class _PetAddPageState extends State<PetAddPage> {
     return Scaffold(
       body: SafeArea(
         child: loading
-            ? const Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image(
-                      image: AssetImage('assets/logo/pet_loading.png'),
-                      width: 64,
-                    ),
-                    Text('Cargando...'),
-                  ],
+            ? Center(
+                child: Lottie.asset(
+                  'assets/loading.json',
+                  width: 64,
                 ),
               )
             : SingleChildScrollView(
