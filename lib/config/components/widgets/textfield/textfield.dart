@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +7,13 @@ import 'package:petmeals/config/components/widgets/widgets.dart';
 class MyTextField extends StatelessWidget {
   final String textField;
   final TextEditingController? controller;
-  final PlatformApp platformApp;
+  final PlatformApp? platformApp;
 
   const MyTextField({
     super.key,
     required this.textField,
     this.controller,
-    required this.platformApp,
+    this.platformApp = PlatformApp.AUTO,
   });
 
   @override
@@ -113,6 +112,7 @@ class _TextFieldIOSState extends State<_MyTextFieldIOS> {
 class _MyTextFieldAndroid extends StatelessWidget {
   final String textField;
   final TextEditingController? controller;
+
   const _MyTextFieldAndroid({
     required this.textField,
     this.controller,

@@ -150,29 +150,28 @@ class _PetAddPageState extends State<PetAddPage> {
                             platformApp: Global.platformApp,
                             onPressed: () {
                               setState(() => loading = true);
-                              if (controllerName.text.isEmpty ||
-                                  petProvider.imageFile == null) {
-                                if (controllerName.text.isEmpty) {
-                                  snackBar(
-                                    negativeColor,
-                                    'Ingrese nombre',
-                                    context,
-                                  );
-                                } else {
-                                  snackBar(
-                                    negativeColor,
-                                    'Agregue imagen',
-                                    context,
-                                  );
-                                }
+                              if (controllerName.text.isEmpty) {
+                                snackBar(
+                                  negativeColor,
+                                  'Ingrese nombre',
+                                  context,
+                                );
                                 setState(() => loading = false);
                               } else {
                                 if (widget.petUpd == null) {
-                                  PetModel newPet =
-                                      PetModel(name: controllerName.text);
-                                  petProvider.addPet(newPet).then((value) {
-                                    context.go('/home');
-                                  });
+                                  if (petProvider.imageFile == null) {
+                                    snackBar(
+                                      negativeColor,
+                                      'Agregue imagen',
+                                      context,
+                                    );
+                                  } else {
+                                    PetModel newPet =
+                                        PetModel(name: controllerName.text);
+                                    petProvider.addPet(newPet).then((value) {
+                                      context.go('/home');
+                                    });
+                                  }
                                 } else {
                                   var updatePet = petProvider.pet!.copyWith(
                                     name: controllerName.text,

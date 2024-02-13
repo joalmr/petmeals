@@ -1,6 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
+import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/food.dart';
+import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/leash.dart';
+import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/litter.dart';
+import 'package:petmeals/src/pet/presentation/pages/detail/modal/attentions/deworming.dart';
+import 'package:petmeals/src/pet/presentation/pages/detail/modal/attentions/grooming.dart';
+import 'package:petmeals/src/pet/presentation/pages/detail/modal/attentions/vaccine.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/button/buttons.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
@@ -20,23 +26,27 @@ class PetDetailPage extends StatelessWidget {
     final petWatch = context.watch<PetProvider>();
 
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(180),
+        child: SafeArea(
+          child: PicturePet(
+            buttonLeft: const BackBtn(),
+            buttonRight: const EditPetWidget(),
+            aspectRatio: 3 / 4,
+            child: Hero(
+              tag: 'imgpet',
+              child: Image(
+                image: CachedNetworkImageProvider(petProvider.pet!.photo!),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              PicturePet(
-                buttonLeft: const BackBtn(),
-                buttonRight: const EditPetWidget(),
-                aspectRatio: 3 / 4,
-                child: Hero(
-                  tag: 'imgpet',
-                  child: Image(
-                    image: CachedNetworkImageProvider(petProvider.pet!.photo!),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
               Text(
                 petProvider.pet!.name!,
                 style: const TextStyle(
@@ -80,11 +90,15 @@ class PetDetailPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                      const SizedBox(width: 24),
+                      const SizedBox(width: 18),
                       petProvider.pet!.sex!
                           ? const Column(
                               children: [
-                                Icon(Icons.male, size: 42),
+                                Icon(
+                                  Icons.male,
+                                  color: Colors.black,
+                                  size: 42,
+                                ),
                                 Text(
                                   'Macho',
                                   style: TextStyle(fontSize: 10),
@@ -93,13 +107,38 @@ class PetDetailPage extends StatelessWidget {
                             )
                           : const Column(
                               children: [
-                                Icon(Icons.female, size: 42),
+                                Icon(
+                                  Icons.female,
+                                  color: Colors.black,
+                                  size: 42,
+                                ),
                                 Text(
                                   'Hembra',
                                   style: TextStyle(fontSize: 10),
                                 ),
                               ],
                             ),
+                      const SizedBox(width: 18),
+                      GestureDetector(
+                        onTap: () {
+                          Logger().i('==> Abre Historial');
+                          context.push('/petdetail/history',
+                              extra: petProvider.pet);
+                        },
+                        child: const Column(
+                          children: [
+                            Icon(
+                              Icons.book_outlined,
+                              color: Colors.black,
+                              size: 42,
+                            ),
+                            Text(
+                              'Historial',
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -113,12 +152,110 @@ class PetDetailPage extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Logger().i('Desparasitacion');
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (ctx) {
+                          return const DewormingPage();
+                        },
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color(0xffF3F3DE),
+                          ),
+                          width: 64,
+                          height: 64,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              'assets/images/icono/desparasitacion.png',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Logger().i('Grooming');
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (ctx) {
+                          return const GroomingPage();
+                        },
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color(0xffF3F3DE),
+                          ),
+                          width: 64,
+                          height: 64,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              'assets/images/icono/grooming.png',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Logger().i('Vacuna');
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (ctx) {
+                          return const VaccinePage();
+                        },
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color(0xffF3F3DE),
+                          ),
+                          width: 64,
+                          height: 64,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              'assets/images/icono/vacuna.png',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GestureDetector(
                     onTap: () {
                       Logger().i('Action: food');
-                      context.push('/petdetail/food');
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (ctx) {
+                          return const FoodPetPage();
+                        },
+                      );
                     },
                     child: Column(
                       children: [
@@ -142,11 +279,22 @@ class PetDetailPage extends StatelessWidget {
                       if (petProvider.pet!.specie == 0) {
                         Logger().i(
                             "Action: arena ${petProvider.pet!.specie!}"); //gato
-                        context.push('/petdetail/litter');
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (ctx) {
+                            return const LitterPetPage();
+                          },
+                        );
                       } else {
                         Logger().i(
                             "Action: paseo ${petProvider.pet!.specie!}"); //perro
-                        context.push('/petdetail/leash');
+
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (ctx) {
+                            return const LeashPetPage();
+                          },
+                        );
                       }
                     },
                     child: Column(

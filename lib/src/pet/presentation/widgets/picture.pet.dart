@@ -19,7 +19,7 @@ class PicturePet extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 175,
+          height: 145,
           width: double.maxFinite,
           color: Colors.black.withOpacity(0.1),
         ),

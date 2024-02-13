@@ -1,8 +1,6 @@
+import 'package:petmeals/src/pet/presentation/pages/detail/history/pet_history.dart';
 import 'package:petmeals/src/pet/presentation/pages/home/home.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
-import 'package:petmeals/src/pet/presentation/pages/actions/food.dart';
-import 'package:petmeals/src/pet/presentation/pages/actions/leash.dart';
-import 'package:petmeals/src/pet/presentation/pages/actions/litter.dart';
 import 'package:petmeals/src/pet/presentation/pages/add/pet_add.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/pet_detail.dart';
 import 'package:petmeals/src/user/presentation/pages/login.dart';
@@ -53,21 +51,10 @@ final GoRouter goRouter = GoRouter(
           },
         ),
         GoRoute(
-          path: 'food',
+          path: 'history',
           builder: (BuildContext context, GoRouterState state) {
-            return const FoodPetPage();
-          },
-        ),
-        GoRoute(
-          path: 'leash',
-          builder: (BuildContext context, GoRouterState state) {
-            return const LeashPetPage();
-          },
-        ),
-        GoRoute(
-          path: 'litter',
-          builder: (BuildContext context, GoRouterState state) {
-            return const LitterPetPage();
+            var pet = state.extra as PetModel;
+            return PetHistoryPage(pet: pet);
           },
         ),
       ],
