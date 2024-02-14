@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:logger/logger.dart';
 import 'package:petmeals/src/pet/data/datasources/image_storage.dart';
+import 'package:petmeals/src/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/domain/repositories/pet_repository.dart';
 
@@ -75,16 +76,13 @@ class PetsData implements PetRepository {
               final newPet = pet.copyWith(id: e.id);
               return newPet;
             }).toList());
-    //.orderBy('created_at', descending: true)
     //* carga en tiempo real
   }
 
   @override
   Future<List<PetModel>> getPets(String userId) async {
-    //no se usa
     final docs = await ref
         .where('userId', arrayContains: userId)
-        // .orderBy('created_at', descending: true)
         .get()
         .then((value) => value.docs);
 
@@ -93,5 +91,20 @@ class PetsData implements PetRepository {
       final newPet = pet.copyWith(id: doc.id);
       return newPet;
     }).toList();
+  }
+
+  @override
+  Future<List<AttentionsModel>> getAttentions(String petId) async {
+    final docs = await ref
+        .doc(petId)
+        .collection('attentions')
+        .where('type', isEqualTo: 'deworming')
+        .get()
+        .then((value) => value.docs);
+
+    final attentions =
+        docs.map((e) => AttentionsModel.fromJson(e.data())).toList();
+
+    return attentions;
   }
 }

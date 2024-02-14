@@ -42,6 +42,11 @@ class PetProvider extends ChangeNotifier {
   //cargar mascota por usuario
   Stream<List<PetModel>> loadStream() => petUseCase.loadPets(userId);
 
+  getAttentions(String petId) async {
+    final response = await petUseCase.getAttentions(petId);
+    Logger().i('**Lista de atenciones: $response');
+  }
+
   //agregar mascota por usuario
   Future<void> addPet(PetModel? newPet) {
     final addPet = newPet!.copyWith(

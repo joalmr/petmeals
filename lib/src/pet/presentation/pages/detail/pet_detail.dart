@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/food.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/leash.dart';
@@ -122,8 +121,9 @@ class PetDetailPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           Logger().i('==> Abre Historial');
-                          context.push('/petdetail/history',
-                              extra: petProvider.pet);
+                          petProvider.getAttentions(petProvider.pet!.id!);
+                          // context.push('/petdetail/history',
+                          //     extra: petProvider.pet);
                         },
                         child: const Column(
                           children: [
@@ -185,7 +185,7 @@ class PetDetailPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Logger().i('Grooming');
-                      showModalBottomSheet<void>(
+                      showModalBottomSheet(
                         context: context,
                         builder: (ctx) {
                           return const GroomingPage();
@@ -214,7 +214,8 @@ class PetDetailPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Logger().i('Vacuna');
-                      showModalBottomSheet<void>(
+
+                      showModalBottomSheet(
                         context: context,
                         builder: (ctx) {
                           return const VaccinePage();
@@ -250,7 +251,7 @@ class PetDetailPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Logger().i('Action: food');
-                      showModalBottomSheet<void>(
+                      showModalBottomSheet(
                         context: context,
                         builder: (ctx) {
                           return const FoodPetPage();
@@ -277,19 +278,14 @@ class PetDetailPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       if (petProvider.pet!.specie == 0) {
-                        Logger().i(
-                            "Action: arena ${petProvider.pet!.specie!}"); //gato
-                        showModalBottomSheet<void>(
+                        showModalBottomSheet(
                           context: context,
                           builder: (ctx) {
                             return const LitterPetPage();
                           },
                         );
                       } else {
-                        Logger().i(
-                            "Action: paseo ${petProvider.pet!.specie!}"); //perro
-
-                        showModalBottomSheet<void>(
+                        showModalBottomSheet(
                           context: context,
                           builder: (ctx) {
                             return const LeashPetPage();

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:petmeals/src/pet/data/datasources/pets_data.dart';
+import 'package:petmeals/src/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/domain/repositories/pet_repository.dart';
 
@@ -39,5 +40,10 @@ class PetUseCase implements PetRepository {
   @override
   Future<List<PetModel>> getPets(String userId) {
     return petData.getPets(userId);
+  }
+
+  @override
+  Future<List<AttentionsModel>> getAttentions(String petId) {
+    return petData.getAttentions(petId);
   }
 }

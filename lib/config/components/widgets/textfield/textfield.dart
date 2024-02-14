@@ -2,44 +2,57 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 
 class MyTextField extends StatelessWidget {
   final String textField;
   final TextEditingController? controller;
   final PlatformApp? platformApp;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final TextCapitalization? textCapitalization;
 
   const MyTextField({
     super.key,
     required this.textField,
     this.controller,
     this.platformApp = PlatformApp.AUTO,
+    this.inputFormatters,
+    this.keyboardType,
+    this.validator,
+    this.textCapitalization = TextCapitalization.sentences,
   });
+
+  Widget ios() => _MyTextFieldIOS(
+        textField: textField,
+        controller: controller,
+        inputFormatters: inputFormatters,
+        keyboardType: keyboardType,
+        validator: validator,
+        textCapitalization: textCapitalization!,
+      );
+
+  Widget android() => _MyTextFieldAndroid(
+        textField: textField,
+        controller: controller,
+        inputFormatters: inputFormatters,
+        keyboardType: keyboardType,
+        validator: validator,
+        textCapitalization: textCapitalization!,
+      );
 
   @override
   Widget build(BuildContext context) {
     switch (platformApp) {
       case PlatformApp.IOS:
-        return _MyTextFieldIOS(
-          textField: textField,
-          controller: controller,
-        );
+        return ios();
       case PlatformApp.ANDROID:
-        return _MyTextFieldAndroid(
-          textField: textField,
-          controller: controller,
-        );
+        return android();
       case PlatformApp.AUTO:
       default:
-        return Platform.isIOS
-            ? _MyTextFieldIOS(
-                textField: textField,
-                controller: controller,
-              )
-            : _MyTextFieldAndroid(
-                textField: textField,
-                controller: controller,
-              );
+        return Platform.isIOS ? ios() : android();
     }
   }
 }
@@ -48,10 +61,18 @@ class MyTextField extends StatelessWidget {
 class _MyTextFieldIOS extends StatefulWidget {
   final String textField;
   final TextEditingController? controller;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final TextCapitalization textCapitalization;
 
   const _MyTextFieldIOS({
     required this.textField,
     this.controller,
+    this.inputFormatters,
+    this.keyboardType,
+    this.validator,
+    required this.textCapitalization,
   });
 
   @override
@@ -78,9 +99,14 @@ class _TextFieldIOSState extends State<_MyTextFieldIOS> {
                   ),
                 )
               : const SizedBox(height: 12.6),
-          CupertinoTextField(
-            textCapitalization: TextCapitalization.sentences,
+          // CupertinoTextFormFieldRow()
+          CupertinoTextFormFieldRow(
+            padding: const EdgeInsets.all(0),
+            validator: widget.validator,
             controller: widget.controller,
+            inputFormatters: widget.inputFormatters,
+            keyboardType: widget.keyboardType,
+            textCapitalization: widget.textCapitalization,
             onTap: () {
               setState(() => texting = true);
             },
@@ -112,18 +138,30 @@ class _TextFieldIOSState extends State<_MyTextFieldIOS> {
 class _MyTextFieldAndroid extends StatelessWidget {
   final String textField;
   final TextEditingController? controller;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final TextCapitalization textCapitalization;
 
   const _MyTextFieldAndroid({
     required this.textField,
     this.controller,
+    this.inputFormatters,
+    this.keyboardType,
+    this.validator,
+    required this.textCapitalization,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: TextField(
+      child: TextFormField(
+        validator: validator,
         controller: controller,
+        inputFormatters: inputFormatters,
+        keyboardType: keyboardType,
+        textCapitalization: textCapitalization,
         decoration: InputDecoration(
           labelText: textField,
           contentPadding: const EdgeInsets.symmetric(
