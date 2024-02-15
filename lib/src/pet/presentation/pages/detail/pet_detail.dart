@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/food.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/leash.dart';
@@ -122,8 +123,8 @@ class PetDetailPage extends StatelessWidget {
                         onTap: () {
                           Logger().i('==> Abre Historial');
                           petProvider.getAttentions(petProvider.pet!.id!);
-                          // context.push('/petdetail/history',
-                          //     extra: petProvider.pet);
+                          context.push('/petdetail/history',
+                              extra: petProvider.pet);
                         },
                         child: const Column(
                           children: [

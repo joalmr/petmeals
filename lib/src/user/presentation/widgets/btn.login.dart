@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:petmeals/src/user/presentation/provider/user_provider.dart';
 import 'package:petmeals/config/components/widgets/styles/style.button.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,7 @@ import 'package:provider/provider.dart';
 class ButtonGoogle extends StatelessWidget {
   const ButtonGoogle({super.key});
 
-  static const String text = 'Ingresar con Google';
-  static const String imagenStr = 'assets/logo/google.jpg';
+  static const String text = 'Acceder con Google';
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +26,23 @@ class ButtonGoogle extends StatelessWidget {
             }
           });
         },
-        style: buttonStyleOther(Colors.white, Colors.black38),
-        child: const Row(
+        style: buttonStyleOther(
+          const Color(0xffFFFFFF),
+          const Color(0xff1f1f1f),
+        ),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-              child: Image(
-                image: AssetImage(imagenStr),
-                fit: BoxFit.scaleDown,
+              borderRadius: const BorderRadius.all(Radius.circular(100)),
+              child: SvgPicture.asset(
+                'assets/images/icons/google.svg',
                 height: 40,
                 width: 40,
               ),
             ),
-            SizedBox(width: 4),
-            Text(text),
+            const SizedBox(width: 4),
+            const Text(text),
           ],
         ),
       ),

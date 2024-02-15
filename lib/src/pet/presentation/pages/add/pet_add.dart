@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
@@ -50,6 +51,8 @@ class _PetAddPageState extends State<PetAddPage> {
   Widget build(BuildContext context) {
     final petProvider = context.read<PetProvider>();
     final petWatch = context.watch<PetProvider>();
+
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       body: SafeArea(
@@ -120,122 +123,127 @@ class _PetAddPageState extends State<PetAddPage> {
                     const SizedBox(height: 24),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: Column(
-                        children: [
-                          Text(
-                            widget.petUpd == null
-                                ? 'Agregar mascota'
-                                : 'Modificar mascota',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          children: [
+                            Text(
+                              widget.petUpd == null
+                                  ? 'Agregar mascota'
+                                  : 'Modificar mascota',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          MyTextField(
-                            controller: controllerName,
-                            textField: 'Nombre',
-                            platformApp: Global.platformApp,
-                          ),
-                          DatePetWidget(
-                            controller: controllerDate,
-                            textField: 'Fecha de nacimiento',
-                          ),
-                          const SizedBox(height: 4),
-                          const SpeciePetWidget(), //? specie
-                          const SexPetWidget(), //? sex
-                          const SterillizedPetWidget(), //? sterillized
-                          const SizedBox(height: 20),
-                          ButtonPrimary(
-                            platformApp: Global.platformApp,
-                            onPressed: () {
-                              setState(() => loading = true);
-                              if (controllerName.text.isEmpty) {
-                                snackBar(
-                                  negativeColor,
-                                  'Ingrese nombre',
-                                  context,
-                                );
-                                setState(() => loading = false);
-                              } else {
-                                if (widget.petUpd == null) {
-                                  if (petProvider.imageFile == null) {
-                                    snackBar(
-                                      negativeColor,
-                                      'Agregue imagen',
-                                      context,
-                                    );
+                            const SizedBox(height: 8),
+                            MyTextField(
+                              controller: controllerName,
+                              textField: 'Nombre',
+                              platformApp: Global.platformApp,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Ingrese nombre';
+                                }
+                                return null;
+                              },
+                            ),
+                            DatePetWidget(
+                              controller: controllerDate,
+                              textField: 'Fecha de nacimiento',
+                            ),
+                            const SizedBox(height: 4),
+                            const SpeciePetWidget(), //? specie
+                            const SexPetWidget(), //? sex
+                            const SterillizedPetWidget(), //? sterillized
+                            const SizedBox(height: 20),
+                            ButtonPrimary(
+                              platformApp: Global.platformApp,
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  Logger().i('**Correcto');
+                                  setState(() => loading = true);
+                                  if (widget.petUpd == null) {
+                                    if (petProvider.imageFile == null) {
+                                      snackBar(
+                                        negativeColor,
+                                        'Agregue imagen',
+                                        context,
+                                      );
+                                      setState(() => loading = false);
+                                    } else {
+                                      PetModel newPet =
+                                          PetModel(name: controllerName.text);
+                                      petProvider.addPet(newPet).then((value) {
+                                        context.go('/home');
+                                      });
+                                    }
                                   } else {
-                                    PetModel newPet =
-                                        PetModel(name: controllerName.text);
-                                    petProvider.addPet(newPet).then((value) {
-                                      context.go('/home');
+                                    var updatePet = petProvider.pet!.copyWith(
+                                      name: controllerName.text,
+                                    );
+                                    petProvider
+                                        .updatePet(updatePet)
+                                        .then((value) {
+                                      if (value != null) {
+                                        context.go('/home');
+                                      }
                                     });
                                   }
-                                } else {
-                                  var updatePet = petProvider.pet!.copyWith(
-                                    name: controllerName.text,
-                                  );
-                                  petProvider
-                                      .updatePet(updatePet)
-                                      .then((value) {
-                                    if (value != null) {
-                                      context.go('/home');
-                                    }
-                                  });
                                 }
-                              }
-                            },
-                            child: Text(widget.petUpd != null
-                                ? 'Guardar'
-                                : 'Agregar mascota'),
-                          ),
-                          widget.petUpd == null
-                              ? const SizedBox()
-                              : Padding(
-                                  padding: const EdgeInsets.only(top: 24),
-                                  child: ButtonSecondary(
-                                    text: 'Eliminar mascota',
-                                    color: mandy,
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: const Text(
-                                                '¿Deseas eliminar tu mascota?'),
-                                            content: const Text(
-                                                'Al eliminar tu mascota perderás los datos de forma permanente.'),
-                                            actions: [
-                                              TextButton(
-                                                style: const ButtonStyle(
-                                                    foregroundColor:
-                                                        MaterialStatePropertyAll(
-                                                            mandy)),
-                                                onPressed: () {
-                                                  setState(
-                                                      () => loading = true);
-                                                  petProvider
-                                                      .deletePet(
-                                                          widget.petUpd!.id!)
-                                                      .then((value) =>
-                                                          context.go('/home'));
-                                                },
-                                                child: const Text('Eliminar'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => context.pop(),
-                                                child: const Text('Cancelar'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                    platformApp: Global.platformApp,
+                              },
+                              child: Text(widget.petUpd != null
+                                  ? 'Guardar'
+                                  : 'Agregar mascota'),
+                            ),
+                            widget.petUpd == null
+                                ? const SizedBox()
+                                : Padding(
+                                    padding: const EdgeInsets.only(top: 24),
+                                    child: ButtonSecondary(
+                                      text: 'Eliminar mascota',
+                                      color: mandy,
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                  '¿Deseas eliminar tu mascota?'),
+                                              content: const Text(
+                                                  'Al eliminar tu mascota perderás los datos de forma permanente.'),
+                                              actions: [
+                                                TextButton(
+                                                  style: const ButtonStyle(
+                                                      foregroundColor:
+                                                          MaterialStatePropertyAll(
+                                                              mandy)),
+                                                  onPressed: () {
+                                                    setState(
+                                                        () => loading = true);
+                                                    petProvider
+                                                        .deletePet(
+                                                            widget.petUpd!.id!)
+                                                        .then((value) => context
+                                                            .go('/home'));
+                                                  },
+                                                  child: const Text('Eliminar'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      context.pop(),
+                                                  child: const Text('Cancelar'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      platformApp: Global.platformApp,
+                                    ),
                                   ),
-                                ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -17,9 +17,8 @@ class IntroWidget extends StatelessWidget {
         SizedBox(height: 12),
         Center(
           child: Text(
-            '''
-Te ayudamos a cuidar 
-a tu mascota''',
+            'Te ayudamos a cuidar\n'
+            'a tu mascota',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
@@ -28,13 +27,13 @@ a tu mascota''',
           ),
         ),
         SizedBox(height: 12),
-        Center(
-          child: Text(
-            'No te preocupes por recordar cada cuidado que tu mascota necesita, lo hacemos por ti',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16),
-          ),
-        ),
+        // Center(
+        //   child: Text(
+        //     'No te preocupes por recordar cada cuidado que tu mascota necesita, lo hacemos por ti',
+        //     textAlign: TextAlign.center,
+        //     style: TextStyle(fontSize: 16),
+        //   ),
+        // ),
       ],
     );
   }
