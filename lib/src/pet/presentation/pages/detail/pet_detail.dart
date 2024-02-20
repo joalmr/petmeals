@@ -122,7 +122,10 @@ class PetDetailPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           Logger().i('==> Abre Historial');
-                          petProvider.getAttentions(petProvider.pet!.id!);
+                          petProvider.getAttentions(
+                            petProvider.pet!.id!,
+                            'deworming',
+                          );
                           context.push('/petdetail/history',
                               extra: petProvider.pet);
                         },

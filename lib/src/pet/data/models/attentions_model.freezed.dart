@@ -20,7 +20,7 @@ AttentionsModel _$AttentionsModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AttentionsModel {
-  String? get date => throw _privateConstructorUsedError;
+  DateTime? get date => throw _privateConstructorUsedError;
   String? get product => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   int? get nextDate => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $AttentionsModelCopyWith<$Res> {
           AttentionsModel value, $Res Function(AttentionsModel) then) =
       _$AttentionsModelCopyWithImpl<$Res, AttentionsModel>;
   @useResult
-  $Res call({String? date, String? product, String? type, int? nextDate});
+  $Res call({DateTime? date, String? product, String? type, int? nextDate});
 }
 
 /// @nodoc
@@ -62,7 +62,7 @@ class _$AttentionsModelCopyWithImpl<$Res, $Val extends AttentionsModel>
       date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -87,7 +87,7 @@ abstract class _$$AttentionsModelImplCopyWith<$Res>
       __$$AttentionsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? date, String? product, String? type, int? nextDate});
+  $Res call({DateTime? date, String? product, String? type, int? nextDate});
 }
 
 /// @nodoc
@@ -110,7 +110,7 @@ class __$$AttentionsModelImplCopyWithImpl<$Res>
       date: freezed == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -136,7 +136,7 @@ class _$AttentionsModelImpl implements _AttentionsModel {
       _$$AttentionsModelImplFromJson(json);
 
   @override
-  final String? date;
+  final DateTime? date;
   @override
   final String? product;
   @override
@@ -182,7 +182,7 @@ class _$AttentionsModelImpl implements _AttentionsModel {
 
 abstract class _AttentionsModel implements AttentionsModel {
   factory _AttentionsModel(
-      {final String? date,
+      {final DateTime? date,
       final String? product,
       final String? type,
       final int? nextDate}) = _$AttentionsModelImpl;
@@ -191,7 +191,7 @@ abstract class _AttentionsModel implements AttentionsModel {
       _$AttentionsModelImpl.fromJson;
 
   @override
-  String? get date;
+  DateTime? get date;
   @override
   String? get product;
   @override

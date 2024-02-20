@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:petmeals/src/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
 
@@ -25,10 +26,7 @@ class PetProvider extends ChangeNotifier {
         myPet(event.first);
       }
     });
-    // notifyListeners();
   }
-
-  // StreamSubscription<dynamic>? subscriptionLoad;
 
   String userId = MyStorage().uid;
   PetModel? pet;
@@ -39,16 +37,12 @@ class PetProvider extends ChangeNotifier {
   XFile? _imagen;
   FileImage? imageFile;
 
-  //cargar mascota por usuario
+  List<AttentionsModel> attentions = [];
+
+  //Mascota
   Stream<List<PetModel>> loadStream() => petUseCase.loadPets(userId);
 
-  getAttentions(String petId) async {
-    final response = await petUseCase.getAttentions(petId);
-    Logger().i('**Lista de atenciones: $response');
-  }
-
-  //agregar mascota por usuario
-  Future<void> addPet(PetModel? newPet) {
+  addPet(PetModel? newPet) {
     final addPet = newPet!.copyWith(
       borndate: borndate,
       specie: specie,
@@ -58,14 +52,13 @@ class PetProvider extends ChangeNotifier {
     );
     final img = File(_imagen!.path);
 
-    return petUseCase.addPet(addPet, img, userId).then((value) {
+    petUseCase.addPet(addPet, img, userId).then((value) {
       if (value) {
         _cleanPet();
       }
     });
   }
 
-  //editar mascota por usuario
   Future<PetModel?> updatePet(PetModel updatePet) {
     File? img;
     if (_imagen != null) {
@@ -87,7 +80,6 @@ class PetProvider extends ChangeNotifier {
     });
   }
 
-  //registra los horarios de comidas
   Future<PetModel?> foodPet(PetModel updatePet) async {
     return await petUseCase.foodPet(updatePet, userId).then((value) {
       if (value != null) {
@@ -99,7 +91,6 @@ class PetProvider extends ChangeNotifier {
     });
   }
 
-  //registra los horarios de actividades
   Future<PetModel?> actionPet(PetModel updatePet) async {
     return await petUseCase.actionPet(updatePet, userId).then((value) {
       if (value != null) {
@@ -111,12 +102,27 @@ class PetProvider extends ChangeNotifier {
     });
   }
 
-  //eliminar mascota por usuario
-  Future<void> deletePet(String id) async {
+  deletePet(String id) async {
     await petUseCase.deletePet(id, userId).then((value) => _cleanPet());
   }
 
-  //* funciones
+  //Atenciones
+  getAttentions(String petId, String type) async {
+    attentions = [];
+    attentions = await petUseCase.getAttentions(petId, type);
+    notifyListeners();
+    Logger().i('**Lista de atenciones: $attentions');
+  }
+
+  addAttention(AttentionsModel attention, String petId) async {
+    await petUseCase.addAttention(attention, petId);
+  }
+
+  deleteAttention(String id, String petId) async {
+    await petUseCase.deleteAttention(id, petId);
+  }
+
+  //* Funciones
   //actualizar el modelo de mascota para mostrar
   void myPet(PetModel myPet) {
     pet = myPet;

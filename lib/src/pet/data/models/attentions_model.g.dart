@@ -9,7 +9,8 @@ part of 'attentions_model.dart';
 _$AttentionsModelImpl _$$AttentionsModelImplFromJson(
         Map<String, dynamic> json) =>
     _$AttentionsModelImpl(
-      date: json['date'] as String?,
+      date:
+          json['date'] == null ? null : DateTime.parse(json['date'] as String),
       product: json['product'] as String?,
       type: json['type'] as String?,
       nextDate: json['nextDate'] as int?,
@@ -18,7 +19,7 @@ _$AttentionsModelImpl _$$AttentionsModelImplFromJson(
 Map<String, dynamic> _$$AttentionsModelImplToJson(
         _$AttentionsModelImpl instance) =>
     <String, dynamic>{
-      'date': instance.date,
+      'date': instance.date?.toIso8601String(),
       'product': instance.product,
       'type': instance.type,
       'nextDate': instance.nextDate,

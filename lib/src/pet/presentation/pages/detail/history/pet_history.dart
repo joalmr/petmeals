@@ -5,6 +5,8 @@ import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/history/attentions/deworming.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/history/attentions/grooming.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/history/attentions/vaccine.dart';
+import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
+import 'package:provider/provider.dart';
 
 class PetHistoryPage extends StatefulWidget {
   const PetHistoryPage({super.key, this.pet});
@@ -16,9 +18,12 @@ class PetHistoryPage extends StatefulWidget {
 
 class _PetHistoryPageState extends State<PetHistoryPage> {
   int segmentView = 0;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
+    final petProvider = context.read<PetProvider>();
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -51,6 +56,10 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
               children: [
                 GestureDetector(
                   onTap: () => setState(() {
+                    petProvider.getAttentions(
+                      petProvider.pet!.id!,
+                      'deworming',
+                    );
                     segmentView = 0;
                   }),
                   child: Container(
@@ -74,6 +83,10 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                 ),
                 GestureDetector(
                   onTap: () => setState(() {
+                    petProvider.getAttentions(
+                      petProvider.pet!.id!,
+                      'grooming',
+                    );
                     segmentView = 1;
                   }),
                   child: Container(
@@ -97,6 +110,10 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                 ),
                 GestureDetector(
                   onTap: () => setState(() {
+                    petProvider.getAttentions(
+                      petProvider.pet!.id!,
+                      'vaccine',
+                    );
                     segmentView = 2;
                   }),
                   child: Container(

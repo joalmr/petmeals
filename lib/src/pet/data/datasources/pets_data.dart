@@ -94,11 +94,12 @@ class PetsData implements PetRepository {
   }
 
   @override
-  Future<List<AttentionsModel>> getAttentions(String petId) async {
+  Future<List<AttentionsModel>> getAttentions(String petId, String type) async {
     final docs = await ref
         .doc(petId)
         .collection('attentions')
-        .where('type', isEqualTo: 'deworming')
+        .where('type', isEqualTo: type)
+        .orderBy('date', descending: true)
         .get()
         .then((value) => value.docs);
 
@@ -106,5 +107,35 @@ class PetsData implements PetRepository {
         docs.map((e) => AttentionsModel.fromJson(e.data())).toList();
 
     return attentions;
+  }
+
+  @override
+  Future<bool> addAttention(AttentionsModel attention, String petId) async {
+    try {
+      return await ref
+          .doc(petId)
+          .collection('attentions')
+          .add(attention.toJson())
+          .then((value) => value.get())
+          .then((value) {
+        if (value.data() != null) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } catch (e) {
+      Logger().e(e);
+      return false;
+    }
+  }
+
+  @override
+  Future<void> deleteAttention(String id, String petId) async {
+    try {
+      ref.doc(petId).collection('attentions').doc(id);
+    } catch (e) {
+      Logger().e(e);
+    }
   }
 }

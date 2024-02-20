@@ -6,7 +6,7 @@ part 'attentions_model.g.dart';
 @freezed
 class AttentionsModel with _$AttentionsModel {
   factory AttentionsModel({
-    String? date,
+    DateTime? date,
     String? product,
     String? type,
     int? nextDate,

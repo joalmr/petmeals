@@ -1,9 +1,12 @@
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:logger/logger.dart';
+import 'package:go_router/go_router.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/global.dart';
+import 'package:petmeals/src/pet/data/models/attentions_model.dart';
+import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
+import 'package:provider/provider.dart';
 
 class DewormingPage extends StatefulWidget {
   const DewormingPage({super.key});
@@ -13,7 +16,9 @@ class DewormingPage extends StatefulWidget {
 }
 
 class _DewormingPageState extends State<DewormingPage> {
+  final controllerProduct = TextEditingController();
   final controllerDate = TextEditingController();
+  final controllerNext = TextEditingController();
 
   @override
   void initState() {
@@ -27,6 +32,7 @@ class _DewormingPageState extends State<DewormingPage> {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+    final petProvider = context.read<PetProvider>();
 
     return Scaffold(
       appBar: const PreferredSize(
@@ -50,6 +56,7 @@ class _DewormingPageState extends State<DewormingPage> {
             children: [
               const SizedBox(height: 12),
               MyTextField(
+                controller: controllerProduct,
                 textField: 'Producto aplicado',
                 platformApp: Global.platformApp,
                 validator: (value) {
@@ -102,8 +109,14 @@ class _DewormingPageState extends State<DewormingPage> {
                 },
               ),
               MyTextField(
+                controller: controllerNext,
                 textField: 'Próxima aplicación en meses(opcional)',
                 platformApp: Global.platformApp,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(2),
+                ],
+                keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 12),
               Center(
@@ -111,7 +124,23 @@ class _DewormingPageState extends State<DewormingPage> {
                   platformApp: Global.platformApp,
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      Logger().i('**Correcto');
+                      final dd = controllerDate.text.split('-')[0];
+                      final mm = controllerDate.text.split('-')[1];
+                      final yyyy = controllerDate.text.split('-')[2];
+
+                      AttentionsModel attention = AttentionsModel(
+                        type: 'deworming',
+                        product: controllerProduct.text,
+                        date: DateTime.parse('$yyyy-$mm-$dd'),
+                        nextDate: controllerNext.text.isEmpty
+                            ? null
+                            : int.parse(controllerNext.text),
+                      );
+                      petProvider.addAttention(
+                        attention,
+                        petProvider.pet!.id!,
+                      );
+                      context.pop();
                     }
                   },
                   child: const Text('Guardar'),

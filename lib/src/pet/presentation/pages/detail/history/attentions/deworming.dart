@@ -1,12 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
+import 'package:provider/provider.dart';
 
 class DewormingHistory extends StatelessWidget {
   const DewormingHistory({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Deworming'),
+    final petProvider = context.watch<PetProvider>();
+    final f = DateFormat('dd-MM-yyyy');
+
+    return Column(
+      children: [
+        if (petProvider.attentions.isEmpty)
+          const Center(
+            child: Text('No tiene desparasitaciones registradas'),
+          )
+        else
+          for (var i = 0; i < petProvider.attentions.length; i++)
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
+                ),
+                width: double.maxFinite,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      petProvider.attentions[i].product!,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(f.format(petProvider.attentions[i].date!)),
+                  ],
+                ),
+              ),
+            )
+      ],
     );
   }
 }

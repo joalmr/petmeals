@@ -43,7 +43,17 @@ class PetUseCase implements PetRepository {
   }
 
   @override
-  Future<List<AttentionsModel>> getAttentions(String petId) {
-    return petData.getAttentions(petId);
+  Future<List<AttentionsModel>> getAttentions(String petId, String type) {
+    return petData.getAttentions(petId, type);
+  }
+
+  @override
+  Future<bool> addAttention(AttentionsModel attention, String petId) {
+    return petData.addAttention(attention, petId);
+  }
+
+  @override
+  Future<void> deleteAttention(String id, String petId) {
+    return petData.deleteAttention(id, petId);
   }
 }
