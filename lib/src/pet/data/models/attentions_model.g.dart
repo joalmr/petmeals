@@ -14,6 +14,7 @@ _$AttentionsModelImpl _$$AttentionsModelImplFromJson(
       product: json['product'] as String?,
       type: json['type'] as String?,
       nextDate: json['nextDate'] as int?,
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$$AttentionsModelImplToJson(
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$AttentionsModelImplToJson(
       'product': instance.product,
       'type': instance.type,
       'nextDate': instance.nextDate,
+      // 'id': instance.id,
     };

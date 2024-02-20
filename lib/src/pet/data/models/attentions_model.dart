@@ -10,6 +10,7 @@ class AttentionsModel with _$AttentionsModel {
     String? product,
     String? type,
     int? nextDate,
+    String? id,
   }) = _AttentionsModel;
 
   factory AttentionsModel.fromJson(Map<String, Object?> json) =>

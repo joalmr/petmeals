@@ -122,6 +122,11 @@ class PetProvider extends ChangeNotifier {
     await petUseCase.deleteAttention(id, petId);
   }
 
+  notAttention(int index) {
+    attentions.removeAt(index);
+    notifyListeners();
+  }
+
   //* Funciones
   //actualizar el modelo de mascota para mostrar
   void myPet(PetModel myPet) {

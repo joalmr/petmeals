@@ -24,6 +24,7 @@ mixin _$AttentionsModel {
   String? get product => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   int? get nextDate => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,12 @@ abstract class $AttentionsModelCopyWith<$Res> {
           AttentionsModel value, $Res Function(AttentionsModel) then) =
       _$AttentionsModelCopyWithImpl<$Res, AttentionsModel>;
   @useResult
-  $Res call({DateTime? date, String? product, String? type, int? nextDate});
+  $Res call(
+      {DateTime? date,
+      String? product,
+      String? type,
+      int? nextDate,
+      String? id});
 }
 
 /// @nodoc
@@ -57,6 +63,7 @@ class _$AttentionsModelCopyWithImpl<$Res, $Val extends AttentionsModel>
     Object? product = freezed,
     Object? type = freezed,
     Object? nextDate = freezed,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       date: freezed == date
@@ -75,6 +82,10 @@ class _$AttentionsModelCopyWithImpl<$Res, $Val extends AttentionsModel>
           ? _value.nextDate
           : nextDate // ignore: cast_nullable_to_non_nullable
               as int?,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -87,7 +98,12 @@ abstract class _$$AttentionsModelImplCopyWith<$Res>
       __$$AttentionsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime? date, String? product, String? type, int? nextDate});
+  $Res call(
+      {DateTime? date,
+      String? product,
+      String? type,
+      int? nextDate,
+      String? id});
 }
 
 /// @nodoc
@@ -105,6 +121,7 @@ class __$$AttentionsModelImplCopyWithImpl<$Res>
     Object? product = freezed,
     Object? type = freezed,
     Object? nextDate = freezed,
+    Object? id = freezed,
   }) {
     return _then(_$AttentionsModelImpl(
       date: freezed == date
@@ -123,6 +140,10 @@ class __$$AttentionsModelImplCopyWithImpl<$Res>
           ? _value.nextDate
           : nextDate // ignore: cast_nullable_to_non_nullable
               as int?,
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -130,7 +151,8 @@ class __$$AttentionsModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AttentionsModelImpl implements _AttentionsModel {
-  _$AttentionsModelImpl({this.date, this.product, this.type, this.nextDate});
+  _$AttentionsModelImpl(
+      {this.date, this.product, this.type, this.nextDate, this.id});
 
   factory _$AttentionsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AttentionsModelImplFromJson(json);
@@ -143,10 +165,12 @@ class _$AttentionsModelImpl implements _AttentionsModel {
   final String? type;
   @override
   final int? nextDate;
+  @override
+  final String? id;
 
   @override
   String toString() {
-    return 'AttentionsModel(date: $date, product: $product, type: $type, nextDate: $nextDate)';
+    return 'AttentionsModel(date: $date, product: $product, type: $type, nextDate: $nextDate, id: $id)';
   }
 
   @override
@@ -158,12 +182,14 @@ class _$AttentionsModelImpl implements _AttentionsModel {
             (identical(other.product, product) || other.product == product) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.nextDate, nextDate) ||
-                other.nextDate == nextDate));
+                other.nextDate == nextDate) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, date, product, type, nextDate);
+  int get hashCode =>
+      Object.hash(runtimeType, date, product, type, nextDate, id);
 
   @JsonKey(ignore: true)
   @override
@@ -185,7 +211,8 @@ abstract class _AttentionsModel implements AttentionsModel {
       {final DateTime? date,
       final String? product,
       final String? type,
-      final int? nextDate}) = _$AttentionsModelImpl;
+      final int? nextDate,
+      final String? id}) = _$AttentionsModelImpl;
 
   factory _AttentionsModel.fromJson(Map<String, dynamic> json) =
       _$AttentionsModelImpl.fromJson;
@@ -198,6 +225,8 @@ abstract class _AttentionsModel implements AttentionsModel {
   String? get type;
   @override
   int? get nextDate;
+  @override
+  String? get id;
   @override
   @JsonKey(ignore: true)
   _$$AttentionsModelImplCopyWith<_$AttentionsModelImpl> get copyWith =>

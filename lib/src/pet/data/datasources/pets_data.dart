@@ -103,10 +103,14 @@ class PetsData implements PetRepository {
         .get()
         .then((value) => value.docs);
 
-    final attentions =
-        docs.map((e) => AttentionsModel.fromJson(e.data())).toList();
+    // final attentions =
+    //     docs.map((e) => AttentionsModel.fromJson(e.data())).toList();
 
-    return attentions;
+    return docs.map((doc) {
+      final att = AttentionsModel.fromJson(doc.data());
+      final newPet = att.copyWith(id: doc.id);
+      return newPet;
+    }).toList();
   }
 
   @override
@@ -133,7 +137,7 @@ class PetsData implements PetRepository {
   @override
   Future<void> deleteAttention(String id, String petId) async {
     try {
-      ref.doc(petId).collection('attentions').doc(id);
+      ref.doc(petId).collection('attentions').doc(id).delete();
     } catch (e) {
       Logger().e(e);
     }
