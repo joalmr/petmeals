@@ -2,6 +2,7 @@ import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/global.dart';
 import 'package:petmeals/src/pet/data/models/attentions_model.dart';
@@ -76,6 +77,17 @@ class _GroomingPageState extends State<GroomingPage> {
                   dateMask
                 ],
                 keyboardType: TextInputType.number,
+                onTap: () {
+                  final f = DateFormat('dd-MM-yyyy');
+                  showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime.now(),
+                  ).then((value) {
+                    controllerDate.text = value == null ? '' : f.format(value);
+                  });
+                },
                 validator: (value) {
                   final date = controllerDate.text;
                   late String day;
@@ -110,13 +122,19 @@ class _GroomingPageState extends State<GroomingPage> {
               ),
               MyTextField(
                 controller: controllerNext,
-                textField: 'Próxima baño en meses(opcional)',
+                textField: 'Próxima baño en meses',
                 platformApp: Global.platformApp,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                   LengthLimitingTextInputFormatter(2),
                 ],
                 keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Ingrese meses';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 12),
               Center(

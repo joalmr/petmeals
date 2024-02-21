@@ -1,17 +1,13 @@
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:logger/logger.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/global.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
-import 'package:petmeals/config/components/utils/hour_mask.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:provider/provider.dart';
-import 'package:time_parser/time_parser.dart';
-// import 'package:petmeals/setup.get_it.dart';
 
 class FoodPetPage extends StatefulWidget {
   const FoodPetPage({super.key});
@@ -21,12 +17,14 @@ class FoodPetPage extends StatefulWidget {
 }
 
 class _FoodPetPageState extends State<FoodPetPage> {
+  Time foodTime = Time(hour: 10, minute: 00);
+  double foods = 0;
+
   final food = [
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
   ];
-  double foods = 0;
 
   @override
   void initState() {
@@ -47,9 +45,6 @@ class _FoodPetPageState extends State<FoodPetPage> {
   @override
   Widget build(BuildContext context) {
     final petProvider = context.read<PetProvider>();
-    void snackBarNegative(String text) {
-      snackBar(negativeColor, text, context);
-    }
 
     void foodPet(PetModel myFoods) {
       petProvider.foodPet(myFoods).then(
@@ -106,21 +101,31 @@ class _FoodPetPageState extends State<FoodPetPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: CupertinoTextField(
+                  enableInteractiveSelection: false,
                   controller: food[0],
-                  placeholderStyle: const TextStyle(
-                    color: CupertinoColors.systemGrey,
-                    fontSize: 14,
-                    overflow: TextOverflow.fade,
-                  ),
-                  inputFormatters: [
-                    hourMask,
-                    LengthLimitingTextInputFormatter(5),
-                  ],
-                  keyboardType: TextInputType.number,
+                  readOnly: true,
                   decoration: const BoxDecoration(
                     color: Colors.white70,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      showPicker(
+                        context: context,
+                        value: foodTime,
+                        onChange: (newTime) {
+                          setState(() {
+                            foodTime = newTime;
+                            food[0].text =
+                                '${foodTime.hour > 9 ? foodTime.hour : '0${foodTime.hour}'}:${foodTime.minute == 0 ? '00' : foodTime.minute}';
+                          });
+                        },
+                        minuteInterval: TimePickerInterval.TEN,
+                        is24HrFormat: true,
+                        maxMinute: 50,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -130,21 +135,31 @@ class _FoodPetPageState extends State<FoodPetPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: CupertinoTextField(
+                  enableInteractiveSelection: false,
                   controller: food[1],
-                  placeholderStyle: const TextStyle(
-                    color: CupertinoColors.systemGrey,
-                    fontSize: 14,
-                    overflow: TextOverflow.fade,
-                  ),
-                  inputFormatters: [
-                    hourMask,
-                    LengthLimitingTextInputFormatter(5),
-                  ],
-                  keyboardType: TextInputType.number,
+                  readOnly: true,
                   decoration: const BoxDecoration(
                     color: Colors.white70,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      showPicker(
+                        context: context,
+                        value: foodTime,
+                        onChange: (newTime) {
+                          setState(() {
+                            foodTime = newTime;
+                            food[1].text =
+                                '${foodTime.hour > 9 ? foodTime.hour : '0${foodTime.hour}'}:${foodTime.minute == 0 ? '00' : foodTime.minute}';
+                          });
+                        },
+                        minuteInterval: TimePickerInterval.TEN,
+                        is24HrFormat: true,
+                        maxMinute: 50,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -154,21 +169,31 @@ class _FoodPetPageState extends State<FoodPetPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: CupertinoTextField(
+                  enableInteractiveSelection: false,
                   controller: food[2],
-                  placeholderStyle: const TextStyle(
-                    color: CupertinoColors.systemGrey,
-                    fontSize: 14,
-                    overflow: TextOverflow.fade,
-                  ),
-                  inputFormatters: [
-                    hourMask,
-                    LengthLimitingTextInputFormatter(5),
-                  ],
-                  keyboardType: TextInputType.number,
+                  readOnly: true,
                   decoration: const BoxDecoration(
                     color: Colors.white70,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      showPicker(
+                        context: context,
+                        value: foodTime,
+                        onChange: (newTime) {
+                          setState(() {
+                            foodTime = newTime;
+                            food[2].text =
+                                '${foodTime.hour > 9 ? foodTime.hour : '0${foodTime.hour}'}:${foodTime.minute == 0 ? '00' : foodTime.minute}';
+                          });
+                        },
+                        minuteInterval: TimePickerInterval.TEN,
+                        is24HrFormat: true,
+                        maxMinute: 50,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -176,58 +201,38 @@ class _FoodPetPageState extends State<FoodPetPage> {
             ButtonPrimary(
               platformApp: Global.platformApp,
               onPressed: () async {
-                Logger().i(petProvider.pet!.name!);
-                final myFoods = petProvider.pet!.copyWith(
-                  foods: [
-                    food[0].text,
-                    food[1].text,
-                    food[2].text,
-                  ],
-                );
-
                 switch (foods) {
                   case 1:
                     {
-                      if (food[0].text.isEmpty) {
-                        snackBarNegative('Complete el horario');
-                      } else {
-                        if (TimeParser.isValid(food[0].text)) {
-                          foodPet(myFoods);
-                        } else {
-                          snackBarNegative('Hora incorrecta');
-                        }
-                      }
+                      final myFoods = petProvider.pet!.copyWith(
+                        foods: [
+                          food[0].text,
+                        ],
+                      );
+                      foodPet(myFoods);
                     }
                     break;
                   case 2:
                     {
-                      if (food[0].text.isEmpty || food[1].text.isEmpty) {
-                        snackBarNegative('Complete el horario');
-                      } else {
-                        if (TimeParser.isValid(food[0].text) &&
-                            TimeParser.isValid(food[1].text)) {
-                          foodPet(myFoods);
-                        } else {
-                          snackBarNegative('Hora incorrecta');
-                        }
-                      }
+                      final myFoods = petProvider.pet!.copyWith(
+                        foods: [
+                          food[0].text,
+                          food[1].text,
+                        ],
+                      );
+                      foodPet(myFoods);
                     }
                     break;
                   case 3:
                     {
-                      if (food[0].text.isEmpty ||
-                          food[1].text.isEmpty ||
-                          food[2].text.isEmpty) {
-                        snackBarNegative('Complete el horario');
-                      } else {
-                        if (TimeParser.isValid(food[0].text) &&
-                            TimeParser.isValid(food[1].text) &&
-                            TimeParser.isValid(food[2].text)) {
-                          foodPet(myFoods);
-                        } else {
-                          snackBarNegative('Hora incorrecta');
-                        }
-                      }
+                      final myFoods = petProvider.pet!.copyWith(
+                        foods: [
+                          food[0].text,
+                          food[1].text,
+                          food[2].text,
+                        ],
+                      );
+                      foodPet(myFoods);
                     }
                     break;
                   default:

@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
@@ -161,7 +160,6 @@ class _PetAddPageState extends State<PetAddPage> {
                               platformApp: Global.platformApp,
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  Logger().i('**Correcto');
                                   setState(() => loading = true);
                                   if (widget.petUpd == null) {
                                     if (petProvider.imageFile == null) {
@@ -172,23 +170,26 @@ class _PetAddPageState extends State<PetAddPage> {
                                       );
                                       setState(() => loading = false);
                                     } else {
-                                      PetModel newPet =
-                                          PetModel(name: controllerName.text);
-                                      petProvider.addPet(newPet).then((value) {
-                                        context.go('/home');
-                                      });
+                                      var newPet = PetModel(
+                                        name: controllerName.text,
+                                      );
+                                      petProvider.addPet(newPet).then(
+                                        (value) {
+                                          context.go('/home');
+                                        },
+                                      );
                                     }
                                   } else {
                                     var updatePet = petProvider.pet!.copyWith(
                                       name: controllerName.text,
                                     );
-                                    petProvider
-                                        .updatePet(updatePet)
-                                        .then((value) {
-                                      if (value != null) {
-                                        context.go('/home');
-                                      }
-                                    });
+                                    petProvider.updatePet(updatePet).then(
+                                      (value) {
+                                        if (value != null) {
+                                          context.go('/home');
+                                        }
+                                      },
+                                    );
                                   }
                                 }
                               },

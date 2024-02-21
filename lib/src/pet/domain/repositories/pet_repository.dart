@@ -8,7 +8,7 @@ abstract interface class PetRepository {
   Stream<List<PetModel>> loadPets(String userId);
   Future<List<PetModel>> getPets(String userId);
   Future<PetModel?> updatePet(PetModel pet, String userId, File? img);
-  Future<List<AttentionsModel>> getAttentions(String userId, String type);
+  Future<Map<String, dynamic>> getAttentions(String userId, String type);
   Future<bool> addAttention(AttentionsModel attention, String petId);
   Future<void> deleteAttention(String id, String petId);
 }

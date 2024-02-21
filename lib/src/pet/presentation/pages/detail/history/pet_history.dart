@@ -56,11 +56,11 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
               children: [
                 GestureDetector(
                   onTap: () => setState(() {
+                    segmentView = 0;
                     petProvider.getAttentions(
                       petProvider.pet!.id!,
                       'deworming',
                     );
-                    segmentView = 0;
                   }),
                   child: Container(
                     height: double.maxFinite,
@@ -83,11 +83,11 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                 ),
                 GestureDetector(
                   onTap: () => setState(() {
+                    segmentView = 1;
                     petProvider.getAttentions(
                       petProvider.pet!.id!,
                       'grooming',
                     );
-                    segmentView = 1;
                   }),
                   child: Container(
                     height: double.maxFinite,
@@ -110,11 +110,11 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                 ),
                 GestureDetector(
                   onTap: () => setState(() {
+                    segmentView = 2;
                     petProvider.getAttentions(
                       petProvider.pet!.id!,
                       'vaccine',
                     );
-                    segmentView = 2;
                   }),
                   child: Container(
                     height: double.maxFinite,

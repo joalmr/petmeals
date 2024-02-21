@@ -38,11 +38,12 @@ class PetProvider extends ChangeNotifier {
   FileImage? imageFile;
 
   List<AttentionsModel> attentions = [];
+  DateTime? nextDate;
 
   //Mascota
   Stream<List<PetModel>> loadStream() => petUseCase.loadPets(userId);
 
-  addPet(PetModel? newPet) {
+  Future<bool> addPet(PetModel? newPet) {
     final addPet = newPet!.copyWith(
       borndate: borndate,
       specie: specie,
@@ -52,10 +53,11 @@ class PetProvider extends ChangeNotifier {
     );
     final img = File(_imagen!.path);
 
-    petUseCase.addPet(addPet, img, userId).then((value) {
+    return petUseCase.addPet(addPet, img, userId).then((value) {
       if (value) {
         _cleanPet();
       }
+      return value;
     });
   }
 
@@ -109,8 +111,13 @@ class PetProvider extends ChangeNotifier {
   //Atenciones
   getAttentions(String petId, String type) async {
     attentions = [];
-    attentions = await petUseCase.getAttentions(petId, type);
-    notifyListeners();
+
+    petUseCase.getAttentions(petId, type).then((value) {
+      attentions = value['myAttentions'] as List<AttentionsModel>;
+      nextDate = value['nextDate'] as DateTime?;
+      notifyListeners();
+    });
+
     Logger().i('**Lista de atenciones: $attentions');
   }
 

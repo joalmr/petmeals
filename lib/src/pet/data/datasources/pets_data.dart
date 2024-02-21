@@ -94,7 +94,7 @@ class PetsData implements PetRepository {
   }
 
   @override
-  Future<List<AttentionsModel>> getAttentions(String petId, String type) async {
+  Future<Map<String, dynamic>> getAttentions(String petId, String type) async {
     final docs = await ref
         .doc(petId)
         .collection('attentions')
@@ -103,14 +103,35 @@ class PetsData implements PetRepository {
         .get()
         .then((value) => value.docs);
 
-    // final attentions =
-    //     docs.map((e) => AttentionsModel.fromJson(e.data())).toList();
+    final attentions =
+        docs.map((e) => AttentionsModel.fromJson(e.data())).toList();
 
-    return docs.map((doc) {
+    DateTime? nextDate;
+    if (attentions.isNotEmpty) {
+      nextDate = attentions.first.date!.add(
+        Duration(
+          days: attentions.first.nextDate! * 30,
+        ),
+      );
+
+      for (var element in attentions) {
+        final DateTime next;
+        int days = 30 * (element.nextDate ?? 0);
+        next = element.date!.add(Duration(days: days));
+
+        if (next.isBefore(nextDate!)) {
+          nextDate = next;
+        }
+      }
+    }
+
+    final myAttentions = docs.map((doc) {
       final att = AttentionsModel.fromJson(doc.data());
-      final newPet = att.copyWith(id: doc.id);
-      return newPet;
+      final newAtt = att.copyWith(id: doc.id);
+      return newAtt;
     }).toList();
+
+    return {'myAttentions': myAttentions, 'nextDate': nextDate};
   }
 
   @override

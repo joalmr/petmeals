@@ -1,15 +1,13 @@
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/global.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
-import 'package:petmeals/config/components/utils/hour_mask.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:provider/provider.dart';
-import 'package:time_parser/time_parser.dart';
 
 class LitterPetPage extends StatefulWidget {
   const LitterPetPage({super.key});
@@ -19,12 +17,14 @@ class LitterPetPage extends StatefulWidget {
 }
 
 class _LitterPetPageState extends State<LitterPetPage> {
+  Time litterTime = Time(hour: 10, minute: 00);
+  double litter = 0;
+
   final action = [
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
   ];
-  double litter = 0;
 
   @override
   void initState() {
@@ -45,9 +45,6 @@ class _LitterPetPageState extends State<LitterPetPage> {
   @override
   Widget build(BuildContext context) {
     final petProvider = context.read<PetProvider>();
-    void snackBarNegative(String text) {
-      snackBar(negativeColor, text, context);
-    }
 
     void actionPet(PetModel myActions) {
       petProvider.actionPet(myActions).then(
@@ -102,21 +99,31 @@ class _LitterPetPageState extends State<LitterPetPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: CupertinoTextField(
+                  enableInteractiveSelection: false,
                   controller: action[0],
-                  placeholderStyle: const TextStyle(
-                    color: CupertinoColors.systemGrey,
-                    fontSize: 14,
-                    overflow: TextOverflow.fade,
-                  ),
-                  inputFormatters: [
-                    hourMask,
-                    LengthLimitingTextInputFormatter(5),
-                  ],
-                  keyboardType: TextInputType.number,
+                  readOnly: true,
                   decoration: const BoxDecoration(
                     color: Colors.white70,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      showPicker(
+                        context: context,
+                        value: litterTime,
+                        onChange: (newTime) {
+                          setState(() {
+                            litterTime = newTime;
+                            action[0].text =
+                                '${litterTime.hour > 9 ? litterTime.hour : '0${litterTime.hour}'}:${litterTime.minute == 0 ? '00' : litterTime.minute}';
+                          });
+                        },
+                        minuteInterval: TimePickerInterval.TEN,
+                        is24HrFormat: true,
+                        maxMinute: 50,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -126,21 +133,31 @@ class _LitterPetPageState extends State<LitterPetPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: CupertinoTextField(
+                  enableInteractiveSelection: false,
                   controller: action[1],
-                  placeholderStyle: const TextStyle(
-                    color: CupertinoColors.systemGrey,
-                    fontSize: 14,
-                    overflow: TextOverflow.fade,
-                  ),
-                  inputFormatters: [
-                    hourMask,
-                    LengthLimitingTextInputFormatter(5),
-                  ],
-                  keyboardType: TextInputType.number,
+                  readOnly: true,
                   decoration: const BoxDecoration(
                     color: Colors.white70,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      showPicker(
+                        context: context,
+                        value: litterTime,
+                        onChange: (newTime) {
+                          setState(() {
+                            litterTime = newTime;
+                            action[1].text =
+                                '${litterTime.hour > 9 ? litterTime.hour : '0${litterTime.hour}'}:${litterTime.minute == 0 ? '00' : litterTime.minute}';
+                          });
+                        },
+                        minuteInterval: TimePickerInterval.TEN,
+                        is24HrFormat: true,
+                        maxMinute: 50,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -150,79 +167,70 @@ class _LitterPetPageState extends State<LitterPetPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: CupertinoTextField(
+                  enableInteractiveSelection: false,
                   controller: action[2],
-                  placeholderStyle: const TextStyle(
-                    color: CupertinoColors.systemGrey,
-                    fontSize: 14,
-                    overflow: TextOverflow.fade,
-                  ),
-                  inputFormatters: [
-                    hourMask,
-                    LengthLimitingTextInputFormatter(5),
-                  ],
-                  keyboardType: TextInputType.number,
+                  readOnly: true,
                   decoration: const BoxDecoration(
                     color: Colors.white70,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      showPicker(
+                        context: context,
+                        value: litterTime,
+                        onChange: (newTime) {
+                          setState(() {
+                            litterTime = newTime;
+                            action[2].text =
+                                '${litterTime.hour > 9 ? litterTime.hour : '0${litterTime.hour}'}:${litterTime.minute == 0 ? '00' : litterTime.minute}';
+                          });
+                        },
+                        minuteInterval: TimePickerInterval.TEN,
+                        is24HrFormat: true,
+                        maxMinute: 50,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
             const SizedBox(height: 12),
             ButtonPrimary(
               platformApp: Global.platformApp,
-              onPressed: () {
-                final myActions = petProvider.pet!.copyWith(
-                  actions: [
-                    action[0].text,
-                    action[1].text,
-                    action[2].text,
-                  ],
-                );
-
+              onPressed: () async {
                 switch (litter) {
                   case 1:
                     {
-                      if (action[0].text.isEmpty) {
-                        snackBarNegative('Complete el horario');
-                      } else {
-                        if (TimeParser.isValid(action[0].text)) {
-                          actionPet(myActions);
-                        } else {
-                          snackBarNegative('Hora incorrecta');
-                        }
-                      }
+                      final myFoods = petProvider.pet!.copyWith(
+                        foods: [
+                          action[0].text,
+                        ],
+                      );
+                      actionPet(myFoods);
                     }
                     break;
                   case 2:
                     {
-                      if (action[0].text.isEmpty || action[1].text.isEmpty) {
-                        snackBarNegative('Complete el horario');
-                      } else {
-                        if (TimeParser.isValid(action[0].text) &&
-                            TimeParser.isValid(action[1].text)) {
-                          actionPet(myActions);
-                        } else {
-                          snackBarNegative('Hora incorrecta');
-                        }
-                      }
+                      final myFoods = petProvider.pet!.copyWith(
+                        foods: [
+                          action[0].text,
+                          action[1].text,
+                        ],
+                      );
+                      actionPet(myFoods);
                     }
                     break;
                   case 3:
                     {
-                      if (action[0].text.isEmpty ||
-                          action[1].text.isEmpty ||
-                          action[2].text.isEmpty) {
-                        snackBarNegative('Complete el horario');
-                      } else {
-                        if (TimeParser.isValid(action[0].text) &&
-                            TimeParser.isValid(action[1].text) &&
-                            TimeParser.isValid(action[2].text)) {
-                          actionPet(myActions);
-                        } else {
-                          snackBarNegative('Hora incorrecta');
-                        }
-                      }
+                      final myFoods = petProvider.pet!.copyWith(
+                        foods: [
+                          action[0].text,
+                          action[1].text,
+                          action[2].text,
+                        ],
+                      );
+                      actionPet(myFoods);
                     }
                     break;
                   default:

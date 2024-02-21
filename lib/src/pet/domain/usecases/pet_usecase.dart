@@ -43,7 +43,7 @@ class PetUseCase implements PetRepository {
   }
 
   @override
-  Future<List<AttentionsModel>> getAttentions(String petId, String type) {
+  Future<Map<String, dynamic>> getAttentions(String petId, String type) {
     return petData.getAttentions(petId, type);
   }
 

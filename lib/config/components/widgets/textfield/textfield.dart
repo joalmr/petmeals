@@ -13,6 +13,8 @@ class MyTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final TextCapitalization? textCapitalization;
+  final bool? enabled;
+  final void Function()? onTap;
 
   const MyTextField({
     super.key,
@@ -23,6 +25,8 @@ class MyTextField extends StatelessWidget {
     this.keyboardType,
     this.validator,
     this.textCapitalization = TextCapitalization.sentences,
+    this.enabled,
+    this.onTap,
   });
 
   Widget ios() => _MyTextFieldIOS(
@@ -32,6 +36,8 @@ class MyTextField extends StatelessWidget {
         keyboardType: keyboardType,
         validator: validator,
         textCapitalization: textCapitalization!,
+        enabled: enabled,
+        onTap: onTap,
       );
 
   Widget android() => _MyTextFieldAndroid(
@@ -41,6 +47,8 @@ class MyTextField extends StatelessWidget {
         keyboardType: keyboardType,
         validator: validator,
         textCapitalization: textCapitalization!,
+        enabled: enabled,
+        onTap: onTap,
       );
 
   @override
@@ -65,6 +73,8 @@ class _MyTextFieldIOS extends StatefulWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final TextCapitalization textCapitalization;
+  final bool? enabled;
+  final void Function()? onTap;
 
   const _MyTextFieldIOS({
     required this.textField,
@@ -73,6 +83,8 @@ class _MyTextFieldIOS extends StatefulWidget {
     this.keyboardType,
     this.validator,
     required this.textCapitalization,
+    this.enabled,
+    this.onTap,
   });
 
   @override
@@ -89,7 +101,7 @@ class _TextFieldIOSState extends State<_MyTextFieldIOS> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          texting
+          texting || widget.onTap != null
               ? FadeInUp(
                   from: 15,
                   duration: const Duration(milliseconds: 500),
@@ -107,9 +119,11 @@ class _TextFieldIOSState extends State<_MyTextFieldIOS> {
             inputFormatters: widget.inputFormatters,
             keyboardType: widget.keyboardType,
             textCapitalization: widget.textCapitalization,
-            onTap: () {
-              setState(() => texting = true);
-            },
+            enabled: widget.enabled,
+            onTap: widget.onTap ??
+                () {
+                  setState(() => texting = true);
+                },
             onChanged: (value) {
               if (value.isNotEmpty) {
                 setState(() => texting = true);
@@ -142,6 +156,8 @@ class _MyTextFieldAndroid extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final TextCapitalization textCapitalization;
+  final bool? enabled;
+  final void Function()? onTap;
 
   const _MyTextFieldAndroid({
     required this.textField,
@@ -150,6 +166,8 @@ class _MyTextFieldAndroid extends StatelessWidget {
     this.keyboardType,
     this.validator,
     required this.textCapitalization,
+    this.enabled,
+    this.onTap,
   });
 
   @override
@@ -162,6 +180,8 @@ class _MyTextFieldAndroid extends StatelessWidget {
         inputFormatters: inputFormatters,
         keyboardType: keyboardType,
         textCapitalization: textCapitalization,
+        enabled: enabled,
+        onTap: onTap,
         decoration: InputDecoration(
           labelText: textField,
           contentPadding: const EdgeInsets.symmetric(

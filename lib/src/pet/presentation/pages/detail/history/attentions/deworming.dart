@@ -19,64 +19,100 @@ class DewormingHistory extends StatelessWidget {
         ? const Center(
             child: Text('No tiene desparasitaciones registradas'),
           )
-        : ListView.builder(
-            itemCount: petProvider.attentions.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Dismissible(
-                key: UniqueKey(),
-                background: Container(
-                  color: negativeColor,
-                ),
-                direction: DismissDirection.endToStart,
-                confirmDismiss: (direction) {
-                  return showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text(
-                        'Eliminar',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+        : Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: petProvider.attentions.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Dismissible(
+                      key: UniqueKey(),
+                      background: Container(
+                        color: negativeColor,
+                      ),
+                      direction: DismissDirection.endToStart,
+                      confirmDismiss: (direction) {
+                        return showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text(
+                              'Eliminar',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            content: const Text(
+                                'Seguro que desea eliminar la atención?'),
+                            actions: [
+                              ButtonSecondary(
+                                text: 'Eliminar',
+                                onPressed: () {
+                                  petProvider.deleteAttention(
+                                    petProvider.attentions[index].id!,
+                                    petProvider.pet!.id!,
+                                  );
+                                  petProvider.notAttention(index);
+                                  context.pop();
+                                },
+                                color: negativeColor,
+                                platformApp: Global.platformApp,
+                              ),
+                              ButtonSecondary(
+                                text: 'Cancelar',
+                                onPressed: () => context.pop(),
+                                platformApp: Global.platformApp,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        title: Text(petProvider.attentions[index].product!),
+                        subtitle:
+                            Text(f.format(petProvider.attentions[index].date!)),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 0,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      content:
-                          const Text('Seguro que desea eliminar la atención?'),
-                      actions: [
-                        ButtonSecondary(
-                          text: 'Eliminar',
-                          onPressed: () {
-                            petProvider.deleteAttention(
-                              petProvider.attentions[index].id!,
-                              petProvider.pet!.id!,
-                            );
-                            petProvider.notAttention(index);
-                            context.pop();
-                          },
-                          color: negativeColor,
-                          platformApp: Global.platformApp,
-                        ),
-                        ButtonSecondary(
-                          text: 'Cancelar',
-                          onPressed: () => context.pop(),
-                          platformApp: Global.platformApp,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                child: ListTile(
-                  title: Text(petProvider.attentions[index].product!),
-                  subtitle: Text(f.format(petProvider.attentions[index].date!)),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 0,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                    );
+                  },
                 ),
-              );
-            },
+              ),
+              Container(
+                width: double.maxFinite,
+                decoration: const BoxDecoration(
+                  color: sinbad,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+                margin: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(16),
+                child: petProvider.nextDate == null
+                    ? const Text('')
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Próxima desparasitación:'),
+                          Text(
+                            petProvider.nextDate == DateTime.now()
+                                ? const Text('Requiere desparasitación',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))
+                                    .toString()
+                                : f.format(petProvider.nextDate!),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+              )
+            ],
           );
   }
 }
