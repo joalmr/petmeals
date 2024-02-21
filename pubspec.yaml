@@ -37,7 +37,6 @@ dependencies:
   provider: ^6.0.5
   # #* get_it
   get_it: ^7.6.4
-  # watch_it: ^1.1.0
 
 dev_dependencies:
   flutter_test:
