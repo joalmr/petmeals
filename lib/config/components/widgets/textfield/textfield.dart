@@ -15,6 +15,7 @@ class MyTextField extends StatelessWidget {
   final TextCapitalization? textCapitalization;
   final bool? enabled;
   final void Function()? onTap;
+  final bool? readOnly;
 
   const MyTextField({
     super.key,
@@ -27,6 +28,7 @@ class MyTextField extends StatelessWidget {
     this.textCapitalization = TextCapitalization.sentences,
     this.enabled,
     this.onTap,
+    this.readOnly = false,
   });
 
   Widget ios() => _MyTextFieldIOS(
@@ -38,6 +40,7 @@ class MyTextField extends StatelessWidget {
         textCapitalization: textCapitalization!,
         enabled: enabled,
         onTap: onTap,
+        readOnly: readOnly!,
       );
 
   Widget android() => _MyTextFieldAndroid(
@@ -49,6 +52,7 @@ class MyTextField extends StatelessWidget {
         textCapitalization: textCapitalization!,
         enabled: enabled,
         onTap: onTap,
+        readOnly: readOnly!,
       );
 
   @override
@@ -75,6 +79,7 @@ class _MyTextFieldIOS extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final bool? enabled;
   final void Function()? onTap;
+  final bool readOnly;
 
   const _MyTextFieldIOS({
     required this.textField,
@@ -85,6 +90,7 @@ class _MyTextFieldIOS extends StatefulWidget {
     required this.textCapitalization,
     this.enabled,
     this.onTap,
+    required this.readOnly,
   });
 
   @override
@@ -120,6 +126,7 @@ class _TextFieldIOSState extends State<_MyTextFieldIOS> {
             keyboardType: widget.keyboardType,
             textCapitalization: widget.textCapitalization,
             enabled: widget.enabled,
+            readOnly: widget.readOnly,
             onTap: widget.onTap ??
                 () {
                   setState(() => texting = true);
@@ -158,6 +165,7 @@ class _MyTextFieldAndroid extends StatelessWidget {
   final TextCapitalization textCapitalization;
   final bool? enabled;
   final void Function()? onTap;
+  final bool readOnly;
 
   const _MyTextFieldAndroid({
     required this.textField,
@@ -168,6 +176,7 @@ class _MyTextFieldAndroid extends StatelessWidget {
     required this.textCapitalization,
     this.enabled,
     this.onTap,
+    required this.readOnly,
   });
 
   @override
@@ -181,6 +190,7 @@ class _MyTextFieldAndroid extends StatelessWidget {
         keyboardType: keyboardType,
         textCapitalization: textCapitalization,
         enabled: enabled,
+        readOnly: readOnly,
         onTap: onTap,
         decoration: InputDecoration(
           labelText: textField,

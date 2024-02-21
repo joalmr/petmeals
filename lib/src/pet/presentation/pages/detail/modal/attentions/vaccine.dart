@@ -77,6 +77,7 @@ class _VaccinePageState extends State<VaccinePage> {
                   dateMask
                 ],
                 keyboardType: TextInputType.number,
+                readOnly: true,
                 onTap: () {
                   final f = DateFormat('dd-MM-yyyy');
                   showDatePicker(
@@ -85,7 +86,9 @@ class _VaccinePageState extends State<VaccinePage> {
                     firstDate: DateTime(2000),
                     lastDate: DateTime.now(),
                   ).then((value) {
-                    controllerDate.text = value == null ? '' : f.format(value);
+                    if (value != null) {
+                      controllerDate.text = f.format(value);
+                    }
                   });
                 },
                 validator: (value) {
