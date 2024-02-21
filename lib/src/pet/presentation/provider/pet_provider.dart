@@ -28,6 +28,7 @@ class PetProvider extends ChangeNotifier {
     });
   }
 
+  //constantes
   String userId = MyStorage().uid;
   PetModel? pet;
   int specie = 0;
@@ -36,9 +37,9 @@ class PetProvider extends ChangeNotifier {
   bool sterillized = false;
   XFile? _imagen;
   FileImage? imageFile;
-
   List<AttentionsModel> attentions = [];
   DateTime? nextDate;
+  //************
 
   //Mascota
   Stream<List<PetModel>> loadStream() => petUseCase.loadPets(userId);

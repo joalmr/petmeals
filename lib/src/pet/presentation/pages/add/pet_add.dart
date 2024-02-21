@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
@@ -9,12 +10,15 @@ import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:petmeals/src/pet/presentation/widgets/date_textfield.pet.dart';
 import 'package:petmeals/src/pet/presentation/widgets/picture.pet.dart';
 import 'package:petmeals/src/pet/presentation/widgets/sex.pet.dart';
 import 'package:petmeals/src/pet/presentation/widgets/specie.pet.dart';
 import 'package:petmeals/src/pet/presentation/widgets/sterillized.pet.dart';
 import 'package:provider/provider.dart';
+
+DateFormat format() {
+  return DateFormat('dd-MM-yyyy');
+}
 
 class PetAddPage extends StatefulWidget {
   const PetAddPage({super.key, this.petUpd});
@@ -32,6 +36,7 @@ class _PetAddPageState extends State<PetAddPage> {
   void initState() {
     super.initState();
     final petProvider = context.read<PetProvider>();
+
     if (widget.petUpd != null) {
       controllerName.text = widget.petUpd!.name!;
       controllerDate.text = format().format(widget.petUpd!.borndate!);
@@ -41,6 +46,10 @@ class _PetAddPageState extends State<PetAddPage> {
       petProvider.specie = widget.petUpd!.specie!;
       petProvider.sex = widget.petUpd!.sex!;
       petProvider.sterillized = widget.petUpd!.sterillized!;
+    } else {
+      if (controllerDate.text.isEmpty) {
+        controllerDate.text = format().format(DateTime.now());
+      }
     }
   }
 
@@ -147,9 +156,25 @@ class _PetAddPageState extends State<PetAddPage> {
                                 return null;
                               },
                             ),
-                            DatePetWidget(
+                            MyTextField(
                               controller: controllerDate,
                               textField: 'Fecha de nacimiento',
+                              platformApp: Global.platformApp,
+                              readOnly: true,
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime.now(),
+                                ).then((value) {
+                                  if (value != null) {
+                                    controllerDate.text =
+                                        format().format(value);
+                                    petProvider.borndate = value;
+                                  }
+                                });
+                              },
                             ),
                             const SizedBox(height: 4),
                             const SpeciePetWidget(), //? specie

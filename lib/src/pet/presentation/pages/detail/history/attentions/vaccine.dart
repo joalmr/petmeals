@@ -86,7 +86,7 @@ class VaccineHistory extends StatelessWidget {
               Container(
                 width: double.maxFinite,
                 decoration: const BoxDecoration(
-                  color: sinbad,
+                  color: kPrimaryColor,
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
                 margin: const EdgeInsets.all(8),
@@ -96,17 +96,18 @@ class VaccineHistory extends StatelessWidget {
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Próxima vacuna:'),
+                          const Text(
+                            'Próxima vacuna:',
+                            style: TextStyle(color: kTextColor),
+                          ),
                           Text(
                             petProvider.nextDate == DateTime.now()
-                                ? const Text('Requiere vacuna',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold))
-                                    .toString()
+                                ? 'Requiere vacuna'
                                 : f.format(petProvider.nextDate!),
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
+                              color: kTextColor,
                             ),
                           ),
                         ],

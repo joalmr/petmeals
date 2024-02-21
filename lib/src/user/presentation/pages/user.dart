@@ -53,42 +53,7 @@ class UserPage extends StatelessWidget {
                   userProvider.signOut().then((value) => context.go("/"));
                 },
               ),
-              const SizedBox(height: 12),
-              // ButtonSecondary(
-              //   color: mandy,
-              //   platformApp: Global.platformApp,
-              //   onPressed: () {
-              //     showDialog(
-              //       context: context,
-              //       builder: (context) {
-              //         return AlertDialog(
-              //           title: const Text('¿Deseas eliminar su cuenta?'),
-              //           content: const Text(
-              //               'Al eliminar su cuenta perderá todos los datos de forma permanente.'),
-              //           actions: [
-              //             TextButton(
-              //               style: const ButtonStyle(
-              //                   foregroundColor:
-              //                       MaterialStatePropertyAll(mandy)),
-              //               onPressed: () {
-              //                 userProvider
-              //                     .deleteUserAuth()
-              //                     .then((value) => context.go("/"));
-              //               },
-              //               child: const Text('Eliminar'),
-              //             ),
-              //             TextButton(
-              //               onPressed: () => context.pop(),
-              //               child: const Text('Cancelar'),
-              //             ),
-              //           ],
-              //         );
-              //       },
-              //     );
-              //   },
-              //   text: 'Eliminar cuenta',
-              // ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 42),
             ],
           ),
         ),

@@ -86,7 +86,7 @@ class GroomingHistory extends StatelessWidget {
               Container(
                 width: double.maxFinite,
                 decoration: const BoxDecoration(
-                  color: sinbad,
+                  color: kPrimaryColor,
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
                 margin: const EdgeInsets.all(8),
@@ -96,17 +96,18 @@ class GroomingHistory extends StatelessWidget {
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Próximo baño:'),
+                          const Text(
+                            'Próximo baño:',
+                            style: TextStyle(color: kTextColor),
+                          ),
                           Text(
                             petProvider.nextDate == DateTime.now()
-                                ? const Text('Requiere baño',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold))
-                                    .toString()
+                                ? 'Requiere baño'
                                 : f.format(petProvider.nextDate!),
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
+                              color: kTextColor,
                             ),
                           ),
                         ],

@@ -24,5 +24,5 @@ Map<String, dynamic> _$$AttentionsModelImplToJson(
       'product': instance.product,
       'type': instance.type,
       'nextDate': instance.nextDate,
-      // 'id': instance.id,
+      'id': instance.id,
     };

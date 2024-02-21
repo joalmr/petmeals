@@ -10,7 +10,6 @@ _$PetModelImpl _$$PetModelImplFromJson(Map<String, dynamic> json) =>
     _$PetModelImpl(
       actions:
           (json['actions'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      // age: json['age'] as int?,
       age: (DateTime.now()
               .difference(DateTime.parse(json["borndate"]))
               .inDays) ~/
