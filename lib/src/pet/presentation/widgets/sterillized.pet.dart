@@ -1,10 +1,14 @@
-import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 class SterillizedPetWidget extends StatefulWidget {
-  const SterillizedPetWidget({super.key});
+  const SterillizedPetWidget({
+    super.key,
+    required this.sterillized,
+    this.onChanged,
+  });
+  final bool sterillized;
+  final void Function(bool)? onChanged;
 
   @override
   State<SterillizedPetWidget> createState() => _SterillizedPetWidgetState();
@@ -13,8 +17,6 @@ class SterillizedPetWidget extends StatefulWidget {
 class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.read<PetProvider>();
-
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Row(
@@ -25,13 +27,10 @@ class _SterillizedPetWidgetState extends State<SterillizedPetWidget> {
           ),
           const SizedBox(width: 110),
           CupertinoSwitch(
-              activeColor: kPrimaryColor,
-              value: petProvider.sterillized,
-              onChanged: (value) {
-                setState(() {
-                  petProvider.sterillized = !petProvider.sterillized;
-                });
-              }),
+            activeColor: kPrimaryColor,
+            value: widget.sterillized,
+            onChanged: widget.onChanged,
+          ),
         ],
       ),
     );

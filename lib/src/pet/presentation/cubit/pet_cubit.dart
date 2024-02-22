@@ -1,48 +1,29 @@
-import 'dart:async';
 import 'dart:io';
-import 'package:logger/logger.dart';
-import 'package:petmeals/config/storage/storage.data.dart';
-import 'package:flutter/material.dart';
+
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:petmeals/config/storage/storage.data.dart';
+import 'package:petmeals/src/infrastructure/request_status.dart';
 import 'package:petmeals/src/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
 
-class PetProvider extends ChangeNotifier {
+part 'pet_state.dart';
+
+class PetCubit extends Cubit<PetState> {
+  PetCubit(this.petUseCase) : super(const PetState());
   final PetUseCase petUseCase;
 
-  PetProvider({required this.petUseCase}) {
-    MyStorage().box.listen(() {
-      userId = MyStorage().uid;
-      loadStream().listen((event) {
-        if (event.isNotEmpty) {
-          myPet(event.first);
-        }
-      });
-    });
-
-    loadStream().listen((event) {
-      if (event.isNotEmpty) {
-        myPet(event.first);
-      }
-    });
-  }
-
-  //constantes
   String userId = MyStorage().uid;
-  XFile? _imagen;
-  //************
-  PetModel? pet; //
-  FileImage? imageFile; //
-  List<AttentionsModel> attentions = []; //
-  DateTime? nextDate; //
-  //************
+  XFile? imagen;
 
-  //Mascota
+  //Mascotas
   Stream<List<PetModel>> loadStream() => petUseCase.loadPets(userId);
 
   Future<bool> addPet(PetModel newPet) {
-    final img = File(_imagen!.path);
+    final img = File(imagen!.path);
 
     return petUseCase.addPet(newPet, img, userId).then((value) {
       if (value) {
@@ -54,8 +35,8 @@ class PetProvider extends ChangeNotifier {
 
   Future<PetModel?> updatePet(PetModel updatePet) {
     File? img;
-    if (_imagen != null) {
-      img = File(_imagen!.path);
+    if (imagen != null) {
+      img = File(imagen!.path);
     }
 
     return petUseCase.updatePet(updatePet, userId, img).then((value) {
@@ -69,9 +50,7 @@ class PetProvider extends ChangeNotifier {
   Future<PetModel?> foodPet(PetModel updatePet) async {
     return await petUseCase.foodPet(updatePet, userId).then((value) {
       if (value != null) {
-        pet = value;
-        notifyListeners();
-        Logger().i('Comida registrada');
+        emit(state.copyWith(pet: value));
       }
       return value;
     });
@@ -80,9 +59,7 @@ class PetProvider extends ChangeNotifier {
   Future<PetModel?> actionPet(PetModel updatePet) async {
     return await petUseCase.actionPet(updatePet, userId).then((value) {
       if (value != null) {
-        pet = value;
-        notifyListeners();
-        Logger().i('Acción registrada');
+        emit(state.copyWith(pet: value));
       }
       return value;
     });
@@ -94,15 +71,15 @@ class PetProvider extends ChangeNotifier {
 
   //Atenciones
   getAttentions(String petId, String type) async {
-    attentions = [];
+    emit(state.copyWith(status: RequestStatus.loading));
 
     petUseCase.getAttentions(petId, type).then((value) {
-      attentions = value['myAttentions'] as List<AttentionsModel>;
-      nextDate = value['nextDate'] as DateTime?;
-      notifyListeners();
+      emit(state.copyWith(
+        status: RequestStatus.success,
+        attentions: value['myAttentions'] as List<AttentionsModel>,
+        nextDate: value['nextDate'] as DateTime?,
+      ));
     });
-
-    Logger().i('**Lista de atenciones: $attentions');
   }
 
   addAttention(AttentionsModel attention, String petId) async {
@@ -113,28 +90,18 @@ class PetProvider extends ChangeNotifier {
     await petUseCase.deleteAttention(id, petId);
   }
 
-  notAttention(int index) {
-    attentions.removeAt(index);
-    notifyListeners();
-  }
-
-  //* Funciones
-  //actualizar el modelo de mascota para mostrar
+  //Funciones
   void myPet(PetModel myPet) {
-    pet = myPet;
-    notifyListeners();
+    emit(state.copyWith(pet: myPet));
   }
 
-  //cambiar imagen para mascota
   void procesarImagen(ImageSource origen) async {
-    _imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
-    imageFile = FileImage(File(_imagen!.path));
-    notifyListeners();
+    imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
+    emit(state.copyWith(imageFile: FileImage(File(imagen!.path))));
   }
 
-  //limpiar
-  void _cleanPet() {
-    _imagen = null;
-    imageFile = null;
+  _cleanPet() {
+    imagen = null;
+    state.copyWith(imageFile: null);
   }
 }

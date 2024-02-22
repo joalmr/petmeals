@@ -19,7 +19,7 @@ class UserProvider extends ChangeNotifier {
       MyStorage().uid = user!.uid;
       MyStorage().name = user.displayName.toString().split(' ')[0];
       MyStorage().photo = user.photoURL!;
-      // notifyListeners(); //! quizá no es útil
+
       return user;
     }
   }

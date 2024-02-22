@@ -32,6 +32,13 @@ class _PetAddPageState extends State<PetAddPage> {
   final controllerName = TextEditingController();
   final controllerDate = TextEditingController();
 
+  int specie = 0; //
+  bool sex = false;
+  DateTime borndate = DateTime.now();
+  bool sterillized = false;
+
+  bool loading = false;
+
   @override
   void initState() {
     super.initState();
@@ -41,19 +48,17 @@ class _PetAddPageState extends State<PetAddPage> {
       controllerName.text = widget.petUpd!.name!;
       controllerDate.text = format().format(widget.petUpd!.borndate!);
 
-      petProvider.pet = widget.petUpd;
-      petProvider.borndate = widget.petUpd!.borndate!;
-      petProvider.specie = widget.petUpd!.specie!;
-      petProvider.sex = widget.petUpd!.sex!;
-      petProvider.sterillized = widget.petUpd!.sterillized!;
+      petProvider.pet = widget.petUpd; //**
+      borndate = widget.petUpd!.borndate!;
+      specie = widget.petUpd!.specie!;
+      sex = widget.petUpd!.sex!;
+      sterillized = widget.petUpd!.sterillized!;
     } else {
       if (controllerDate.text.isEmpty) {
         controllerDate.text = format().format(DateTime.now());
       }
     }
   }
-
-  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -171,15 +176,94 @@ class _PetAddPageState extends State<PetAddPage> {
                                   if (value != null) {
                                     controllerDate.text =
                                         format().format(value);
-                                    petProvider.borndate = value;
+                                    borndate = value;
                                   }
                                 });
                               },
                             ),
                             const SizedBox(height: 4),
-                            const SpeciePetWidget(), //? specie
-                            const SexPetWidget(), //? sex
-                            const SterillizedPetWidget(), //? sterillized
+                            //*  */
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Especie',
+                                    style: TextStyle(color: kTextColor),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SpeciePetWidget(
+                                        active: specie == 0 ? true : false,
+                                        specie: 0,
+                                        onPressed: () {
+                                          setState(() {
+                                            specie = 0;
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(width: 20),
+                                      SpeciePetWidget(
+                                        active: specie == 1 ? true : false,
+                                        specie: 1,
+                                        onPressed: () {
+                                          setState(() {
+                                            specie = 1;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Sexo',
+                                    style: TextStyle(color: kTextColor),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SexPetWidget(
+                                        sex: false,
+                                        active: sex == false ? true : false,
+                                        onPressed: () {
+                                          setState(() {
+                                            sex = false;
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(width: 20),
+                                      SexPetWidget(
+                                        sex: true,
+                                        active: sex == true ? true : false,
+                                        onPressed: () {
+                                          setState(() {
+                                            sex = true;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SterillizedPetWidget(
+                              sterillized: sterillized,
+                              onChanged: (value) {
+                                setState(() {
+                                  sterillized = value;
+                                });
+                              },
+                            ),
+                            //*  */
                             const SizedBox(height: 20),
                             ButtonPrimary(
                               platformApp: Global.platformApp,
@@ -197,6 +281,11 @@ class _PetAddPageState extends State<PetAddPage> {
                                     } else {
                                       var newPet = PetModel(
                                         name: controllerName.text,
+                                        borndate: borndate,
+                                        specie: specie,
+                                        sex: sex,
+                                        sterillized: sterillized,
+                                        userId: [petProvider.userId],
                                       );
                                       petProvider.addPet(newPet).then(
                                         (value) {
@@ -207,6 +296,11 @@ class _PetAddPageState extends State<PetAddPage> {
                                   } else {
                                     var updatePet = petProvider.pet!.copyWith(
                                       name: controllerName.text,
+                                      borndate: borndate,
+                                      specie: specie,
+                                      sex: sex,
+                                      sterillized: sterillized,
+                                      userId: [petProvider.userId],
                                     );
                                     petProvider.updatePet(updatePet).then(
                                       (value) {
