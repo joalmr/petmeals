@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-const kPrimaryColor = poloBlue;
-const kSecondaryColor = roseBud;
-const kAlternative1Color = sinbad;
-const kAlternative2Color = givry;
-const kAlternative3Color = mandy;
+const kPrimaryColor = sinbad;
+const kSecondaryColor = poloBlue;
 
 //TEXTO
 const kTextColor = Color(0xFF5a5a5a);

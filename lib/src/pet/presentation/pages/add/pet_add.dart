@@ -123,7 +123,7 @@ class _PetAddPageState extends State<PetAddPage> {
                                       child: Icon(
                                         Icons.photo,
                                         size: 42,
-                                        color: kTextColorContrast,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   )
@@ -319,7 +319,7 @@ class _PetAddPageState extends State<PetAddPage> {
                             widget.petUpd == null
                                 ? const SizedBox()
                                 : Padding(
-                                    padding: const EdgeInsets.only(top: 24),
+                                    padding: const EdgeInsets.only(top: 18),
                                     child: ButtonSecondary(
                                       text: 'Eliminar mascota',
                                       color: mandy,
@@ -344,8 +344,10 @@ class _PetAddPageState extends State<PetAddPage> {
                                                     petProvider
                                                         .deletePet(
                                                             widget.petUpd!.id!)
-                                                        .then((value) => context
-                                                            .go('/home'));
+                                                        .then(
+                                                          (value) => context
+                                                              .go('/home'),
+                                                        );
                                                   },
                                                   child: const Text('Eliminar'),
                                                 ),

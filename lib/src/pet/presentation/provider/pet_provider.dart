@@ -14,18 +14,9 @@ class PetProvider extends ChangeNotifier {
   PetProvider({required this.petUseCase}) {
     MyStorage().box.listen(() {
       userId = MyStorage().uid;
-      loadStream().listen((event) {
-        if (event.isNotEmpty) {
-          myPet(event.first);
-        }
-      });
+      loadStream();
     });
-
-    loadStream().listen((event) {
-      if (event.isNotEmpty) {
-        myPet(event.first);
-      }
-    });
+    loadStream();
   }
 
   //constantes
@@ -33,13 +24,23 @@ class PetProvider extends ChangeNotifier {
   XFile? _imagen;
   //************
   PetModel? pet; //
+  List<PetModel> pets = [];
   FileImage? imageFile; //
   List<AttentionsModel> attentions = []; //
   DateTime? nextDate; //
   //************
 
   //Mascota
-  Stream<List<PetModel>> loadStream() => petUseCase.loadPets(userId);
+  Stream<List<PetModel>> loadStream() {
+    final response = petUseCase.loadPets(userId);
+    response.listen((event) {
+      if (event.isNotEmpty) {
+        myPet(event.first);
+      }
+    });
+
+    return response;
+  }
 
   Future<bool> addPet(PetModel newPet) {
     final img = File(_imagen!.path);
@@ -71,7 +72,6 @@ class PetProvider extends ChangeNotifier {
       if (value != null) {
         pet = value;
         notifyListeners();
-        Logger().i('Comida registrada');
       }
       return value;
     });
@@ -82,14 +82,13 @@ class PetProvider extends ChangeNotifier {
       if (value != null) {
         pet = value;
         notifyListeners();
-        Logger().i('Acción registrada');
       }
       return value;
     });
   }
 
   deletePet(String id) async {
-    await petUseCase.deletePet(id, userId).then((value) => _cleanPet());
+    petUseCase.deletePet(id, userId);
   }
 
   //Atenciones

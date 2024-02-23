@@ -10,6 +10,34 @@ class PetsData implements PetRepository {
   final ref = FirebaseFirestore.instance.collection('pets');
 
   @override
+  Stream<List<PetModel>> loadPets(String userId) {
+    return ref
+        .where('userId', arrayContains: userId)
+        .snapshots()
+        .map((event) => event.docs.map((e) {
+              final pet = PetModel.fromJson(e.data());
+              final newPet = pet.copyWith(id: e.id);
+              return newPet;
+            }).toList());
+    //* carga en tiempo real
+  }
+
+  @override
+  Future<List<PetModel>> getPets(String userId) async {
+    final docs = await ref
+        .where('userId', arrayContains: userId)
+        // .orderBy('created_at')
+        .get()
+        .then((value) => value.docs);
+
+    return docs.map((doc) {
+      final pet = PetModel.fromJson(doc.data());
+      final newPet = pet.copyWith(id: doc.id);
+      return newPet;
+    }).toList();
+  }
+
+  @override
   Future<bool> addPet(PetModel newPet, File image, String userId) async {
     try {
       final imgStorage = await uploadImage(image, userId);
@@ -60,37 +88,11 @@ class PetsData implements PetRepository {
           .then((value) => value.photo) //* obtiene foto
           .then((value) =>
               deleteImage(value!, userId)) //* elimina foto del storage
-          .then((value) => refDoc.delete()); //* elimina documento
+          .then((value) => refDoc.delete()) //* elimina documento
+          .then((value) => true);
     } catch (e) {
       Logger().e(e);
     }
-  }
-
-  @override
-  Stream<List<PetModel>> loadPets(String userId) {
-    return ref
-        .where('userId', arrayContains: userId)
-        .snapshots()
-        .map((event) => event.docs.map((e) {
-              final pet = PetModel.fromJson(e.data());
-              final newPet = pet.copyWith(id: e.id);
-              return newPet;
-            }).toList());
-    //* carga en tiempo real
-  }
-
-  @override
-  Future<List<PetModel>> getPets(String userId) async {
-    final docs = await ref
-        .where('userId', arrayContains: userId)
-        .get()
-        .then((value) => value.docs);
-
-    return docs.map((doc) {
-      final pet = PetModel.fromJson(doc.data());
-      final newPet = pet.copyWith(id: doc.id);
-      return newPet;
-    }).toList();
   }
 
   @override

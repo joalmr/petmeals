@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:lottie/lottie.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
@@ -21,8 +22,11 @@ class ListPetWidget extends StatelessWidget {
       builder: (context, snapshot) {
         if (!snapshot.hasData ||
             snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Center(
+            child: Lottie.asset(
+              'assets/loading.json',
+              width: 64,
+            ),
           );
         }
 

@@ -19,34 +19,27 @@ class ButtonPrimary extends StatelessWidget {
     required this.platformApp,
   });
 
+  Widget android() => _BtnAndroid(
+        onPressed: onPressed,
+        color: color,
+        child: child,
+      );
+
+  Widget ios() => _BtnIOS(
+        onPressed: onPressed,
+        color: color,
+        child: child,
+      );
   @override
   Widget build(BuildContext context) {
     switch (platformApp) {
       case PlatformApp.IOS:
-        return _BtnIOS(
-          onPressed: onPressed,
-          color: color,
-          child: child,
-        );
+        return ios();
       case PlatformApp.ANDROID:
-        return _BtnAndroid(
-          onPressed: onPressed,
-          color: color,
-          child: child,
-        );
+        return android();
       case PlatformApp.AUTO:
       default:
-        return Platform.isIOS
-            ? _BtnIOS(
-                onPressed: onPressed,
-                color: color,
-                child: child,
-              )
-            : _BtnAndroid(
-                onPressed: onPressed,
-                color: color,
-                child: child,
-              );
+        return Platform.isIOS ? ios() : android();
     }
   }
 }
@@ -92,7 +85,7 @@ class _BtnAndroid extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(color),
-        foregroundColor: const MaterialStatePropertyAll(Colors.white),
+        // foregroundColor: const MaterialStatePropertyAll(Colors.black),
         shape: const MaterialStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),

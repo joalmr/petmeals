@@ -17,34 +17,27 @@ class ButtonSecondary extends StatelessWidget {
     required this.platformApp,
   });
 
+  Widget android() => _BtnAndroid(
+        onPressed: onPressed,
+        color: color,
+        text: text,
+      );
+
+  Widget ios() => _BtnIOS(
+        onPressed: onPressed,
+        color: color,
+        text: text,
+      );
   @override
   Widget build(BuildContext context) {
     switch (platformApp) {
       case PlatformApp.IOS:
-        return _BtnIOS(
-          onPressed: onPressed,
-          color: color,
-          text: text,
-        );
+        return ios();
       case PlatformApp.ANDROID:
-        return _BtnAndroid(
-          onPressed: onPressed,
-          color: color,
-          text: text,
-        );
+        return android();
       case PlatformApp.AUTO:
       default:
-        return Platform.isIOS
-            ? _BtnIOS(
-                onPressed: onPressed,
-                color: color,
-                text: text,
-              )
-            : _BtnAndroid(
-                onPressed: onPressed,
-                color: color,
-                text: text,
-              );
+        return Platform.isIOS ? ios() : android();
     }
   }
 }
@@ -96,6 +89,7 @@ class _BtnAndroid extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
         ),
+        textStyle: const MaterialStatePropertyAll(TextStyle(fontSize: 16)),
       ),
       onPressed: onPressed,
       child: Text(text),
