@@ -25,6 +25,19 @@ class GroomingHistory extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: petProvider.attentions.length,
                   itemBuilder: (BuildContext context, int index) {
+                    final nextdate =
+                        petProvider.attentions[index].date!.add(Duration(
+                      days: 30 * petProvider.attentions[index].nextDate!,
+                    ));
+                    final inDays = nextdate.difference(DateTime.now()).inDays;
+                    final inMonths = inDays ~/ 30;
+                    final showDate = nextdate.isAfter(DateTime.now())
+                        ? 'Próximo '
+                            '${inMonths > 1 ? 'en $inMonths meses' : inDays > 0 ? 'en $inDays días' : 'hoy 👀'} '
+                        : petProvider.attentions.length == 1
+                            ? 'Vencido 👀'
+                            : 'Realizado';
+
                     return Dismissible(
                       key: UniqueKey(),
                       background: Container(
@@ -73,8 +86,7 @@ class GroomingHistory extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(f.format(petProvider.attentions[index].date!)),
-                            Text(
-                                'Prox. en ${petProvider.attentions[index].nextDate == 1 ? '${petProvider.attentions[index].nextDate} mes' : '${petProvider.attentions[index].nextDate} meses'}'),
+                            Text(showDate),
                           ],
                         ),
                         contentPadding: const EdgeInsets.symmetric(
@@ -89,36 +101,36 @@ class GroomingHistory extends StatelessWidget {
                   },
                 ),
               ),
-              Container(
-                width: double.maxFinite,
-                decoration: const BoxDecoration(
-                  color: kPrimaryColor,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                margin: const EdgeInsets.all(8),
-                padding: const EdgeInsets.all(16),
-                child: petProvider.nextDate == null
-                    ? const Text('')
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Próximo baño:',
-                            style: TextStyle(color: kTextColor),
-                          ),
-                          Text(
-                            petProvider.nextDate == DateTime.now()
-                                ? 'Requiere baño'
-                                : f.format(petProvider.nextDate!),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: kTextColor,
-                            ),
-                          ),
-                        ],
-                      ),
-              )
+              // Container(
+              //   width: double.maxFinite,
+              //   decoration: const BoxDecoration(
+              //     color: kPrimaryColor,
+              //     borderRadius: BorderRadius.all(Radius.circular(16)),
+              //   ),
+              //   margin: const EdgeInsets.all(8),
+              //   padding: const EdgeInsets.all(16),
+              //   child: petProvider.nextDate == null
+              //       ? const Text('')
+              //       : Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             const Text(
+              //               'Próximo baño:',
+              //               style: TextStyle(color: kTextColor),
+              //             ),
+              //             Text(
+              //               petProvider.nextDate == DateTime.now()
+              //                   ? 'Requiere baño'
+              //                   : f.format(petProvider.nextDate!),
+              //               style: const TextStyle(
+              //                 fontSize: 16,
+              //                 fontWeight: FontWeight.bold,
+              //                 color: kTextColor,
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              // )
             ],
           );
   }
