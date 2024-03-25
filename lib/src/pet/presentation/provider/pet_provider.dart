@@ -7,15 +7,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:petmeals/src/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
+import 'package:petmeals/src/constant/constant.dart' as global;
 
 class PetProvider extends ChangeNotifier {
   final PetUseCase petUseCase;
 
   PetProvider({required this.petUseCase}) {
-    MyStorage().box.listen(() {
-      userId = MyStorage().uid;
-      loadStream();
-    });
     loadStream();
   }
 
@@ -32,10 +29,10 @@ class PetProvider extends ChangeNotifier {
 
   //Mascota
   Stream<List<PetModel>> loadStream() {
-    final response = petUseCase.loadPets(userId);
-    response.listen((event) {
-      if (event.isNotEmpty) {
-        myPet(event.first);
+    final response = petUseCase.loadPets(global.userId ?? userId);
+    response.listen((eventPets) {
+      if (eventPets.isNotEmpty) {
+        myPet(eventPets.first);
       }
     });
 

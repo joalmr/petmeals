@@ -69,14 +69,17 @@ class DewormingHistory extends StatelessWidget {
                       },
                       child: ListTile(
                         title: Text(petProvider.attentions[index].product!),
-                        subtitle:
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Text(f.format(petProvider.attentions[index].date!)),
+                            Text(
+                                'Prox. en ${petProvider.attentions[index].nextDate == 1 ? '${petProvider.attentions[index].nextDate} mes' : '${petProvider.attentions[index].nextDate} meses'}'),
+                          ],
+                        ),
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 24,
                           vertical: 0,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     );

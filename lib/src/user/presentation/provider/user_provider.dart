@@ -1,6 +1,7 @@
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:petmeals/src/constant/constant.dart' as global;
 import 'package:petmeals/src/user/domain/usecases/user_usecase.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -19,6 +20,8 @@ class UserProvider extends ChangeNotifier {
       MyStorage().uid = user!.uid;
       MyStorage().name = user.displayName.toString().split(' ')[0];
       MyStorage().photo = user.photoURL!;
+
+      global.userId = user.uid;
 
       return user;
     }
