@@ -1,4 +1,5 @@
-import 'package:petmeals/global.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:petmeals/src/constant/global.dart';
 import 'package:petmeals/my_app.dart';
 import 'package:petmeals/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,6 +11,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
+  await dotenv.load(fileName: ".env");
   setupProvidersGetIt();
   Global.app = "Production";
   runApp(const MyApp());

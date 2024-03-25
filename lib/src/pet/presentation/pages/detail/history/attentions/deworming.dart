@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/widgets/button/secondary_button.dart';
-import 'package:petmeals/global.dart';
+import 'package:petmeals/src/constant/global.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +34,7 @@ class DewormingHistory extends StatelessWidget {
                     final showDate = nextdate.isAfter(DateTime.now())
                         ? 'Próximo '
                             '${inMonths > 1 ? 'en $inMonths meses' : inDays > 0 ? 'en $inDays días' : 'hoy 👀'} '
-                        : petProvider.attentions.length == 1
+                        : index == 0
                             ? 'Vencido 👀'
                             : 'Realizado';
 
@@ -86,7 +86,12 @@ class DewormingHistory extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(f.format(petProvider.attentions[index].date!)),
-                            Text(showDate),
+                            Text(
+                              showDate,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                         contentPadding: const EdgeInsets.symmetric(

@@ -1,4 +1,4 @@
-import 'config/components/widgets/widgets.dart';
+import '../../config/components/widgets/widgets.dart';
 
 class Global {
   static String app = "";
