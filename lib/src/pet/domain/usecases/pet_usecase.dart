@@ -10,13 +10,13 @@ class PetUseCase implements PetRepository {
   PetUseCase({required this.petData});
 
   @override
-  Future<bool> addPet(PetModel newPet, File image, String userId) async {
-    return await petData.addPet(newPet, image, userId);
+  Future<PetModel?> addPet(PetModel newPet, File image) async {
+    return await petData.addPet(newPet, image);
   }
 
   @override
-  Future<void> deletePet(String id, String userId) async {
-    await petData.deletePet(id, userId);
+  Future<void> deletePet(String petId) async {
+    await petData.deletePet(petId);
   }
 
   @override
@@ -43,7 +43,7 @@ class PetUseCase implements PetRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> getAttentions(String petId, String type) {
+  Future<List<AttentionsModel>> getAttentions(String petId, String type) {
     return petData.getAttentions(petId, type);
   }
 

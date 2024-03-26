@@ -32,11 +32,9 @@ _$PetModelImpl _$$PetModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$PetModelImplToJson(_$PetModelImpl instance) =>
     <String, dynamic>{
       'actions': instance.actions,
-      // 'age': instance.age,
       'borndate': instance.borndate?.toIso8601String(),
       "created_at": DateTime.timestamp(),
       'foods': instance.foods,
-      // 'id': instance.id,
       'name': instance.name,
       'photo': instance.photo,
       'sex': instance.sex,

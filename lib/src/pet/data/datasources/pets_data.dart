@@ -26,7 +26,6 @@ class PetsData implements PetRepository {
   Future<List<PetModel>> getPets(String userId) async {
     final docs = await ref
         .where('userId', arrayContains: userId)
-        // .orderBy('created_at')
         .get()
         .then((value) => value.docs);
 
@@ -38,65 +37,73 @@ class PetsData implements PetRepository {
   }
 
   @override
-  Future<bool> addPet(PetModel newPet, File image, String userId) async {
+  Future<PetModel?> addPet(PetModel newPet, File image) async {
     try {
-      final imgStorage = await uploadImage(image, userId);
-      final petWithImg = newPet.copyWith(photo: imgStorage);
+      late String tmpId;
 
-      return ref
-          .add(petWithImg.toJson())
-          .then((value) => value.get())
+      return await ref
+          .add(newPet.toJson())
+          .then(
+            (value) => value.get(),
+          )
           .then((value) {
-        if (value.data() != null) {
-          return true;
-        } else {
-          return false;
-        }
+        tmpId = value.id;
+        return value.data();
+      }).then((value) async {
+        final tmpPet = PetModel.fromJson(value!);
+
+        String imgStorage = "";
+        imgStorage = await uploadImage(image, tmpId);
+
+        return ref
+            .doc(tmpId)
+            .update(tmpPet
+                .copyWith(
+                  photo: imgStorage,
+                )
+                .toJson())
+            .then((value) => tmpPet);
       });
     } catch (e) {
-      Logger().e(e);
-      return false;
+      Logger().e('addPet', error: e);
+      return null;
     }
   }
 
   @override
-  Future<PetModel?> updatePet(PetModel pet, String userId, File? img) async {
+  Future<PetModel?> updatePet(PetModel pet, String userId, File? image) async {
     try {
       String imgStorage = "";
       PetModel petUpdate = pet;
 
-      if (img != null) {
-        imgStorage = await uploadImage(img, userId);
+      if (image != null) {
+        imgStorage = await uploadImage(image, pet.id!);
         petUpdate = pet.copyWith(photo: imgStorage);
       }
 
       final refDoc = ref.doc(pet.id);
       return refDoc.update(petUpdate.toJson()).then((value) => petUpdate);
     } catch (e) {
-      Logger().e(e);
+      Logger().e('updatePet', error: e);
       return null;
     }
   }
 
   @override
-  Future<void> deletePet(String id, String userId) async {
+  Future<void> deletePet(String petId) async {
     try {
-      final refDoc = ref.doc(id);
-      refDoc
-          .get()
-          .then((value) => PetModel.fromJson(value.data()!))
-          .then((value) => value.photo) //* obtiene foto
-          .then((value) =>
-              deleteImage(value!, userId)) //* elimina foto del storage
-          .then((value) => refDoc.delete()) //* elimina documento
+      deleteImage(petId); //* elimina foto del storage
+      ref
+          .doc(petId)
+          .delete() //* elimina documento
           .then((value) => true);
     } catch (e) {
-      Logger().e(e);
+      Logger().e('deletePet', error: e);
     }
   }
 
   @override
-  Future<Map<String, dynamic>> getAttentions(String petId, String type) async {
+  Future<List<AttentionsModel>> getAttentions(String petId, String type) async {
     final docs = await ref
         .doc(petId)
         .collection('attentions')
@@ -105,27 +112,27 @@ class PetsData implements PetRepository {
         .get()
         .then((value) => value.docs);
 
-    final attentions =
-        docs.map((e) => AttentionsModel.fromJson(e.data())).toList();
+    // final attentions =
+    //     docs.map((e) => AttentionsModel.fromJson(e.data())).toList();
 
-    DateTime? nextDate;
-    if (attentions.isNotEmpty) {
-      nextDate = attentions.first.date!.add(
-        Duration(
-          days: attentions.first.nextDate! * 30,
-        ),
-      );
+    // DateTime? nextDate;
+    // if (attentions.isNotEmpty) {
+    //   nextDate = attentions.first.date!.add(
+    //     Duration(
+    //       days: attentions.first.nextDate! * 30,
+    //     ),
+    //   );
 
-      for (var element in attentions) {
-        final DateTime next;
-        int days = 30 * (element.nextDate ?? 0);
-        next = element.date!.add(Duration(days: days));
+    //   for (var element in attentions) {
+    //     final DateTime next;
+    //     int days = 30 * (element.nextDate ?? 0);
+    //     next = element.date!.add(Duration(days: days));
 
-        if (next.isBefore(nextDate!)) {
-          nextDate = next;
-        }
-      }
-    }
+    //     if (next.isBefore(nextDate!)) {
+    //       nextDate = next;
+    //     }
+    //   }
+    // }
 
     final myAttentions = docs.map((doc) {
       final att = AttentionsModel.fromJson(doc.data());
@@ -133,7 +140,7 @@ class PetsData implements PetRepository {
       return newAtt;
     }).toList();
 
-    return {'myAttentions': myAttentions, 'nextDate': nextDate};
+    return myAttentions;
   }
 
   @override
@@ -152,7 +159,7 @@ class PetsData implements PetRepository {
         }
       });
     } catch (e) {
-      Logger().e(e);
+      Logger().e('addAttention', error: e);
       return false;
     }
   }
@@ -162,7 +169,7 @@ class PetsData implements PetRepository {
     try {
       ref.doc(petId).collection('attentions').doc(id).delete();
     } catch (e) {
-      Logger().e(e);
+      Logger().e('deleteAttention', error: e);
     }
   }
 }

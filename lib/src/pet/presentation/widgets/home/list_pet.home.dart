@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lottie/lottie.dart';
+import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
@@ -68,13 +69,26 @@ class ListPetWidget extends StatelessWidget {
                                     Radius.circular(100)),
                                 child: Stack(
                                   children: [
-                                    Image(
-                                      image: CachedNetworkImageProvider(
-                                          element.photo!),
-                                      height: 52,
-                                      width: 52,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    element.photo == null
+                                        ? Container(
+                                            decoration: const BoxDecoration(
+                                                color: kPrimaryColor),
+                                            height: 120,
+                                            child: const Center(
+                                              child: Icon(
+                                                Icons.photo,
+                                                size: 42,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          )
+                                        : Image(
+                                            image: CachedNetworkImageProvider(
+                                                element.photo!),
+                                            height: 52,
+                                            width: 52,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ],
                                 ),
                               ),

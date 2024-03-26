@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:logger/logger.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:petmeals/src/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
@@ -18,13 +16,12 @@ class PetProvider extends ChangeNotifier {
 
   //constantes
   String userId = MyStorage().uid;
-  XFile? _imagen;
+  // XFile? _imagen;
   //************
   PetModel? pet; //
   List<PetModel> pets = [];
-  FileImage? imageFile; //
+  // FileImage? imageFile;
   List<AttentionsModel> attentions = []; //
-  DateTime? nextDate; //
   //************
 
   //Mascota
@@ -39,29 +36,15 @@ class PetProvider extends ChangeNotifier {
     return response;
   }
 
-  Future<bool> addPet(PetModel newPet) {
-    final img = File(_imagen!.path);
-
-    return petUseCase.addPet(newPet, img, userId).then((value) {
-      if (value) {
-        _cleanPet();
-      }
-      return value;
-    });
+  Future<bool> addPet(PetModel newPet, File img) {
+    return petUseCase
+        .addPet(newPet, img)
+        .then((value) => value != null ? true : false);
   }
 
-  Future<PetModel?> updatePet(PetModel updatePet) {
-    File? img;
-    if (_imagen != null) {
-      img = File(_imagen!.path);
-    }
-
-    return petUseCase.updatePet(updatePet, userId, img).then((value) {
-      if (value != null) {
-        _cleanPet();
-      }
-      return value;
-    });
+  Future<PetModel?> updatePet(PetModel updatePet, File? img) async {
+    final update = await petUseCase.updatePet(updatePet, userId, img);
+    return update;
   }
 
   Future<PetModel?> foodPet(PetModel updatePet) async {
@@ -84,21 +67,16 @@ class PetProvider extends ChangeNotifier {
     });
   }
 
-  deletePet(String id) async {
-    petUseCase.deletePet(id, userId);
+  deletePet(String petId) async {
+    petUseCase.deletePet(petId);
   }
 
   //Atenciones
   getAttentions(String petId, String type) async {
     attentions = [];
 
-    petUseCase.getAttentions(petId, type).then((value) {
-      attentions = value['myAttentions'] as List<AttentionsModel>;
-      nextDate = value['nextDate'] as DateTime?;
-      notifyListeners();
-    });
-
-    Logger().i('**Lista de atenciones: $attentions');
+    attentions = await petUseCase.getAttentions(petId, type);
+    notifyListeners();
   }
 
   addAttention(AttentionsModel attention, String petId) async {
@@ -119,18 +97,5 @@ class PetProvider extends ChangeNotifier {
   void myPet(PetModel myPet) {
     pet = myPet;
     notifyListeners();
-  }
-
-  //cambiar imagen para mascota
-  void procesarImagen(ImageSource origen) async {
-    _imagen = await ImagePicker().pickImage(source: origen, imageQuality: 80);
-    imageFile = FileImage(File(_imagen!.path));
-    notifyListeners();
-  }
-
-  //limpiar
-  void _cleanPet() {
-    _imagen = null;
-    imageFile = null;
   }
 }

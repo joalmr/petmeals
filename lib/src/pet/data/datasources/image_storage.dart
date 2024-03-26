@@ -1,22 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
 final FirebaseStorage storage = FirebaseStorage.instance;
 
-Future<String> uploadImage(File image, String userId) async {
+Future<String> uploadImage(File image, String petId) async {
   try {
-    final format = DateFormat('ddMMyyyyHHmmss');
-    final nameImg = format.format(DateTime.now());
-
-    Reference ref = storage
-        .ref()
-        .child('images')
-        .child(userId)
-        .child('pets')
-        .child('___${nameImg}___');
+    Reference ref =
+        storage.ref().child('images').child('pets').child(petId).child('image');
 
     final UploadTask uploadTask = ref.putFile(image);
     final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => true);
@@ -25,24 +17,18 @@ Future<String> uploadImage(File image, String userId) async {
     log(url);
     return url;
   } catch (e) {
-    Logger().e(e);
+    Logger().e('uploadImage', error: e);
     return '';
   }
 }
 
-void deleteImage(String imageName, String userId) async {
+void deleteImage(String petId) async {
   try {
-    String img = imageName.split('___')[1];
-
-    final desertRef = storage
-        .ref()
-        .child('images')
-        .child(userId)
-        .child('pets')
-        .child('___${img}___');
+    final desertRef =
+        storage.ref().child('images').child('pets').child(petId).child('image');
 
     desertRef.delete();
   } catch (e) {
-    Logger().e(e);
+    Logger().e('deleteImage', error: e);
   }
 }

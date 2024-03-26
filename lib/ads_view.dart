@@ -12,10 +12,10 @@ class AdsView extends StatelessWidget {
     adUnitId: global.adUnitId,
     request: const AdRequest(),
     listener: BannerAdListener(
-      onAdLoaded: (ad) => Logger().i("Ad loaded"),
+      onAdLoaded: (ad) => Logger().t("Ad loaded"),
       onAdFailedToLoad: (ad, error) {
         ad.dispose();
-        Logger().i("Ad failed to load: $error");
+        Logger().e("Ad failed to load: $error");
       },
     ),
   );

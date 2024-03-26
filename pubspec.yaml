@@ -64,6 +64,5 @@ flutter:
     - assets/logo/
     - assets/images/icono/
     - assets/images/icons/
-    - json/
     - .env
     - .env.dev
