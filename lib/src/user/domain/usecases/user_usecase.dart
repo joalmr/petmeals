@@ -9,29 +9,11 @@ class UserUsecase implements UserRepository {
   UserUsecase({required this.userData});
 
   @override
-  Future<dynamic> getUser(String uid) {
-    throw UnimplementedError();
-  }
+  Future<UserCredential?> signInGoogle() => userData.signInGoogle();
 
   @override
-  Future<UserCredential?> signInGoogle() async {
-    final response = await userData.signInGoogle();
-
-    // if (response?.user != null) {
-    //   MyStorage().uid = response!.user!.uid;
-    //   MyStorage().name = response.user!.displayName.toString().split(' ')[0];
-    //   MyStorage().photo = response.user!.photoURL!;
-    // }
-    return response;
-  }
+  Future<void> signOut() => userData.signOut();
 
   @override
-  Future<void> signOut() async {
-    return await userData.signOut();
-  }
-
-  @override
-  Future<void> deleteUserAuth() async {
-    await userData.deleteUserAuth();
-  }
+  Future<void> deleteUserAuth() => userData.deleteUserAuth();
 }

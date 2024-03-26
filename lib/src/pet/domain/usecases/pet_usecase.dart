@@ -10,50 +10,38 @@ class PetUseCase implements PetRepository {
   PetUseCase({required this.petData});
 
   @override
-  Future<PetModel?> addPet(PetModel newPet, File image) async {
-    return await petData.addPet(newPet, image);
-  }
+  Future<PetModel> addPet(PetModel newPet, File image) =>
+      petData.addPet(newPet, image);
 
   @override
-  Future<void> deletePet(String petId) async {
-    await petData.deletePet(petId);
-  }
+  Future<void> deletePet(String petId) => petData.deletePet(petId);
 
   @override
-  Stream<List<PetModel>> loadPets(String userId) {
-    return petData.loadPets(userId);
-  }
+  Stream<List<PetModel>> loadPets(String userId) => petData.loadPets(userId);
 
   @override
-  Future<PetModel?> updatePet(PetModel pet, String userId, File? img) async {
-    return await petData.updatePet(pet, userId, img);
-  }
+  Future<PetModel> updatePet(PetModel pet, String userId, File? img) =>
+      petData.updatePet(pet, userId, img);
 
-  Future<PetModel?> actionPet(PetModel pet, String userId) async {
-    return await petData.updatePet(pet, userId, null);
-  }
+  Future<PetModel?> actionPet(PetModel pet, String userId) =>
+      petData.updatePet(pet, userId, null);
 
-  Future<PetModel?> foodPet(PetModel pet, String userId) async {
-    return await petData.updatePet(pet, userId, null);
-  }
+  Future<PetModel?> foodPet(PetModel pet, String userId) =>
+      petData.updatePet(pet, userId, null);
 
   @override
-  Future<List<PetModel>> getPets(String userId) {
-    return petData.getPets(userId);
-  }
+  Future<List<PetModel>> getPets(String userId) => petData.getPets(userId);
 
   @override
-  Future<List<AttentionsModel>> getAttentions(String petId, String type) {
-    return petData.getAttentions(petId, type);
-  }
+  Future<List<AttentionsModel>> getAttentions(String petId, String type) =>
+      petData.getAttentions(petId, type);
 
   @override
-  Future<bool> addAttention(AttentionsModel attention, String petId) {
-    return petData.addAttention(attention, petId);
-  }
+  Future<AttentionsModel> addAttention(
+          AttentionsModel attention, String petId) =>
+      petData.addAttention(attention, petId);
 
   @override
-  Future<void> deleteAttention(String id, String petId) {
-    return petData.deleteAttention(id, petId);
-  }
+  Future<void> deleteAttention(String id, String petId) =>
+      petData.deleteAttention(id, petId);
 }

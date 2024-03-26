@@ -14,13 +14,9 @@ class PetProvider extends ChangeNotifier {
     loadStream();
   }
 
-  //constantes
   String userId = MyStorage().uid;
-  // XFile? _imagen;
   //************
   PetModel? pet; //
-  List<PetModel> pets = [];
-  // FileImage? imageFile;
   List<AttentionsModel> attentions = []; //
   //************
 
@@ -39,7 +35,7 @@ class PetProvider extends ChangeNotifier {
   Future<bool> addPet(PetModel newPet, File img) {
     return petUseCase
         .addPet(newPet, img)
-        .then((value) => value != null ? true : false);
+        .then((value) => value.id != null ? true : false);
   }
 
   Future<PetModel?> updatePet(PetModel updatePet, File? img) async {
@@ -87,13 +83,12 @@ class PetProvider extends ChangeNotifier {
     await petUseCase.deleteAttention(id, petId);
   }
 
+  //* Funciones
   notAttention(int index) {
     attentions.removeAt(index);
     notifyListeners();
   }
 
-  //* Funciones
-  //actualizar el modelo de mascota para mostrar
   void myPet(PetModel myPet) {
     pet = myPet;
     notifyListeners();

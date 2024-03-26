@@ -4,13 +4,11 @@ class PetState extends Equatable {
   final RequestStatus? status;
   final PetModel? pet;
   final List<AttentionsModel>? attentions;
-  final FileImage? imageFile;
 
   const PetState({
     this.status = RequestStatus.idle,
     this.pet,
     this.attentions,
-    this.imageFile,
   });
 
   PetState copyWith({
@@ -24,7 +22,6 @@ class PetState extends Equatable {
       status: status ?? this.status,
       pet: pet ?? this.pet,
       attentions: attentions ?? this.attentions,
-      imageFile: imageFile ?? this.imageFile,
     );
   }
 
@@ -33,6 +30,5 @@ class PetState extends Equatable {
         status,
         pet,
         attentions,
-        imageFile,
       ];
 }

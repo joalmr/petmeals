@@ -20,12 +20,6 @@ class UserData implements UserRepository {
   MyStorage storage = MyStorage();
 
   @override
-  Future getUser(String uid) async {
-    return await fireRef.doc(uid).get();
-    //obtener el usuario por id
-  }
-
-  @override
   Future<UserCredential?> signInGoogle() async {
     try {
       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

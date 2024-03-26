@@ -7,18 +7,21 @@ import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/domain/repositories/pet_repository.dart';
 
 class PetsData implements PetRepository {
-  final ref = FirebaseFirestore.instance.collection('pets');
+  final ref = FirebaseFirestore.instance.collection('pets').withConverter(
+        fromFirestore: (snapshot, _) {
+          final pet = PetModel.fromJson(snapshot.data()!);
+          final newPet = pet.copyWith(id: snapshot.id);
+          return newPet;
+        },
+        toFirestore: (pet, _) => pet.toJson(),
+      );
 
   @override
   Stream<List<PetModel>> loadPets(String userId) {
     return ref
         .where('userId', arrayContains: userId)
         .snapshots()
-        .map((event) => event.docs.map((e) {
-              final pet = PetModel.fromJson(e.data());
-              final newPet = pet.copyWith(id: e.id);
-              return newPet;
-            }).toList());
+        .map((event) => event.docs.map((e) => e.data()).toList());
     //* carga en tiempo real
   }
 
@@ -29,49 +32,33 @@ class PetsData implements PetRepository {
         .get()
         .then((value) => value.docs);
 
-    return docs.map((doc) {
-      final pet = PetModel.fromJson(doc.data());
-      final newPet = pet.copyWith(id: doc.id);
-      return newPet;
-    }).toList();
+    return docs.map((doc) => doc.data()).toList();
   }
 
   @override
-  Future<PetModel?> addPet(PetModel newPet, File image) async {
+  Future<PetModel> addPet(PetModel newPet, File image) async {
     try {
-      late String tmpId;
-
       return await ref
-          .add(newPet.toJson())
-          .then(
-            (value) => value.get(),
-          )
-          .then((value) {
-        tmpId = value.id;
-        return value.data();
-      }).then((value) async {
-        final tmpPet = PetModel.fromJson(value!);
-
+          .add(newPet)
+          .then((value) => value.get())
+          .then((value) => value.data())
+          .then((tmpPet) async {
         String imgStorage = "";
-        imgStorage = await uploadImage(image, tmpId);
+        imgStorage = await uploadImage(image, tmpPet!.id!);
 
         return ref
-            .doc(tmpId)
-            .update(tmpPet
-                .copyWith(
-                  photo: imgStorage,
-                )
-                .toJson())
-            .then((value) => tmpPet);
+            .doc(tmpPet.id)
+            .update(tmpPet.copyWith(photo: imgStorage).toJson())
+            .then((e) => tmpPet);
       });
     } catch (e) {
       Logger().e('addPet', error: e);
-      return null;
+      throw Exception(e);
     }
   }
 
   @override
-  Future<PetModel?> updatePet(PetModel pet, String userId, File? image) async {
+  Future<PetModel> updatePet(PetModel pet, String userId, File? image) async {
     try {
       String imgStorage = "";
       PetModel petUpdate = pet;
@@ -85,7 +72,7 @@ class PetsData implements PetRepository {
       return refDoc.update(petUpdate.toJson()).then((value) => petUpdate);
     } catch (e) {
       Logger().e('updatePet', error: e);
-      return null;
+      throw Exception(e);
     }
   }
 
@@ -144,23 +131,18 @@ class PetsData implements PetRepository {
   }
 
   @override
-  Future<bool> addAttention(AttentionsModel attention, String petId) async {
+  Future<AttentionsModel> addAttention(
+      AttentionsModel attention, String petId) async {
     try {
       return await ref
           .doc(petId)
           .collection('attentions')
           .add(attention.toJson())
           .then((value) => value.get())
-          .then((value) {
-        if (value.data() != null) {
-          return true;
-        } else {
-          return false;
-        }
-      });
+          .then((value) => AttentionsModel.fromJson(value.data()!));
     } catch (e) {
       Logger().e('addAttention', error: e);
-      return false;
+      throw Exception(e);
     }
   }
 

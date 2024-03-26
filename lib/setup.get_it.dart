@@ -9,6 +9,6 @@ final getIt = GetIt.instance;
 setupProvidersGetIt() {
   final dataUser = getIt.registerSingleton<UserData>(UserData());
   final dataPet = getIt.registerSingleton<PetsData>(PetsData());
-  getIt.registerSingleton<PetUseCase>(PetUseCase(petData: dataPet));
   getIt.registerSingleton<UserUsecase>(UserUsecase(userData: dataUser));
+  getIt.registerSingleton<PetUseCase>(PetUseCase(petData: dataPet));
 }
