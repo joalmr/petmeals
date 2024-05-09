@@ -34,7 +34,10 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/add',
       builder: (BuildContext context, GoRouterState state) {
-        return const PetAddPage();
+        var update = state.extra as bool;
+        return PetAddPage(
+          update: update,
+        );
       },
     ),
     GoRoute(
@@ -46,8 +49,10 @@ final GoRouter goRouter = GoRouter(
         GoRoute(
           path: 'update',
           builder: (BuildContext context, GoRouterState state) {
-            var pet = state.extra as PetModel;
-            return PetAddPage(petUpd: pet);
+            var update = state.extra as bool;
+            return PetAddPage(
+              update: update,
+            );
           },
         ),
         GoRoute(

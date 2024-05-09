@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
-import 'package:petmeals/src/constant/global.dart';
 import 'package:petmeals/src/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:provider/provider.dart';
@@ -36,12 +36,13 @@ class _GroomingPageState extends State<GroomingPage> {
     final petProvider = context.read<PetProvider>();
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            BackBtn(),
+            BackBtn(color: kTextColor),
             Text(
               'Baño',
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -59,7 +60,6 @@ class _GroomingPageState extends State<GroomingPage> {
               MyTextField(
                 controller: controllerProduct,
                 textField: 'Tipo de baño',
-                platformApp: Global.platformApp,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Ingrese tipo de baño';
@@ -70,7 +70,6 @@ class _GroomingPageState extends State<GroomingPage> {
               MyTextField(
                 controller: controllerDate,
                 textField: 'Fecha de baño',
-                platformApp: Global.platformApp,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                   LengthLimitingTextInputFormatter(10),
@@ -126,7 +125,6 @@ class _GroomingPageState extends State<GroomingPage> {
               MyTextField(
                 controller: controllerNext,
                 textField: 'Próxima baño en meses',
-                platformApp: Global.platformApp,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                   LengthLimitingTextInputFormatter(2),
@@ -142,7 +140,6 @@ class _GroomingPageState extends State<GroomingPage> {
               const SizedBox(height: 12),
               Center(
                 child: ButtonPrimary(
-                  platformApp: Global.platformApp,
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       final dd = controllerDate.text.split('-')[0];

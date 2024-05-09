@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:petmeals/src/pet/presentation/widgets/home/list_pet.home.dart';
-import 'package:petmeals/src/pet/presentation/widgets/home/saludo.home.dart';
+import 'package:petmeals/src/pet/presentation/pages/home/widgets/list_pet.home.dart';
+import 'package:petmeals/src/pet/presentation/pages/home/widgets/saludo.home.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,12 +13,13 @@ class HomePage extends StatelessWidget {
           children: [
             SaludoWidget(),
             SizedBox(height: 12),
-            Expanded(
-              child: ListPetWidget(),
-            ),
+            ListPetWidget(),
           ],
         ),
       ),
     );
+    // AdsView(
+    //   child:
+    // );
   }
 }

@@ -23,30 +23,22 @@ class PicturePet extends StatelessWidget {
           width: double.maxFinite,
           color: Colors.black.withOpacity(0.1),
         ),
-        Container(
+        SizedBox(
           height: 240,
-          margin: const EdgeInsets.only(top: 18),
-          child: Center(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-              child: AspectRatio(
-                aspectRatio: aspectRatio,
-                child: child,
-              ),
-            ),
-          ),
+          width: double.maxFinite,
+          child: child,
         ),
         buttonLeft == null
             ? const SizedBox()
             : Positioned(
-                top: 32,
+                top: 16,
                 left: 10,
                 child: buttonLeft!,
               ),
         buttonRight == null
             ? const SizedBox()
             : Positioned(
-                top: 32,
+                top: 16,
                 right: 10,
                 child: buttonRight!,
               ),

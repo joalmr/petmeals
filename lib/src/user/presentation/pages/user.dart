@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/widgets/button/primary_button.dart';
 import 'package:petmeals/config/storage/storage.data.dart';
-import 'package:petmeals/src/constant/global.dart';
 import 'package:petmeals/src/user/presentation/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -47,7 +46,6 @@ class UserPage extends StatelessWidget {
               ),
               ButtonPrimary(
                 color: mandy,
-                platformApp: Global.platformApp,
                 child: const Text('Cerrar sesión'),
                 onPressed: () {
                   userProvider.signOut().then((value) => context.go("/"));

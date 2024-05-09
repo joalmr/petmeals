@@ -1,5 +1,4 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:petmeals/src/constant/global.dart';
 import 'package:petmeals/my_app.dart';
 import 'package:petmeals/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,6 +12,6 @@ Future<void> main() async {
   await GetStorage.init();
   await dotenv.load(fileName: ".env.dev");
   setupProvidersGetIt();
-  Global.app = "Development";
+  // Development
   runApp(const MyApp());
 }

@@ -1,6 +1,5 @@
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 class AddPetWidget extends StatelessWidget {
@@ -11,7 +10,7 @@ class AddPetWidget extends StatelessWidget {
     return InkWell(
       borderRadius: const BorderRadius.all(Radius.circular(100)),
       onTap: () {
-        context.push('/add');
+        context.push('/add', extra: false);
       },
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(100)),
@@ -20,14 +19,14 @@ class AddPetWidget extends StatelessWidget {
           width: 52,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(100)),
-            color: kBackgroundColor,
+            color: kPrimaryColor,
           ),
           padding: const EdgeInsets.all(10),
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/images/icons/apps.svg',
-              height: 32,
-              width: 32,
+          child: const Center(
+            child: Icon(
+              Icons.add_rounded,
+              size: 32,
+              color: kTextColorContrast,
             ),
           ),
         ),

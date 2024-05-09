@@ -14,19 +14,25 @@ class ButtonSecondary extends StatelessWidget {
     this.onPressed,
     required this.text,
     this.color = kPrimaryColor,
-    required this.platformApp,
+    this.platformApp = PlatformApp.IOS,
   });
 
-  Widget android() => _BtnAndroid(
-        onPressed: onPressed,
-        color: color,
-        text: text,
+  Widget android() => SizedBox(
+        width: double.maxFinite,
+        child: _BtnAndroid(
+          onPressed: onPressed,
+          color: color,
+          text: text,
+        ),
       );
 
-  Widget ios() => _BtnIOS(
-        onPressed: onPressed,
-        color: color,
-        text: text,
+  Widget ios() => SizedBox(
+        width: double.maxFinite,
+        child: _BtnIOS(
+          onPressed: onPressed,
+          color: color,
+          text: text,
+        ),
       );
   @override
   Widget build(BuildContext context) {
@@ -59,6 +65,7 @@ class _BtnIOS extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+      borderRadius: const BorderRadius.all(Radius.circular(20)),
       // pressedOpacity: 0.8,
       child: Text(
         text,

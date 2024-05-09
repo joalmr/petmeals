@@ -17,8 +17,8 @@ class IntroWidget extends StatelessWidget {
         SizedBox(height: 12),
         Center(
           child: Text(
-            'Te ayudamos a cuidar\n'
-            'a tu mascota',
+            'Agenda los cuidados\n'
+            'de tu mascota',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
@@ -27,13 +27,13 @@ class IntroWidget extends StatelessWidget {
           ),
         ),
         SizedBox(height: 12),
-        // Center(
-        //   child: Text(
-        //     'No te preocupes por recordar cada cuidado que tu mascota necesita, lo hacemos por ti',
-        //     textAlign: TextAlign.center,
-        //     style: TextStyle(fontSize: 16),
-        //   ),
-        // ),
+        Center(
+          child: Text(
+            'Conviértete en el mejor petlover con nuestra app de recordatorios',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
       ],
     );
   }

@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/widgets/button/secondary_button.dart';
-import 'package:petmeals/src/constant/global.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -69,12 +68,10 @@ class GroomingHistory extends StatelessWidget {
                                   context.pop();
                                 },
                                 color: negativeColor,
-                                platformApp: Global.platformApp,
                               ),
                               ButtonSecondary(
                                 text: 'Cancelar',
                                 onPressed: () => context.pop(),
-                                platformApp: Global.platformApp,
                               ),
                             ],
                           ),

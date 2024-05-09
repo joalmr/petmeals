@@ -1,10 +1,10 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
-import 'package:petmeals/src/constant/global.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:provider/provider.dart';
@@ -48,39 +48,41 @@ class _FoodPetPageState extends State<FoodPetPage> {
 
     void foodPet(PetModel myFoods) {
       petProvider.foodPet(myFoods).then(
-            (value) => {
-              if (value != null)
-                {
-                  snackBar(
-                    positiveColor,
-                    'Horarios de comida registrados',
-                    context,
-                  )
-                }
-            },
-          );
+        (value) {
+          if (value != null) {
+            context.pop();
+            snackBar(
+              positiveColor,
+              'Horarios de comida registrados',
+              context,
+            );
+          }
+        },
+      );
     }
 
-    return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            BackBtn(),
-            Text(
-              'Alimentación',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.5,
+      child: SingleChildScrollView(
         child: Column(
           children: [
+            const Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                BackBtn(
+                  color: kTextColor,
+                ),
+                Text(
+                  'Alimentación',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
             const SizedBox(height: 12),
             const Text('¿Cuántas veces al día?'),
             Slider(
+              activeColor: kPrimaryColor,
+              inactiveColor: const Color(0xFFAEAEAE),
               value: foods,
               max: 3,
               min: 1,
@@ -198,47 +200,49 @@ class _FoodPetPageState extends State<FoodPetPage> {
               ),
             ),
             const SizedBox(height: 12),
-            ButtonPrimary(
-              platformApp: Global.platformApp,
-              onPressed: () async {
-                switch (foods) {
-                  case 1:
-                    {
-                      final myFoods = petProvider.pet!.copyWith(
-                        foods: [
-                          food[0].text,
-                        ],
-                      );
-                      foodPet(myFoods);
-                    }
-                    break;
-                  case 2:
-                    {
-                      final myFoods = petProvider.pet!.copyWith(
-                        foods: [
-                          food[0].text,
-                          food[1].text,
-                        ],
-                      );
-                      foodPet(myFoods);
-                    }
-                    break;
-                  case 3:
-                    {
-                      final myFoods = petProvider.pet!.copyWith(
-                        foods: [
-                          food[0].text,
-                          food[1].text,
-                          food[2].text,
-                        ],
-                      );
-                      foodPet(myFoods);
-                    }
-                    break;
-                  default:
-                }
-              },
-              child: const Text('Guardar'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: ButtonPrimary(
+                onPressed: () async {
+                  switch (foods) {
+                    case 1:
+                      {
+                        final myFoods = petProvider.pet!.copyWith(
+                          foods: [
+                            food[0].text,
+                          ],
+                        );
+                        foodPet(myFoods);
+                      }
+                      break;
+                    case 2:
+                      {
+                        final myFoods = petProvider.pet!.copyWith(
+                          foods: [
+                            food[0].text,
+                            food[1].text,
+                          ],
+                        );
+                        foodPet(myFoods);
+                      }
+                      break;
+                    case 3:
+                      {
+                        final myFoods = petProvider.pet!.copyWith(
+                          foods: [
+                            food[0].text,
+                            food[1].text,
+                            food[2].text,
+                          ],
+                        );
+                        foodPet(myFoods);
+                      }
+                      break;
+                    default:
+                  }
+                },
+                child: const Text('Guardar'),
+              ),
             ),
           ],
         ),
