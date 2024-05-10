@@ -196,7 +196,7 @@ class _MyTextFieldAndroid extends StatelessWidget {
           labelText: textField,
           contentPadding: const EdgeInsets.symmetric(
             vertical: 2,
-            horizontal: 8,
+            horizontal: 16,
           ),
           // filled: true,
           // fillColor: Colors.white70,

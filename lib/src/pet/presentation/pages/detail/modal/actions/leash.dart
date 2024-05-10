@@ -61,148 +61,168 @@ class _LeashPetPageState extends State<LeashPetPage> {
       );
     }
 
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                BackBtn(
-                  color: kTextColor,
-                ),
-                Text(
-                  'Paseos',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Paseos',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 12),
-            const Text('¿Cuántas veces al día?'),
-            Slider(
-              activeColor: kPrimaryColor,
-              inactiveColor: const Color(0xFFAEAEAE),
-              value: leash,
-              max: 3,
-              min: 1,
-              divisions: 2,
-              label: leash.toStringAsFixed(0),
-              onChanged: (value) {
-                setState(() {
-                  leash = value;
-                });
-              },
-            ),
-            const SizedBox(height: 12),
-            const Text('¿En qué horarios?'),
-            const SizedBox(height: 12),
-            Visibility(
-              visible: leash == 1 || leash == 2 || leash == 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: CupertinoTextField(
-                  enableInteractiveSelection: false,
-                  controller: action[0],
-                  readOnly: true,
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      showPicker(
-                        context: context,
-                        value: leashTime,
-                        onChange: (newTime) {
-                          setState(() {
-                            leashTime = newTime;
-                            action[0].text =
-                                '${leashTime.hour > 9 ? leashTime.hour : '0${leashTime.hour}'}:${leashTime.minute == 0 ? '00' : leashTime.minute}';
-                          });
-                        },
-                        minuteInterval: TimePickerInterval.TEN,
-                        is24HrFormat: true,
-                        maxMinute: 50,
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 12),
+              const Text('¿Cuántas veces al día?'),
+              Slider(
+                activeColor: kPrimaryColor,
+                inactiveColor: const Color(0xFFAEAEAE),
+                value: leash,
+                max: 3,
+                min: 1,
+                divisions: 2,
+                label: leash.toStringAsFixed(0),
+                onChanged: (value) {
+                  setState(() {
+                    leash = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 12),
+              const Text('¿En qué horarios?'),
+              const SizedBox(height: 12),
+              Visibility(
+                visible: leash == 1 || leash == 2 || leash == 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextFormField(
+                    enableInteractiveSelection: false,
+                    controller: action[0],
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 16,
                       ),
-                    );
-                  },
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: const BorderSide(
+                            style: BorderStyle.solid, width: 1),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: leashTime,
+                          onChange: (newTime) {
+                            setState(() {
+                              leashTime = newTime;
+                              action[0].text =
+                                  '${leashTime.hour > 9 ? leashTime.hour : '0${leashTime.hour}'}:${leashTime.minute == 0 ? '00' : leashTime.minute}';
+                            });
+                          },
+                          minuteInterval: TimePickerInterval.TEN,
+                          is24HrFormat: true,
+                          maxMinute: 50,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: leash == 2 || leash == 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: CupertinoTextField(
-                  enableInteractiveSelection: false,
-                  controller: action[1],
-                  readOnly: true,
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      showPicker(
-                        context: context,
-                        value: leashTime,
-                        onChange: (newTime) {
-                          setState(() {
-                            leashTime = newTime;
-                            action[1].text =
-                                '${leashTime.hour > 9 ? leashTime.hour : '0${leashTime.hour}'}:${leashTime.minute == 0 ? '00' : leashTime.minute}';
-                          });
-                        },
-                        minuteInterval: TimePickerInterval.TEN,
-                        is24HrFormat: true,
-                        maxMinute: 50,
+              Visibility(
+                visible: leash == 2 || leash == 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextFormField(
+                    enableInteractiveSelection: false,
+                    controller: action[1],
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 16,
                       ),
-                    );
-                  },
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: const BorderSide(
+                            style: BorderStyle.solid, width: 1),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: leashTime,
+                          onChange: (newTime) {
+                            setState(() {
+                              leashTime = newTime;
+                              action[1].text =
+                                  '${leashTime.hour > 9 ? leashTime.hour : '0${leashTime.hour}'}:${leashTime.minute == 0 ? '00' : leashTime.minute}';
+                            });
+                          },
+                          minuteInterval: TimePickerInterval.TEN,
+                          is24HrFormat: true,
+                          maxMinute: 50,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: leash == 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: CupertinoTextField(
-                  enableInteractiveSelection: false,
-                  controller: action[2],
-                  readOnly: true,
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      showPicker(
-                        context: context,
-                        value: leashTime,
-                        onChange: (newTime) {
-                          setState(() {
-                            leashTime = newTime;
-                            action[2].text =
-                                '${leashTime.hour > 9 ? leashTime.hour : '0${leashTime.hour}'}:${leashTime.minute == 0 ? '00' : leashTime.minute}';
-                          });
-                        },
-                        minuteInterval: TimePickerInterval.TEN,
-                        is24HrFormat: true,
-                        maxMinute: 50,
+              Visibility(
+                visible: leash == 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextFormField(
+                    enableInteractiveSelection: false,
+                    controller: action[2],
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 16,
                       ),
-                    );
-                  },
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: const BorderSide(
+                            style: BorderStyle.solid, width: 1),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: leashTime,
+                          onChange: (newTime) {
+                            setState(() {
+                              leashTime = newTime;
+                              action[2].text =
+                                  '${leashTime.hour > 9 ? leashTime.hour : '0${leashTime.hour}'}:${leashTime.minute == 0 ? '00' : leashTime.minute}';
+                            });
+                          },
+                          minuteInterval: TimePickerInterval.TEN,
+                          is24HrFormat: true,
+                          maxMinute: 50,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: ButtonPrimary(
+              const SizedBox(height: 12),
+              ButtonPrimary(
                 onPressed: () async {
                   switch (leash) {
                     case 1:
@@ -243,8 +263,8 @@ class _LeashPetPageState extends State<LeashPetPage> {
                 },
                 child: const Text('Guardar'),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/src/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
@@ -39,15 +40,15 @@ class _VaccinePageState extends State<VaccinePage> {
       backgroundColor: Colors.transparent,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            BackBtn(color: kTextColor),
-            Text(
-              'Vacuna',
-              style: TextStyle(fontWeight: FontWeight.bold),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Agregar Vacuna',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-          ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -67,6 +68,7 @@ class _VaccinePageState extends State<VaccinePage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 8),
               MyTextField(
                 controller: controllerDate,
                 textField: 'Fecha de vacunación',
@@ -122,6 +124,7 @@ class _VaccinePageState extends State<VaccinePage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 8),
               MyTextField(
                 controller: controllerNext,
                 textField: 'Próxima vacuna en meses',
@@ -157,6 +160,11 @@ class _VaccinePageState extends State<VaccinePage> {
                       petProvider.addAttention(
                         attention,
                         petProvider.pet!.id!,
+                      );
+                      snackBar(
+                        positiveColor,
+                        'Vacuna registrada',
+                        context,
                       );
                       context.pop();
                     }

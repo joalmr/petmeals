@@ -61,148 +61,168 @@ class _FoodPetPageState extends State<FoodPetPage> {
       );
     }
 
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                BackBtn(
-                  color: kTextColor,
-                ),
-                Text(
-                  'Alimentación',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Alimentación',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 12),
-            const Text('¿Cuántas veces al día?'),
-            Slider(
-              activeColor: kPrimaryColor,
-              inactiveColor: const Color(0xFFAEAEAE),
-              value: foods,
-              max: 3,
-              min: 1,
-              divisions: 2,
-              label: foods.toStringAsFixed(0),
-              onChanged: (value) {
-                setState(() {
-                  foods = value;
-                });
-              },
-            ),
-            const SizedBox(height: 12),
-            const Text('¿En qué horarios?'),
-            const SizedBox(height: 12),
-            Visibility(
-              visible: foods == 1 || foods == 2 || foods == 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: CupertinoTextField(
-                  enableInteractiveSelection: false,
-                  controller: food[0],
-                  readOnly: true,
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      showPicker(
-                        context: context,
-                        value: foodTime,
-                        onChange: (newTime) {
-                          setState(() {
-                            foodTime = newTime;
-                            food[0].text =
-                                '${foodTime.hour > 9 ? foodTime.hour : '0${foodTime.hour}'}:${foodTime.minute == 0 ? '00' : foodTime.minute}';
-                          });
-                        },
-                        minuteInterval: TimePickerInterval.TEN,
-                        is24HrFormat: true,
-                        maxMinute: 50,
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 12),
+              const Text('¿Cuántas veces al día?'),
+              Slider(
+                activeColor: kPrimaryColor,
+                inactiveColor: const Color(0xFFAEAEAE),
+                value: foods,
+                max: 3,
+                min: 1,
+                divisions: 2,
+                label: foods.toStringAsFixed(0),
+                onChanged: (value) {
+                  setState(() {
+                    foods = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 12),
+              const Text('¿En qué horarios?'),
+              const SizedBox(height: 12),
+              Visibility(
+                visible: foods == 1 || foods == 2 || foods == 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextFormField(
+                    enableInteractiveSelection: false,
+                    controller: food[0],
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 16,
                       ),
-                    );
-                  },
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: const BorderSide(
+                            style: BorderStyle.solid, width: 1),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: foodTime,
+                          onChange: (newTime) {
+                            setState(() {
+                              foodTime = newTime;
+                              food[0].text =
+                                  '${foodTime.hour > 9 ? foodTime.hour : '0${foodTime.hour}'}:${foodTime.minute == 0 ? '00' : foodTime.minute}';
+                            });
+                          },
+                          minuteInterval: TimePickerInterval.TEN,
+                          is24HrFormat: true,
+                          maxMinute: 50,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: foods == 2 || foods == 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: CupertinoTextField(
-                  enableInteractiveSelection: false,
-                  controller: food[1],
-                  readOnly: true,
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      showPicker(
-                        context: context,
-                        value: foodTime,
-                        onChange: (newTime) {
-                          setState(() {
-                            foodTime = newTime;
-                            food[1].text =
-                                '${foodTime.hour > 9 ? foodTime.hour : '0${foodTime.hour}'}:${foodTime.minute == 0 ? '00' : foodTime.minute}';
-                          });
-                        },
-                        minuteInterval: TimePickerInterval.TEN,
-                        is24HrFormat: true,
-                        maxMinute: 50,
+              Visibility(
+                visible: foods == 2 || foods == 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextFormField(
+                    enableInteractiveSelection: false,
+                    controller: food[1],
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 16,
                       ),
-                    );
-                  },
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: const BorderSide(
+                            style: BorderStyle.solid, width: 1),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: foodTime,
+                          onChange: (newTime) {
+                            setState(() {
+                              foodTime = newTime;
+                              food[1].text =
+                                  '${foodTime.hour > 9 ? foodTime.hour : '0${foodTime.hour}'}:${foodTime.minute == 0 ? '00' : foodTime.minute}';
+                            });
+                          },
+                          minuteInterval: TimePickerInterval.TEN,
+                          is24HrFormat: true,
+                          maxMinute: 50,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: foods == 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: CupertinoTextField(
-                  enableInteractiveSelection: false,
-                  controller: food[2],
-                  readOnly: true,
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      showPicker(
-                        context: context,
-                        value: foodTime,
-                        onChange: (newTime) {
-                          setState(() {
-                            foodTime = newTime;
-                            food[2].text =
-                                '${foodTime.hour > 9 ? foodTime.hour : '0${foodTime.hour}'}:${foodTime.minute == 0 ? '00' : foodTime.minute}';
-                          });
-                        },
-                        minuteInterval: TimePickerInterval.TEN,
-                        is24HrFormat: true,
-                        maxMinute: 50,
+              Visibility(
+                visible: foods == 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextFormField(
+                    enableInteractiveSelection: false,
+                    controller: food[2],
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 16,
                       ),
-                    );
-                  },
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: const BorderSide(
+                            style: BorderStyle.solid, width: 1),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: foodTime,
+                          onChange: (newTime) {
+                            setState(() {
+                              foodTime = newTime;
+                              food[2].text =
+                                  '${foodTime.hour > 9 ? foodTime.hour : '0${foodTime.hour}'}:${foodTime.minute == 0 ? '00' : foodTime.minute}';
+                            });
+                          },
+                          minuteInterval: TimePickerInterval.TEN,
+                          is24HrFormat: true,
+                          maxMinute: 50,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: ButtonPrimary(
+              const SizedBox(height: 12),
+              ButtonPrimary(
                 onPressed: () async {
                   switch (foods) {
                     case 1:
@@ -243,8 +263,8 @@ class _FoodPetPageState extends State<FoodPetPage> {
                 },
                 child: const Text('Guardar'),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -61,148 +61,180 @@ class _LitterPetPageState extends State<LitterPetPage> {
       );
     }
 
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                BackBtn(
-                  color: kTextColor,
-                ),
-                Text(
-                  'Limpieza de arena',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Paseos',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 12),
-            const Text('¿Cuántas veces al día?'),
-            Slider(
-              activeColor: kPrimaryColor,
-              inactiveColor: const Color(0xFFAEAEAE),
-              value: litter,
-              max: 2,
-              min: 1,
-              divisions: 1,
-              label: litter.toStringAsFixed(0),
-              onChanged: (value) {
-                setState(() {
-                  litter = value;
-                });
-              },
-            ),
-            const SizedBox(height: 12),
-            const Text('¿En qué horarios?'),
-            const SizedBox(height: 12),
-            Visibility(
-              visible: litter == 1 || litter == 2 || litter == 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: CupertinoTextField(
-                  enableInteractiveSelection: false,
-                  controller: action[0],
-                  readOnly: true,
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  BackBtn(
+                    color: kTextColor,
                   ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      showPicker(
-                        context: context,
-                        value: litterTime,
-                        onChange: (newTime) {
-                          setState(() {
-                            litterTime = newTime;
-                            action[0].text =
-                                '${litterTime.hour > 9 ? litterTime.hour : '0${litterTime.hour}'}:${litterTime.minute == 0 ? '00' : litterTime.minute}';
-                          });
-                        },
-                        minuteInterval: TimePickerInterval.TEN,
-                        is24HrFormat: true,
-                        maxMinute: 50,
+                  Text(
+                    'Limpieza de arena',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              const Text('¿Cuántas veces al día?'),
+              Slider(
+                activeColor: kPrimaryColor,
+                inactiveColor: const Color(0xFFAEAEAE),
+                value: litter,
+                max: 2,
+                min: 1,
+                divisions: 1,
+                label: litter.toStringAsFixed(0),
+                onChanged: (value) {
+                  setState(() {
+                    litter = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 12),
+              const Text('¿En qué horarios?'),
+              const SizedBox(height: 12),
+              Visibility(
+                visible: litter == 1 || litter == 2 || litter == 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextFormField(
+                    enableInteractiveSelection: false,
+                    controller: action[0],
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 16,
                       ),
-                    );
-                  },
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: const BorderSide(
+                            style: BorderStyle.solid, width: 1),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: litterTime,
+                          onChange: (newTime) {
+                            setState(() {
+                              litterTime = newTime;
+                              action[0].text =
+                                  '${litterTime.hour > 9 ? litterTime.hour : '0${litterTime.hour}'}:${litterTime.minute == 0 ? '00' : litterTime.minute}';
+                            });
+                          },
+                          minuteInterval: TimePickerInterval.TEN,
+                          is24HrFormat: true,
+                          maxMinute: 50,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: litter == 2 || litter == 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: CupertinoTextField(
-                  enableInteractiveSelection: false,
-                  controller: action[1],
-                  readOnly: true,
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      showPicker(
-                        context: context,
-                        value: litterTime,
-                        onChange: (newTime) {
-                          setState(() {
-                            litterTime = newTime;
-                            action[1].text =
-                                '${litterTime.hour > 9 ? litterTime.hour : '0${litterTime.hour}'}:${litterTime.minute == 0 ? '00' : litterTime.minute}';
-                          });
-                        },
-                        minuteInterval: TimePickerInterval.TEN,
-                        is24HrFormat: true,
-                        maxMinute: 50,
+              Visibility(
+                visible: litter == 2 || litter == 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextFormField(
+                    enableInteractiveSelection: false,
+                    controller: action[1],
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 16,
                       ),
-                    );
-                  },
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: const BorderSide(
+                            style: BorderStyle.solid, width: 1),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: litterTime,
+                          onChange: (newTime) {
+                            setState(() {
+                              litterTime = newTime;
+                              action[1].text =
+                                  '${litterTime.hour > 9 ? litterTime.hour : '0${litterTime.hour}'}:${litterTime.minute == 0 ? '00' : litterTime.minute}';
+                            });
+                          },
+                          minuteInterval: TimePickerInterval.TEN,
+                          is24HrFormat: true,
+                          maxMinute: 50,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: litter == 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: CupertinoTextField(
-                  enableInteractiveSelection: false,
-                  controller: action[2],
-                  readOnly: true,
-                  decoration: const BoxDecoration(
-                    color: Colors.white70,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      showPicker(
-                        context: context,
-                        value: litterTime,
-                        onChange: (newTime) {
-                          setState(() {
-                            litterTime = newTime;
-                            action[2].text =
-                                '${litterTime.hour > 9 ? litterTime.hour : '0${litterTime.hour}'}:${litterTime.minute == 0 ? '00' : litterTime.minute}';
-                          });
-                        },
-                        minuteInterval: TimePickerInterval.TEN,
-                        is24HrFormat: true,
-                        maxMinute: 50,
+              Visibility(
+                visible: litter == 3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: TextFormField(
+                    enableInteractiveSelection: false,
+                    controller: action[2],
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 2,
+                        horizontal: 16,
                       ),
-                    );
-                  },
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: const BorderSide(
+                            style: BorderStyle.solid, width: 1),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        showPicker(
+                          context: context,
+                          value: litterTime,
+                          onChange: (newTime) {
+                            setState(() {
+                              litterTime = newTime;
+                              action[2].text =
+                                  '${litterTime.hour > 9 ? litterTime.hour : '0${litterTime.hour}'}:${litterTime.minute == 0 ? '00' : litterTime.minute}';
+                            });
+                          },
+                          minuteInterval: TimePickerInterval.TEN,
+                          is24HrFormat: true,
+                          maxMinute: 50,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: ButtonPrimary(
+              const SizedBox(height: 12),
+              ButtonPrimary(
                 onPressed: () async {
                   switch (litter) {
                     case 1:
@@ -243,8 +275,8 @@ class _LitterPetPageState extends State<LitterPetPage> {
                 },
                 child: const Text('Guardar'),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

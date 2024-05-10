@@ -90,36 +90,105 @@ class PetsData implements PetRepository {
   }
 
   @override
-  Future<List<AttentionsModel>> getAttentions(String petId, String type) async {
+  Future<List<AttentionsModel>> getNextAttentions(String petId) async {
     final docs = await ref
         .doc(petId)
         .collection('attentions')
-        .where('type', isEqualTo: type)
         .orderBy('date', descending: true)
         .get()
         .then((value) => value.docs);
 
-    // final attentions =
-    //     docs.map((e) => AttentionsModel.fromJson(e.data())).toList();
+    final myAttentions = docs.map((doc) {
+      final att = AttentionsModel.fromJson(doc.data());
+      final newAtt = att.copyWith(id: doc.id);
+      return newAtt;
+    }).toList();
 
-    // DateTime? nextDate;
-    // if (attentions.isNotEmpty) {
-    //   nextDate = attentions.first.date!.add(
-    //     Duration(
-    //       days: attentions.first.nextDate! * 30,
-    //     ),
-    //   );
+    AttentionsModel? deworming;
+    AttentionsModel? grooming;
+    AttentionsModel? vaccination;
+    List<AttentionsModel> nextlist = [];
 
-    //   for (var element in attentions) {
-    //     final DateTime next;
-    //     int days = 30 * (element.nextDate ?? 0);
-    //     next = element.date!.add(Duration(days: days));
+    if (myAttentions.isNotEmpty) {
+      for (var element in myAttentions) {
+        final DateTime next;
+        int days = 30 * (element.nextDate ?? 0);
+        next = element.date!.add(Duration(days: days));
+        switch (element.type) {
+          case 'deworming':
+            {
+              if (deworming == null) {
+                deworming = element;
+              } else {
+                int days2 = 30 * (deworming.nextDate ?? 0);
+                //TODO: revisar
+                if (next.isBefore(deworming.date!.add(Duration(days: days2))) &&
+                    next.isAfter(
+                        DateTime.now().add(const Duration(days: -7)))) {
+                  deworming = element;
+                }
+              }
+            }
+            break;
+          case 'grooming':
+            {
+              if (grooming == null) {
+                grooming = element;
+              } else {
+                int days2 = 30 * (grooming.nextDate ?? 0);
+                if (next.isBefore(grooming.date!.add(Duration(days: days2))) &&
+                    next.isAfter(
+                        DateTime.now().add(const Duration(days: -7)))) {
+                  grooming = element;
+                }
+              }
+            }
+            break;
+          case 'vaccine':
+            {
+              if (vaccination == null) {
+                vaccination = element;
+              } else {
+                int days2 = 30 * (vaccination.nextDate ?? 0);
+                if (next.isBefore(
+                        vaccination.date!.add(Duration(days: days2))) &&
+                    next.isAfter(
+                        DateTime.now().add(const Duration(days: -7)))) {
+                  vaccination = element;
+                }
+              }
+            }
+            break;
+          // default:
+          //   return [];
+        }
+      }
+    }
 
-    //     if (next.isBefore(nextDate!)) {
-    //       nextDate = next;
-    //     }
-    //   }
-    // }
+    if (deworming != null) {
+      nextlist.add(deworming);
+    }
+    if (grooming != null) {
+      nextlist.add(grooming);
+    }
+    if (vaccination != null) {
+      nextlist.add(vaccination);
+    }
+
+    return nextlist;
+  }
+
+  @override
+  Future<List<AttentionsModel>> getAttentions(String petId) async {
+    final docs = await ref
+        .doc(petId)
+        .collection('attentions')
+        // .where('type', isEqualTo: type)
+        //TODO: revisar
+        .orderBy('date', descending: true)
+        .limit(10)
+        .get()
+        .then((value) => value.docs);
 
     final myAttentions = docs.map((doc) {
       final att = AttentionsModel.fromJson(doc.data());

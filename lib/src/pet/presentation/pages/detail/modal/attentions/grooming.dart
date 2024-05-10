@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/src/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
@@ -39,15 +40,15 @@ class _GroomingPageState extends State<GroomingPage> {
       backgroundColor: Colors.transparent,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            BackBtn(color: kTextColor),
-            Text(
-              'Baño',
-              style: TextStyle(fontWeight: FontWeight.bold),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            'Agregar Baño',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-          ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -67,6 +68,7 @@ class _GroomingPageState extends State<GroomingPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 8),
               MyTextField(
                 controller: controllerDate,
                 textField: 'Fecha de baño',
@@ -122,9 +124,10 @@ class _GroomingPageState extends State<GroomingPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 8),
               MyTextField(
                 controller: controllerNext,
-                textField: 'Próxima baño en meses',
+                textField: 'Próxim baño en meses',
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                   LengthLimitingTextInputFormatter(2),
@@ -157,6 +160,11 @@ class _GroomingPageState extends State<GroomingPage> {
                       petProvider.addAttention(
                         attention,
                         petProvider.pet!.id!,
+                      );
+                      snackBar(
+                        positiveColor,
+                        'Baño registrado',
+                        context,
                       );
                       context.pop();
                     }

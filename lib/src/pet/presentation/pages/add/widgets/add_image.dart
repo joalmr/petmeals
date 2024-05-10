@@ -57,20 +57,20 @@ class _AddImageState extends State<AddImage> {
             ),
             child: AspectRatio(
               aspectRatio: 1,
-              child: widget.update
+              child: widget.imageFile.value != null
                   ? ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.petUpd!.photo!,
+                      child: Image(
+                        image: widget.imageFile.value!, //?
                         fit: BoxFit.cover,
                       ),
                     )
-                  : widget.imageFile.value != null
+                  : widget.update
                       ? ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(20)),
-                          child: Image(
-                            image: widget.imageFile.value!, //?
+                          child: CachedNetworkImage(
+                            imageUrl: widget.petUpd!.photo!,
                             fit: BoxFit.cover,
                           ),
                         )
@@ -117,6 +117,7 @@ class _AddImageState extends State<AddImage> {
       source: ImageSource.camera,
       imageQuality: 80,
     );
+    if (widget.imageFile.value == null) return;
     setState(() {
       widget.imageFile.value = FileImage(File(widget.imagen.value!.path));
     });
@@ -128,6 +129,7 @@ class _AddImageState extends State<AddImage> {
       source: ImageSource.gallery,
       imageQuality: 80,
     );
+    if (widget.imagen.value == null) return;
     setState(() {
       widget.imageFile.value = FileImage(File(widget.imagen.value!.path));
     });

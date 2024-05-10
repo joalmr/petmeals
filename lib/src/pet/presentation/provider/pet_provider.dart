@@ -18,6 +18,7 @@ class PetProvider extends ChangeNotifier {
   //************
   PetModel? pet; //
   List<AttentionsModel> attentions = []; //
+  List<AttentionsModel> nextAttentions = []; //
   //************
 
   //Mascota
@@ -26,6 +27,7 @@ class PetProvider extends ChangeNotifier {
     response.listen((eventPets) {
       if (eventPets.isNotEmpty) {
         myPet(eventPets.first);
+        getNextAttentions(eventPets.first.id!);
       }
     });
 
@@ -68,19 +70,33 @@ class PetProvider extends ChangeNotifier {
   }
 
   //Atenciones
-  getAttentions(String petId, String type) async {
+  runAttentions(String petId) {
+    getAttentions(petId);
+    getNextAttentions(petId);
+  }
+
+  getAttentions(String petId) async {
     attentions = [];
 
-    attentions = await petUseCase.getAttentions(petId, type);
+    attentions = await petUseCase.getAttentions(petId);
+    notifyListeners();
+  }
+
+  getNextAttentions(String petId) async {
+    nextAttentions = [];
+
+    nextAttentions = await petUseCase.getNextAttentions(petId);
     notifyListeners();
   }
 
   addAttention(AttentionsModel attention, String petId) async {
     await petUseCase.addAttention(attention, petId);
+    runAttentions(petId);
   }
 
   deleteAttention(String id, String petId) async {
     await petUseCase.deleteAttention(id, petId);
+    runAttentions(petId);
   }
 
   //* Funciones
@@ -91,6 +107,7 @@ class PetProvider extends ChangeNotifier {
 
   void myPet(PetModel myPet) {
     pet = myPet;
+    getNextAttentions(myPet.id!);
     notifyListeners();
   }
 }

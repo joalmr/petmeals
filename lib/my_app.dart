@@ -44,6 +44,15 @@ class MyApp extends StatelessWidget {
             selectionHandleColor: kPrimaryColor,
           ),
           colorSchemeSeed: kPrimaryColor,
+          appBarTheme: const AppBarTheme(
+            titleTextStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: kPrimaryColor,
+            ),
+            backgroundColor: Colors.transparent,
+            foregroundColor: kPrimaryColor,
+          ),
         ),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

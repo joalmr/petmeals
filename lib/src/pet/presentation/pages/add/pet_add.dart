@@ -68,15 +68,8 @@ class _PetAddPageState extends State<PetAddPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.update ? 'Modificar mascota' : 'Agregar mascota',
+          widget.update ? 'Editar mascota' : 'Agregar mascota',
         ),
-        titleTextStyle: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: kPrimaryColor,
-        ),
-        backgroundColor: Colors.transparent,
-        foregroundColor: kPrimaryColor,
       ),
       body: SafeArea(
         child: loading.value
@@ -89,7 +82,7 @@ class _PetAddPageState extends State<PetAddPage> {
             : SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SizedBox(height: 24),
+                    // const SizedBox(height: 24),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6),
                       child: Form(
@@ -97,6 +90,7 @@ class _PetAddPageState extends State<PetAddPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(height: 8),
                             //*  Imagen
                             Align(
                               alignment: Alignment.center,
@@ -107,8 +101,7 @@ class _PetAddPageState extends State<PetAddPage> {
                                 imageFile: imageFile,
                               ),
                             ),
-
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 24),
                             MyTextField(
                               controller: controllerName,
                               textField: 'Nombre',
@@ -119,16 +112,19 @@ class _PetAddPageState extends State<PetAddPage> {
                                 return null;
                               },
                             ),
+                            const SizedBox(height: 8),
                             //*  Fecha de nacimiento
                             BornDate(
                               controllerDate: controllerDate,
                               borndate: borndate,
                             ),
-                            const SizedBox(height: 4),
+                            const SizedBox(height: 8),
                             //*  Especie
                             SelectSpecie(specie: specie),
+                            const SizedBox(height: 8),
                             //* Sexo
                             SelectSex(sex: sex),
+                            const SizedBox(height: 8),
                             //* Esterilizado
                             Sterillized(sterillized: sterillized),
                             const SizedBox(height: 20),
@@ -144,9 +140,8 @@ class _PetAddPageState extends State<PetAddPage> {
                                     : 'Agregar mascota',
                               ),
                             ),
-                            petProvider.pet == null
-                                ? const SizedBox()
-                                : Padding(
+                            widget.update
+                                ? Padding(
                                     padding: const EdgeInsets.only(
                                       top: 18,
                                       bottom: 24,
@@ -159,7 +154,8 @@ class _PetAddPageState extends State<PetAddPage> {
                                         petProvider: petProvider,
                                       ),
                                     ),
-                                  ),
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
                       ),
@@ -177,7 +173,7 @@ class _PetAddPageState extends State<PetAddPage> {
         loading.value = true;
       });
 
-      if (petProvider.pet == null) {
+      if (!widget.update) {
         if (imageFile.value == null) {
           snackBar(
             negativeColor,

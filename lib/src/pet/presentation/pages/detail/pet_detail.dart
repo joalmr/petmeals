@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/food.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/leash.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/actions/litter.dart';
@@ -23,9 +25,17 @@ class PetDetailPage extends StatefulWidget {
 
 class _PetDetailPageState extends State<PetDetailPage> {
   @override
+  void initState() {
+    super.initState();
+    final petProvider = context.read<PetProvider>();
+    Future.microtask(() => petProvider.getAttentions(petProvider.pet!.id!));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final petProvider = context.read<PetProvider>();
-    // final petWatch = context.watch<PetProvider>();
+    final petWatch = context.watch<PetProvider>();
+    final f = DateFormat('dd/MM/yyyy');
 
     return Scaffold(
       body: SafeArea(
@@ -159,6 +169,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                       showModalBottomSheet(
                         context: context,
                         backgroundColor: kBackgroundColor,
+                        showDragHandle: true,
                         builder: (ctx) {
                           return const FoodPetPage();
                         },
@@ -200,6 +211,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                         showModalBottomSheet(
                           context: context,
                           backgroundColor: kBackgroundColor,
+                          showDragHandle: true,
                           builder: (ctx) {
                             return const LitterPetPage();
                           },
@@ -208,6 +220,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                         showModalBottomSheet(
                           context: context,
                           backgroundColor: kBackgroundColor,
+                          showDragHandle: true,
                           builder: (ctx) {
                             return const LeashPetPage();
                           },
@@ -247,114 +260,173 @@ class _PetDetailPageState extends State<PetDetailPage> {
                       ],
                     ),
                   ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     petProvider.getAttentions(
+                  //       petProvider.pet!.id!,
+                  //       'deworming',
+                  //     );
+                  //     context.push('/petdetail/history',
+                  //         extra: petProvider.pet);
+                  //   },
+                  //   child: const Column(
+                  //     children: [
+                  //       Icon(
+                  //         Icons.book_outlined,
+                  //         color: Colors.black,
+                  //         size: 42,
+                  //       ),
+                  //       Text(
+                  //         'Historial',
+                  //         style: TextStyle(fontSize: 10),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // )
                 ],
               ),
             ),
-            // Column(
-            //   children: [
-            //     Row(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         petProvider.pet!.specie! == 0
-            //             ? Column(
-            //                 children: [
-            //                   SvgPicture.asset(
-            //                     'assets/images/icons/cat.svg',
-            //                     height: 42,
-            //                   ),
-            //                   const Text(
-            //                     'Gato',
-            //                     style: TextStyle(fontSize: 10),
-            //                   ),
-            //                 ],
-            //               )
-            //             : Column(
-            //                 children: [
-            //                   SvgPicture.asset(
-            //                     'assets/images/icons/dog.svg',
-            //                     height: 42,
-            //                   ),
-            //                   const Text(
-            //                     'Perro',
-            //                     style: TextStyle(fontSize: 10),
-            //                   ),
-            //                 ],
-            //               ),
-            //         const SizedBox(width: 18),
-            //         petProvider.pet!.sex!
-            //             ? const Column(
-            //                 children: [
-            //                   Icon(
-            //                     Icons.male,
-            //                     color: Colors.black,
-            //                     size: 42,
-            //                   ),
-            //                   Text(
-            //                     'Macho',
-            //                     style: TextStyle(fontSize: 10),
-            //                   ),
-            //                 ],
-            //               )
-            //             : const Column(
-            //                 children: [
-            //                   Icon(
-            //                     Icons.female,
-            //                     color: Colors.black,
-            //                     size: 42,
-            //                   ),
-            //                   Text(
-            //                     'Hembra',
-            //                     style: TextStyle(fontSize: 10),
-            //                   ),
-            //                 ],
-            //               ),
-            //         const SizedBox(width: 18),
-            //         GestureDetector(
-            //           onTap: () {
-            //             petProvider.getAttentions(
-            //               petProvider.pet!.id!,
-            //               'deworming',
-            //             );
-            //             context.push('/petdetail/history',
-            //                 extra: petProvider.pet);
-            //           },
-            //           child: const Column(
-            //             children: [
-            //               Icon(
-            //                 Icons.book_outlined,
-            //                 color: Colors.black,
-            //                 size: 42,
-            //               ),
-            //               Text(
-            //                 'Historial',
-            //                 style: TextStyle(fontSize: 10),
-            //               ),
-            //             ],
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //     const SizedBox(height: 12),
-            //     const SizedBox(height: 24),
-            //   ],
-            // ),
             const Padding(
               padding: EdgeInsets.only(
                 left: 16,
                 top: 24,
               ),
               child: Text(
-                'Servicios realizados',
+                'Atenciones realizadas',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            const Expanded(
-              child: Column(
-                children: [],
-              ),
+            Expanded(
+              child: petProvider.attentions.isEmpty
+                  ? const Center(
+                      child: Text('No tiene atenciones registradas'),
+                    )
+                  : ListView.builder(
+                      itemCount: petWatch.attentions.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Dismissible(
+                          key: UniqueKey(),
+                          background: Container(
+                            color: negativeColor,
+                          ),
+                          direction: DismissDirection.endToStart,
+                          confirmDismiss: (direction) {
+                            return showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text(
+                                  'Eliminar',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                content: const Text(
+                                    'Seguro que desea eliminar la atención?'),
+                                actions: [
+                                  ButtonSecondary(
+                                    text: 'Eliminar',
+                                    onPressed: () {
+                                      petProvider.deleteAttention(
+                                        petProvider.attentions[index].id!,
+                                        petProvider.pet!.id!,
+                                      );
+                                      petProvider.notAttention(index);
+                                      context.pop();
+                                    },
+                                    color: negativeColor,
+                                  ),
+                                  ButtonSecondary(
+                                    text: 'Cancelar',
+                                    onPressed: () => context.pop(),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 2,
+                              vertical: 12,
+                            ),
+                            width: double.maxFinite,
+                            height: 64,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  flex: 1,
+                                  child: Container(
+                                    width: double.maxFinite,
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        right: BorderSide(
+                                          color: Colors.grey.shade300,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Image.asset(
+                                        'assets/images/icono/${petWatch.attentions[index].type}.png',
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 4,
+                                  child: Container(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                    width: double.maxFinite,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          petWatch.attentions[index].product!,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          f.format(petProvider
+                                              .attentions[index].date!),
+                                          style: const TextStyle(
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const Flexible(
+                                  flex: 1,
+                                  child: Icon(
+                                    Icons.check_circle_rounded,
+                                    color: Color(0xFF54D517),
+                                    size: 32,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
             ),
             Align(
               alignment: FractionalOffset.bottomRight,
@@ -363,7 +435,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                 child: SizedBox(
                   width: 192,
                   child: ButtonPrimary(
-                    child: const Text('Agregar Servicio'),
+                    child: const Text('Agregar Atención'),
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
@@ -373,131 +445,136 @@ class _PetDetailPageState extends State<PetDetailPage> {
                           int service = 0;
                           return StatefulBuilder(
                               builder: (BuildContext context, setState) {
-                            return Column(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 64),
+                            return Scaffold(
+                              backgroundColor: Colors.transparent,
+                              appBar: const PreferredSize(
+                                preferredSize: Size.fromHeight(60),
+                                child: Align(
+                                  alignment: Alignment.center,
                                   child: Text(
-                                    'Seleccionar servicio',
+                                    'Seleccionar Atención',
                                     style: TextStyle(
-                                      fontSize: 24,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          service = 1;
-                                        });
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              border: Border.all(
-                                                  color: kPrimaryColor),
-                                              color: service == 1
-                                                  ? kPrimaryColor
-                                                  : kBackgroundColor,
-                                            ),
-                                            width: 90,
-                                            height: 90,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Image.asset(
-                                                'assets/images/icono/desparasitacion.png',
+                              ),
+                              body: Column(
+                                children: [
+                                  const SizedBox(height: 42),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            service = 1;
+                                          });
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: kPrimaryColor),
                                                 color: service == 1
-                                                    ? kBackgroundColor
-                                                    : kPrimaryColor,
+                                                    ? kPrimaryColor
+                                                    : kBackgroundColor,
+                                              ),
+                                              width: 90,
+                                              height: 90,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Image.asset(
+                                                  'assets/images/icono/deworming.png',
+                                                  color: service == 1
+                                                      ? kBackgroundColor
+                                                      : kPrimaryColor,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          service = 2;
-                                        });
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              border: Border.all(
-                                                  color: kPrimaryColor),
-                                              color: service == 2
-                                                  ? kPrimaryColor
-                                                  : kBackgroundColor,
-                                            ),
-                                            width: 90,
-                                            height: 90,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Image.asset(
-                                                'assets/images/icono/grooming.png',
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            service = 2;
+                                          });
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: kPrimaryColor),
                                                 color: service == 2
-                                                    ? kBackgroundColor
-                                                    : kPrimaryColor,
+                                                    ? kPrimaryColor
+                                                    : kBackgroundColor,
+                                              ),
+                                              width: 90,
+                                              height: 90,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Image.asset(
+                                                  'assets/images/icono/grooming.png',
+                                                  color: service == 2
+                                                      ? kBackgroundColor
+                                                      : kPrimaryColor,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          service = 3;
-                                        });
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              border: Border.all(
-                                                  color: kPrimaryColor),
-                                              color: service == 3
-                                                  ? kPrimaryColor
-                                                  : kBackgroundColor,
-                                            ),
-                                            width: 90,
-                                            height: 90,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Image.asset(
-                                                'assets/images/icono/vacuna.png',
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            service = 3;
+                                          });
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                border: Border.all(
+                                                    color: kPrimaryColor),
                                                 color: service == 3
-                                                    ? kBackgroundColor
-                                                    : kPrimaryColor,
+                                                    ? kPrimaryColor
+                                                    : kBackgroundColor,
+                                              ),
+                                              width: 90,
+                                              height: 90,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Image.asset(
+                                                  'assets/images/icono/vaccine.png',
+                                                  color: service == 3
+                                                      ? kBackgroundColor
+                                                      : kPrimaryColor,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 72),
-                                Container(
-                                  margin: const EdgeInsets.all(32),
-                                  width: double.maxFinite,
-                                  child: Expanded(
+                                    ],
+                                  ),
+                                  const SizedBox(height: 72),
+                                  Container(
+                                    margin: const EdgeInsets.all(32),
+                                    width: double.maxFinite,
                                     child: ButtonPrimary(
                                       child: const Text('Continuar'),
                                       onPressed: () {
@@ -506,7 +583,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                           backgroundColor: kBackgroundColor,
                                           showDragHandle: true,
                                           isScrollControlled: true,
-                                          builder: (context) {
+                                          builder: (ctx) {
                                             return Container(
                                               height: MediaQuery.of(context)
                                                       .size
@@ -525,9 +602,9 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                         );
                                       },
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             );
                           });
                         },

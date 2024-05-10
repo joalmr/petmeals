@@ -33,8 +33,8 @@ class PetUseCase implements PetRepository {
   Future<List<PetModel>> getPets(String userId) => petData.getPets(userId);
 
   @override
-  Future<List<AttentionsModel>> getAttentions(String petId, String type) =>
-      petData.getAttentions(petId, type);
+  Future<List<AttentionsModel>> getAttentions(String petId) =>
+      petData.getAttentions(petId);
 
   @override
   Future<AttentionsModel> addAttention(
@@ -44,4 +44,8 @@ class PetUseCase implements PetRepository {
   @override
   Future<void> deleteAttention(String id, String petId) =>
       petData.deleteAttention(id, petId);
+
+  @override
+  Future<List<AttentionsModel>> getNextAttentions(String petId) =>
+      petData.getNextAttentions(petId);
 }

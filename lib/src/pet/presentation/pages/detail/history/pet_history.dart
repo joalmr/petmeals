@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
-import 'package:petmeals/config/components/widgets/button/back_button.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/history/attentions/deworming.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/history/attentions/grooming.dart';
@@ -25,26 +24,32 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
     final petProvider = context.read<PetProvider>();
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: SafeArea(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const BackBtn(),
-              Text(
-                widget.pet!.name!,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        title: Text(
+          widget.pet!.name!,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
+      // PreferredSize(
+      //   preferredSize: const Size.fromHeight(60),
+      //   child: SafeArea(
+      //     child: Row(
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       children: [
+      //         const BackBtn(),
+      //         Text(
+      //           widget.pet!.name!,
+      //           style: const TextStyle(fontWeight: FontWeight.bold),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: Column(
         children: [
           Container(
             width: double.maxFinite,
-            margin: const EdgeInsets.only(top: 0, left: 32, right: 32),
+            margin: const EdgeInsets.only(top: 0, left: 24, right: 24),
             height: 32,
             decoration: BoxDecoration(
               color: kTextColor,
@@ -59,7 +64,6 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                     segmentView = 0;
                     petProvider.getAttentions(
                       petProvider.pet!.id!,
-                      'deworming',
                     );
                   }),
                   child: Container(
@@ -86,7 +90,6 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                     segmentView = 1;
                     petProvider.getAttentions(
                       petProvider.pet!.id!,
-                      'grooming',
                     );
                   }),
                   child: Container(
@@ -113,7 +116,6 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                     segmentView = 2;
                     petProvider.getAttentions(
                       petProvider.pet!.id!,
-                      'vaccine',
                     );
                   }),
                   child: Container(
