@@ -121,7 +121,6 @@ class PetsData implements PetRepository {
                 deworming = element;
               } else {
                 int days2 = 30 * (deworming.nextDate ?? 0);
-                //TODO: revisar
                 if (next.isBefore(deworming.date!.add(Duration(days: days2))) &&
                     next.isAfter(
                         DateTime.now().add(const Duration(days: -7)))) {
