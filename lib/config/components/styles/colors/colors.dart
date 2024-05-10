@@ -1,20 +1,16 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:ui';
 
-const primerColor = poloBlue;
-const segundoColor = roseBud;
-const tercerColor = sinbad;
-const cuartoColor = givry;
-const quintoColor = mandy;
+const kPrimaryColor = Color(0xFF141415);
+// const kSecondaryColor = poloBlue;
 
 //TEXTO
-const textoColor = CupertinoColors.systemGrey;
-const textoColorContraste = fondoColor;
+const kTextColor = kPrimaryColor; //Color(0xFF5a5a5a);
+const kTextColorContrast = kBackgroundColor;
 //FONDO
-const fondoColor = Color(0xFFedede9);
+const kBackgroundColor = Color(0xFFf4f4f4);
 
-const givry = Color(0xFFf7d7c5);
-const roseBud = Color(0xFFf8b296);
-const sinbad = Color(0xFFa5ced5);
+// const givry = Color(0xFFf7d7c5);
+// const roseBud = Color(0xFFf8b296);
 const poloBlue = Color(0xFF7fa3cc);
 const mandy = Color(0xFFe84a5f);
 

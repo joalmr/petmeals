@@ -1,10 +1,6 @@
-import 'dart:io';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:petmeals/config/components/widgets/platform_app.dart';
-
-// typedef PlatformApp = String;
 
 class ButtonPrimary extends StatelessWidget {
   final void Function()? onPressed;
@@ -15,65 +11,49 @@ class ButtonPrimary extends StatelessWidget {
     super.key,
     this.onPressed,
     required this.child,
-    this.color = primerColor,
-    required this.platformApp,
+    this.color = kPrimaryColor,
+    this.platformApp = PlatformApp.ANDROID,
   });
+
+  Widget android() => SizedBox(
+        width: double.maxFinite,
+        child: _BtnAndroid(
+          onPressed: onPressed,
+          color: color,
+          child: child,
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
-    switch (platformApp) {
-      case PlatformApp.IOS:
-        return _BtnIOS(
-          onPressed: onPressed,
-          color: color,
-          child: child,
-        );
-      case PlatformApp.ANDROID:
-        return _BtnAndroid(
-          onPressed: onPressed,
-          color: color,
-          child: child,
-        );
-      case PlatformApp.AUTO:
-      default:
-        return Platform.isIOS
-            ? _BtnIOS(
-                onPressed: onPressed,
-                color: color,
-                child: child,
-              )
-            : _BtnAndroid(
-                onPressed: onPressed,
-                color: color,
-                child: child,
-              );
-    }
+    return android();
   }
 }
 
 //ios
-class _BtnIOS extends StatelessWidget {
-  final Widget child;
-  final void Function()? onPressed;
-  final Color color;
+// class _BtnIOS extends StatelessWidget {
+//   final Widget child;
+//   final void Function()? onPressed;
+//   final Color color;
 
-  const _BtnIOS({
-    this.onPressed,
-    required this.child,
-    this.color = primerColor,
-  });
+//   const _BtnIOS({
+//     this.onPressed,
+//     required this.child,
+//     this.color = kPrimaryColor,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoButton(
-      color: color,
-      onPressed: onPressed,
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-      pressedOpacity: 0.8,
-      child: child,
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return CupertinoButton(
+//       color: color,
+//       onPressed: onPressed,
+//       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+//       borderRadius: const BorderRadius.all(Radius.circular(20)),
+//       pressedOpacity: 0.8,
+//       child: child,
+//     );
+//   }
+// }
 
 //android
 class _BtnAndroid extends StatelessWidget {
@@ -84,7 +64,7 @@ class _BtnAndroid extends StatelessWidget {
   const _BtnAndroid({
     this.onPressed,
     required this.child,
-    this.color = primerColor,
+    this.color = kPrimaryColor,
   });
 
   @override
@@ -92,10 +72,10 @@ class _BtnAndroid extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(color),
-        foregroundColor: const MaterialStatePropertyAll(Colors.white),
+        foregroundColor: const MaterialStatePropertyAll(kTextColorContrast),
         shape: const MaterialStatePropertyAll(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
       ),

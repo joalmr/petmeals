@@ -3,8 +3,7 @@ import 'package:get_storage/get_storage.dart';
 class MyStorage {
   final box = GetStorage();
 
-  //? REVISAR SI FUNCIONA CON OBJECT
-
+  //OBJECT
   // User get user => box.read('user');
   // set user(User value) => box.write('user', value);
 
