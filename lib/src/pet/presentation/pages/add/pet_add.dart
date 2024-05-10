@@ -6,7 +6,7 @@ import 'package:petmeals/src/pet/presentation/pages/add/widgets/add_image.dart';
 import 'package:petmeals/src/pet/presentation/pages/add/widgets/borndate.dart';
 import 'package:petmeals/src/pet/presentation/pages/add/widgets/select_sex.dart';
 import 'package:petmeals/src/pet/presentation/pages/add/widgets/select_specie.dart';
-import 'package:petmeals/src/pet/presentation/pages/add/widgets/sterillized.dart';
+import 'package:petmeals/src/pet/presentation/pages/add/widgets/select_sterillized.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';

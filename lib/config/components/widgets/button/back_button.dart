@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petmeals/config/components/styles/colors/colors.dart';
@@ -9,10 +8,10 @@ class BackBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton(
+    return IconButton(
       color: Colors.transparent,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: Icon(
+      icon: Icon(
         Icons.arrow_back_rounded,
         color: color ?? kTextColorContrast,
       ),

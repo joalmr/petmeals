@@ -44,12 +44,15 @@ class UserPage extends StatelessWidget {
                   ],
                 ),
               ),
-              ButtonPrimary(
-                color: mandy,
-                child: const Text('Cerrar sesión'),
-                onPressed: () {
-                  userProvider.signOut().then((value) => context.go("/"));
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ButtonPrimary(
+                  color: mandy,
+                  child: const Text('Cerrar sesión'),
+                  onPressed: () {
+                    userProvider.signOut().then((value) => context.go("/"));
+                  },
+                ),
               ),
               const SizedBox(height: 42),
             ],
