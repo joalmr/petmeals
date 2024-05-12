@@ -383,6 +383,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                       padding: const EdgeInsets.all(4.0),
                                       child: Image.asset(
                                         'assets/images/icons_att/${petWatch.attentions[index].type}.png',
+                                        color: kPrimaryColor,
                                       ),
                                     ),
                                   ),
