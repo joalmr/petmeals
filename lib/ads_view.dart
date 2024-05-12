@@ -24,15 +24,17 @@ class AdsView extends StatelessWidget {
   Widget build(BuildContext context) {
     banner.load();
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(child: child),
-          SizedBox(
-            width: banner.size.width.toDouble(),
-            height: banner.size.height.toDouble(),
-            child: AdWidget(ad: banner),
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(child: child),
+            SizedBox(
+              width: banner.size.width.toDouble(),
+              height: banner.size.height.toDouble(),
+              child: AdWidget(ad: banner),
+            ),
+          ],
+        ),
       ),
     );
   }

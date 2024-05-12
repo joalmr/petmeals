@@ -8,12 +8,13 @@ import 'package:petmeals/src/pet/presentation/pages/add/widgets/select_sex.dart'
 import 'package:petmeals/src/pet/presentation/pages/add/widgets/select_specie.dart';
 import 'package:petmeals/src/pet/presentation/pages/add/widgets/select_sterillized.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
-import 'package:petmeals/config/components/widgets/widgets.dart';
-import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../../config/components/widgets/widgets.dart';
 
 class PetAddPage extends StatefulWidget {
   const PetAddPage({

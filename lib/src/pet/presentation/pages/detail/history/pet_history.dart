@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/styles/colors/colors.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/history/attentions/deworming.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/history/attentions/grooming.dart';

@@ -9,12 +9,13 @@ import 'package:petmeals/src/pet/presentation/pages/detail/modal/attentions/dewo
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/attentions/grooming.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/attentions/vaccine.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
-import 'package:petmeals/config/components/widgets/button/buttons.dart';
-import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:petmeals/src/pet/presentation/widgets/edit.pet.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../../config/components/widgets/widgets.dart';
 
 class PetDetailPage extends StatefulWidget {
   const PetDetailPage({super.key});
@@ -205,59 +206,62 @@ class _PetDetailPageState extends State<PetDetailPage> {
                     ),
                   ),
                   const SizedBox(width: 16),
-                  GestureDetector(
-                    onTap: () {
-                      if (petProvider.pet!.specie == 0) {
-                        showModalBottomSheet(
-                          context: context,
-                          backgroundColor: kBackgroundColor,
-                          showDragHandle: true,
-                          builder: (ctx) {
-                            return const LitterPetPage();
-                          },
-                        );
-                      } else {
-                        showModalBottomSheet(
-                          context: context,
-                          backgroundColor: kBackgroundColor,
-                          showDragHandle: true,
-                          builder: (ctx) {
-                            return const LeashPetPage();
-                          },
-                        );
-                      }
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: kPrimaryColor,
-                            ),
-                            color: kBackgroundColor,
-                          ),
-                          height: 64,
-                          width: 64,
-                          child: Column(
-                            children: [
-                              SvgPicture.asset(
-                                petProvider.pet!.specie! == 0
-                                    ? 'assets/images/icons/cat-litter.svg'
-                                    : 'assets/images/icons/leash.svg',
-                                height: 40,
-                                width: 40,
+                  Visibility(
+                    visible: petProvider.pet!.specie! != 2,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (petProvider.pet!.specie == 0) {
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: kBackgroundColor,
+                            showDragHandle: true,
+                            builder: (ctx) {
+                              return const LitterPetPage();
+                            },
+                          );
+                        } else {
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: kBackgroundColor,
+                            showDragHandle: true,
+                            builder: (ctx) {
+                              return const LeashPetPage();
+                            },
+                          );
+                        }
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(
+                                color: kPrimaryColor,
                               ),
-                              Text(
-                                petProvider.pet!.specie! == 0
-                                    ? 'Arena'
-                                    : 'Paseos',
-                                style: const TextStyle(fontSize: 10),
-                              )
-                            ],
+                              color: kBackgroundColor,
+                            ),
+                            height: 64,
+                            width: 64,
+                            child: Column(
+                              children: [
+                                SvgPicture.asset(
+                                  petProvider.pet!.specie! == 0
+                                      ? 'assets/images/icons/cat-litter.svg'
+                                      : 'assets/images/icons/leash.svg',
+                                  height: 40,
+                                  width: 40,
+                                ),
+                                Text(
+                                  petProvider.pet!.specie! == 0
+                                      ? 'Arena'
+                                      : 'Paseos',
+                                  style: const TextStyle(fontSize: 10),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   // GestureDetector(
@@ -378,7 +382,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(4.0),
                                       child: Image.asset(
-                                        'assets/images/icono/${petWatch.attentions[index].type}.png',
+                                        'assets/images/icons_att/${petWatch.attentions[index].type}.png',
                                       ),
                                     ),
                                   ),
@@ -473,32 +477,42 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                             service = 1;
                                           });
                                         },
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                border: Border.all(
-                                                    color: kPrimaryColor),
-                                                color: service == 1
-                                                    ? kPrimaryColor
-                                                    : kBackgroundColor,
-                                              ),
-                                              width: 90,
-                                              height: 90,
-                                              child: Padding(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            border: Border.all(
+                                                color: kPrimaryColor),
+                                            color: service == 1
+                                                ? kPrimaryColor
+                                                : kBackgroundColor,
+                                          ),
+                                          width: 90,
+                                          height: 100,
+                                          child: Column(
+                                            children: [
+                                              Padding(
                                                 padding:
-                                                    const EdgeInsets.all(8.0),
+                                                    const EdgeInsets.fromLTRB(
+                                                        8, 4, 8, 2),
                                                 child: Image.asset(
-                                                  'assets/images/icono/deworming.png',
+                                                  'assets/images/icons_att/deworming.png',
                                                   color: service == 1
                                                       ? kBackgroundColor
                                                       : kPrimaryColor,
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              Text(
+                                                'Desparasitación',
+                                                style: TextStyle(
+                                                  fontSize: 8,
+                                                  color: service == 1
+                                                      ? kBackgroundColor
+                                                      : kPrimaryColor,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                       GestureDetector(
@@ -507,32 +521,42 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                             service = 2;
                                           });
                                         },
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                border: Border.all(
-                                                    color: kPrimaryColor),
-                                                color: service == 2
-                                                    ? kPrimaryColor
-                                                    : kBackgroundColor,
-                                              ),
-                                              width: 90,
-                                              height: 90,
-                                              child: Padding(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            border: Border.all(
+                                                color: kPrimaryColor),
+                                            color: service == 2
+                                                ? kPrimaryColor
+                                                : kBackgroundColor,
+                                          ),
+                                          width: 90,
+                                          height: 100,
+                                          child: Column(
+                                            children: [
+                                              Padding(
                                                 padding:
-                                                    const EdgeInsets.all(8.0),
+                                                    const EdgeInsets.fromLTRB(
+                                                        8, 4, 8, 2),
                                                 child: Image.asset(
-                                                  'assets/images/icono/grooming.png',
+                                                  'assets/images/icons_att/grooming.png',
                                                   color: service == 2
                                                       ? kBackgroundColor
                                                       : kPrimaryColor,
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              Text(
+                                                'Baño',
+                                                style: TextStyle(
+                                                  fontSize: 8,
+                                                  color: service == 2
+                                                      ? kBackgroundColor
+                                                      : kPrimaryColor,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                       GestureDetector(
@@ -541,32 +565,42 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                             service = 3;
                                           });
                                         },
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                border: Border.all(
-                                                    color: kPrimaryColor),
-                                                color: service == 3
-                                                    ? kPrimaryColor
-                                                    : kBackgroundColor,
-                                              ),
-                                              width: 90,
-                                              height: 90,
-                                              child: Padding(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            border: Border.all(
+                                                color: kPrimaryColor),
+                                            color: service == 3
+                                                ? kPrimaryColor
+                                                : kBackgroundColor,
+                                          ),
+                                          width: 90,
+                                          height: 100,
+                                          child: Column(
+                                            children: [
+                                              Padding(
                                                 padding:
-                                                    const EdgeInsets.all(8.0),
+                                                    const EdgeInsets.fromLTRB(
+                                                        8, 4, 8, 2),
                                                 child: Image.asset(
-                                                  'assets/images/icono/vaccine.png',
+                                                  'assets/images/icons_att/vaccine.png',
                                                   color: service == 3
                                                       ? kBackgroundColor
                                                       : kPrimaryColor,
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              Text(
+                                                'Vacuna',
+                                                style: TextStyle(
+                                                  fontSize: 8,
+                                                  color: service == 3
+                                                      ? kBackgroundColor
+                                                      : kPrimaryColor,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ],

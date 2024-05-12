@@ -26,7 +26,7 @@ class _SterillizedState extends State<Sterillized> {
       padding: const EdgeInsets.all(4.0),
       child: DropdownMenu<DdlSterillized>(
         label: const Text('Esterilizado'),
-        width: 340,
+        width: MediaQuery.of(context).size.width - 20,
         initialSelection: list[widget.sterillized.value ? 1 : 0],
         onSelected: (DdlSterillized? value) {
           setState(() {

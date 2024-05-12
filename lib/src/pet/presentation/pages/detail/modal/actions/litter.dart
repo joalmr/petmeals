@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
-import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/styles/colors/colors.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +67,7 @@ class _LitterPetPageState extends State<LitterPetPage> {
         child: Align(
           alignment: Alignment.center,
           child: Text(
-            'Paseos',
+            'Limpieza de arena',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -81,18 +81,6 @@ class _LitterPetPageState extends State<LitterPetPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  BackBtn(
-                    color: kTextColor,
-                  ),
-                  Text(
-                    'Limpieza de arena',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
               const SizedBox(height: 12),
               const Text('¿Cuántas veces al día?'),
               Slider(

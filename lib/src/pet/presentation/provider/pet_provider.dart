@@ -72,7 +72,7 @@ class PetProvider extends ChangeNotifier {
   //Atenciones
   runAttentions(String petId) {
     getAttentions(petId);
-    getNextAttentions(petId);
+    // getNextAttentions(petId);
   }
 
   getAttentions(String petId) async {

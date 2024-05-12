@@ -27,7 +27,7 @@ class _SelectSpecieState extends State<SelectSpecie> {
       padding: const EdgeInsets.all(4.0),
       child: DropdownMenu<DdlSpecie>(
         label: const Text('Especie'),
-        width: 340,
+        width: MediaQuery.of(context).size.width - 20,
         initialSelection: list[widget.specie.value],
         onSelected: (DdlSpecie? value) {
           setState(() {

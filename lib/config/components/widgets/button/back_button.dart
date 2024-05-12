@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/styles/colors/colors.dart';
 
 class BackBtn extends StatelessWidget {
   const BackBtn({super.key, this.color});

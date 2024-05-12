@@ -26,21 +26,7 @@ class _SelectSexState extends State<SelectSex> {
       padding: const EdgeInsets.all(4.0),
       child: DropdownMenu<DdlSex>(
         label: const Text('Sexo'),
-        width: 340,
-        // textStyle: TextStyle(fontSize: 14),
-        // inputDecorationTheme: const InputDecorationTheme(
-        //   // filled: true,
-        //   // fillColor: Colors.transparent,
-        //   contentPadding: EdgeInsets.symmetric(
-        //     horizontal: 8,
-        //     vertical: 0,
-        //   ),
-        //   // // border: InputBorder.none,
-        //   // outlineBorder: BorderSide(
-        //   //   color: kPrimaryColor,
-        //   //   width: 1,
-        //   // ),
-        // ),
+        width: MediaQuery.of(context).size.width - 20,
         initialSelection: list[widget.sex.value ? 1 : 0],
         onSelected: (DdlSex? value) {
           setState(() {

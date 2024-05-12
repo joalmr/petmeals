@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/styles/colors/colors.dart';
 import 'package:petmeals/config/components/utils/snackbar.dart';
 import 'package:petmeals/config/components/widgets/widgets.dart';
 import 'package:petmeals/src/pet/data/models/attentions_model.dart';
@@ -43,7 +43,7 @@ class _VaccinePageState extends State<VaccinePage> {
         child: Align(
           alignment: Alignment.center,
           child: Text(
-            'Agregar Vacuna',
+            'Agregar vacuna',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lottie/lottie.dart';
-import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/styles/colors/colors.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/attentions/deworming.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/modal/attentions/grooming.dart';
@@ -130,25 +130,22 @@ class ListPetWidget extends StatelessWidget {
                 ),
               ),
             ),
-            ListView.builder(
-              itemCount: petProvider.nextAttentions.length,
-              shrinkWrap: true,
-              // physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              itemBuilder: (context, index) {
-                final element = petProvider.nextAttentions[index];
-                final nextdate = element.date!.add(
-                  Duration(
-                    days: 30 * element.nextDate!,
-                  ),
-                );
-                final inDays = nextdate.difference(DateTime.now()).inDays;
+            petProvider.nextAttentions.isEmpty
+                ? const Center(
+                    child: Text("No hay próximas atenciones"),
+                  )
+                : ListView.builder(
+                    itemCount: petProvider.nextAttentions.length,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    itemBuilder: (context, index) {
+                      final element = petProvider.nextAttentions[index];
+                      final nextdate = element.date!.add(
+                        Duration(days: 30 * element.nextDate!),
+                      );
+                      final inDays = nextdate.difference(DateTime.now()).inDays;
 
-                return petProvider.nextAttentions.isEmpty
-                    ? const Center(
-                        child: Text("No hay próximas atenciones"),
-                      )
-                    : Container(
+                      return Container(
                         margin: EdgeInsets.only(
                           bottom: index == petProvider.nextAttentions.length - 1
                               ? 0
@@ -274,8 +271,8 @@ class ListPetWidget extends StatelessWidget {
                           ],
                         ),
                       );
-              },
-            ),
+                    },
+                  ),
           ],
         );
       },

@@ -11,7 +11,7 @@ const kBackgroundColor = Color(0xFFf4f4f4);
 
 // const givry = Color(0xFFf7d7c5);
 // const roseBud = Color(0xFFf8b296);
-const poloBlue = Color(0xFF7fa3cc);
+// const poloBlue = Color(0xFF7fa3cc);
 const mandy = Color(0xFFe84a5f);
 
 const positiveColor = Color(0xFF149b14);

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:petmeals/config/components/styles/colors/colors.dart';
+import 'package:petmeals/config/styles/themes/theme.dart';
 import 'package:petmeals/setup.get_it.dart';
 import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
 import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
@@ -33,31 +32,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Petmeals',
-        theme: ThemeData(
-          useMaterial3: true,
-          brightness: Brightness.light,
-          scaffoldBackgroundColor: kBackgroundColor,
-          textTheme: GoogleFonts.poppinsTextTheme().copyWith(),
-          textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: kPrimaryColor,
-            selectionColor: kPrimaryColor,
-            selectionHandleColor: kPrimaryColor,
-          ),
-          colorSchemeSeed: kPrimaryColor,
-          appBarTheme: const AppBarTheme(
-            titleTextStyle: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-              color: kPrimaryColor,
-            ),
-            backgroundColor: Colors.transparent,
-            foregroundColor: kPrimaryColor,
-          ),
-        ),
+        theme: themeData,
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
-          // GlobalCupertinoLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const [Locale('es', 'ES')],
         routerConfig: goRouter,
