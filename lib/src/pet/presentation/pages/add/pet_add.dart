@@ -237,7 +237,7 @@ class _PetAddPageState extends State<PetAddPage> {
           actions: [
             TextButton(
               style: const ButtonStyle(
-                  foregroundColor: MaterialStatePropertyAll(mandy)),
+                  foregroundColor: WidgetStatePropertyAll(mandy)),
               onPressed: () {
                 setState(() => loading.value = true);
                 petProvider.deletePet(petProvider.pet!.id!).then(

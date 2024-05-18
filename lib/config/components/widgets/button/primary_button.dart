@@ -71,9 +71,9 @@ class _BtnAndroid extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(color),
-        foregroundColor: const MaterialStatePropertyAll(kTextColorContrast),
-        shape: const MaterialStatePropertyAll(
+        backgroundColor: WidgetStatePropertyAll(color),
+        foregroundColor: const WidgetStatePropertyAll(kTextColorContrast),
+        shape: const WidgetStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),

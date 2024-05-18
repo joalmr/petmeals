@@ -72,13 +72,13 @@ class _BtnAndroid extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: ButtonStyle(
-        foregroundColor: MaterialStatePropertyAll(color),
-        shape: const MaterialStatePropertyAll(
+        foregroundColor: WidgetStatePropertyAll(color),
+        shape: const WidgetStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
-        textStyle: const MaterialStatePropertyAll(TextStyle(fontSize: 16)),
+        textStyle: const WidgetStatePropertyAll(TextStyle(fontSize: 16)),
       ),
       onPressed: onPressed,
       child: Text(text),
