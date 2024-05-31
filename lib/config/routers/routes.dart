@@ -1,12 +1,12 @@
+import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/history/pet_history.dart';
 import 'package:petmeals/src/pet/presentation/pages/home/home.dart';
 import 'package:petmeals/src/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/pet/presentation/pages/add/pet_add.dart';
 import 'package:petmeals/src/pet/presentation/pages/detail/pet_detail.dart';
-import 'package:petmeals/src/user/presentation/pages/login.dart';
-import 'package:petmeals/config/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:petmeals/src/user/presentation/pages/login.dart';
 import 'package:petmeals/src/user/presentation/pages/user.dart';
 
 final GoRouter goRouter = GoRouter(
