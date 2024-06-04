@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -69,89 +70,94 @@ class _PetDetailPageState extends State<PetDetailPage> {
                   right: MediaQuery.of(context).size.width * 0.10,
                   bottom: 0,
                   child: ClipRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 25,
-                        sigmaY: 25,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(25),
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.4),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(25),
-                          ),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 25,
+                          sigmaY: 25,
                         ),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 16,
-                        ),
-                        height: 100,
-                        width: double.maxFinite,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  petProvider.pet!.name!,
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  '${petProvider.pet!.age!} ${petProvider.pet!.age == 1 ? 'año' : 'años'}',
-                                  style: const TextStyle(
-                                    color: kPrimaryColor,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                Text(
-                                  petProvider.pet!.sterillized!
-                                      ? 'Estirilizado'
-                                      : 'No esterilizado',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ],
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.4),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(25),
                             ),
-                            petProvider.pet!.sex!
-                                ? Container(
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFF52B5E9),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 16,
+                          ),
+                          height: 100,
+                          width: double.maxFinite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    petProvider.pet!.name!,
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Icon(
-                                        Icons.male,
-                                        color: kTextColorContrast,
-                                        size: 32,
-                                      ),
+                                  ),
+                                  Text(
+                                    '${petProvider.pet!.age!} ${petProvider.pet!.age == 1 ? 'año' : 'años'}',
+                                    style: const TextStyle(
+                                      color: kPrimaryColor,
+                                      fontSize: 14,
                                     ),
-                                  )
-                                : Container(
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFFF87C9A),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8),
-                                      ),
+                                  ),
+                                  Text(
+                                    petProvider.pet!.sterillized!
+                                        ? 'Estirilizado'
+                                        : 'No esterilizado',
+                                    style: const TextStyle(
+                                      fontSize: 14,
                                     ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Icon(
-                                        Icons.female,
-                                        color: kTextColorContrast,
-                                        size: 32,
+                                  ),
+                                ],
+                              ),
+                              petProvider.pet!.sex!
+                                  ? Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFF52B5E9),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
                                       ),
-                                    ),
-                                  )
-                          ],
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Icon(
+                                          Icons.male,
+                                          color: kTextColorContrast,
+                                          size: 32,
+                                        ),
+                                      ),
+                                    )
+                                  : Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFFF87C9A),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Icon(
+                                          Icons.female,
+                                          color: kTextColorContrast,
+                                          size: 32,
+                                        ),
+                                      ),
+                                    )
+                            ],
+                          ),
                         ),
                       ),
                     ),
