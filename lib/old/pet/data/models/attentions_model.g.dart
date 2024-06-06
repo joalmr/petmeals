@@ -13,7 +13,7 @@ _$AttentionsModelImpl _$$AttentionsModelImplFromJson(
           json['date'] == null ? null : DateTime.parse(json['date'] as String),
       product: json['product'] as String?,
       type: json['type'] as String?,
-      nextDate: json['nextDate'] as int?,
+      nextDate: (json['nextDate'] as num?)?.toInt(),
       id: json['id'] as String?,
     );
 

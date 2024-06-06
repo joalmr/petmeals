@@ -23,10 +23,19 @@ flutter pub add --dev json_serializable
 ```
 
 ===
+```yaml
+flutter pub add freezed_annotation
+flutter pub add dev:build_runner
+flutter pub add dev:freezed
+# if using freezed to generate fromJson/toJson, also add:
+flutter pub add json_annotation
+flutter pub add dev:json_serializable
+```
 para crear los modelos freezed
-
 ```yaml
 dart run build_runner build
+
+flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
 ## PetModel
@@ -34,16 +43,14 @@ dart run build_runner build
 en PetModelImplFromJson reemplazar:
 
 ```dart
-age: (DateTime.now().difference(DateTime.parse(json["borndate"])).inDays) ~/ 365, //? [solo fromJson PetModel]
+age: (DateTime.now().difference(DateTime.parse(json['borndate'])).inDays) ~/ 365, //? [solo fromJson PetModel]
 ```
 
 en PetModelImplToJson agregar:
 
 ```dart
-"created_at": DateTime.timestamp(), //? [solo toJson PetModel]
+'created_at': DateTime.timestamp(), //? [solo toJson PetModel]
 //quitar: id & age
-<!-- //cambiar -->
-<!-- //'specie': instance.specie!.toJson(), -->
 ```
 
 ## Icono

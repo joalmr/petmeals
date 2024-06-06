@@ -11,7 +11,7 @@ _$PetModelImpl _$$PetModelImplFromJson(Map<String, dynamic> json) =>
       actions:
           (json['actions'] as List<dynamic>?)?.map((e) => e as String).toList(),
       age: (DateTime.now()
-              .difference(DateTime.parse(json["borndate"]))
+              .difference(DateTime.parse(json['borndate']))
               .inDays) ~/
           365,
       borndate: json['borndate'] == null
@@ -23,7 +23,7 @@ _$PetModelImpl _$$PetModelImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       photo: json['photo'] as String?,
       sex: json['sex'] as bool?,
-      specie: json['specie'] as int?,
+      specie: (json['specie'] as num?)?.toInt(),
       sterillized: json['sterillized'] as bool?,
       userId:
           (json['userId'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -32,9 +32,11 @@ _$PetModelImpl _$$PetModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$PetModelImplToJson(_$PetModelImpl instance) =>
     <String, dynamic>{
       'actions': instance.actions,
+      // 'age': instance.age,
       'borndate': instance.borndate?.toIso8601String(),
-      "created_at": DateTime.timestamp(),
+      'created_at': DateTime.timestamp(),
       'foods': instance.foods,
+      // 'id': instance.id,
       'name': instance.name,
       'photo': instance.photo,
       'sex': instance.sex,
