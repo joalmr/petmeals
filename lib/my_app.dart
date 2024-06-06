@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:petmeals/config/styles/themes/theme.dart';
-import 'package:petmeals/setup.get_it.dart';
-import 'package:petmeals/src/pet/domain/usecases/pet_usecase.dart';
-import 'package:petmeals/src/pet/presentation/provider/pet_provider.dart';
-import 'package:petmeals/src/user/domain/usecases/user_usecase.dart';
-import 'package:petmeals/src/user/presentation/provider/user_provider.dart';
-import 'package:petmeals/config/routers/routes.dart';
+import 'package:get_it/get_it.dart';
+import 'package:petmeals/src/core/app/styles/themes/theme.dart';
+import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';
+import 'package:petmeals/src/features/user/presentation/providers/user_provider.dart';
+import 'package:petmeals/src/core/app/routers/routes.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -14,18 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = UserProvider(userUsecase: getIt<UserUsecase>());
-    final petProvider = PetProvider(petUseCase: getIt<PetUseCase>());
-
-    // final textTheme = Theme.of(context).textTheme;
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => userProvider,
+          create: (_) => GetIt.instance.get<UserProvider>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => petProvider,
+          create: (_) => GetIt.instance.get<PetProvider>(),
           lazy: true,
         ),
       ],
