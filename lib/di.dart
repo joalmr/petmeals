@@ -12,8 +12,6 @@ Future<void> init() async {
   //Providers
   di.registerFactory(() => UserProvider(userUsecase: di<UserUsecase>()));
   di.registerFactory(() => PetProvider(petUseCase: di<PetUseCase>()));
-  // di.registerFactory(() => UserData());
-  // di.registerFactory(() => PetsData());
   //Usecases
   di.registerLazySingleton(() => UserUsecase(userData: di<UserData>()));
   di.registerLazySingleton(() => PetUseCase(petData: di<PetsData>()));
@@ -21,4 +19,6 @@ Future<void> init() async {
   //Datasources
   di.registerLazySingleton(() => UserData());
   di.registerLazySingleton(() => PetsData());
+  // di.registerFactory(() => UserData());
+  // di.registerFactory(() => PetsData());
 }
