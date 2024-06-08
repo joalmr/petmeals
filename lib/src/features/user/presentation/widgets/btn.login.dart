@@ -16,7 +16,6 @@ class ButtonGoogle extends StatelessWidget {
     return SizedBox(
       width: double.maxFinite,
       height: 46,
-      // margin: const EdgeInsets.symmetric(vertical: 2),
       child: TextButton(
         onPressed: () async {
           userProvider.signInGoogle().then((value) {

@@ -1,11 +1,10 @@
 name: petmeals
-description: A new Flutter project.
+description: App para los amantes de las mascotas
 publish_to: "none"
-version: 0.1.0
+version: 0.2.1
 
 environment:
-  # sdk: ">=3.1.0 <4.0.0"
-  sdk: ">=3.4.0 <4.0.0"
+  sdk: ">=3.4.0 <4.0.0" #">=3.1.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -13,20 +12,26 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.19.0
-  # supabase_flutter: ^2.5.2
-  #
+  # firebase
   cloud_firestore: ^4.9.1
   firebase_auth: ^4.9.0
   firebase_core: ^2.15.1
   firebase_storage: ^11.2.7
+  # ads
   google_mobile_ads: ^5.1.0
+  # estado y dependencias
+  provider: ^6.0.5
+  get_it: ^7.6.4
+  # builders
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.9.0
   # plugins
   cached_network_image: ^3.2.3
   day_night_time_picker: ^1.3.0+1
   easy_mask: ^2.0.1
   flutter_dotenv: ^5.1.0
   flutter_svg: ^2.0.7
-  get_storage: ^2.1.1
+  get_storage: ^2.1.1 #se va
   google_fonts: 6.1.0
   go_router: ^11.1.2
   google_sign_in: ^6.1.5
@@ -34,22 +39,19 @@ dependencies:
   logger: ^2.0.2+1
   lottie: ^3.0.0
   time_parser: ^1.2.1
-  # manejadores
-  provider: ^6.0.5
-  get_it: ^7.6.4
-  # # equatable: ^2.0.5
-  freezed_annotation: ^2.4.1
-  json_annotation: ^4.9.0
+
+  # dio: ^5.4.3+1
+  dartz: ^0.10.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.4.11
   flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.3
-  # # flutter_lints: ^4.0.0
-  build_runner: ^2.4.11
-  freezed: ^2.4.8
-  # freezed: ^2.5.3
+  freezed: ^2.4.8 #^2.5.3
   json_serializable: ^6.8.0
 
 flutter_launcher_icons:

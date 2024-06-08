@@ -1,4 +1,3 @@
 # Petmeals
 
-
-prueba de git
+## App para los amantes de las mascotas

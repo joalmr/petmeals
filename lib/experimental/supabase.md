@@ -1,3 +1,5 @@
+### supabase_flutter: ^2.5.2
+
 ```dart
 class HomeTest extends StatefulWidget {
   const HomeTest({super.key});

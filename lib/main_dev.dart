@@ -11,7 +11,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await GetStorage.init();
+  await GetStorage.init(); //remover
   await dotenv.load(fileName: ".env.dev");
   await init();
   // Development
