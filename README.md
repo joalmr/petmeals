@@ -1,6 +1,6 @@
 # Petmeals
 
-## Organiza y supervisa las atenciones, alimentación y actividades de tus mascotas
+### Organiza y supervisa las atenciones, alimentación y actividades de tus mascotas
 
 Descubre una nueva forma de cuidar a tus mascotas con la aplicación Petmeals. Diseñada con amor y atención a los detalles, Petmeals se convierte en tu aliado esencial para garantizar la salud y la felicidad de tus amigos peludos.
 
