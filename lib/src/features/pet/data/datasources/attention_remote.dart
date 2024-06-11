@@ -5,7 +5,7 @@ import 'package:petmeals/src/features/pet/domain/entities/attention.dart';
 
 abstract class AttentionRemoteDataSource {
   Future<List<AttentionModel>> getAttentions(String petId);
-  Future<AttentionModel> addAttention(Attention attention, String petId);
+  Future<AttentionModel> addAttention(AttentionEntity attention, String petId);
   Future<void> deleteAttention(String id, String petId);
   Future<List<AttentionModel>> getNextAttentions(String petId);
 }
@@ -14,7 +14,8 @@ class AttentionRemoteDataSourceImpl implements AttentionRemoteDataSource {
   final ref = FirebaseFirestore.instance.collection('pets');
 
   @override
-  Future<AttentionModel> addAttention(Attention attention, String petId) async {
+  Future<AttentionModel> addAttention(
+      AttentionEntity attention, String petId) async {
     try {
       return await ref
           .doc(petId)

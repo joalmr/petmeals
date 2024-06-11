@@ -6,7 +6,7 @@ class GetNextAttentionsUsecase {
 
   GetNextAttentionsUsecase({required this.repository});
 
-  Future<List<Attention>> call(String petId) {
+  Future<List<AttentionEntity>> call(String petId) {
     return repository.getNextAttentions(petId);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:petmeals/src/features/pet/domain/entities/attention.dart';
 
-class AttentionModel extends Attention {
+class AttentionModel extends AttentionEntity {
   const AttentionModel({
     super.id,
     super.date,
@@ -45,7 +45,7 @@ class AttentionModel extends Attention {
     );
   }
 
-  factory AttentionModel.fromEntity(Attention attention) {
+  factory AttentionModel.fromEntity(AttentionEntity attention) {
     return AttentionModel(
       id: attention.id,
       date: attention.date,

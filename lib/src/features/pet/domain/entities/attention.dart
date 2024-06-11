@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class Attention extends Equatable {
+class AttentionEntity extends Equatable {
   final String? id;
   final DateTime? date;
   final int? nextDate;
   final String? product;
   final String? type;
 
-  const Attention({
+  const AttentionEntity({
     this.id,
     this.date,
     this.nextDate,

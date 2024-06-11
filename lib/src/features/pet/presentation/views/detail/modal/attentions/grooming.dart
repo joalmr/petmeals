@@ -148,7 +148,7 @@ class _GroomingPageState extends State<GroomingPage> {
                       final mm = controllerDate.text.split('-')[1];
                       final yyyy = controllerDate.text.split('-')[2];
 
-                      Attention attention = Attention(
+                      AttentionEntity attention = AttentionEntity(
                         type: 'grooming',
                         product: controllerProduct.text,
                         date: DateTime.parse('$yyyy-$mm-$dd'),

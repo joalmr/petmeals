@@ -148,7 +148,7 @@ class _DewormingPageState extends State<DewormingPage> {
                       final mm = controllerDate.text.split('-')[1];
                       final yyyy = controllerDate.text.split('-')[2];
 
-                      Attention attention = Attention(
+                      AttentionEntity attention = AttentionEntity(
                         type: 'deworming',
                         product: controllerProduct.text,
                         date: DateTime.parse('$yyyy-$mm-$dd'),

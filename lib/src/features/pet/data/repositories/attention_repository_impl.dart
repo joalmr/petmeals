@@ -8,8 +8,10 @@ class AttentionRepositoryImpl implements AttentionRepository {
   AttentionRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Attention> addAttention(Attention attention, String petId) async {
-    Attention response = await remoteDataSource.addAttention(attention, petId);
+  Future<AttentionEntity> addAttention(
+      AttentionEntity attention, String petId) async {
+    AttentionEntity response =
+        await remoteDataSource.addAttention(attention, petId);
     return response;
   }
 
@@ -19,14 +21,16 @@ class AttentionRepositoryImpl implements AttentionRepository {
   }
 
   @override
-  Future<List<Attention>> getAttentions(String petId) async {
-    List<Attention> response = await remoteDataSource.getAttentions(petId);
+  Future<List<AttentionEntity>> getAttentions(String petId) async {
+    List<AttentionEntity> response =
+        await remoteDataSource.getAttentions(petId);
     return response;
   }
 
   @override
-  Future<List<Attention>> getNextAttentions(String petId) async {
-    List<Attention> response = await remoteDataSource.getNextAttentions(petId);
+  Future<List<AttentionEntity>> getNextAttentions(String petId) async {
+    List<AttentionEntity> response =
+        await remoteDataSource.getNextAttentions(petId);
     return response;
   }
 }

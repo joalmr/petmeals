@@ -6,7 +6,7 @@ class AddAttentionUseCase {
 
   AddAttentionUseCase({required this.repository});
 
-  Future<Attention> call(Attention attention, String petId) {
+  Future<AttentionEntity> call(AttentionEntity attention, String petId) {
     return repository.addAttention(attention, petId);
   }
 }

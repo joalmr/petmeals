@@ -43,8 +43,8 @@ class PetProvider extends ChangeNotifier {
   String userId = MyStorage().uid;
   //************
   PetEntity? pet; //
-  List<Attention> attentions = []; //
-  List<Attention> nextAttentions = []; //
+  List<AttentionEntity> attentions = []; //
+  List<AttentionEntity> nextAttentions = []; //
   //************
 
   //Mascota
@@ -109,7 +109,7 @@ class PetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  addAttention(Attention attention, String petId) async {
+  addAttention(AttentionEntity attention, String petId) async {
     await addAttentionUseCase(attention, petId);
     runAttentions(petId);
   }
