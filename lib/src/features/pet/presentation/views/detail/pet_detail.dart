@@ -68,10 +68,10 @@ class _PetDetailPageState extends State<PetDetailPage> {
                   left: 10,
                   child: BackBtn(),
                 ),
-                const Positioned(
+                Positioned(
                   top: 16,
                   right: 10,
-                  child: EditPetWidget(),
+                  child: EditPetWidget(myPet: widget.myPet),
                 ),
                 Positioned(
                   left: MediaQuery.of(context).size.width * 0.10,

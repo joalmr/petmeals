@@ -39,8 +39,8 @@ class PetRepositoryImpl implements PetRepository {
   }
 
   @override
-  Future<PetEntity> updatePet(PetEntity pet, String userId, File? img) async {
-    final response = await remoteDataSource.updatePet(pet, userId, img);
+  Future<PetEntity> updatePet(PetEntity pet, File? img) async {
+    final response = await remoteDataSource.updatePet(pet, img);
     return response as PetEntity;
   }
 }

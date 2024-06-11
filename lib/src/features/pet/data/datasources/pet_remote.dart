@@ -10,7 +10,7 @@ abstract class PetRemoteDataSource {
   Stream<List<PetModel>> loadPets(String userId);
   Future<List<PetModel>> getPets(String userId);
   Future<PetModel> addPet(PetEntity newPet, File image);
-  Future<PetModel> updatePet(PetEntity pet, String userId, File? image);
+  Future<PetModel> updatePet(PetEntity pet, File? image);
   Future<void> deletePet(String petId);
 }
 
@@ -77,18 +77,20 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
   }
 
   @override
-  Future<PetModel> updatePet(PetEntity pet, String userId, File? image) async {
+  Future<PetModel> updatePet(PetEntity pet, File? image) async {
     try {
-      String imgStorage = ""; // PetModel petUpdate = pet;
+      String? imgStorage; // PetModel petUpdate = pet;
 
-      if (image != null) {
-        imgStorage = await uploadImage(image, pet.id!);
-        PetModel.fromEntity(pet).copyWith(photo: imgStorage);
-      }
+      imgStorage = await uploadImage(image, pet.id!);
+      // PetModel.fromEntity(pet).copyWith(photo: imgStorage);
 
-      final refDoc = ref.doc(pet.id);
-      return refDoc
-          .update(PetModel.fromEntity(pet).toJson())
+      Logger().i(imgStorage);
+
+      return ref
+          .doc(pet.id)
+          .update(imgStorage.isNotEmpty
+              ? PetModel.fromEntity(pet).copyWith(photo: imgStorage).toJson()
+              : PetModel.fromEntity(pet).toJson())
           .then((value) => PetModel.fromEntity(pet));
     } on Exception catch (e) {
       throw ServerFailure(message: e.toString());

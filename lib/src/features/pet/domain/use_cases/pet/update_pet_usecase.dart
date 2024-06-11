@@ -7,7 +7,7 @@ class UpdatePetUsecase {
 
   UpdatePetUsecase({required this.repository});
 
-  Future<PetEntity> call(PetEntity pet, String userId, File? img) {
-    return repository.updatePet(pet, userId, img);
+  Future<PetEntity> call(PetEntity pet, File? img) {
+    return repository.updatePet(pet, img);
   }
 }

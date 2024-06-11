@@ -16,7 +16,6 @@ class CardPetWidget extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: GestureDetector(
         onTap: () => context.push('/petdetail', extra: petWatch.pet),
-        // context.push('/petdetail/update', extra: true);
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(16)),
           child: Stack(

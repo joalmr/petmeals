@@ -12,17 +12,15 @@ import 'package:petmeals/src/core/app/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:petmeals/src/shared/shared.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../shared/shared.dart';
 
 class PetAddPage extends StatefulWidget {
   const PetAddPage({
     super.key,
-    required this.update,
+    required this.myPet,
   });
-
-  final bool update;
+  final PetEntity? myPet;
 
   @override
   State<PetAddPage> createState() => _PetAddPageState();
@@ -33,6 +31,8 @@ class _PetAddPageState extends State<PetAddPage> {
 
   final controllerName = TextEditingController();
   final controllerDate = TextEditingController();
+
+  late bool update;
 
   ValueNotifier<XFile?> imagen = ValueNotifier(null);
   ValueNotifier<FileImage?> imageFile = ValueNotifier(null);
@@ -45,17 +45,17 @@ class _PetAddPageState extends State<PetAddPage> {
   @override
   void initState() {
     super.initState();
-    final petProvider = context.read<PetProvider>();
 
-    if (widget.update) {
-      controllerName.text = petProvider.pet!.name!;
-      controllerDate.text = format().format(petProvider.pet!.borndate!);
-      borndate.value = petProvider.pet!.borndate!;
-      specie.value = petProvider.pet!.specie!;
-      sex.value = petProvider.pet!.sex!;
-      sterillized.value = petProvider.pet!.sterillized!;
+    update = widget.myPet != null;
+
+    if (widget.myPet != null) {
+      controllerName.text = widget.myPet!.name!;
+      controllerDate.text = format().format(widget.myPet!.borndate!);
+      borndate.value = widget.myPet!.borndate!;
+      specie.value = widget.myPet!.specie!;
+      sex.value = widget.myPet!.sex!;
+      sterillized.value = widget.myPet!.sterillized!;
     } else {
-      // petProvider.pet = null;
       if (controllerDate.text.isEmpty) {
         controllerDate.text = format().format(DateTime.now());
       }
@@ -64,12 +64,10 @@ class _PetAddPageState extends State<PetAddPage> {
 
   @override
   Widget build(BuildContext context) {
-    final petProvider = context.read<PetProvider>();
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.update ? 'Editar mascota' : 'Agregar mascota',
+          update ? 'Editar mascota' : 'Agregar mascota',
         ),
       ),
       body: SafeArea(
@@ -96,8 +94,7 @@ class _PetAddPageState extends State<PetAddPage> {
                             Align(
                               alignment: Alignment.center,
                               child: AddImage(
-                                update: widget.update,
-                                petUpd: petProvider.pet,
+                                petUpdate: widget.myPet,
                                 imagen: imagen,
                                 imageFile: imageFile,
                               ),
@@ -132,16 +129,14 @@ class _PetAddPageState extends State<PetAddPage> {
                             //Todo:
                             //* Btn Agregar
                             ButtonPrimary(
-                              onPressed: () => validateForm(
-                                petProvider: petProvider,
-                              ),
+                              onPressed: () => validateForm(),
                               child: Text(
-                                petProvider.pet != null
+                                widget.myPet != null
                                     ? 'Guardar'
                                     : 'Agregar mascota',
                               ),
                             ),
-                            widget.update
+                            update
                                 ? Padding(
                                     padding: const EdgeInsets.only(
                                       top: 18,
@@ -151,9 +146,7 @@ class _PetAddPageState extends State<PetAddPage> {
                                     child: ButtonSecondary(
                                       text: 'Eliminar mascota',
                                       color: mandy,
-                                      onPressed: () => deletePet(
-                                        petProvider: petProvider,
-                                      ),
+                                      onPressed: () => deletePet(),
                                     ),
                                   )
                                 : const SizedBox(),
@@ -168,13 +161,14 @@ class _PetAddPageState extends State<PetAddPage> {
     );
   }
 
-  void validateForm({required PetProvider petProvider}) {
+  void validateForm() {
+    final petProvider = context.read<PetProvider>();
     if (formKey.currentState!.validate()) {
       setState(() {
         loading.value = true;
       });
 
-      if (!widget.update) {
+      if (!update) {
         if (imageFile.value == null) {
           snackBar(
             negativeColor,
@@ -202,7 +196,7 @@ class _PetAddPageState extends State<PetAddPage> {
           );
         }
       } else {
-        var updatePet = PetModel.fromEntity(petProvider.pet!).copyWith(
+        var updatePet = PetModel.fromEntity(widget.myPet!).copyWith(
           name: controllerName.text,
           borndate: borndate.value,
           specie: specie.value,
@@ -224,9 +218,10 @@ class _PetAddPageState extends State<PetAddPage> {
         );
       }
     }
-  } //Valida
+  }
 
-  void deletePet({required PetProvider petProvider}) {
+  void deletePet() {
+    final petProvider = context.read<PetProvider>();
     showDialog(
       context: context,
       builder: (context) {
@@ -240,7 +235,7 @@ class _PetAddPageState extends State<PetAddPage> {
                   foregroundColor: WidgetStatePropertyAll(mandy)),
               onPressed: () {
                 setState(() => loading.value = true);
-                petProvider.deletePet(petProvider.pet!.id!).then(
+                petProvider.deletePet(widget.myPet!.id!).then(
                       (value) => context.go('/home'),
                     );
               },
@@ -254,5 +249,5 @@ class _PetAddPageState extends State<PetAddPage> {
         );
       },
     );
-  } //Elimina
+  }
 }

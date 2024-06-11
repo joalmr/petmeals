@@ -6,5 +6,5 @@ abstract class PetRepository {
   Future<void> deletePet(String petId);
   Stream<List<PetEntity>> loadPets(String userId);
   Future<List<PetEntity>> getPets(String userId);
-  Future<PetEntity> updatePet(PetEntity pet, String userId, File? img);
+  Future<PetEntity> updatePet(PetEntity pet, File? img);
 }

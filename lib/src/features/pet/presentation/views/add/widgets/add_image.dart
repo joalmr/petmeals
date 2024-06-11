@@ -9,15 +9,13 @@ import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 class AddImage extends StatefulWidget {
   const AddImage({
     super.key,
-    required this.petUpd,
+    required this.petUpdate,
     required this.imagen,
     required this.imageFile,
-    required this.update,
   });
-  final PetEntity? petUpd;
+  final PetEntity? petUpdate;
   final ValueNotifier<XFile?> imagen;
   final ValueNotifier<FileImage?> imageFile;
-  final bool update;
 
   @override
   State<AddImage> createState() => _AddImageState();
@@ -65,12 +63,12 @@ class _AddImageState extends State<AddImage> {
                         fit: BoxFit.cover,
                       ),
                     )
-                  : widget.update
+                  : widget.petUpdate != null
                       ? ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(20)),
                           child: CachedNetworkImage(
-                            imageUrl: widget.petUpd!.photo!,
+                            imageUrl: widget.petUpdate!.photo!,
                             fit: BoxFit.cover,
                           ),
                         )

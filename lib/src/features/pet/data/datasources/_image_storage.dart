@@ -4,8 +4,10 @@ import 'package:petmeals/src/core/error/failure.dart';
 
 final FirebaseStorage storage = FirebaseStorage.instance;
 
-Future<String> uploadImage(File image, String petId) async {
+Future<String> uploadImage(File? image, String petId) async {
   try {
+    if (image == null) return '';
+
     Reference ref =
         storage.ref().child('images').child('pets').child(petId).child('image');
 

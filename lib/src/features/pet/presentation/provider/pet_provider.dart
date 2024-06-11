@@ -57,30 +57,24 @@ class PetProvider extends ChangeNotifier {
   }
 
   Future<PetEntity?> updatePet(PetEntity updatePet, File? img) async {
-    final update = await updatePetUsecase(updatePet, userId, img);
+    final update = await updatePetUsecase(updatePet, img);
     return update;
   }
 
   Future<PetEntity?> foodPet(PetEntity updatePet) async {
     Logger().w(updatePet);
-    final petUpdated = await updatePetUsecase(updatePet, userId, null);
+    final petUpdated = await updatePetUsecase(updatePet, null);
     return petUpdated;
   }
 
   Future<PetEntity?> actionPet(PetEntity updatePet) async {
     Logger().w(updatePet);
-    final petUpdated = await updatePetUsecase(updatePet, userId, null);
+    final petUpdated = await updatePetUsecase(updatePet, null);
     return petUpdated;
   }
 
   deletePet(String petId) async {
     deletePetUsecase(petId);
-  }
-
-  //Atenciones
-  runAttentions(String petId) {
-    getAttentions(petId);
-    // getNextAttentions(petId);
   }
 
   getAttentions(String petId) async {
@@ -107,15 +101,21 @@ class PetProvider extends ChangeNotifier {
     runAttentions(petId);
   }
 
-  //* Funciones
-  notAttention(int index) {
-    attentions.removeAt(index);
-    notifyListeners();
-  }
-
+  //Mascotas
   void myPet(PetEntity myPet) {
     pet = myPet;
     getNextAttentions(myPet.id!);
+    notifyListeners();
+  }
+
+  //Atenciones
+  runAttentions(String petId) {
+    getAttentions(petId);
+    // getNextAttentions(petId);
+  }
+
+  notAttention(int index) {
+    attentions.removeAt(index);
     notifyListeners();
   }
 }
