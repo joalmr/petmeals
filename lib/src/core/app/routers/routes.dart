@@ -1,7 +1,7 @@
 import 'package:petmeals/src/core/app/storage/storage.data.dart';
+import 'package:petmeals/src/features/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/history/pet_history.dart';
 import 'package:petmeals/src/features/pet/presentation/views/home/home.dart';
-import 'package:petmeals/old/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/features/pet/presentation/views/add/pet_add.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/pet_detail.dart';
 import 'package:flutter/material.dart';

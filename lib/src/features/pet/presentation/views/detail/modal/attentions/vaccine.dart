@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:petmeals/src/core/app/styles/colors/colors.dart';
+import 'package:petmeals/src/features/pet/domain/entities/attention.dart';
 import 'package:petmeals/src/shared/shared.dart';
-import 'package:petmeals/old/pet/data/models/attentions_model.dart';
 import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -148,7 +148,7 @@ class _VaccinePageState extends State<VaccinePage> {
                       final mm = controllerDate.text.split('-')[1];
                       final yyyy = controllerDate.text.split('-')[2];
 
-                      AttentionsModel attention = AttentionsModel(
+                      Attention attention = Attention(
                         type: 'vaccine',
                         product: controllerProduct.text,
                         date: DateTime.parse('$yyyy-$mm-$dd'),

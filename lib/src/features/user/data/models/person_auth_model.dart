@@ -10,7 +10,7 @@ class PersonAuthModel extends PersonAuth {
     super.lastname,
   );
 
-  factory PersonAuthModel.fromJson(Map<String, dynamic> json) {
+  factory PersonAuthModel.fromJson(json) {
     return PersonAuthModel(
       json['id'] as String,
       json['gender'] as int,

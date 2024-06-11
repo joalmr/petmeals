@@ -1,4 +1,7 @@
-class Pet {
+import 'package:equatable/equatable.dart';
+import 'package:petmeals/src/features/pet/data/models/pet_model.dart';
+
+class PetEntity extends Equatable {
   final String? id;
   final List<String>? actions;
   final int? age;
@@ -11,7 +14,7 @@ class Pet {
   final bool? sterillized;
   final List<String>? userId;
 
-  Pet({
+  const PetEntity({
     this.id,
     this.actions,
     this.age,
@@ -24,4 +27,35 @@ class Pet {
     this.sterillized,
     this.userId,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        actions,
+        age,
+        borndate,
+        foods,
+        name,
+        photo,
+        sex,
+        specie,
+        sterillized,
+        userId,
+      ];
+
+  factory PetEntity.toEntity(PetModel model) {
+    return PetEntity(
+      id: model.id,
+      actions: model.actions,
+      age: model.age,
+      borndate: model.borndate,
+      foods: model.foods,
+      name: model.name,
+      photo: model.photo,
+      sex: model.sex,
+      specie: model.specie,
+      sterillized: model.sterillized,
+      userId: model.userId,
+    );
+  }
 }

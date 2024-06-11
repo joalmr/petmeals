@@ -1,7 +1,7 @@
 import 'package:petmeals/src/features/pet/domain/entities/attention.dart';
 
 class AttentionModel extends Attention {
-  AttentionModel({
+  const AttentionModel({
     super.id,
     super.date,
     super.nextDate,
@@ -9,13 +9,14 @@ class AttentionModel extends Attention {
     super.type,
   });
 
-  factory AttentionModel.fromJson(Map<String, dynamic> json) {
+  factory AttentionModel.fromJson(json) {
     return AttentionModel(
-      id: json['id'],
-      date: json['date'],
-      nextDate: json['nextDate'],
-      product: json['product'],
-      type: json['type'],
+      id: json['id'] as String?,
+      date:
+          json['date'] == null ? null : DateTime.parse(json['date'] as String),
+      nextDate: (json['nextDate'] as num?)?.toInt(),
+      product: json['product'] as String?,
+      type: json['type'] as String?,
     );
   }
 
@@ -26,5 +27,31 @@ class AttentionModel extends Attention {
       'product': product,
       'type': type,
     };
+  }
+
+  AttentionModel copyWith({
+    String? id,
+    DateTime? date,
+    int? nextDate,
+    String? product,
+    String? type,
+  }) {
+    return AttentionModel(
+      id: id ?? this.id,
+      date: date ?? this.date,
+      nextDate: nextDate ?? this.nextDate,
+      product: product ?? this.product,
+      type: type ?? this.type,
+    );
+  }
+
+  factory AttentionModel.fromEntity(Attention attention) {
+    return AttentionModel(
+      id: attention.id,
+      date: attention.date,
+      nextDate: attention.nextDate,
+      product: attention.product,
+      type: attention.type,
+    );
   }
 }

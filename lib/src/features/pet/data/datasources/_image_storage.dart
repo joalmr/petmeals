@@ -1,7 +1,6 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:logger/logger.dart';
+import 'package:petmeals/src/core/error/failure.dart';
 
 final FirebaseStorage storage = FirebaseStorage.instance;
 
@@ -12,13 +11,12 @@ Future<String> uploadImage(File image, String petId) async {
 
     final UploadTask uploadTask = ref.putFile(image);
     final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => true);
-    inspect(taskSnapshot);
+
     final String url = await taskSnapshot.ref.getDownloadURL();
-    log(url);
+
     return url;
-  } catch (e) {
-    Logger().e('uploadImage', error: e);
-    return '';
+  } on FirebaseException catch (e) {
+    throw ServerFailure(message: e.stackTrace.toString());
   }
 }
 
@@ -28,7 +26,7 @@ void deleteImage(String petId) async {
         storage.ref().child('images').child('pets').child(petId).child('image');
 
     desertRef.delete();
-  } catch (e) {
-    Logger().e('deleteImage', error: e);
+  } on FirebaseException catch (e) {
+    throw ServerFailure(message: e.stackTrace.toString());
   }
 }

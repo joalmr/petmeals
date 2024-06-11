@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petmeals/src/core/app/styles/colors/colors.dart';
-import 'package:petmeals/old/pet/data/models/pet_model.dart';
+import 'package:petmeals/src/features/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/history/attentions/deworming.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/history/attentions/grooming.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/history/attentions/vaccine.dart';

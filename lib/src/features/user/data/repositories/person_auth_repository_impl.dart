@@ -8,12 +8,13 @@ class PersonAuthRepositoryImpl implements PersonAuthRepository {
 
   //?? aca debo usar dartz
   @override
-  Future<UserCredential?> signInGoogle() {
-    return remoteDataSource.signInGoogle();
+  Future<UserCredential?> signInGoogle() async {
+    UserCredential? response = await remoteDataSource.signInGoogle();
+    return response;
   }
 
   @override
-  Future<void> signOut() {
-    return remoteDataSource.signOut();
+  Future<void> signOut() async {
+    return await remoteDataSource.signOut();
   }
 }

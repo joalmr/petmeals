@@ -10,10 +10,7 @@ class UserProvider extends ChangeNotifier {
   final SigninPersonAuthUsecase signInUsecase;
   final SignoutPersonAuthUsecase signOutUsecase;
 
-  UserProvider({
-    required this.signInUsecase,
-    required this.signOutUsecase,
-  });
+  UserProvider(this.signInUsecase, this.signOutUsecase);
 
   Future<User?> signInGoogle() async {
     final userResponse = await signInUsecase();

@@ -1,7 +1,7 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:petmeals/old/pet/data/models/pet_model.dart';
+import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/src/shared/shared.dart';
 import 'package:petmeals/src/core/app/styles/colors/colors.dart';
@@ -44,7 +44,7 @@ class _LeashPetPageState extends State<LeashPetPage> {
   Widget build(BuildContext context) {
     final petProvider = context.read<PetProvider>();
 
-    void actionPet(PetModel myActions) {
+    void actionPet(PetEntity myActions) {
       petProvider.actionPet(myActions).then(
         (value) {
           if (value != null) {
@@ -225,7 +225,7 @@ class _LeashPetPageState extends State<LeashPetPage> {
                   switch (leash) {
                     case 1:
                       {
-                        final myActions = petProvider.pet!.copyWith(
+                        final myActions = PetEntity(
                           actions: [
                             action[0].text,
                           ],
@@ -235,7 +235,7 @@ class _LeashPetPageState extends State<LeashPetPage> {
                       break;
                     case 2:
                       {
-                        final myActions = petProvider.pet!.copyWith(
+                        final myActions = PetEntity(
                           actions: [
                             action[0].text,
                             action[1].text,
@@ -246,7 +246,7 @@ class _LeashPetPageState extends State<LeashPetPage> {
                       break;
                     case 3:
                       {
-                        final myActions = petProvider.pet!.copyWith(
+                        final myActions = PetEntity(
                           actions: [
                             action[0].text,
                             action[1].text,

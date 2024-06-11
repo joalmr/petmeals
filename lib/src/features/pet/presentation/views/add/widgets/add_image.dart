@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petmeals/src/core/app/styles/colors/colors.dart';
-import 'package:petmeals/old/pet/data/models/pet_model.dart';
+import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 
 class AddImage extends StatefulWidget {
   const AddImage({
@@ -14,7 +14,7 @@ class AddImage extends StatefulWidget {
     required this.imageFile,
     required this.update,
   });
-  final PetModel? petUpd;
+  final PetEntity? petUpd;
   final ValueNotifier<XFile?> imagen;
   final ValueNotifier<FileImage?> imageFile;
   final bool update;

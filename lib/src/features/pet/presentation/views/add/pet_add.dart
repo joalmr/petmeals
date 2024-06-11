@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:lottie/lottie.dart';
-import 'package:petmeals/old/pet/data/models/pet_model.dart';
+import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 import 'package:petmeals/src/features/pet/presentation/views/add/widgets/add_image.dart';
 import 'package:petmeals/src/features/pet/presentation/views/add/widgets/borndate.dart';
 import 'package:petmeals/src/features/pet/presentation/views/add/widgets/select_sex.dart';
@@ -182,7 +182,7 @@ class _PetAddPageState extends State<PetAddPage> {
           );
           setState(() => loading.value = false);
         } else {
-          var newPet = PetModel(
+          var newPet = PetEntity(
             name: controllerName.text,
             borndate: borndate.value,
             specie: specie.value,
@@ -201,7 +201,7 @@ class _PetAddPageState extends State<PetAddPage> {
           );
         }
       } else {
-        var updatePet = petProvider.pet!.copyWith(
+        var updatePet = PetEntity(
           name: controllerName.text,
           borndate: borndate.value,
           specie: specie.value,

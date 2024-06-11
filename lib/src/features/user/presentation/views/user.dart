@@ -45,7 +45,7 @@ class UserPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(32.0),
                 child: ButtonPrimary(
                   color: mandy,
                   child: const Text('Cerrar sesión'),

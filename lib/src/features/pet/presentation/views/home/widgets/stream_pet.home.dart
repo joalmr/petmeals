@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lottie/lottie.dart';
 import 'package:petmeals/src/core/app/styles/colors/colors.dart';
-import 'package:petmeals/old/pet/data/models/pet_model.dart';
+import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/modal/attentions/deworming.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/modal/attentions/grooming.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/modal/attentions/vaccine.dart';
@@ -13,14 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class ListPetWidget extends StatelessWidget {
-  const ListPetWidget({super.key});
+class StreamPetWidget extends StatelessWidget {
+  const StreamPetWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final petProvider = context.read<PetProvider>();
 
-    return StreamBuilder<List<PetModel>>(
+    return StreamBuilder<List<PetEntity>>(
       stream: petProvider.loadStream(),
       builder: (context, snapshot) {
         if (!snapshot.hasData ||
@@ -39,9 +39,12 @@ class ListPetWidget extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonPrimary(
-                onPressed: () => context.push('/add', extra: false),
-                child: const Text("Agregar mascota"),
+              Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: ButtonPrimary(
+                  onPressed: () => context.push('/add', extra: false),
+                  child: const Text("Agregar mascota"),
+                ),
               ),
               const SizedBox(height: 32),
               const Text('No tiene mascotas'),
