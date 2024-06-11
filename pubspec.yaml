@@ -4,7 +4,8 @@ publish_to: "none"
 version: 0.2.1
 
 environment:
-  sdk: ">=3.4.0 <4.0.0" #">=3.1.0 <4.0.0"
+  sdk: ">=3.4.0 <4.0.0"
+  #">=3.1.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -36,7 +37,6 @@ dependencies:
   lottie: ^3.0.0
   time_parser: ^1.2.1
 
-  # dio: ^5.4.3+1
   # dartz: ^0.10.1
   # hive: ^2.2.3
   # hive_flutter: ^1.1.0
