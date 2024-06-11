@@ -1,8 +1,9 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
+import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/modal/actions/food.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/modal/actions/leash.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/modal/actions/litter.dart';
@@ -14,23 +15,30 @@ import 'package:petmeals/src/core/app/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:petmeals/src/features/pet/presentation/widgets/edit.pet.dart';
+import 'package:petmeals/src/shared/shared.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../shared/shared.dart';
-
 class PetDetailPage extends StatefulWidget {
-  const PetDetailPage({super.key});
+  const PetDetailPage({super.key, required this.myPet});
+  final PetEntity myPet;
 
   @override
   State<PetDetailPage> createState() => _PetDetailPageState();
 }
 
 class _PetDetailPageState extends State<PetDetailPage> {
+  late ValueNotifier<PetEntity> myPetEdited =
+      ValueNotifier<PetEntity>(widget.myPet);
+
   @override
   void initState() {
     super.initState();
     final petProvider = context.read<PetProvider>();
-    Future.microtask(() => petProvider.getAttentions(petProvider.pet!.id!));
+    Future.microtask(() => petProvider.getAttentions(myPetEdited.value.id!));
+
+    myPetEdited.addListener(() {
+      Logger().w('cambio: ${myPetEdited.value.toString()}');
+    });
   }
 
   @override
@@ -51,7 +59,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                   height: 220,
                   width: double.maxFinite,
                   child: Image(
-                    image: CachedNetworkImageProvider(petProvider.pet!.photo!),
+                    image: CachedNetworkImageProvider(myPetEdited.value.photo!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -100,21 +108,21 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    petProvider.pet!.name!,
+                                    myPetEdited.value.name!,
                                     style: const TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    '${petProvider.pet!.age!} ${petProvider.pet!.age == 1 ? 'año' : 'años'}',
+                                    '${myPetEdited.value.age!} ${myPetEdited.value.age == 1 ? 'año' : 'años'}',
                                     style: const TextStyle(
                                       color: kPrimaryColor,
                                       fontSize: 14,
                                     ),
                                   ),
                                   Text(
-                                    petProvider.pet!.sterillized!
+                                    myPetEdited.value.sterillized!
                                         ? 'Estirilizado'
                                         : 'No esterilizado',
                                     style: const TextStyle(
@@ -123,7 +131,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                   ),
                                 ],
                               ),
-                              petProvider.pet!.sex!
+                              myPetEdited.value.sex!
                                   ? Container(
                                       decoration: const BoxDecoration(
                                         color: Color(0xFF52B5E9),
@@ -178,7 +186,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                         backgroundColor: kBackgroundColor,
                         showDragHandle: true,
                         builder: (ctx) {
-                          return const FoodPetPage();
+                          return FoodPetPage(myPet: myPetEdited);
                         },
                       );
                     },
@@ -213,16 +221,16 @@ class _PetDetailPageState extends State<PetDetailPage> {
                   ),
                   const SizedBox(width: 16),
                   Visibility(
-                    visible: petProvider.pet!.specie! != 2,
+                    visible: myPetEdited.value.specie! != 2,
                     child: GestureDetector(
                       onTap: () {
-                        if (petProvider.pet!.specie == 0) {
+                        if (myPetEdited.value.specie == 0) {
                           showModalBottomSheet(
                             context: context,
                             backgroundColor: kBackgroundColor,
                             showDragHandle: true,
                             builder: (ctx) {
-                              return const LitterPetPage();
+                              return LitterPetPage(myPet: myPetEdited);
                             },
                           );
                         } else {
@@ -231,7 +239,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                             backgroundColor: kBackgroundColor,
                             showDragHandle: true,
                             builder: (ctx) {
-                              return const LeashPetPage();
+                              return LeashPetPage(myPet: myPetEdited);
                             },
                           );
                         }
@@ -251,14 +259,14 @@ class _PetDetailPageState extends State<PetDetailPage> {
                             child: Column(
                               children: [
                                 SvgPicture.asset(
-                                  petProvider.pet!.specie! == 0
+                                  myPetEdited.value.specie! == 0
                                       ? 'assets/images/icons/cat-litter.svg'
                                       : 'assets/images/icons/leash.svg',
                                   height: 40,
                                   width: 40,
                                 ),
                                 Text(
-                                  petProvider.pet!.specie! == 0
+                                  myPetEdited.value.specie! == 0
                                       ? 'Arena'
                                       : 'Paseos',
                                   style: const TextStyle(fontSize: 10),
@@ -270,29 +278,6 @@ class _PetDetailPageState extends State<PetDetailPage> {
                       ),
                     ),
                   ),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     petProvider.getAttentions(
-                  //       petProvider.pet!.id!,
-                  //       'deworming',
-                  //     );
-                  //     context.push('/petdetail/history',
-                  //         extra: petProvider.pet);
-                  //   },
-                  //   child: const Column(
-                  //     children: [
-                  //       Icon(
-                  //         Icons.book_outlined,
-                  //         color: Colors.black,
-                  //         size: 42,
-                  //       ),
-                  //       Text(
-                  //         'Historial',
-                  //         style: TextStyle(fontSize: 10),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // )
                 ],
               ),
             ),
@@ -342,7 +327,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                     onPressed: () {
                                       petProvider.deleteAttention(
                                         petProvider.attentions[index].id!,
-                                        petProvider.pet!.id!,
+                                        myPetEdited.value.id!,
                                       );
                                       petProvider.notAttention(index);
                                       context.pop();

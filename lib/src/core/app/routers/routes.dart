@@ -1,6 +1,5 @@
 import 'package:petmeals/src/core/app/storage/storage.data.dart';
-import 'package:petmeals/src/features/pet/data/models/pet_model.dart';
-import 'package:petmeals/src/features/pet/presentation/views/detail/history/pet_history.dart';
+import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 import 'package:petmeals/src/features/pet/presentation/views/home/home.dart';
 import 'package:petmeals/src/features/pet/presentation/views/add/pet_add.dart';
 import 'package:petmeals/src/features/pet/presentation/views/detail/pet_detail.dart';
@@ -40,10 +39,14 @@ final GoRouter goRouter = GoRouter(
         );
       },
     ),
+    //context.push('/petdetail/update', extra: true);
     GoRoute(
       path: '/petdetail',
       builder: (BuildContext context, GoRouterState state) {
-        return const PetDetailPage();
+        var myPet = state.extra as PetEntity;
+        return PetDetailPage(
+          myPet: myPet,
+        );
       },
       routes: <RouteBase>[
         GoRoute(
@@ -53,13 +56,6 @@ final GoRouter goRouter = GoRouter(
             return PetAddPage(
               update: update,
             );
-          },
-        ),
-        GoRoute(
-          path: 'history',
-          builder: (BuildContext context, GoRouterState state) {
-            var pet = state.extra as PetModel;
-            return PetHistoryPage(pet: pet);
           },
         ),
       ],

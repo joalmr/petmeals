@@ -1,11 +1,13 @@
-class PersonAuthEntity {
+import 'package:equatable/equatable.dart';
+
+class PersonAuthEntity extends Equatable {
   final String? id;
   final int? gender;
   final String? name;
   final String? photo;
   final String? email;
   final String? lastname;
-  PersonAuthEntity(
+  const PersonAuthEntity(
     this.id,
     this.gender,
     this.name,
@@ -13,4 +15,14 @@ class PersonAuthEntity {
     this.email,
     this.lastname,
   );
+
+  @override
+  List<Object?> get props => [
+        id,
+        gender,
+        name,
+        photo,
+        email,
+        lastname,
+      ];
 }

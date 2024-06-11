@@ -1,6 +1,7 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:petmeals/src/features/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/src/shared/shared.dart';
@@ -8,7 +9,8 @@ import 'package:petmeals/src/core/app/styles/colors/colors.dart';
 import 'package:provider/provider.dart';
 
 class LitterPetPage extends StatefulWidget {
-  const LitterPetPage({super.key});
+  const LitterPetPage({super.key, required this.myPet});
+  final ValueNotifier<PetEntity> myPet;
 
   @override
   State<LitterPetPage> createState() => _LitterPetPageState();
@@ -27,11 +29,11 @@ class _LitterPetPageState extends State<LitterPetPage> {
   @override
   void initState() {
     super.initState();
-    final petProvider = context.read<PetProvider>();
-    if (petProvider.pet!.actions != null) {
-      for (var i = 0; i < petProvider.pet!.actions!.length; i++) {
-        if (petProvider.pet!.actions![i].isNotEmpty) {
-          action[i].text = petProvider.pet!.actions![i];
+
+    if (widget.myPet.value.actions != null) {
+      for (var i = 0; i < widget.myPet.value.actions!.length; i++) {
+        if (widget.myPet.value.actions![i].isNotEmpty) {
+          action[i].text = widget.myPet.value.actions![i];
           litter += 1;
         }
       }
@@ -44,10 +46,13 @@ class _LitterPetPageState extends State<LitterPetPage> {
   Widget build(BuildContext context) {
     final petProvider = context.read<PetProvider>();
 
-    void actionPet(PetEntity myActions) {
-      petProvider.actionPet(myActions).then(
+    void actionPet(List<String> myActions) {
+      final updateActions =
+          PetModel.fromEntity(widget.myPet.value).copyWith(actions: myActions);
+      petProvider.actionPet(updateActions).then(
         (value) {
           if (value != null) {
+            widget.myPet.value = value;
             context.pop();
             snackBar(
               positiveColor,
@@ -225,34 +230,28 @@ class _LitterPetPageState extends State<LitterPetPage> {
                   switch (litter) {
                     case 1:
                       {
-                        final myActions = PetEntity(
-                          actions: [
-                            action[0].text,
-                          ],
-                        );
+                        final myActions = [
+                          action[0].text,
+                        ];
                         actionPet(myActions);
                       }
                       break;
                     case 2:
                       {
-                        final myActions = PetEntity(
-                          actions: [
-                            action[0].text,
-                            action[1].text,
-                          ],
-                        );
+                        final myActions = [
+                          action[0].text,
+                          action[1].text,
+                        ];
                         actionPet(myActions);
                       }
                       break;
                     case 3:
                       {
-                        final myActions = PetEntity(
-                          actions: [
-                            action[0].text,
-                            action[1].text,
-                            action[2].text,
-                          ],
-                        );
+                        final myActions = [
+                          action[0].text,
+                          action[1].text,
+                          action[2].text,
+                        ];
                         actionPet(myActions);
                       }
                       break;

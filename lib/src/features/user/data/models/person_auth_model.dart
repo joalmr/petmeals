@@ -1,7 +1,7 @@
 import 'package:petmeals/src/features/user/domain/entities/person_auth.dart';
 
 class PersonAuthModel extends PersonAuthEntity {
-  PersonAuthModel(
+  const PersonAuthModel(
     super.id,
     super.gender,
     super.name,

@@ -1,6 +1,7 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:petmeals/src/features/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/src/shared/shared.dart';
@@ -8,7 +9,8 @@ import 'package:petmeals/src/core/app/styles/colors/colors.dart';
 import 'package:provider/provider.dart';
 
 class FoodPetPage extends StatefulWidget {
-  const FoodPetPage({super.key});
+  const FoodPetPage({super.key, required this.myPet});
+  final ValueNotifier<PetEntity> myPet;
 
   @override
   State<FoodPetPage> createState() => _FoodPetPageState();
@@ -27,11 +29,11 @@ class _FoodPetPageState extends State<FoodPetPage> {
   @override
   void initState() {
     super.initState();
-    final petProvider = context.read<PetProvider>();
-    if (petProvider.pet!.foods != null) {
-      for (var i = 0; i < petProvider.pet!.foods!.length; i++) {
-        if (petProvider.pet!.foods![i].isNotEmpty) {
-          food[i].text = petProvider.pet!.foods![i];
+
+    if (widget.myPet.value.foods != null) {
+      for (var i = 0; i < widget.myPet.value.foods!.length; i++) {
+        if (widget.myPet.value.foods![i].isNotEmpty) {
+          food[i].text = widget.myPet.value.foods![i];
           foods += 1;
         }
       }
@@ -44,10 +46,13 @@ class _FoodPetPageState extends State<FoodPetPage> {
   Widget build(BuildContext context) {
     final petProvider = context.read<PetProvider>();
 
-    void foodPet(PetEntity myFoods) {
-      petProvider.foodPet(myFoods).then(
+    void foodPet(List<String> myfoods) {
+      final updateFood =
+          PetModel.fromEntity(widget.myPet.value).copyWith(foods: myfoods);
+      petProvider.foodPet(updateFood).then(
         (value) {
           if (value != null) {
+            widget.myPet.value = value;
             context.pop();
             snackBar(
               positiveColor,
@@ -225,34 +230,28 @@ class _FoodPetPageState extends State<FoodPetPage> {
                   switch (foods) {
                     case 1:
                       {
-                        final myFoods = PetEntity(
-                          foods: [
-                            food[0].text,
-                          ],
-                        );
+                        final myFoods = [
+                          food[0].text,
+                        ];
                         foodPet(myFoods);
                       }
                       break;
                     case 2:
                       {
-                        final myFoods = PetEntity(
-                          foods: [
-                            food[0].text,
-                            food[1].text,
-                          ],
-                        );
+                        final myFoods = [
+                          food[0].text,
+                          food[1].text,
+                        ];
                         foodPet(myFoods);
                       }
                       break;
                     case 3:
                       {
-                        final myFoods = PetEntity(
-                          foods: [
-                            food[0].text,
-                            food[1].text,
-                            food[2].text,
-                          ],
-                        );
+                        final myFoods = [
+                          food[0].text,
+                          food[1].text,
+                          food[2].text,
+                        ];
                         foodPet(myFoods);
                       }
                       break;

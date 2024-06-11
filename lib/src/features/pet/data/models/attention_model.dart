@@ -22,7 +22,7 @@ class AttentionModel extends AttentionEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'date': date,
+      'date': date?.toIso8601String(),
       'nextDate': nextDate,
       'product': product,
       'type': type,

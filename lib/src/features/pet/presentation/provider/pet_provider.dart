@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:logger/logger.dart';
 import 'package:petmeals/src/core/app/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:petmeals/src/core/utils/constant/constant.dart' as global;
@@ -36,9 +37,7 @@ class PetProvider extends ChangeNotifier {
     this.deleteAttentionUsecase,
     this.getAttentionsUsecase,
     this.getNextAttentionsUsecase,
-  ) {
-    // loadStream();
-  }
+  );
 
   String userId = MyStorage().uid;
   //************
@@ -49,14 +48,7 @@ class PetProvider extends ChangeNotifier {
 
   //Mascota
   Stream<List<PetEntity>> loadStream() {
-    final response = loadPetsUsecase(global.userId ?? userId);
-    response.listen((eventPets) {
-      if (eventPets.isNotEmpty) {
-        myPet(eventPets.first);
-        getNextAttentions(eventPets.first.id!);
-      }
-    });
-    return response;
+    return loadPetsUsecase(global.userId ?? userId);
   }
 
   Future<bool> addPet(PetEntity newPet, File img) {
@@ -70,19 +62,15 @@ class PetProvider extends ChangeNotifier {
   }
 
   Future<PetEntity?> foodPet(PetEntity updatePet) async {
-    return await updatePetUsecase(updatePet, userId, null).then((value) {
-      pet = value;
-      notifyListeners();
-      return value;
-    });
+    Logger().w(updatePet);
+    final petUpdated = await updatePetUsecase(updatePet, userId, null);
+    return petUpdated;
   }
 
   Future<PetEntity?> actionPet(PetEntity updatePet) async {
-    return await updatePetUsecase(updatePet, userId, null).then((value) {
-      pet = value;
-      notifyListeners();
-      return value;
-    });
+    Logger().w(updatePet);
+    final petUpdated = await updatePetUsecase(updatePet, userId, null);
+    return petUpdated;
   }
 
   deletePet(String petId) async {
