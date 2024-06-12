@@ -183,7 +183,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                     onTap: () {
                       showModalBottomSheet(
                         context: context,
-                        backgroundColor: kBackgroundColor,
+                        backgroundColor: kContrastColor,
                         showDragHandle: true,
                         builder: (ctx) {
                           return FoodPetPage(myPet: myPetEdited);
@@ -198,7 +198,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                             border: Border.all(
                               color: kPrimaryColor,
                             ),
-                            color: kBackgroundColor,
+                            color: kContrastColor,
                           ),
                           height: 64,
                           width: 64,
@@ -227,7 +227,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                         if (myPetEdited.value.specie == 0) {
                           showModalBottomSheet(
                             context: context,
-                            backgroundColor: kBackgroundColor,
+                            backgroundColor: kContrastColor,
                             showDragHandle: true,
                             builder: (ctx) {
                               return LitterPetPage(myPet: myPetEdited);
@@ -236,7 +236,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                         } else {
                           showModalBottomSheet(
                             context: context,
-                            backgroundColor: kBackgroundColor,
+                            backgroundColor: kContrastColor,
                             showDragHandle: true,
                             builder: (ctx) {
                               return LeashPetPage(myPet: myPetEdited);
@@ -252,7 +252,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                               border: Border.all(
                                 color: kPrimaryColor,
                               ),
-                              color: kBackgroundColor,
+                              color: kContrastColor,
                             ),
                             height: 64,
                             width: 64,
@@ -435,7 +435,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
-                        backgroundColor: kBackgroundColor,
+                        backgroundColor: kContrastColor,
                         showDragHandle: true,
                         builder: (BuildContext context) {
                           int service = 0;
@@ -477,7 +477,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                                 color: kPrimaryColor),
                                             color: service == 1
                                                 ? kPrimaryColor
-                                                : kBackgroundColor,
+                                                : kContrastColor,
                                           ),
                                           width: 90,
                                           height: 100,
@@ -490,7 +490,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                                 child: Image.asset(
                                                   'assets/images/icons_att/deworming.png',
                                                   color: service == 1
-                                                      ? kBackgroundColor
+                                                      ? kContrastColor
                                                       : kPrimaryColor,
                                                 ),
                                               ),
@@ -499,7 +499,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   color: service == 1
-                                                      ? kBackgroundColor
+                                                      ? kContrastColor
                                                       : kPrimaryColor,
                                                 ),
                                               ),
@@ -521,7 +521,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                                 color: kPrimaryColor),
                                             color: service == 2
                                                 ? kPrimaryColor
-                                                : kBackgroundColor,
+                                                : kContrastColor,
                                           ),
                                           width: 90,
                                           height: 100,
@@ -534,7 +534,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                                 child: Image.asset(
                                                   'assets/images/icons_att/grooming.png',
                                                   color: service == 2
-                                                      ? kBackgroundColor
+                                                      ? kContrastColor
                                                       : kPrimaryColor,
                                                 ),
                                               ),
@@ -543,7 +543,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   color: service == 2
-                                                      ? kBackgroundColor
+                                                      ? kContrastColor
                                                       : kPrimaryColor,
                                                 ),
                                               ),
@@ -565,7 +565,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                                 color: kPrimaryColor),
                                             color: service == 3
                                                 ? kPrimaryColor
-                                                : kBackgroundColor,
+                                                : kContrastColor,
                                           ),
                                           width: 90,
                                           height: 100,
@@ -578,7 +578,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                                 child: Image.asset(
                                                   'assets/images/icons_att/vaccine.png',
                                                   color: service == 3
-                                                      ? kBackgroundColor
+                                                      ? kContrastColor
                                                       : kPrimaryColor,
                                                 ),
                                               ),
@@ -587,7 +587,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                                 style: TextStyle(
                                                   fontSize: 8,
                                                   color: service == 3
-                                                      ? kBackgroundColor
+                                                      ? kContrastColor
                                                       : kPrimaryColor,
                                                 ),
                                               ),
@@ -606,7 +606,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                       onPressed: () {
                                         showModalBottomSheet<void>(
                                           context: context,
-                                          backgroundColor: kBackgroundColor,
+                                          backgroundColor: kContrastColor,
                                           showDragHandle: true,
                                           isScrollControlled: true,
                                           builder: (ctx) {

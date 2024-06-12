@@ -51,7 +51,7 @@ class _AddImageState extends State<AddImage> {
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
               border: Border.all(color: kPrimaryColor),
-              color: kBackgroundColor,
+              color: kContrastColor,
             ),
             child: AspectRatio(
               aspectRatio: 1,

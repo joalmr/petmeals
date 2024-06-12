@@ -48,7 +48,8 @@ class PetProvider extends ChangeNotifier {
 
   //Mascota
   Stream<List<PetEntity>> loadStream() {
-    return loadPetsUsecase(global.userId ?? userId);
+    final loadingMyPets = loadPetsUsecase(global.userId ?? userId);
+    return loadingMyPets;
   }
 
   Future<bool> addPet(PetEntity newPet, File img) {
@@ -102,7 +103,7 @@ class PetProvider extends ChangeNotifier {
   }
 
   //Mascotas
-  void myPet(PetEntity myPet) {
+  void setPet(PetEntity myPet) {
     pet = myPet;
     getNextAttentions(myPet.id!);
     notifyListeners();

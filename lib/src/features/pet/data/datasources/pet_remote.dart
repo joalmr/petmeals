@@ -60,18 +60,14 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
 
   @override
   Future<List<PetModel>> getPets(String userId) async {
-    final docs = await ref
-        .where('userId', arrayContains: userId)
-        .get()
-        .then((value) => value.docs);
-
-    return docs.map((doc) => doc.data()).toList();
+    return [];
   }
 
   @override
   Stream<List<PetModel>> loadPets(String userId) {
     return ref
         .where('userId', arrayContains: userId)
+        .orderBy('borndate', descending: false)
         .snapshots()
         .map((event) => event.docs.map((e) => e.data()).toList());
   }
@@ -79,7 +75,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
   @override
   Future<PetModel> updatePet(PetEntity pet, File? image) async {
     try {
-      String? imgStorage; // PetModel petUpdate = pet;
+      String? imgStorage;
 
       imgStorage = await uploadImage(image, pet.id!);
       // PetModel.fromEntity(pet).copyWith(photo: imgStorage);

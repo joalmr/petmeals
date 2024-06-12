@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/src/features/pet/presentation/views/home/widgets/stream_pet.home.dart';
@@ -22,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     final petProvider = context.read<PetProvider>();
     subscription = petProvider.loadStream().listen((value) {
       if (value.isNotEmpty) {
-        petProvider.myPet(value.first);
+        petProvider.setPet(value.first);
         petProvider.getNextAttentions(value.first.id!);
       }
     });

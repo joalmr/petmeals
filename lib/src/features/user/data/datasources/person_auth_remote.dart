@@ -19,9 +19,9 @@ class PersonAuthRemoteDataSourceImpl implements PersonAuthRemoteDataSource {
         toFirestore: (user, _) => {},
       );
 
-  Future<String?> refreshTokenFirebase() async {
-    return FirebaseAuth.instance.currentUser?.refreshToken;
-  }
+  // Future<String?> refreshTokenFirebase() async {
+  //   return FirebaseAuth.instance.currentUser?.refreshToken;
+  // }
 
   @override
   Future<UserCredential?> signInGoogle() async {

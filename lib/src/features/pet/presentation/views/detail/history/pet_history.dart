@@ -79,7 +79,7 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                         "Desparasitación",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: kBackgroundColor,
+                          color: kContrastColor,
                         ),
                       ),
                     ),
@@ -105,7 +105,7 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                         "Baño",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: kBackgroundColor,
+                          color: kContrastColor,
                         ),
                       ),
                     ),
@@ -131,7 +131,7 @@ class _PetHistoryPageState extends State<PetHistoryPage> {
                         "Vacuna",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: kBackgroundColor,
+                          color: kContrastColor,
                         ),
                       ),
                     ),

@@ -1,13 +1,13 @@
 import 'dart:ui';
 
 const kPrimaryColor = Color(0xFF141415);
-// const kSecondaryColor = poloBlue;
+const kContrastColor = Color(0xFFffffff);
+const kBackgroundColor = Color(0xFFf2f4f7);
 
 //TEXTO
 const kTextColor = kPrimaryColor; //Color(0xFF5a5a5a);
-const kTextColorContrast = kBackgroundColor;
+const kTextColorContrast = kContrastColor;
 //FONDO
-const kBackgroundColor = Color(0xFFf4f4f4);
 
 // const givry = Color(0xFFf7d7c5);
 // const roseBud = Color(0xFFf8b296);

@@ -44,7 +44,7 @@ class PetModel extends PetEntity {
     return {
       'actions': actions,
       'borndate': Timestamp.fromDate(borndate!),
-      'created_at': DateTime.timestamp(),
+      // 'created_at': DateTime.timestamp(),
       'foods': foods,
       'name': name,
       'photo': photo,

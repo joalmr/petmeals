@@ -68,7 +68,7 @@ class StreamPetWidget extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 4),
                           child: GestureDetector(
-                            onTap: () => petProvider.myPet(element),
+                            onTap: () => petProvider.setPet(element),
                             child: Column(
                               children: [
                                 ClipRRect(
@@ -235,7 +235,7 @@ class StreamPetWidget extends StatelessWidget {
                                 onTap: () {
                                   showModalBottomSheet<void>(
                                     context: context,
-                                    backgroundColor: kBackgroundColor,
+                                    backgroundColor: kContrastColor,
                                     showDragHandle: true,
                                     isScrollControlled: true,
                                     builder: (ctx) {
