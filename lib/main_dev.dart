@@ -10,10 +10,10 @@ import 'package:get_storage/get_storage.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await GetStorage.init(); //remover
   await dotenv.load(fileName: ".env.dev");
   await init();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await GetStorage.init(); //remover
   // Development
   runApp(const MyApp());
 }
