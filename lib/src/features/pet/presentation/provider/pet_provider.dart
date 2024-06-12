@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:logger/logger.dart';
 import 'package:petmeals/src/core/app/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:petmeals/src/core/utils/constant/constant.dart' as global;
@@ -63,13 +62,11 @@ class PetProvider extends ChangeNotifier {
   }
 
   Future<PetEntity?> foodPet(PetEntity updatePet) async {
-    Logger().w(updatePet);
     final petUpdated = await updatePetUsecase(updatePet, null);
     return petUpdated;
   }
 
   Future<PetEntity?> actionPet(PetEntity updatePet) async {
-    Logger().w(updatePet);
     final petUpdated = await updatePetUsecase(updatePet, null);
     return petUpdated;
   }
@@ -103,16 +100,20 @@ class PetProvider extends ChangeNotifier {
   }
 
   //Mascotas
-  void setPet(PetEntity myPet) {
-    pet = myPet;
+  runPet(PetEntity myPet) {
+    setPet(myPet);
     getNextAttentions(myPet.id!);
+  }
+
+  setPet(PetEntity myPet) {
+    pet = myPet;
     notifyListeners();
   }
 
   //Atenciones
   runAttentions(String petId) {
     getAttentions(petId);
-    // getNextAttentions(petId);
+    getNextAttentions(petId);
   }
 
   notAttention(int index) {

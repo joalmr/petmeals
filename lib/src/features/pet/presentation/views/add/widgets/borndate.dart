@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 import 'package:petmeals/src/shared/widgets/textfield/textfield.dart';
 
 DateFormat format() {
@@ -32,7 +31,6 @@ class BornDate extends StatelessWidget {
           if (value != null) {
             controllerDate.text = format().format(value);
             borndate.value = value;
-            Logger().i(borndate);
           }
         });
       },

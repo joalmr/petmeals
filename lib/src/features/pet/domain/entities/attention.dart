@@ -4,10 +4,12 @@ class AttentionEntity extends Equatable {
   final String? id;
   final DateTime? date;
   final int? nextDate;
+  final DateTime? nextDateDuration;
   final String? product;
   final String? type;
 
   const AttentionEntity({
+    this.nextDateDuration,
     this.id,
     this.date,
     this.nextDate,
@@ -20,6 +22,7 @@ class AttentionEntity extends Equatable {
         id,
         date,
         nextDate,
+        nextDateDuration,
         product,
         type,
       ];

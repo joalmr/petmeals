@@ -37,7 +37,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
     Future.microtask(() => petProvider.getAttentions(myPetEdited.value.id!));
 
     myPetEdited.addListener(() {
-      Logger().w('cambio: ${myPetEdited.value.toString()}');
+      Logger().d('cambio estado del pet');
     });
   }
 

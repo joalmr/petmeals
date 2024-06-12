@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:petmeals/src/shared/platform_app.dart';
 
 class MyTextField extends StatelessWidget {
   final String textField;
   final TextEditingController? controller;
-  final PlatformApp? platformApp;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
@@ -18,7 +16,6 @@ class MyTextField extends StatelessWidget {
     super.key,
     required this.textField,
     this.controller,
-    this.platformApp = PlatformApp.ANDROID,
     this.inputFormatters,
     this.keyboardType,
     this.validator,

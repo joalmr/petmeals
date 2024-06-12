@@ -67,9 +67,6 @@ class AttentionRemoteDataSourceImpl implements AttentionRemoteDataSource {
         .get()
         .then((value) => value.docs);
 
-    // final myAttentions =
-    //     docs.map((doc) => AttentionModel.fromJson(doc.data())).toList();
-
     final myAttentions = docs.map((doc) {
       final attention = AttentionModel.fromJson(doc.data());
       final newPet = attention.copyWith(id: doc.id);
@@ -83,17 +80,14 @@ class AttentionRemoteDataSourceImpl implements AttentionRemoteDataSource {
 
     if (myAttentions.isNotEmpty) {
       for (var element in myAttentions) {
-        final DateTime next;
-        int days = 30 * (element.nextDate ?? 0);
-        next = element.date!.add(Duration(days: days));
+        final DateTime next = element.nextDateDuration!;
         switch (element.type) {
           case 'deworming':
             {
               if (deworming == null) {
                 deworming = element;
               } else {
-                int days2 = 30 * (deworming.nextDate ?? 0);
-                if (next.isBefore(deworming.date!.add(Duration(days: days2))) &&
+                if (next.isBefore(deworming.nextDateDuration!) &&
                     next.isAfter(
                         DateTime.now().add(const Duration(days: -7)))) {
                   deworming = element;
@@ -106,8 +100,7 @@ class AttentionRemoteDataSourceImpl implements AttentionRemoteDataSource {
               if (grooming == null) {
                 grooming = element;
               } else {
-                int days2 = 30 * (grooming.nextDate ?? 0);
-                if (next.isBefore(grooming.date!.add(Duration(days: days2))) &&
+                if (next.isBefore(grooming.nextDateDuration!) &&
                     next.isAfter(
                         DateTime.now().add(const Duration(days: -7)))) {
                   grooming = element;
@@ -120,9 +113,7 @@ class AttentionRemoteDataSourceImpl implements AttentionRemoteDataSource {
               if (vaccination == null) {
                 vaccination = element;
               } else {
-                int days2 = 30 * (vaccination.nextDate ?? 0);
-                if (next.isBefore(
-                        vaccination.date!.add(Duration(days: days2))) &&
+                if (next.isBefore(vaccination.nextDateDuration!) &&
                     next.isAfter(
                         DateTime.now().add(const Duration(days: -7)))) {
                   vaccination = element;

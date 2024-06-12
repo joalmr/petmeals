@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:logger/logger.dart';
 import 'package:petmeals/src/core/error/failure.dart';
 import 'package:petmeals/src/features/pet/data/datasources/_image_storage.dart';
 import 'package:petmeals/src/features/pet/data/models/pet_model.dart';
@@ -34,7 +33,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
           .then((tmpPet) async {
         String imgStorage = "";
         imgStorage = await uploadImage(image, tmpPet!.id!);
-        Logger().i(imgStorage);
+
         return ref
             .doc(tmpPet.id)
             .update(tmpPet.copyWith(photo: imgStorage).toJson())
@@ -78,9 +77,6 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
       String? imgStorage;
 
       imgStorage = await uploadImage(image, pet.id!);
-      // PetModel.fromEntity(pet).copyWith(photo: imgStorage);
-
-      Logger().i(imgStorage);
 
       return ref
           .doc(pet.id)

@@ -76,7 +76,6 @@ class _HomeTestState extends State<HomeTest> {
         accessToken: accessToken,
       );
     } catch (e) {
-      log(e.toString());
       throw Exception(e);
     }
   }

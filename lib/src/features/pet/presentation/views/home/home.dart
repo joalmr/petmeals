@@ -21,8 +21,7 @@ class _HomePageState extends State<HomePage> {
     final petProvider = context.read<PetProvider>();
     subscription = petProvider.loadStream().listen((value) {
       if (value.isNotEmpty) {
-        petProvider.setPet(value.first);
-        petProvider.getNextAttentions(value.first.id!);
+        petProvider.runPet(value.first);
       }
     });
 

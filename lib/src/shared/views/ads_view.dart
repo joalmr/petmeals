@@ -1,6 +1,6 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:logger/logger.dart';
 import 'package:petmeals/src/core/utils/constant/constant.dart' as global;
 
 class AdsView extends StatelessWidget {
@@ -12,17 +12,10 @@ class AdsView extends StatelessWidget {
     adUnitId: global.adUnitId,
     request: const AdRequest(),
     listener: BannerAdListener(
-      onAdLoaded: (ad) => log(
-        "Ad loaded",
-        name: "AdsView",
-      ),
+      onAdLoaded: (ad) => Logger().i("Ad loaded"),
       onAdFailedToLoad: (ad, error) {
         ad.dispose();
-        log(
-          "Ad failed to load:",
-          name: "AdsView",
-          error: error,
-        );
+        Logger().e("Ad failed to load:");
       },
     ),
   );

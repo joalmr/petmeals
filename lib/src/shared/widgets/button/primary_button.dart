@@ -1,18 +1,16 @@
 import 'package:petmeals/src/core/app/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:petmeals/src/shared/platform_app.dart';
 
 class ButtonPrimary extends StatelessWidget {
   final void Function()? onPressed;
   final Color color;
   final Widget child;
-  final PlatformApp platformApp;
+
   const ButtonPrimary({
     super.key,
     this.onPressed,
     required this.child,
     this.color = kPrimaryColor,
-    this.platformApp = PlatformApp.ANDROID,
   });
 
   Widget android() => SizedBox(

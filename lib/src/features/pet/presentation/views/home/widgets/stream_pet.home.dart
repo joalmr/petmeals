@@ -68,7 +68,7 @@ class StreamPetWidget extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 4),
                           child: GestureDetector(
-                            onTap: () => petProvider.setPet(element),
+                            onTap: () => petProvider.runPet(element),
                             child: Column(
                               children: [
                                 ClipRRect(
