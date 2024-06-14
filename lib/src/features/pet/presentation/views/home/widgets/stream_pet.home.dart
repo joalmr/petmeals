@@ -36,19 +36,20 @@ class StreamPetWidget extends StatelessWidget {
         final petData = snapshot.data!;
 
         if (petData.isEmpty) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: ButtonPrimary(
-                  onPressed: () => context.push('/add', extra: false),
-                  child: const Text("Agregar mascota"),
+          return Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('No tienes mascotas registradas'),
+                Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: ButtonPrimary(
+                    onPressed: () => context.push('/add', extra: false),
+                    child: const Text("Agregar mascota"),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 32),
-              const Text('No tiene mascotas'),
-            ],
+              ],
+            ),
           );
         }
 

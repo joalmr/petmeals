@@ -9,10 +9,10 @@ class AttentionEntity extends Equatable {
   final String? type;
 
   const AttentionEntity({
-    this.nextDateDuration,
     this.id,
     this.date,
     this.nextDate,
+    this.nextDateDuration,
     this.product,
     this.type,
   });
