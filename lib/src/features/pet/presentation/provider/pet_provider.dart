@@ -20,7 +20,7 @@ class PetProvider extends ChangeNotifier {
   final DeletePetUsecase deletePetUsecase;
   final GetPetsUsecase getPetsUsecase;
   final LoadPetsUsecase loadPetsUsecase;
-  final UpdatePetUsecase updatePetUsecase;
+  final UpdatePetUsecase updatePetUsecase; //
   final AddAttentionUseCase addAttentionUseCase;
   final DeleteAttentionUsecase deleteAttentionUsecase;
   final GetAttentionsUsecase getAttentionsUsecase;
@@ -31,7 +31,7 @@ class PetProvider extends ChangeNotifier {
     this.deletePetUsecase,
     this.getPetsUsecase,
     this.loadPetsUsecase,
-    this.updatePetUsecase,
+    this.updatePetUsecase, //
     this.addAttentionUseCase,
     this.deleteAttentionUsecase,
     this.getAttentionsUsecase,
@@ -39,13 +39,11 @@ class PetProvider extends ChangeNotifier {
   );
 
   String userId = MyStorage().uid;
-  //************
-  PetEntity? pet; //
-  List<AttentionEntity> attentions = []; //
-  List<AttentionEntity> nextAttentions = []; //
-  //************
 
-  //Mascota
+  PetEntity? pet;
+  List<AttentionEntity> attentions = [];
+  List<AttentionEntity> nextAttentions = [];
+
   Stream<List<PetEntity>> loadStream() {
     final loadingMyPets = loadPetsUsecase(global.userId ?? userId);
     return loadingMyPets;

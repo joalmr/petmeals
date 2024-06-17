@@ -26,6 +26,10 @@ dependencies:
   easy_mask: ^2.0.1
   equatable: ^2.0.5
   flutter_dotenv: ^5.1.0
+
+  flutter_image_compress: ^2.3.0
+  path: ^1.9.0
+  
   flutter_svg: ^2.0.7
   get_storage: ^2.1.1 #se va
   google_fonts: 6.1.0

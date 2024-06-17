@@ -14,7 +14,6 @@ Future<void> main() async {
   await init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GetStorage.init();
-
   // Production
   runApp(const MyApp());
 }
