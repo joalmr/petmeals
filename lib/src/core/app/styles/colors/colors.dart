@@ -15,6 +15,11 @@ const kTextColorContrast = kContrastColor;
 // const poloBlue = Color(0xFF7fa3cc);
 const mandy = Color(0xFFe84a5f);
 
-const positiveColor = Color(0xFF149b14);
-const negativeColor = Color(0xFF9b1414);
-const infoColor = Color(0xFF14149b);
+const positiveColor = Color(0xFF96C896);
+const negativeColor = Color(0xFFC89696);
+const infoColor = Color(0xFF9696C8);
+
+
+// C89696 rojo pastel
+// 96C896 verde pastel
+// 9696C8 azul pastel
