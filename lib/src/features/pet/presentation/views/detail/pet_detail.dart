@@ -349,10 +349,10 @@ class _PetDetailPageState extends State<PetDetailPage> {
                             ),
                             padding: const EdgeInsets.symmetric(
                               horizontal: 2,
-                              vertical: 12,
+                              vertical: 8,
                             ),
                             width: double.maxFinite,
-                            height: 64,
+                            // height: 64,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8),

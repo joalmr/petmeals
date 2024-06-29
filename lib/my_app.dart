@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => GetIt.instance.get<PetProvider>(),
-          lazy: true,
+          // lazy: true,
         ),
       ],
       child: MaterialApp.router(

@@ -59,7 +59,11 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
 
   @override
   Future<List<PetModel>> getPets(String userId) async {
-    return [];
+    return ref
+        .where('userId', arrayContains: userId)
+        .orderBy('borndate', descending: false)
+        .get()
+        .then((value) => value.docs.map((e) => e.data()).toList());
   }
 
   @override

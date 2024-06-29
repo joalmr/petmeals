@@ -36,41 +36,71 @@ class PetProvider extends ChangeNotifier {
     this.deleteAttentionUsecase,
     this.getAttentionsUsecase,
     this.getNextAttentionsUsecase,
-  );
+  ) {
+    initPetProvider();
+  }
 
   String userId = MyStorage().uid;
 
   PetEntity? pet;
+  List<PetEntity> pets = [];
+
   List<AttentionEntity> attentions = [];
   List<AttentionEntity> nextAttentions = [];
+
+  bool loading = true;
+
+  void initPetProvider() async {
+    await getPets();
+    if (pets.isNotEmpty) {
+      await runPet(pets.first);
+    }
+    loading = false;
+    notifyListeners();
+  }
 
   Stream<List<PetEntity>> loadStream() {
     final loadingMyPets = loadPetsUsecase(global.userId ?? userId);
     return loadingMyPets;
   }
 
+  getPets() async {
+    pets = await getPetsUsecase(global.userId ?? userId);
+    notifyListeners();
+  }
+
   Future<bool> addPet(PetEntity newPet, File img) {
-    return addPetUsecase(newPet, img)
+    final response = addPetUsecase(newPet, img)
         .then((value) => value.id != null ? true : false);
+
+    getPets();
+    return response;
   }
 
   Future<PetEntity?> updatePet(PetEntity updatePet, File? img) async {
     final update = await updatePetUsecase(updatePet, img);
+
+    getPets();
     return update;
   }
 
   Future<PetEntity?> foodPet(PetEntity updatePet) async {
     final petUpdated = await updatePetUsecase(updatePet, null);
+
+    getPets();
     return petUpdated;
   }
 
   Future<PetEntity?> actionPet(PetEntity updatePet) async {
     final petUpdated = await updatePetUsecase(updatePet, null);
+
+    getPets();
     return petUpdated;
   }
 
   deletePet(String petId) async {
     deletePetUsecase(petId);
+    getPets();
   }
 
   getAttentions(String petId) async {
