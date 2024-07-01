@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petmeals/src/features/pet/presentation/views/home/widgets/stream_pet.home.dart';
+import 'package:petmeals/src/features/pet/presentation/views/home/widgets/pets.home.dart';
 import 'package:petmeals/src/shared/views/ads_view.dart';
 import 'package:petmeals/src/features/pet/presentation/views/home/widgets/saludo.home.dart';
 
@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
         children: const [
           SaludoWidget(),
           SizedBox(height: 8),
-          StreamPetWidget(),
+          PetsWidget(),
         ],
       ),
     );

@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class StreamPetWidget extends StatelessWidget {
-  const StreamPetWidget({super.key});
+class PetsWidget extends StatelessWidget {
+  const PetsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
