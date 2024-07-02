@@ -101,8 +101,9 @@ class PetProvider extends ChangeNotifier {
   }
 
   deletePet(String petId) async {
-    deletePetUsecase(petId);
+    await deletePetUsecase(petId);
     getPets();
+    runPet(pets.first);
   }
 
   getAttentions(String petId) async {

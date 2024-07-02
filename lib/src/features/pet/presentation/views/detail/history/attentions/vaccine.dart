@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:petmeals/src/core/app/styles/colors/colors.dart';
-import 'package:petmeals/src/shared/widgets/button/secondary_button.dart';
 import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';
+import 'package:petmeals/src/shared/shared.dart';
 import 'package:provider/provider.dart';
 
 class VaccineHistory extends StatelessWidget {
@@ -57,7 +57,7 @@ class VaccineHistory extends StatelessWidget {
                             content: const Text(
                                 'Seguro que desea eliminar la atención?'),
                             actions: [
-                              ButtonSecondary(
+                              ButtonAlternative(
                                 text: 'Eliminar',
                                 onPressed: () {
                                   petProvider.deleteAttention(
@@ -69,7 +69,7 @@ class VaccineHistory extends StatelessWidget {
                                 },
                                 color: negativeColor,
                               ),
-                              ButtonSecondary(
+                              ButtonAlternative(
                                 text: 'Cancelar',
                                 onPressed: () => context.pop(),
                               ),

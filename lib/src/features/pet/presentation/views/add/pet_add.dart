@@ -139,14 +139,14 @@ class _PetAddPageState extends State<PetAddPage> {
                             update
                                 ? Padding(
                                     padding: const EdgeInsets.only(
-                                      top: 18,
-                                      bottom: 24,
+                                      top: 8,
+                                      bottom: 48,
                                     ),
                                     //* Btn Eliminar
                                     child: ButtonSecondary(
-                                      text: 'Eliminar mascota',
                                       color: mandy,
                                       onPressed: () => deletePet(),
+                                      child: const Text('Eliminar mascota'),
                                     ),
                                   )
                                 : const SizedBox(),

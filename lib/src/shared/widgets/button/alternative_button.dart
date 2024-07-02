@@ -1,15 +1,15 @@
 import 'package:petmeals/src/core/app/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 
-class ButtonPrimary extends StatelessWidget {
+class ButtonAlternative extends StatelessWidget {
   final void Function()? onPressed;
+  final String text;
   final Color color;
-  final Widget child;
 
-  const ButtonPrimary({
+  const ButtonAlternative({
     super.key,
     this.onPressed,
-    required this.child,
+    required this.text,
     this.color = kPrimaryColor,
   });
 
@@ -18,7 +18,7 @@ class ButtonPrimary extends StatelessWidget {
         child: _BtnAndroid(
           onPressed: onPressed,
           color: color,
-          child: child,
+          text: text,
         ),
       );
 
@@ -29,30 +29,29 @@ class ButtonPrimary extends StatelessWidget {
 }
 
 class _BtnAndroid extends StatelessWidget {
-  final Widget child;
   final void Function()? onPressed;
+  final String text;
   final Color color;
-
   const _BtnAndroid({
     this.onPressed,
-    required this.child,
+    required this.text,
     this.color = kPrimaryColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return TextButton(
       style: ButtonStyle(
-        backgroundColor: WidgetStatePropertyAll(color),
-        foregroundColor: const WidgetStatePropertyAll(kTextColorContrast),
+        foregroundColor: WidgetStatePropertyAll(color),
         shape: const WidgetStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
+        textStyle: const WidgetStatePropertyAll(TextStyle(fontSize: 16)),
       ),
       onPressed: onPressed,
-      child: child,
+      child: Text(text),
     );
   }
 }

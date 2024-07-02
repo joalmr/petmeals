@@ -322,7 +322,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                 content: const Text(
                                     'Seguro que desea eliminar la atención?'),
                                 actions: [
-                                  ButtonSecondary(
+                                  ButtonAlternative(
                                     text: 'Eliminar',
                                     onPressed: () {
                                       petProvider.deleteAttention(
@@ -334,7 +334,7 @@ class _PetDetailPageState extends State<PetDetailPage> {
                                     },
                                     color: negativeColor,
                                   ),
-                                  ButtonSecondary(
+                                  ButtonAlternative(
                                     text: 'Cancelar',
                                     onPressed: () => context.pop(),
                                   ),
