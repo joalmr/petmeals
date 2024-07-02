@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:logger/logger.dart';
 import 'package:petmeals/src/core/app/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:petmeals/src/core/utils/constant/constant.dart' as global;
@@ -66,11 +67,12 @@ class PetProvider extends ChangeNotifier {
 
   getPets() async {
     pets = await getPetsUsecase(global.userId ?? userId);
+    Logger().i(pets);
     notifyListeners();
   }
 
-  Future<bool> addPet(PetEntity newPet, File img) {
-    final response = addPetUsecase(newPet, img)
+  Future<bool> addPet(PetEntity newPet, File img) async {
+    final response = await addPetUsecase(newPet, img)
         .then((value) => value.id != null ? true : false);
 
     getPets();

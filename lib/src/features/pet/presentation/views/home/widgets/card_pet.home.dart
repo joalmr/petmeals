@@ -22,13 +22,25 @@ class CardPetWidget extends StatelessWidget {
             children: [
               AspectRatio(
                 aspectRatio: 1,
-                child: Image(
-                  image: CachedNetworkImageProvider(
-                    petWatch.pet!.photo!,
-                  ),
-                  height: double.maxFinite,
-                  fit: BoxFit.cover,
-                ),
+                child: petWatch.pet?.photo == null
+                    ? Container(
+                        decoration: const BoxDecoration(color: kPrimaryColor),
+                        height: double.maxFinite,
+                        child: const Center(
+                          child: Icon(
+                            Icons.photo,
+                            size: 42,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    : Image(
+                        image: CachedNetworkImageProvider(
+                          petWatch.pet!.photo!,
+                        ),
+                        height: double.maxFinite,
+                        fit: BoxFit.cover,
+                      ),
               ),
               Positioned(
                 bottom: 12,

@@ -16,7 +16,6 @@ class PetsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final petProvider = context.watch<PetProvider>();
-    final petData = petProvider.pets;
 
     if (petProvider.loading) {
       return Center(
@@ -27,7 +26,7 @@ class PetsWidget extends StatelessWidget {
       );
     }
 
-    if (petData.isEmpty) {
+    if (petProvider.pets.isEmpty) {
       return Expanded(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -65,11 +64,11 @@ class PetsWidget extends StatelessWidget {
               SizedBox(
                 height: 72,
                 child: ListView.builder(
-                  itemCount: petData.length,
+                  itemCount: petProvider.pets.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    final element = petData[index];
+                    final element = petProvider.pets[index];
                     return Container(
                       margin: const EdgeInsets.symmetric(horizontal: 4),
                       child: GestureDetector(
