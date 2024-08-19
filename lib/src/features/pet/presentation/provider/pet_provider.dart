@@ -60,10 +60,10 @@ class PetProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Stream<List<PetEntity>> loadStream() {
-    final loadingMyPets = loadPetsUsecase(global.userId ?? userId);
-    return loadingMyPets;
-  }
+  // Stream<List<PetEntity>> loadStream() {
+  //   final loadingMyPets = loadPetsUsecase(global.userId ?? userId);
+  //   return loadingMyPets;
+  // }
 
   getPets() async {
     pets = await getPetsUsecase(global.userId ?? userId);
