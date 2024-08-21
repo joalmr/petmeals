@@ -55,11 +55,11 @@ android {
         applicationId "com.joalmr.petmeals"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 23 //21
         targetSdkVersion flutter.targetSdkVersion
         //TODO: version app
-        versionCode 18 //? version
-        versionName "0.2.2" //? version
+        versionCode 19 //? version
+        versionName "0.2.3" //? version
     }
 
     signingConfigs {
@@ -102,6 +102,7 @@ flutter {
 }
 
 dependencies {
-    // implementation platform('com.google.firebase:firebase-bom:32.8.0')
-    implementation platform('com.google.firebase:firebase-bom:32.8.1')
+    // implementation platform('com.google.firebase:firebase-bom:32.8.1')
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation 'com.google.firebase:firebase-analytics'
 }
