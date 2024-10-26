@@ -68,6 +68,7 @@ class PetRemoteDataSourceImpl implements PetRemoteDataSource {
 
   @override
   Stream<List<PetModel>> loadPets(String userId) {
+    //realtime
     return ref
         .where('userId', arrayContains: userId)
         .orderBy('borndate', descending: false)
