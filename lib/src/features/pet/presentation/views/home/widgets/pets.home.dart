@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lottie/lottie.dart';
-import 'package:petmeals/src/core/app/styles/colors/colors.dart';
+import 'package:petmeals/src/core/styles/colors/colors.dart';
 import 'package:petmeals/src/features/pet/presentation/views/home/widgets/add_pet.home.dart';
 import 'package:petmeals/src/features/pet/presentation/views/home/widgets/card_pet.home.dart';
 import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';

@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-import 'package:petmeals/src/core/app/styles/colors/colors.dart';
+import 'package:petmeals/src/core/styles/colors/colors.dart';
 import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 
 class EditPetWidget extends StatelessWidget {

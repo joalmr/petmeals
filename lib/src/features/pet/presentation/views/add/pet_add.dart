@@ -8,7 +8,7 @@ import 'package:petmeals/src/features/pet/presentation/views/add/widgets/select_
 import 'package:petmeals/src/features/pet/presentation/views/add/widgets/select_specie.dart';
 import 'package:petmeals/src/features/pet/presentation/views/add/widgets/select_sterillized.dart';
 import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';
-import 'package:petmeals/src/core/app/styles/colors/colors.dart';
+import 'package:petmeals/src/core/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -169,6 +169,7 @@ class _PetAddPageState extends State<PetAddPage> {
       });
 
       if (!update) {
+        //TODO: ??evaluacion del metodo mandarlo al provider
         if (imageFile.value == null) {
           snackBar(
             negativeColor,
@@ -196,6 +197,7 @@ class _PetAddPageState extends State<PetAddPage> {
           );
         }
       } else {
+        //TODO: ??evaluacion del metodo mandarlo al provider
         var updatePet = PetModel.fromEntity(widget.myPet!).copyWith(
           name: controllerName.text,
           borndate: borndate.value,

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:logger/logger.dart';
-import 'package:petmeals/src/core/app/storage/storage.data.dart';
+import 'package:petmeals/src/core/utils/storage/storage.data.dart';
 import 'package:flutter/material.dart';
 import 'package:petmeals/src/core/utils/constant/constant.dart' as global;
 import 'package:petmeals/src/features/pet/domain/entities/attention.dart';

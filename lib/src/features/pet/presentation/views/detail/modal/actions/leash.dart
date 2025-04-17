@@ -5,7 +5,7 @@ import 'package:petmeals/src/features/pet/data/models/pet_model.dart';
 import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 import 'package:petmeals/src/features/pet/presentation/provider/pet_provider.dart';
 import 'package:petmeals/src/shared/shared.dart';
-import 'package:petmeals/src/core/app/styles/colors/colors.dart';
+import 'package:petmeals/src/core/styles/colors/colors.dart';
 import 'package:provider/provider.dart';
 
 class LeashPetPage extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:petmeals/src/core/app/styles/colors/colors.dart';
+import 'package:petmeals/src/core/styles/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class ButtonSecondary extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:petmeals/src/core/app/storage/storage.data.dart';
+import 'package:petmeals/src/core/utils/storage/storage.data.dart';
 import 'package:petmeals/src/features/pet/domain/entities/pet.dart';
 import 'package:petmeals/src/features/pet/presentation/views/home/home.dart';
 import 'package:petmeals/src/features/pet/presentation/views/add/pet_add.dart';

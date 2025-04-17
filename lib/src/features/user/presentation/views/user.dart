@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:petmeals/src/core/app/styles/colors/colors.dart';
+import 'package:petmeals/src/core/styles/colors/colors.dart';
 import 'package:petmeals/src/shared/shared.dart';
-import 'package:petmeals/src/core/app/storage/storage.data.dart';
+import 'package:petmeals/src/core/utils/storage/storage.data.dart';
 import 'package:petmeals/src/features/user/presentation/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
